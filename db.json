@@ -1,0 +1,65 @@
+{
+  "slides": [
+    {
+      "id": 1,
+      "title": "Summer Reading Sale",
+      "subtitle": "Up to 40% off on bestselling titles",
+      "cta": "Explore Collection",
+      "link": "/books",
+      "gradient": "from-amber-900 via-red-800 to-amber-900",
+      "accent": "bg-amber-400"
+    },
+    {
+      "id": 2,
+      "title": "Pre-Order Now",
+      "subtitle": "Be the first to read upcoming releases from your favorite authors",
+      "cta": "Pre-Order",
+      "link": "/pre-orders",
+      "gradient": "from-indigo-900 via-purple-800 to-indigo-900",
+      "accent": "bg-purple-400"
+    },
+    {
+      "id": 3,
+      "title": "Rare Collections",
+      "subtitle": "Discover limited editions and signed copies from world-renowned authors",
+      "cta": "Browse Collection",
+      "link": "/new-arrivals",
+      "gradient": "from-emerald-900 via-teal-800 to-emerald-900",
+      "accent": "bg-emerald-400"
+    },
+    {
+      "id": 4,
+      "title": "New Arrivals",
+      "subtitle": "Fresh off the press — explore this month's newest titles across all genres",
+      "cta": "See What's New",
+      "link": "/new-arrivals",
+      "gradient": "from-rose-900 via-pink-800 to-rose-900",
+      "accent": "bg-rose-400"
+    }
+  ],
+  "featuredBooks": [
+    { "id": 1, "title": "The Midnight Library", "author": "Matt Haig", "price": 399, "originalPrice": 599, "coverColor": "from-indigo-600 to-blue-700", "accentColor": "bg-indigo-100 text-indigo-800", "badge": "Bestseller" },
+    { "id": 2, "title": "Atomic Habits", "author": "James Clear", "price": 479, "originalPrice": 799, "coverColor": "from-amber-500 to-orange-600", "accentColor": "bg-amber-100 text-amber-800", "badge": "Top Rated" },
+    { "id": 3, "title": "A Little Life", "author": "Hanya Yanagihara", "price": 349, "coverColor": "from-rose-600 to-pink-700", "accentColor": "bg-rose-100 text-rose-800", "badge": "Editor's Pick" },
+    { "id": 4, "title": "Project Hail Mary", "author": "Andy Weir", "price": 429, "originalPrice": 699, "coverColor": "from-teal-600 to-cyan-700", "accentColor": "bg-teal-100 text-teal-800" },
+    { "id": 5, "title": "The Alchemist", "author": "Paulo Coelho", "price": 249, "originalPrice": 399, "coverColor": "from-yellow-600 to-red-600", "accentColor": "bg-yellow-100 text-yellow-800" },
+    { "id": 6, "title": "Where the Crawdads Sing", "author": "Delia Owens", "price": 359, "coverColor": "from-emerald-600 to-green-700", "accentColor": "bg-emerald-100 text-emerald-800", "badge": "Popular" },
+    { "id": 7, "title": "Sapiens", "author": "Yuval Noah Harari", "price": 499, "originalPrice": 799, "coverColor": "from-red-700 to-rose-800", "accentColor": "bg-red-100 text-red-800" },
+    { "id": 8, "title": "Klara and the Sun", "author": "Kazuo Ishiguro", "price": 399, "coverColor": "from-violet-600 to-purple-700", "accentColor": "bg-violet-100 text-violet-800", "badge": "New" }
+  ],
+  "preOrderBooks": [
+    { "id": 101, "title": "Metro 2035", "author": "Dmitry Glukhovsky", "price": 559, "originalPrice": 699, "coverColor": "from-gray-700 to-slate-800", "accentColor": "bg-gray-100 text-gray-800", "badge": "Pre-Order" },
+    { "id": 102, "title": "The Housemaid's Wedding", "author": "Freida McFadden", "price": 239, "originalPrice": 299, "coverColor": "from-red-500 to-rose-600", "accentColor": "bg-red-100 text-red-800", "badge": "Pre-Order" },
+    { "id": 103, "title": "A Deal With The Elf King", "author": "Elise Kova", "price": 720, "originalPrice": 899, "coverColor": "from-emerald-500 to-teal-600", "accentColor": "bg-emerald-100 text-emerald-800", "badge": "Pre-Order" },
+    { "id": 104, "title": "Kid Detectives: Skyscraper", "author": "Adam Bushnell", "price": 399, "originalPrice": 599, "coverColor": "from-blue-500 to-cyan-600", "accentColor": "bg-blue-100 text-blue-800", "badge": "Pre-Order" }
+  ],
+  "genres": [
+    { "name": "Fiction", "icon": "📖", "color": "from-blue-500 to-indigo-600" },
+    { "name": "Non-Fiction", "icon": "🧠", "color": "from-green-500 to-emerald-600" },
+    { "name": "Mystery", "icon": "🔍", "color": "from-purple-500 to-violet-600" },
+    { "name": "Romance", "icon": "💕", "color": "from-pink-500 to-rose-600" },
+    { "name": "Sci-Fi", "icon": "🚀", "color": "from-cyan-500 to-blue-600" },
+    { "name": "Children", "icon": "🧸", "color": "from-yellow-500 to-orange-600" }
+  ],
+  "cart": []
+}
