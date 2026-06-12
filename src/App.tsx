@@ -31,13 +31,13 @@ export default function App() {
       <main>
         <HeroSlider />
         <PromoBanner />
-        <PreOrder />
         <FeaturedCategories />
+        <PreOrder />
         <BestSellers />
         <Recommended />
-        <NewArrivals />
         <Manga />
         <ArtificialIntelligence />
+        <NewArrivals />
         <Testimonials />
         <Newsletter />
       </main>
