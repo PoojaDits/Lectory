@@ -1,46 +1,57 @@
 import { create } from "zustand";
 import type { Book, Category, NewArrival, Testimonial, AsyncState } from "@/types";
 import {
-  fetchBestsellers,
   fetchCategories,
   fetchNewArrivals,
   fetchTestimonials,
+  fetchPreOrderBooks,
+  fetchBestSellers,
+  fetchRecommendedBooks,
+  fetchMangaBooks,
+  fetchAiBooks,
 } from "@/services/bookStoreApi";
 import {
-  fallbackBestsellers,
   fallbackCategories,
   fallbackNewArrivals,
   fallbackTestimonials,
+  fallbackPreOrderBooks,
+  fallbackBestSellers,
+  fallbackRecommendedBooks,
+  fallbackMangaBooks,
+  fallbackAiBooks,
 } from "@/data/fallback";
 
 interface BookStoreState extends AsyncState {
-  bestsellers: Book[];
   categories: Category[];
   newArrivals: NewArrival[];
   testimonials: Testimonial[];
-  loadBestsellers: () => Promise<void>;
+  preOrders: Book[];
+  bestSellers: Book[];
+  recommendedBooks: Book[];
+  mangaBooks: Book[];
+  aiBooks: Book[];
   loadCategories: () => Promise<void>;
   loadNewArrivals: () => Promise<void>;
   loadTestimonials: () => Promise<void>;
+  loadPreOrders: () => Promise<void>;
+  loadBestSellers: () => Promise<void>;
+  loadRecommendedBooks: () => Promise<void>;
+  loadMangaBooks: () => Promise<void>;
+  loadAiBooks: () => Promise<void>;
   loadAll: () => Promise<void>;
 }
 
 export const useBookStore = create<BookStoreState>((set) => ({
-  bestsellers: [],
   categories: [],
   newArrivals: [],
   testimonials: [],
+  preOrders: [],
+  bestSellers: [],
+  recommendedBooks: [],
+  mangaBooks: [],
+  aiBooks: [],
   isLoading: false,
   error: null,
-
-  loadBestsellers: async () => {
-    try {
-      const data = await fetchBestsellers();
-      set({ bestsellers: data });
-    } catch {
-      set({ bestsellers: fallbackBestsellers });
-    }
-  },
 
   loadCategories: async () => {
     try {
@@ -69,22 +80,75 @@ export const useBookStore = create<BookStoreState>((set) => ({
     }
   },
 
+  loadPreOrders: async () => {
+    try {
+      const data = await fetchPreOrderBooks();
+      set({ preOrders: data });
+    } catch {
+      set({ preOrders: fallbackPreOrderBooks });
+    }
+  },
+
+  loadBestSellers: async () => {
+    try {
+      const data = await fetchBestSellers();
+      set({ bestSellers: data });
+    } catch {
+      set({ bestSellers: fallbackBestSellers });
+    }
+  },
+
+  loadRecommendedBooks: async () => {
+    try {
+      const data = await fetchRecommendedBooks();
+      set({ recommendedBooks: data });
+    } catch {
+      set({ recommendedBooks: fallbackRecommendedBooks });
+    }
+  },
+
+  loadMangaBooks: async () => {
+    try {
+      const data = await fetchMangaBooks();
+      set({ mangaBooks: data });
+    } catch {
+      set({ mangaBooks: fallbackMangaBooks });
+    }
+  },
+
+  loadAiBooks: async () => {
+    try {
+      const data = await fetchAiBooks();
+      set({ aiBooks: data });
+    } catch {
+      set({ aiBooks: fallbackAiBooks });
+    }
+  },
+
   loadAll: async () => {
     set({ isLoading: true, error: null });
     try {
-      const [bestsellers, categories, newArrivals, testimonials] =
-        await Promise.allSettled([
-          fetchBestsellers(),
-          fetchCategories(),
-          fetchNewArrivals(),
-          fetchTestimonials(),
-        ]);
+      const [
+        categories,
+        newArrivals,
+        testimonials,
+        preOrders,
+        bestSellers,
+        recommendedBooks,
+        mangaBooks,
+        aiBooks,
+      ] = await Promise.allSettled([
+        fetchCategories(),
+        fetchNewArrivals(),
+        fetchTestimonials(),
+        fetchPreOrderBooks(),
+        fetchBestSellers(),
+        fetchRecommendedBooks(),
+        fetchMangaBooks(),
+        fetchAiBooks(),
+      ]);
 
       set({
-        bestsellers:
-          bestsellers.status === "fulfilled"
-            ? bestsellers.value
-            : fallbackBestsellers,
         categories:
           categories.status === "fulfilled"
             ? categories.value
@@ -97,14 +161,38 @@ export const useBookStore = create<BookStoreState>((set) => ({
           testimonials.status === "fulfilled"
             ? testimonials.value
             : fallbackTestimonials,
+        preOrders:
+          preOrders.status === "fulfilled"
+            ? preOrders.value
+            : fallbackPreOrderBooks,
+        bestSellers:
+          bestSellers.status === "fulfilled"
+            ? bestSellers.value
+            : fallbackBestSellers,
+        recommendedBooks:
+          recommendedBooks.status === "fulfilled"
+            ? recommendedBooks.value
+            : fallbackRecommendedBooks,
+        mangaBooks:
+          mangaBooks.status === "fulfilled"
+            ? mangaBooks.value
+            : fallbackMangaBooks,
+        aiBooks:
+          aiBooks.status === "fulfilled"
+            ? aiBooks.value
+            : fallbackAiBooks,
         isLoading: false,
       });
     } catch {
       set({
-        bestsellers: fallbackBestsellers,
         categories: fallbackCategories,
         newArrivals: fallbackNewArrivals,
         testimonials: fallbackTestimonials,
+        preOrders: fallbackPreOrderBooks,
+        bestSellers: fallbackBestSellers,
+        recommendedBooks: fallbackRecommendedBooks,
+        mangaBooks: fallbackMangaBooks,
+        aiBooks: fallbackAiBooks,
         isLoading: false,
         error: "Failed to load data",
       });

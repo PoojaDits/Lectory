@@ -3,17 +3,20 @@ import { BookOpen, ShoppingCart, Search, Menu, X, User } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Home", href: "#", active: true },
+  { label: "Preorder", href: "#preorder" },
   { label: "Categories", href: "#categories" },
-  { label: "Bestsellers", href: "#bestsellers" },
+  { label: "Best Sellers", href: "#best-sellers" },
+  { label: "Recommended", href: "#recommended" },
   { label: "New Arrivals", href: "#new-arrivals" },
-  { label: "About", href: "#about" },
+  { label: "Manga", href: "#manga" },
+  { label: "AI Books", href: "#ai-books" },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-amber-100 shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-amber-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}

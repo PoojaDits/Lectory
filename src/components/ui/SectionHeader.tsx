@@ -2,6 +2,7 @@ import { cn } from "@/utils/cn";
 
 interface SectionHeaderProps {
   badge?: string;
+  badgeClass?: string;
   title: string;
   subtitle?: string;
   align?: "left" | "center" | "right";
@@ -10,6 +11,7 @@ interface SectionHeaderProps {
 
 export default function SectionHeader({
   badge,
+  badgeClass,
   title,
   subtitle,
   align = "center",
@@ -24,7 +26,12 @@ export default function SectionHeader({
   return (
     <div className={cn("flex flex-col gap-3 mb-10 md:mb-14", alignClass, className)}>
       {badge && (
-        <span className="inline-block px-4 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-sm font-semibold rounded-full">
+        <span
+          className={cn(
+            "inline-block px-4 py-1.5 border text-sm font-semibold rounded-full",
+            badgeClass ?? "bg-amber-50 text-amber-700 border border-amber-200"
+          )}
+        >
           {badge}
         </span>
       )}

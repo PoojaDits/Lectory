@@ -8,18 +8,21 @@ export interface HeroSlide {
   accent: string;
 }
 
-// ── Book (Bestseller) ──
+// ── Book ──
 export interface Book {
   id: number;
   title: string;
   author: string;
   price: number;
-  oldPrice: number;
-  rating: number;
-  reviews: number;
-  image: string;
-  badge: string;
-  badgeColor: string;
+  originalPrice?: number;
+  oldPrice?: number;
+  rating?: number;
+  reviews?: number;
+  image?: string;
+  coverColor?: string;
+  accentColor?: string;
+  badge?: string;
+  badgeColor?: string;
 }
 
 // ── Category ──

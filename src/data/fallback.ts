@@ -18,9 +18,9 @@ export const fallbackHeroSlides: HeroSlide[] = [
   {
     id: 2,
     image: "https://images.pexels.com/photos/37247960/pexels-photo-37247960.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1600",
-    title: "Cozy Up With\nBestselling Books",
+    title: "Cozy Up With\nCurated Reads",
     subtitle: "Handpicked recommendations from our curators. Find the stories that everyone is talking about.",
-    cta: "View Bestsellers",
+    cta: "Browse Collection",
     accent: "from-stone-900/80 via-stone-900/50 to-transparent",
   },
   {
@@ -49,19 +49,6 @@ export const fallbackHeroSlides: HeroSlide[] = [
   },
 ];
 
-export const fallbackBestsellers: Book[] = [
-  { id: 1, title: "The Midnight Library", author: "Matt Haig", price: 14.99, oldPrice: 19.99, rating: 4.8, reviews: 2340, image: "https://images.pexels.com/photos/29458840/pexels-photo-29458840.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Bestseller", badgeColor: "bg-amber-500" },
-  { id: 2, title: "Atomic Habits", author: "James Clear", price: 16.99, oldPrice: 24.99, rating: 4.9, reviews: 5120, image: "https://images.pexels.com/photos/33324725/pexels-photo-33324725.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "#1 Pick", badgeColor: "bg-red-500" },
-  { id: 3, title: "Where the Wild Things Are", author: "Maurice Sendak", price: 12.49, oldPrice: 16.99, rating: 4.7, reviews: 1890, image: "https://images.pexels.com/photos/9325323/pexels-photo-9325323.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Classic", badgeColor: "bg-emerald-500" },
-  { id: 4, title: "Journey to the Center", author: "Jules Verne", price: 11.99, oldPrice: 15.99, rating: 4.6, reviews: 980, image: "https://images.pexels.com/photos/14097126/pexels-photo-14097126.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "New", badgeColor: "bg-blue-500" },
-  { id: 5, title: "The Bookshop Chronicles", author: "Rachel Claire", price: 13.49, oldPrice: 18.99, rating: 4.5, reviews: 1230, image: "https://images.pexels.com/photos/6146118/pexels-photo-6146118.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Staff Pick", badgeColor: "bg-purple-500" },
-  { id: 6, title: "Shelves of Wonder", author: "Ian Panelo", price: 19.99, oldPrice: 27.99, rating: 4.8, reviews: 3450, image: "https://images.pexels.com/photos/7116591/pexels-photo-7116591.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Trending", badgeColor: "bg-orange-500" },
-  { id: 7, title: "Bookstore Diaries", author: "Halil Ibrahim", price: 15.49, oldPrice: 21.99, rating: 4.7, reviews: 2100, image: "https://images.pexels.com/photos/18051055/pexels-photo-18051055.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Popular", badgeColor: "bg-teal-500" },
-  { id: 8, title: "The Canakkale Collection", author: "Ersan Yilmaz", price: 17.99, oldPrice: 23.99, rating: 4.9, reviews: 4200, image: "https://images.pexels.com/photos/31396380/pexels-photo-31396380.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Award", badgeColor: "bg-yellow-500" },
-  { id: 9, title: "Library of Secrets", author: "Diana S.", price: 14.99, oldPrice: 20.99, rating: 4.6, reviews: 1780, image: "https://images.pexels.com/photos/5360440/pexels-photo-5360440.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Hot", badgeColor: "bg-rose-500" },
-  { id: 10, title: "Cozy Corner Reads", author: "Sideesh B.", price: 12.99, oldPrice: 17.99, rating: 4.4, reviews: 920, image: "https://images.pexels.com/photos/34014834/pexels-photo-34014834.png?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Cozy", badgeColor: "bg-indigo-500" },
-];
-
 export const fallbackCategories: Category[] = [
   { id: 1, name: "Fiction", count: "2,340+", icon: "BookOpen", gradient: "from-blue-500 to-indigo-600", shadow: "shadow-blue-200", bg: "bg-blue-50" },
   { id: 2, name: "Romance", count: "1,820+", icon: "Heart", gradient: "from-rose-500 to-pink-600", shadow: "shadow-rose-200", bg: "bg-rose-50" },
@@ -76,6 +63,41 @@ export const fallbackNewArrivals: NewArrival[] = [
   { id: 2, title: "Parisian Tales", author: "Claude Laurent", price: 18.49, image: "https://images.pexels.com/photos/37917407/pexels-photo-37917407.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280" },
   { id: 3, title: "The Green Collection", author: "Andy Lee", price: 22.99, image: "https://images.pexels.com/photos/12391379/pexels-photo-12391379.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280" },
   { id: 4, title: "Sakura Memoirs", author: "Rahime Gül", price: 15.99, image: "https://images.pexels.com/photos/20409059/pexels-photo-20409059.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280" },
+];
+
+export const fallbackPreOrderBooks: Book[] = [
+  { id: 101, title: "Metro 2035", author: "Dmitry Glukhovsky", price: 559, originalPrice: 699, image: "https://images.pexels.com/photos/302640/pexels-photo-302640.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-cyan-100 text-cyan-800" },
+  { id: 102, title: "The Housemaid's Wedding", author: "Freida McFadden", price: 239, originalPrice: 299, image: "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-rose-100 text-rose-800" },
+  { id: 103, title: "A Deal With The Elf King", author: "Elise Kova", price: 720, originalPrice: 899, image: "https://images.pexels.com/photos/3747416/pexels-photo-3747416.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-emerald-100 text-emerald-800" },
+  { id: 104, title: "Kid Detectives: Skyscraper", author: "Adam Bushnell", price: 399, originalPrice: 599, image: "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-amber-100 text-amber-800" },
+];
+
+export const fallbackBestSellers: Book[] = [
+  { id: 201, title: "The Midnight Library", author: "Matt Haig", price: 399, originalPrice: 599, image: "https://images.pexels.com/photos/29458840/pexels-photo-29458840.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-amber-100 text-amber-800" },
+  { id: 202, title: "Atomic Habits", author: "James Clear", price: 479, originalPrice: 799, image: "https://images.pexels.com/photos/33324725/pexels-photo-33324725.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-red-100 text-red-800" },
+  { id: 203, title: "Sapiens", author: "Yuval Noah Harari", price: 499, originalPrice: 799, image: "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-indigo-100 text-indigo-800" },
+  { id: 204, title: "Where the Crawdads Sing", author: "Delia Owens", price: 359, originalPrice: 559, image: "https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-emerald-100 text-emerald-800" },
+];
+
+export const fallbackRecommendedBooks: Book[] = [
+  { id: 301, title: "A Little Life", author: "Hanya Yanagihara", price: 349, originalPrice: 499, image: "https://images.pexels.com/photos/261909/pexels-photo-261909.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-violet-100 text-violet-800", rating: 4.9 },
+  { id: 302, title: "Project Hail Mary", author: "Andy Weir", price: 429, originalPrice: 699, image: "https://images.pexels.com/photos/327482/pexels-photo-327482.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-teal-100 text-teal-800", rating: 4.7 },
+  { id: 303, title: "The Alchemist", author: "Paulo Coelho", price: 249, originalPrice: 399, image: "https://images.pexels.com/photos/897633/pexels-photo-897633.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-amber-100 text-amber-800", rating: 4.8 },
+  { id: 304, title: "Klara and the Sun", author: "Kazuo Ishiguro", price: 399, originalPrice: 549, image: "https://images.pexels.com/photos/3756476/pexels-photo-3756476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-rose-100 text-rose-800", rating: 4.6 },
+];
+
+export const fallbackMangaBooks: Book[] = [
+  { id: 401, title: "One Piece Vol. 101", author: "Eiichiro Oda", price: 299, originalPrice: 399, image: "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Manga", badgeColor: "bg-blue-100 text-blue-800" },
+  { id: 402, title: "Naruto Vol. 72", author: "Masashi Kishimoto", price: 279, originalPrice: 379, image: "https://images.pexels.com/photos/270410/pexels-photo-270410.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Manga", badgeColor: "bg-orange-100 text-orange-800" },
+  { id: 403, title: "Demon Slayer Vol. 23", author: "Koyoharu Gotouge", price: 319, originalPrice: 419, image: "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Manga", badgeColor: "bg-rose-100 text-rose-800" },
+  { id: 404, title: "Attack on Titan Vol. 34", author: "Hajime Isayama", price: 329, originalPrice: 449, image: "https://images.pexels.com/photos/972995/pexels-photo-972995.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Manga", badgeColor: "bg-gray-100 text-gray-800" },
+];
+
+export const fallbackAiBooks: Book[] = [
+  { id: 501, title: "Artificial Intelligence: A Modern Approach", author: "Stuart Russell", price: 899, originalPrice: 1099, image: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-slate-100 text-slate-800", rating: 4.9 },
+  { id: 502, title: "Deep Learning", author: "Ian Goodfellow", price: 799, originalPrice: 999, image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-cyan-100 text-cyan-800", rating: 4.8 },
+  { id: 503, title: "Machine Learning Yearning", author: "Andrew Ng", price: 499, originalPrice: 599, image: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-green-100 text-green-800", rating: 4.7 },
+  { id: 504, title: "AI Superpowers", author: "Kai-Fu Lee", price: 549, originalPrice: 699, image: "https://images.pexels.com/photos/3861963/pexels-photo-3861963.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-indigo-100 text-indigo-800", rating: 4.5 },
 ];
 
 export const fallbackTestimonials: Testimonial[] = [
