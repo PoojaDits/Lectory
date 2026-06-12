@@ -7,7 +7,7 @@ export default function Testimonials() {
   const { testimonials, isLoading } = useBookStore();
 
   return (
-    <section className="py-16 md:py-24 bg-amber-50">
+    <section className="py-16 md:py-24 bg-white border-t border-amber-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="💬 Testimonials"

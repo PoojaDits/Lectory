@@ -27,13 +27,13 @@ export default function BookCard({ book, className }: BookCardProps) {
   return (
     <article
       className={cn(
-        "group flex flex-col rounded-2xl overflow-hidden bg-white",
+        "group flex flex-col rounded-2xl overflow-hidden bg-white h-full",
         "shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1",
         className
       )}
     >
-      {/* Cover */}
-      <div className="relative aspect-[3/4] overflow-hidden">
+      {/* Cover - takes most of the fixed height */}
+      <div className="relative aspect-[3/4] overflow-hidden flex-shrink-0">
         {book.image ? (
           <img
             src={book.image}
@@ -90,7 +90,7 @@ export default function BookCard({ book, className }: BookCardProps) {
       </div>
 
       {/* Info */}
-      <div className="p-3 md:p-4 flex flex-col gap-1 flex-1">
+      <div className="p-3 md:p-4 flex flex-col gap-1 flex-1 min-h-0 overflow-hidden">
         <h3 className="font-bold text-gray-900 text-sm md:text-base leading-snug line-clamp-2 group-hover:text-amber-700 transition-colors">
           {book.title}
         </h3>

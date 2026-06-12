@@ -63,7 +63,7 @@ export default function HeroSlider() {
       <SliderArrow direction="right" onClick={next} />
 
       {/* Dots */}
-      <div className="absolute bottom-24 md:bottom-32 left-1/2 -translate-x-1/2 z-30">
+      <div className="absolute bottom-24 md:bottom-10 left-1/2 -translate-x-1/2 z-30">
         <SliderDots total={slides.length} current={current} onDotClick={goTo} />
       </div>
 

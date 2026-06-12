@@ -1,13 +1,12 @@
 import { useBookStore } from "@/stores/useBookStore";
 import SectionHeader from "@/components/ui/SectionHeader";
-import BookCard from "@/components/ui/BookCard";
-import Skeleton from "@/components/ui/Skeleton";
+import BookCarousel from "@/components/ui/BookCarousel";
 
 export default function Manga() {
   const { mangaBooks, isLoading } = useBookStore();
 
   return (
-    <section id="manga" className="py-16 md:py-24 bg-slate-50">
+    <section id="manga" className="py-16 md:py-24 section-bg border-t border-amber-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="📚 Manga"
@@ -17,17 +16,13 @@ export default function Manga() {
         />
 
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <Skeleton key={index} className="h-[28rem] rounded-3xl" />
+          <div className="flex gap-6 overflow-hidden">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className="w-[220px] h-[420px] rounded-3xl bg-amber-100/50 animate-pulse flex-shrink-0" />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {mangaBooks.map((book) => (
-              <BookCard key={book.id} book={book} />
-            ))}
-          </div>
+          <BookCarousel books={mangaBooks} />
         )}
       </div>
     </section>

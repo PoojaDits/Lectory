@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+
 import { useInitialize } from "@/hooks/useInitialize";
 
 // Layout
@@ -21,10 +21,7 @@ import Newsletter from "./components/sections/Newsletter";
 export default function App() {
   useInitialize();
 
-  useEffect(() => {
-    document.documentElement.classList.remove("dark");
-  }, []);
-
+ 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans antialiased">
       <Navbar />
