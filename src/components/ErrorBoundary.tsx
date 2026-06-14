@@ -15,7 +15,8 @@ export default class ErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(_: Error) {
+  static getDerivedStateFromError(_error: Error) {
+    void _error;
     return { hasError: true };
   }
 

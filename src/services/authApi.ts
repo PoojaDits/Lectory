@@ -1,8 +1,11 @@
 import apiClient from "@/lib/axios";
 import type {
+  Admin,
+  AuthUser,
   Customer,
   CustomerRegistrationInput,
   EntityId,
+  LoginInput,
   Seller,
   SellerRegistrationInput,
   SellerStatus,
@@ -105,4 +108,80 @@ export const updateSellerStatus = async (
     reviewedAt: new Date().toISOString(),
   });
   return data;
+};
+
+const toCustomerUser = (c: Customer): AuthUser => ({
+  id: c.id,
+  email: c.email,
+  role: "customer",
+  name: `${c.firstName} ${c.lastName}`.trim(),
+});
+
+const toSellerUser = (s: Seller): AuthUser => ({
+  id: s.id,
+  email: s.email,
+  role: "seller",
+  name: s.contactPerson,
+  businessName: s.businessName,
+  contactPerson: s.contactPerson,
+  mobileNumber: s.mobileNumber,
+  status: s.status,
+  createdAt: s.createdAt,
+  reviewedAt: s.reviewedAt,
+});
+
+const toAdminUser = (a: Admin): AuthUser => ({
+  id: a.id,
+  email: a.email,
+  role: "admin",
+  name: a.name ?? "Admin",
+});
+
+export const login = async (input: LoginInput): Promise<AuthUser> => {
+  const email = normalizeEmail(input.email);
+  const password = input.password;
+
+  requireField(email, "Email");
+  requireField(password, "Password");
+  validateEmail(email);
+
+  // 1. Check Admins
+  const { data: admins } = await apiClient.get<Admin[]>("/admins", {
+    params: { email },
+  });
+  const adminMatch = admins.find(
+    (a) => a.email === email && a.password === password
+  );
+  if (adminMatch) {
+    return toAdminUser(adminMatch);
+  }
+
+  // 2. Check Customers
+  const { data: customers } = await apiClient.get<Customer[]>("/customers", {
+    params: { email },
+  });
+  const customerMatch = customers.find(
+    (c) => c.email === email && c.password === password
+  );
+  if (customerMatch) {
+    return toCustomerUser(customerMatch);
+  }
+
+  // 3. Check Sellers
+  const { data: sellers } = await apiClient.get<Seller[]>("/sellers", {
+    params: { email },
+  });
+  const sellerMatch = sellers.find(
+    (s) => s.email === email && s.mobileNumber === password
+  );
+  if (sellerMatch) {
+    if (sellerMatch.status !== "Approved") {
+      throw new Error(
+        `Your seller account is ${sellerMatch.status}. Please wait for admin approval before logging in.`
+      );
+    }
+    return toSellerUser(sellerMatch);
+  }
+
+  throw new Error("Invalid email or password.");
 };

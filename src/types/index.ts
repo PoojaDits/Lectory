@@ -99,6 +99,15 @@ export interface SellerRegistrationInput {
 // ── Auth ──
 export type UserRole = "customer" | "seller" | "admin";
 
+export interface Admin {
+  id?: EntityId;
+  email: string;
+  password: string;
+  name?: string;
+  role: "admin";
+  createdAt?: string;
+}
+
 export interface AuthUser {
   id?: EntityId;
   email: string;
@@ -111,6 +120,11 @@ export interface AuthUser {
   status?: SellerStatus;
   createdAt?: string;
   reviewedAt?: string;
+}
+
+export interface LoginInput {
+  email: string;
+  password: string;
 }
 
 // ── Generic async state ──

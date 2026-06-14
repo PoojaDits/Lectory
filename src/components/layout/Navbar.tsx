@@ -1,28 +1,32 @@
 import { useState } from "react";
 import {
   BookOpen,
+  LogIn,
   Menu,
   Search,
   ShoppingCart,
   UserPlus,
   X,
 } from "lucide-react";
+import { useAuthStore } from "@/stores/useAuthStore";
 
-const NAV_LINKS = [
-  { label: "Home", href: "#", active: true },
-  { label: "Preorder", href: "#preorder" },
-  { label: "Categories", href: "#categories" },
-  { label: "Best Sellers", href: "#best-sellers" },
-  { label: "Recommended", href: "#recommended" },
-  { label: "New Arrivals", href: "#new-arrivals" },
-  { label: "Manga", href: "#manga" },
-  { label: "AI Books", href: "#ai-books" },
+const NAV_LINKS: { label: string; href: string; active?: boolean }[] = [
+  { label: "Home", href: "#" },
+  { label: "Browse Books", href: "#browse" },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const currentUser = useAuthStore((state) => state.currentUser);
 
   const closeMobileMenu = () => setMobileOpen(false);
+
+  const dashboardHash =
+    currentUser?.role === "admin"
+      ? "#admin"
+      : currentUser?.role === "seller"
+        ? "#seller"
+        : "#account";
 
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 border-b border-amber-100 bg-white/95 shadow-sm backdrop-blur-md">
@@ -66,13 +70,32 @@ export default function Navbar() {
               <Search className="h-5 w-5" />
             </button>
 
-            <a
-              href="#register"
-              className="inline-flex items-center gap-2 rounded-full bg-amber-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-amber-800"
-            >
-              <UserPlus className="h-4 w-4" />
-              Registration
-            </a>
+            {currentUser ? (
+              <a
+                href={dashboardHash}
+                className="inline-flex items-center gap-2 rounded-full bg-amber-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-amber-800"
+              >
+                <UserPlus className="h-4 w-4" />
+                {currentUser.name ?? "My Account"}
+              </a>
+            ) : (
+              <>
+                <a
+                  href="#login"
+                  className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-bold text-amber-900 transition hover:bg-amber-50"
+                >
+                  <LogIn className="h-4 w-4" />
+                  Login
+                </a>
+                <a
+                  href="#register"
+                  className="inline-flex items-center gap-2 rounded-full bg-amber-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-amber-800"
+                >
+                  <UserPlus className="h-4 w-4" />
+                  Registration
+                </a>
+              </>
+            )}
 
             <button className="relative rounded-full p-2.5 text-gray-600 transition-colors hover:bg-amber-50 hover:text-amber-800">
               <ShoppingCart className="h-5 w-5" />
@@ -109,15 +132,36 @@ export default function Navbar() {
               </a>
             ))}
 
-            <div className="border-t border-amber-100 pt-3">
-              <a
-                href="#register"
-                onClick={closeMobileMenu}
-                className="flex items-center justify-center gap-2 rounded-2xl bg-amber-900 px-4 py-3 text-center font-bold text-white"
-              >
-                <UserPlus className="h-4 w-4" />
-                Registration
-              </a>
+            <div className="space-y-3 border-t border-amber-100 pt-3">
+              {currentUser ? (
+                <a
+                  href={dashboardHash}
+                  onClick={closeMobileMenu}
+                  className="flex items-center justify-center gap-2 rounded-2xl bg-amber-900 px-4 py-3 text-center font-bold text-white"
+                >
+                  <UserPlus className="h-4 w-4" />
+                  {currentUser.name ?? "My Account"}
+                </a>
+              ) : (
+                <>
+                  <a
+                    href="#login"
+                    onClick={closeMobileMenu}
+                    className="flex items-center justify-center gap-2 rounded-2xl border border-amber-200 bg-white px-4 py-3 text-center font-bold text-amber-900"
+                  >
+                    <LogIn className="h-4 w-4" />
+                    Login
+                  </a>
+                  <a
+                    href="#register"
+                    onClick={closeMobileMenu}
+                    className="flex items-center justify-center gap-2 rounded-2xl bg-amber-900 px-4 py-3 text-center font-bold text-white"
+                  >
+                    <UserPlus className="h-4 w-4" />
+                    Registration
+                  </a>
+                </>
+              )}
             </div>
           </div>
         )}

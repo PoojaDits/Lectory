@@ -5,8 +5,15 @@ import { useInitialize } from "@/hooks/useInitialize";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-// Registration
+// Auth
 import RegistrationPage from "@/components/auth/RegistrationPage";
+import LoginPage from "@/components/auth/LoginPage";
+
+// Dashboards
+import AdminDashboard from "@/components/dashboard/AdminDashboard";
+import SellerDashboard from "@/components/dashboard/SellerDashboard";
+import CustomerAccount from "@/components/dashboard/CustomerAccount";
+import BrowseBooksPage from "@/components/pages/BrowseBooksPage";
 
 // Sections
 import HeroSlider from "./components/sections/HeroSlider";
@@ -21,13 +28,32 @@ import ArtificialIntelligence from "./components/sections/ArtificialIntelligence
 import Testimonials from "./components/sections/Testimonials";
 import Newsletter from "./components/sections/Newsletter";
 
-type AppView = "home" | "registration";
+import type { UserRole } from "@/types";
+
+type AppView =
+  | "home"
+  | "registration"
+  | "login"
+  | "admin"
+  | "seller"
+  | "account"
+  | "browse";
 
 const getHashValue = () => window.location.hash.replace(/^#/, "");
 
 const getViewFromHash = (): AppView => {
   const hash = getHashValue();
-  return hash.startsWith("register") ? "registration" : "home";
+  if (hash.startsWith("register")) return "registration";
+  if (hash.startsWith("login")) return "login";
+  if (hash.startsWith("admin")) return "admin";
+  if (hash.startsWith("seller")) return "seller";
+  if (hash.startsWith("account")) return "account";
+  if (hash.startsWith("browse")) return "browse";
+  return "home";
+};
+
+const setHash = (hash: string) => {
+  window.location.hash = hash;
 };
 
 function HomePage() {
@@ -82,9 +108,18 @@ export default function App() {
   }, [view]);
 
   const navigateHome = () => {
-    window.location.hash = "";
+    setHash("");
     setView("home");
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const navigateLogin = () => setHash("login");
+  const navigateRegister = () => setHash("register");
+
+  const handleLoginSuccess = (role: UserRole) => {
+    if (role === "admin") setHash("admin");
+    else if (role === "seller") setHash("seller");
+    else setHash("account");
   };
 
   return (
@@ -92,7 +127,37 @@ export default function App() {
       <Navbar />
 
       {view === "home" && <HomePage />}
-      {view === "registration" && <RegistrationPage onNavigateHome={navigateHome} />}
+      {view === "registration" && (
+        <RegistrationPage onNavigateHome={navigateHome} />
+      )}
+      {view === "login" && (
+        <LoginPage
+          onNavigateHome={navigateHome}
+          onLoginSuccess={handleLoginSuccess}
+          onNavigateRegister={navigateRegister}
+        />
+      )}
+      {view === "admin" && (
+        <AdminDashboard
+          onNavigateHome={navigateHome}
+          onLogin={navigateLogin}
+        />
+      )}
+      {view === "seller" && (
+        <SellerDashboard
+          onNavigateHome={navigateHome}
+          onLogin={navigateLogin}
+        />
+      )}
+      {view === "account" && (
+        <CustomerAccount
+          onNavigateHome={navigateHome}
+          onLogin={navigateLogin}
+        />
+      )}
+      {view === "browse" && (
+        <BrowseBooksPage onNavigateHome={navigateHome} />
+      )}
     </div>
   );
 }
