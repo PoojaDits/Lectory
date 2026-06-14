@@ -714,3 +714,14 @@
     }
   ]
 }
+Admin:
+admin@lectory.com / admin123
+
+Customer:
+customer@lectory.com / customer123
+
+Approved Seller:
+seller@lectory.com / 9876543210
+
+Pending Seller:
+pending-seller@lectory.com / 9123456780

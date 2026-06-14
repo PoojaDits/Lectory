@@ -55,6 +55,47 @@ export interface Testimonial {
   text: string;
 }
 
+// ── Registration ──
+export type SellerStatus = "Pending Approval" | "Approved" | "Rejected";
+
+export type EntityId = number | string;
+
+export interface Customer {
+  id?: EntityId;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: "customer";
+  createdAt: string;
+}
+
+export interface Seller {
+  id?: EntityId;
+  businessName: string;
+  contactPerson: string;
+  email: string;
+  mobileNumber: string;
+  status: SellerStatus;
+  role: "seller";
+  createdAt: string;
+  reviewedAt?: string;
+}
+
+export interface CustomerRegistrationInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface SellerRegistrationInput {
+  businessName: string;
+  contactPerson: string;
+  email: string;
+  mobileNumber: string;
+}
+
 // ── Generic async state ──
 export interface AsyncState {
   isLoading: boolean;

@@ -16,7 +16,7 @@ import {
 
 // ── Hero Slides ──
 export const fetchHeroSlides = async (): Promise<HeroSlide[]> => {
-  const { data } = await apiClient.get<HeroSlide[]>("/heroSlides");
+  const { data } = await apiClient.get<HeroSlide[]>("/slides");
   return data;
 };
 

@@ -1,9 +1,12 @@
-
+import { useEffect, useState } from "react";
 import { useInitialize } from "@/hooks/useInitialize";
 
 // Layout
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+
+// Registration
+import RegistrationPage from "@/components/auth/RegistrationPage";
 
 // Sections
 import HeroSlider from "./components/sections/HeroSlider";
@@ -18,13 +21,20 @@ import ArtificialIntelligence from "./components/sections/ArtificialIntelligence
 import Testimonials from "./components/sections/Testimonials";
 import Newsletter from "./components/sections/Newsletter";
 
-export default function App() {
+type AppView = "home" | "registration";
+
+const getHashValue = () => window.location.hash.replace(/^#/, "");
+
+const getViewFromHash = (): AppView => {
+  const hash = getHashValue();
+  return hash.startsWith("register") ? "registration" : "home";
+};
+
+function HomePage() {
   useInitialize();
 
- 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased">
-      <Navbar />
+    <>
       <main>
         <HeroSlider />
         <PromoBanner />
@@ -39,6 +49,50 @@ export default function App() {
         <Newsletter />
       </main>
       <Footer />
+    </>
+  );
+}
+
+export default function App() {
+  const [view, setView] = useState<AppView>(getViewFromHash);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setView(getViewFromHash());
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    if (view !== "home") {
+      return;
+    }
+
+    const sectionId = getHashValue();
+    if (!sectionId) {
+      window.scrollTo({ top: 0 });
+      return;
+    }
+
+    window.setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    }, 0);
+  }, [view]);
+
+  const navigateHome = () => {
+    window.location.hash = "";
+    setView("home");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <div className="min-h-screen bg-white font-sans text-slate-900 antialiased">
+      <Navbar />
+
+      {view === "home" && <HomePage />}
+      {view === "registration" && <RegistrationPage onNavigateHome={navigateHome} />}
     </div>
   );
 }

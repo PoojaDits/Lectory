@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { BookOpen, ShoppingCart, Search, Menu, X, User } from "lucide-react";
+import {
+  BookOpen,
+  Menu,
+  Search,
+  ShoppingCart,
+  UserPlus,
+  X,
+} from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Home", href: "#", active: true },
@@ -15,55 +22,61 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const closeMobileMenu = () => setMobileOpen(false);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-amber-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-amber-100 bg-white/95 shadow-sm backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between md:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="bg-gradient-to-br from-amber-600 to-amber-800 rounded-xl p-2 shadow-lg shadow-amber-200 group-hover:shadow-amber-300 transition-shadow">
-              <BookOpen className="w-6 h-6 text-white" />
+          <a href="#" className="group flex items-center gap-2">
+            <div className="rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 p-2 shadow-lg shadow-amber-200 transition-shadow group-hover:shadow-amber-300">
+              <BookOpen className="h-6 w-6 text-white" />
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="text-xl font-bold text-amber-900 tracking-tight">
+              <span className="text-xl font-bold tracking-tight text-amber-900">
                 My Book Store
               </span>
-              <span className="text-[10px] font-medium text-amber-600 tracking-widest uppercase">
+              <span className="text-[10px] font-medium uppercase tracking-widest text-amber-600">
                 Read • Explore • Discover
               </span>
             </div>
           </a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((l) => (
+          <div className="hidden items-center gap-8 md:flex">
+            {NAV_LINKS.map((link) => (
               <a
-                key={l.label}
-                href={l.href}
+                key={link.label}
+                href={link.href}
                 className={
-                  l.active
-                    ? "text-amber-900 font-semibold border-b-2 border-amber-600 pb-0.5"
-                    : "text-gray-600 hover:text-amber-800 transition-colors font-medium"
+                  link.active
+                    ? "border-b-2 border-amber-600 pb-0.5 font-semibold text-amber-900"
+                    : "font-medium text-gray-600 transition-colors hover:text-amber-800"
                 }
               >
-                {l.label}
+                {link.label}
               </a>
             ))}
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            {[Search, User].map((Icon, i) => (
-              <button
-                key={i}
-                className="p-2.5 rounded-full text-gray-600 hover:text-amber-800 hover:bg-amber-50 transition-colors"
-              >
-                <Icon className="w-5 h-5" />
-              </button>
-            ))}
-            <button className="relative p-2.5 rounded-full text-gray-600 hover:text-amber-800 hover:bg-amber-50 transition-colors">
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+          <div className="hidden items-center gap-3 md:flex">
+            <button className="rounded-full p-2.5 text-gray-600 transition-colors hover:bg-amber-50 hover:text-amber-800">
+              <Search className="h-5 w-5" />
+            </button>
+
+            <a
+              href="#register"
+              className="inline-flex items-center gap-2 rounded-full bg-amber-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-amber-800"
+            >
+              <UserPlus className="h-4 w-4" />
+              Registration
+            </a>
+
+            <button className="relative rounded-full p-2.5 text-gray-600 transition-colors hover:bg-amber-50 hover:text-amber-800">
+              <ShoppingCart className="h-5 w-5" />
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
                 3
               </span>
             </button>
@@ -71,30 +84,41 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <button
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-amber-50"
+            className="rounded-lg p-2 text-gray-600 hover:bg-amber-50 md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle navigation"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="md:hidden pb-4 border-t border-amber-100 mt-2 pt-4 space-y-3 animate-fade-in">
-            {NAV_LINKS.map((l) => (
+          <div className="animate-fade-in mt-2 space-y-3 border-t border-amber-100 pb-4 pt-4 md:hidden">
+            {NAV_LINKS.map((link) => (
               <a
-                key={l.label}
-                href={l.href}
-                onClick={() => setMobileOpen(false)}
-                className={`block py-2 ${
-                  l.active
-                    ? "text-amber-900 font-semibold"
+                key={link.label}
+                href={link.href}
+                onClick={closeMobileMenu}
+                className={`block py-2 ${link.active
+                    ? "font-semibold text-amber-900"
                     : "text-gray-600 hover:text-amber-800"
-                }`}
+                  }`}
               >
-                {l.label}
+                {link.label}
               </a>
             ))}
+
+            <div className="border-t border-amber-100 pt-3">
+              <a
+                href="#register"
+                onClick={closeMobileMenu}
+                className="flex items-center justify-center gap-2 rounded-2xl bg-amber-900 px-4 py-3 text-center font-bold text-white"
+              >
+                <UserPlus className="h-4 w-4" />
+                Registration
+              </a>
+            </div>
           </div>
         )}
       </div>
