@@ -96,6 +96,23 @@ export interface SellerRegistrationInput {
   mobileNumber: string;
 }
 
+// ── Auth ──
+export type UserRole = "customer" | "seller" | "admin";
+
+export interface AuthUser {
+  id?: EntityId;
+  email: string;
+  role: UserRole;
+  name?: string;
+  // Seller-specific (present when role === "seller")
+  businessName?: string;
+  contactPerson?: string;
+  mobileNumber?: string;
+  status?: SellerStatus;
+  createdAt?: string;
+  reviewedAt?: string;
+}
+
 // ── Generic async state ──
 export interface AsyncState {
   isLoading: boolean;

@@ -2,8 +2,10 @@ import apiClient from "@/lib/axios";
 import type {
   Customer,
   CustomerRegistrationInput,
+  EntityId,
   Seller,
   SellerRegistrationInput,
+  SellerStatus,
 } from "@/types";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -86,5 +88,21 @@ export const registerSeller = async (
   };
 
   const { data } = await apiClient.post<Seller>("/sellers", payload);
+  return data;
+};
+
+export const fetchSellers = async (): Promise<Seller[]> => {
+  const { data } = await apiClient.get<Seller[]>("/sellers");
+  return data;
+};
+
+export const updateSellerStatus = async (
+  id: EntityId,
+  status: SellerStatus
+): Promise<Seller> => {
+  const { data } = await apiClient.patch<Seller>(`/sellers/${id}`, {
+    status,
+    reviewedAt: new Date().toISOString(),
+  });
   return data;
 };

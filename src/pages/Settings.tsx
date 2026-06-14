@@ -1,14 +1,11 @@
-import React from "react";
 import { useAuth } from "@/context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
   const { auth, logout } = useAuth();
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    window.location.hash = "";
   };
 
   return (

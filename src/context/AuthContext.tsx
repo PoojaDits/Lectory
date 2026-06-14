@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 
 interface AuthState {
   token: string | null;
@@ -9,8 +10,8 @@ interface AuthState {
 const AuthContext = createContext<{ auth: AuthState; setAuth: (a: AuthState) => void; logout: () => void }>(
   {
     auth: { token: null, role: null, userId: null },
-    setAuth: () => {},
-    logout: () => {},
+    setAuth: () => { },
+    logout: () => { },
   }
 );
 
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const stored = localStorage.getItem('auth');
     if (stored) {
-      try { setAuth(JSON.parse(stored)); } catch {}
+      try { setAuth(JSON.parse(stored)); } catch { }
     }
   }, []);
 
