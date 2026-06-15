@@ -1,34 +1,91 @@
 import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { ArrowLeft, LogIn } from "lucide-react";
-import { useLogin } from "@/hooks/useAuth";
-import { loginSchema } from "@/lib/validation";
-import type { AuthUser, LoginInput } from "@/types";
+import { Formik, Form, type FormikHelpers } from "formik";
+import {
+  ArrowLeft,
+  BookOpen,
+  Building2,
+  CheckCircle2,
+  ShieldCheck,
+  UserPlus,
+} from "lucide-react";
+import FormField from "@/components/ui/FormField";
+import { useRegisterCustomer, useRegisterSeller } from "@/hooks/useAuth";
+import {
+  customerRegistrationSchema,
+  sellerRegistrationSchema,
+} from "@/lib/validation";
+import type {
+  CustomerRegistrationInput,
+  SellerRegistrationInput,
+} from "@/types";
 
-interface LoginPageProps {
+interface RegistrationPageProps {
   onNavigateHome: () => void;
-  onNavigateRegister: () => void;
 }
 
-const initialValues: LoginInput = { email: "", password: "" };
+const customerInitial: CustomerRegistrationInput = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+};
 
-export default function LoginPage({
+const sellerInitial: SellerRegistrationInput = {
+  businessName: "",
+  contactPerson: "",
+  email: "",
+  mobileNumber: "",
+};
+
+function SubmitButton({
+  children,
+  isSubmitting,
+}: {
+  children: string;
+  isSubmitting: boolean;
+}) {
+  return (
+    <button
+      type="submit"
+      disabled={isSubmitting}
+      className="fancy-btn w-full rounded-2xl bg-gradient-to-r from-amber-700 to-amber-900 px-5 py-3.5 font-bold text-white shadow-lg shadow-amber-200 transition hover:from-amber-800 hover:to-amber-950 disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      {isSubmitting ? "Saving..." : children}
+    </button>
+  );
+}
+
+export default function RegistrationPage({
   onNavigateHome,
-  onNavigateRegister,
-}: LoginPageProps) {
+}: RegistrationPageProps) {
   const navigate = useNavigate();
 
-  const routeForRole = (user: AuthUser) => {
-    if (user.role === "admin") navigate("/admin");
-    else if (user.role === "seller") navigate("/seller");
-    else navigate("/account");
+  const registerCustomer = useRegisterCustomer(() => navigate("/login"));
+  const registerSeller = useRegisterSeller(() => navigate("/login"));
+
+  const handleCustomer = (
+    values: CustomerRegistrationInput,
+    helpers: FormikHelpers<CustomerRegistrationInput>
+  ) => {
+    registerCustomer.mutate(values, {
+      onSuccess: () => helpers.resetForm(),
+      onSettled: () => helpers.setSubmitting(false),
+    });
   };
 
-  const loginMutation = useLogin(routeForRole);
+  const handleSeller = (
+    values: SellerRegistrationInput,
+    helpers: FormikHelpers<SellerRegistrationInput>
+  ) => {
+    registerSeller.mutate(values, {
+      onSuccess: () => helpers.resetForm(),
+      onSettled: () => helpers.setSubmitting(false),
+    });
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-16 pt-24">
-      <div className="mx-auto max-w-xl">
+      <div className="mx-auto max-w-7xl">
         <button
           type="button"
           onClick={onNavigateHome}
@@ -38,82 +95,163 @@ export default function LoginPage({
           Back to store
         </button>
 
-        <section className="overflow-hidden rounded-[2rem] border border-amber-100 bg-white shadow-2xl shadow-amber-100">
-          <div className="bg-gradient-to-r from-amber-950 via-amber-900 to-orange-900 p-8 text-white md:p-10">
-            <div className="mb-5 inline-flex rounded-2xl bg-white/10 p-3 ring-1 ring-white/20">
-              <LogIn className="h-8 w-8" />
+        <section className="mb-8 overflow-hidden rounded-[2rem] bg-gradient-to-r from-amber-950 via-amber-900 to-orange-900 p-8 text-white shadow-2xl shadow-amber-100 md:p-10">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div className="mb-5 inline-flex rounded-2xl bg-white/10 p-3 ring-1 ring-white/20">
+                <BookOpen className="h-8 w-8" />
+              </div>
+              <p className="section-header-badge text-amber-100">
+                Registration
+              </p>
+              <h1 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
+                Join the Lectory Marketplace
+              </h1>
+              <p className="mt-4 max-w-3xl text-white/75">
+                Customer and seller registrations are separate. After
+                registration, records are saved in JSON Server.
+              </p>
             </div>
-            <p className="section-header-badge text-amber-100">Sign in</p>
-            <h1 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
-              Welcome to Lectory
-            </h1>
-            <p className="mt-3 text-white/75">Sign in to your account.</p>
+            <div className="grid gap-3 text-sm text-white/80 sm:min-w-80">
+              <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                <CheckCircle2 className="h-5 w-5 text-amber-200" />
+                Customer email must be unique
+              </div>
+              <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                <ShieldCheck className="h-5 w-5 text-amber-200" />
+                Seller status becomes Pending Approval
+              </div>
+            </div>
           </div>
+        </section>
 
-          <div className="p-6 md:p-8">
-            <Formik
-              initialValues={initialValues}
-              validationSchema={loginSchema}
-              onSubmit={(values) => loginMutation.mutate(values)}
-            >
-              <Form className="space-y-5" noValidate>
-                <label className="block">
-                  <span className="text-sm font-semibold text-slate-700">
-                    Email
-                  </span>
-                  <Field
+        <section className="grid gap-8 lg:grid-cols-2">
+          {/* Customer Registration */}
+          <Formik
+            initialValues={customerInitial}
+            validationSchema={customerRegistrationSchema}
+            onSubmit={handleCustomer}
+          >
+            {({ isSubmitting }) => (
+              <Form className="rounded-[2rem] border border-amber-100 bg-white p-6 shadow-xl shadow-amber-100 md:p-8">
+                <div className="mb-6">
+                  <div className="mb-4 inline-flex rounded-2xl bg-amber-100 p-3 text-amber-800">
+                    <UserPlus className="h-7 w-7" />
+                  </div>
+                  <p className="section-header-badge text-amber-700">
+                    Customer
+                  </p>
+                  <h2 className="mt-2 text-3xl font-black text-slate-900">
+                    Customer Registration
+                  </h2>
+                  <p className="mt-2 text-sm text-slate-500">
+                    Required: first name, last name, unique email, and password.
+                  </p>
+                </div>
+
+                <div className="space-y-5">
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <FormField
+                      label="First Name"
+                      name="firstName"
+                      placeholder="Aarav"
+                      autoComplete="given-name"
+                    />
+                    <FormField
+                      label="Last Name"
+                      name="lastName"
+                      placeholder="Sharma"
+                      autoComplete="family-name"
+                    />
+                  </div>
+
+                  <FormField
+                    label="Email"
+                    name="email"
                     type="email"
-                    name="email"
-                    placeholder="your@email.com"
+                    placeholder="customer@example.com"
                     autoComplete="email"
-                    className="mt-2 w-full rounded-2xl border border-amber-100 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
                   />
-                  <ErrorMessage
-                    name="email"
-                    component="p"
-                    className="mt-1 text-sm font-medium text-red-600"
-                  />
-                </label>
 
-                <label className="block">
-                  <span className="text-sm font-semibold text-slate-700">
-                    Password / Mobile Number
-                  </span>
-                  <Field
+                  <FormField
+                    label="Password"
+                    name="password"
                     type="password"
-                    name="password"
-                    placeholder="Your password or mobile number"
-                    autoComplete="current-password"
-                    className="mt-2 w-full rounded-2xl border border-amber-100 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+                    placeholder="Create a password"
+                    autoComplete="new-password"
                   />
-                  <ErrorMessage
-                    name="password"
-                    component="p"
-                    className="mt-1 text-sm font-medium text-red-600"
-                  />
-                </label>
 
-                <button
-                  type="submit"
-                  disabled={loginMutation.isPending}
-                  className="w-full rounded-2xl bg-gradient-to-r from-amber-700 to-amber-900 px-5 py-3.5 font-bold text-white shadow-lg shadow-amber-200 transition hover:from-amber-800 hover:to-amber-950 disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  {loginMutation.isPending ? "Signing in..." : "Login"}
-                </button>
+                  <SubmitButton isSubmitting={isSubmitting}>
+                    Register Customer
+                  </SubmitButton>
+                </div>
               </Form>
-            </Formik>
+            )}
+          </Formik>
 
-            <p className="mt-6 text-center text-sm text-slate-600">
-              Don&apos;t have an account?{" "}
-              <button
-                type="button"
-                onClick={onNavigateRegister}
-                className="font-bold text-amber-800 underline-offset-2 hover:underline"
-              >
-                Register here
-              </button>
-            </p>
-          </div>
+          {/* Seller Registration */}
+          <Formik
+            initialValues={sellerInitial}
+            validationSchema={sellerRegistrationSchema}
+            onSubmit={handleSeller}
+          >
+            {({ isSubmitting }) => (
+              <Form className="rounded-[2rem] border border-amber-100 bg-white p-6 shadow-xl shadow-amber-100 md:p-8">
+                <div className="mb-6">
+                  <div className="mb-4 inline-flex rounded-2xl bg-emerald-100 p-3 text-emerald-800">
+                    <Building2 className="h-7 w-7" />
+                  </div>
+                  <p className="section-header-badge text-emerald-700">
+                    Seller — Step 1
+                  </p>
+                  <h2 className="mt-2 text-3xl font-black text-slate-900">
+                    Seller Registration
+                  </h2>
+                  <p className="mt-2 text-sm text-slate-500">
+                    Required: business name, contact person, email, and 10-digit
+                    mobile number. Status is saved as Pending Approval.
+                  </p>
+                </div>
+
+                <div className="space-y-5">
+                  <FormField
+                    label="Business Name"
+                    name="businessName"
+                    placeholder="Lectory Book Distributors"
+                    autoComplete="organization"
+                  />
+
+                  <FormField
+                    label="Contact Person"
+                    name="contactPerson"
+                    placeholder="Anita Verma"
+                    autoComplete="name"
+                  />
+
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <FormField
+                      label="Email"
+                      name="email"
+                      type="email"
+                      placeholder="seller@example.com"
+                      autoComplete="email"
+                    />
+                    <FormField
+                      label="Mobile Number"
+                      name="mobileNumber"
+                      type="tel"
+                      placeholder="9876543210"
+                      autoComplete="tel"
+                    />
+                  </div>
+
+                  <SubmitButton isSubmitting={isSubmitting}>
+                    Register Seller
+                  </SubmitButton>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </section>
       </div>
     </main>

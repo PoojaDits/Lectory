@@ -2,39 +2,43 @@
   "slides": [
     {
       "id": "1",
-      "title": "Summer Reading Sale",
-      "subtitle": "Up to 40% off on bestselling titles",
-      "cta": "Explore Collection",
-      "link": "/books",
-      "gradient": "from-amber-900 via-red-800 to-amber-900",
-      "accent": "bg-amber-400"
+      "image": "https://images.pexels.com/photos/13278839/pexels-photo-13278839.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1600",
+      "title": "Discover Your Next\nGreat Adventure",
+      "subtitle": "Explore thousands of titles across every genre — from thrilling mysteries to heartfelt romances.",
+      "cta": "Browse Collection",
+      "accent": "from-amber-900/80 via-amber-900/50 to-transparent"
     },
     {
       "id": "2",
-      "title": "Pre-Order Now",
-      "subtitle": "Be the first to read upcoming releases from your favorite authors",
-      "cta": "Pre-Order",
-      "link": "/pre-orders",
-      "gradient": "from-indigo-900 via-purple-800 to-indigo-900",
-      "accent": "bg-purple-400"
+      "image": "https://images.pexels.com/photos/37247960/pexels-photo-37247960.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1600",
+      "title": "Cozy Up With\nCurated Reads",
+      "subtitle": "Handpicked recommendations from our curators. Find the stories that everyone is talking about.",
+      "cta": "Browse Collection",
+      "accent": "from-stone-900/80 via-stone-900/50 to-transparent"
     },
     {
       "id": "3",
-      "title": "Rare Collections",
-      "subtitle": "Discover limited editions and signed copies from world-renowned authors",
-      "cta": "Browse Collection",
-      "link": "/new-arrivals",
-      "gradient": "from-emerald-900 via-teal-800 to-emerald-900",
-      "accent": "bg-emerald-400"
+      "image": "https://images.pexels.com/photos/19015217/pexels-photo-19015217.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1600",
+      "title": "New Arrivals\nEvery Week",
+      "subtitle": "Stay ahead of the curve with fresh releases and exclusive pre-orders delivered to your door.",
+      "cta": "Shop New Arrivals",
+      "accent": "from-slate-900/80 via-slate-900/50 to-transparent"
     },
     {
       "id": "4",
-      "title": "New Arrivals",
-      "subtitle": "Fresh off the press — explore this month's newest titles across all genres",
-      "cta": "See What's New",
-      "link": "/new-arrivals",
-      "gradient": "from-rose-900 via-pink-800 to-rose-900",
-      "accent": "bg-rose-400"
+      "image": "https://images.pexels.com/photos/6103836/pexels-photo-6103836.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1600",
+      "title": "A World of\nKnowledge Awaits",
+      "subtitle": "From academic texts to self-help guides — unlock your potential with our non-fiction collection.",
+      "cta": "Explore Non-Fiction",
+      "accent": "from-emerald-900/80 via-emerald-900/50 to-transparent"
+    },
+    {
+      "id": "5",
+      "image": "https://images.pexels.com/photos/9553514/pexels-photo-9553514.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1600",
+      "title": "Gift the Joy\nof Reading",
+      "subtitle": "Curated gift sets, beautiful editions, and personalized recommendations for every book lover.",
+      "cta": "Shop Gifts",
+      "accent": "from-rose-900/80 via-rose-900/50 to-transparent"
     }
   ],
   "featuredBooks": [
@@ -189,7 +193,7 @@
       "author": "Yuval Noah Harari",
       "price": 499,
       "originalPrice": 799,
-      "image": "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Best Seller",
       "badgeColor": "bg-indigo-100 text-indigo-800"
     },
@@ -209,7 +213,7 @@
       "author": "Alex Michaelides",
       "price": 299,
       "originalPrice": 449,
-      "image": "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Best Seller",
       "badgeColor": "bg-slate-100 text-slate-800"
     },
@@ -229,7 +233,7 @@
       "author": "Taylor Jenkins Reid",
       "price": 329,
       "originalPrice": 499,
-      "image": "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Best Seller",
       "badgeColor": "bg-pink-100 text-pink-800"
     },
@@ -259,7 +263,7 @@
       "author": "Tara Westover",
       "price": 379,
       "originalPrice": 599,
-      "image": "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Best Seller",
       "badgeColor": "bg-amber-100 text-amber-800"
     }
@@ -293,7 +297,7 @@
       "author": "Paulo Coelho",
       "price": 249,
       "originalPrice": 399,
-      "image": "https://images.pexels.com/photos/897633/pexels-photo-897633.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/1370295/pexels-photo-1370295.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Recommended",
       "badgeColor": "bg-amber-100 text-amber-800",
       "rating": 4.8
@@ -315,7 +319,7 @@
       "author": "Alex Michaelides",
       "price": 299,
       "originalPrice": 449,
-      "image": "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Recommended",
       "badgeColor": "bg-slate-100 text-slate-800",
       "rating": 4.5
@@ -337,7 +341,7 @@
       "author": "Taylor Jenkins Reid",
       "price": 329,
       "originalPrice": 499,
-      "image": "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Recommended",
       "badgeColor": "bg-pink-100 text-pink-800",
       "rating": 4.9
@@ -359,7 +363,7 @@
       "author": "Yuval Noah Harari",
       "price": 499,
       "originalPrice": 799,
-      "image": "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Recommended",
       "badgeColor": "bg-indigo-100 text-indigo-800",
       "rating": 4.6
@@ -372,7 +376,7 @@
       "author": "Eiichiro Oda",
       "price": 299,
       "originalPrice": 399,
-      "image": "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Manga",
       "badgeColor": "bg-blue-100 text-blue-800"
     },
@@ -392,7 +396,7 @@
       "author": "Koyoharu Gotouge",
       "price": 319,
       "originalPrice": 419,
-      "image": "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Manga",
       "badgeColor": "bg-rose-100 text-rose-800"
     },
@@ -422,7 +426,7 @@
       "author": "Kohei Horikoshi",
       "price": 279,
       "originalPrice": 379,
-      "image": "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Manga",
       "badgeColor": "bg-emerald-100 text-emerald-800"
     },
@@ -432,7 +436,7 @@
       "author": "Tatsuki Fujimoto",
       "price": 299,
       "originalPrice": 399,
-      "image": "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Manga",
       "badgeColor": "bg-orange-100 text-orange-800"
     },
@@ -585,7 +589,7 @@
       "author": "Freida McFadden",
       "price": 239,
       "originalPrice": 299,
-      "image": "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Pre-Order",
       "badgeColor": "bg-rose-100 text-rose-800"
     },
@@ -605,7 +609,7 @@
       "author": "Adam Bushnell",
       "price": 399,
       "originalPrice": 599,
-      "image": "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "image": "https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
       "badge": "Pre-Order",
       "badgeColor": "bg-amber-100 text-amber-800"
     },
@@ -766,12 +770,20 @@
       "createdAt": "2026-06-04T09:00:00.000Z"
     },
     {
-      "id": 5,
+      "id": "5",
       "email": "seller-b@lectory.com",
       "password": "9000000002",
       "role": "seller",
       "profileId": 3,
       "createdAt": "2026-06-03T09:30:00.000Z"
+    },
+    {
+      "email": "jspuja02@gmail.com",
+      "password": "Happyme31@",
+      "role": "customer",
+      "profileId": "IK31EltCvMk",
+      "createdAt": "2026-06-15T05:12:29.375Z",
+      "id": "uVsiUnVOkc0"
     }
   ],
   "admins": [
@@ -793,6 +805,14 @@
       "email": "customer@lectory.com",
       "role": "customer",
       "createdAt": "2026-06-02T09:00:00.000Z"
+    },
+    {
+      "firstName": "Pooja",
+      "lastName": "Joshi",
+      "email": "jspuja02@gmail.com",
+      "role": "customer",
+      "createdAt": "2026-06-15T05:12:29.375Z",
+      "id": "IK31EltCvMk"
     }
   ],
   "sellers": [
@@ -820,7 +840,7 @@
       "createdAt": "2026-06-04T09:00:00.000Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": 5,
       "businessName": "ReadMore Traders",
       "contactPerson": "Imran Sheikh",
@@ -953,7 +973,7 @@
       "createdAt": "2026-06-08T11:00:00.000Z"
     },
     {
-      "id": 6,
+      "id": "6",
       "bookId": 1,
       "sellerId": 3,
       "price": 380,
@@ -962,7 +982,7 @@
       "createdAt": "2026-06-08T12:00:00.000Z"
     },
     {
-      "id": 7,
+      "id": "7",
       "bookId": 3,
       "sellerId": 3,
       "price": 529,
@@ -971,7 +991,7 @@
       "createdAt": "2026-06-08T12:30:00.000Z"
     },
     {
-      "id": 8,
+      "id": "8",
       "bookId": 4,
       "sellerId": 3,
       "price": 415,
@@ -984,10 +1004,96 @@
     {
       "id": "1",
       "customerId": 1
+    },
+    {
+      "customerId": "IK31EltCvMk",
+      "id": "L9R73FYFYlk"
     }
   ],
   "cartItems": [],
   "orders": [],
   "orderItems": [],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Fiction",
+      "count": "2,340+",
+      "icon": "BookOpen",
+      "gradient": "from-blue-500 to-indigo-600",
+      "shadow": "shadow-blue-200",
+      "bg": "bg-blue-50"
+    },
+    {
+      "id": "2",
+      "name": "Romance",
+      "count": "1,820+",
+      "icon": "Heart",
+      "gradient": "from-rose-500 to-pink-600",
+      "shadow": "shadow-rose-200",
+      "bg": "bg-rose-50"
+    },
+    {
+      "id": "3",
+      "name": "Self-Help",
+      "count": "980+",
+      "icon": "Lightbulb",
+      "gradient": "from-amber-500 to-orange-600",
+      "shadow": "shadow-amber-200",
+      "bg": "bg-amber-50"
+    },
+    {
+      "id": "4",
+      "name": "Academic",
+      "count": "3,100+",
+      "icon": "GraduationCap",
+      "gradient": "from-emerald-500 to-teal-600",
+      "shadow": "shadow-emerald-200",
+      "bg": "bg-emerald-50"
+    },
+    {
+      "id": "5",
+      "name": "Sci-Fi",
+      "count": "1,540+",
+      "icon": "Rocket",
+      "gradient": "from-violet-500 to-purple-600",
+      "shadow": "shadow-violet-200",
+      "bg": "bg-violet-50"
+    },
+    {
+      "id": "6",
+      "name": "Art & Design",
+      "count": "760+",
+      "icon": "Palette",
+      "gradient": "from-cyan-500 to-sky-600",
+      "shadow": "shadow-cyan-200",
+      "bg": "bg-cyan-50"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "1",
+      "name": "Sarah Johnson",
+      "role": "Avid Reader",
+      "avatar": "👩‍💼",
+      "rating": 5,
+      "text": "My Book Store has completely transformed my reading experience. The curated recommendations are always spot-on, and their delivery is lightning fast!"
+    },
+    {
+      "id": "2",
+      "name": "Michael Chen",
+      "role": "Book Club Leader",
+      "avatar": "👨‍🏫",
+      "rating": 5,
+      "text": "I've been ordering books for our club for years. The selection is unmatched, and their customer service is exceptional. Truly a book lover's paradise."
+    },
+    {
+      "id": "3",
+      "name": "Emma Williams",
+      "role": "Literature Student",
+      "avatar": "👩‍🎓",
+      "rating": 5,
+      "text": "As a student, I appreciate the academic section and the student discounts. Found rare editions I couldn't find anywhere else. Highly recommended!"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -27,7 +27,6 @@ import Recommended from "@/components/sections/Recommended";
 import NewArrivals from "@/components/sections/NewArrivals";
 import Manga from "@/components/sections/Manga";
 import ArtificialIntelligence from "@/components/sections/ArtificialIntelligence";
-import Testimonials from "@/components/sections/Testimonials";
 import Newsletter from "@/components/sections/Newsletter";
 
 function HomePage() {
@@ -43,7 +42,6 @@ function HomePage() {
         <Manga />
         <ArtificialIntelligence />
         <NewArrivals />
-        <Testimonials />
         <Newsletter />
       </main>
       <Footer />
