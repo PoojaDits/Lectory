@@ -8,10 +8,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import BookCard from "./BookCard"
-import type { Book } from "./BookCard"
+import type { BookWithListings } from "@/types"
 
 interface BookCarouselProps {
-  books: Book[]
+  books: BookWithListings[]
   className?: string
 }
 
@@ -31,7 +31,7 @@ export default function BookCarousel({ books, className }: BookCarouselProps) {
       <CarouselContent className="-ml-4">
         {books.map((book) => (
           <CarouselItem
-            key={book.id}
+            key={String(book.id)}
             className="pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/4 xl:basis-1/5"
           >
             {/* Fixed height wrapper so all cards are perfectly uniform (taller = bigger cards) */}

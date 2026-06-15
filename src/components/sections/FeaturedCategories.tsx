@@ -1,27 +1,32 @@
+import { Link } from "react-router-dom";
 import {
   BookOpen,
-  Heart,
-  Lightbulb,
-  GraduationCap,
+  Cpu,
   Rocket,
-  Palette,
+  Star,
+  TrendingUp,
   type LucideIcon,
 } from "lucide-react";
-import { useCategories } from "@/hooks/useHomeContent";
+import { CATEGORY_META } from "@/lib/categories";
+import { useStoreBooks } from "@/hooks/useHomeContent";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Skeleton from "@/components/ui/Skeleton";
 
 const ICON_MAP: Record<string, LucideIcon> = {
+  TrendingUp,
+  Star,
+  Cpu,
   BookOpen,
-  Heart,
-  Lightbulb,
-  GraduationCap,
   Rocket,
-  Palette,
 };
 
 export default function FeaturedCategories() {
-  const { data: categories = [], isLoading } = useCategories();
+  // Fetch all books once so we can show the *real* count per category.
+  const { data: books = [], isLoading } = useStoreBooks();
+
+  // Live count per category tag.
+  const countFor = (tag: string) =>
+    books.filter((b) => (b.categories ?? []).includes(tag)).length;
 
   return (
     <section id="categories" className="py-16 md:py-24 bg-amber-50">
@@ -29,22 +34,24 @@ export default function FeaturedCategories() {
         <SectionHeader
           badge="📚 Browse by Category"
           title="Find Your Perfect Genre"
-          subtitle="From page-turning thrillers to soul-stirring poetry, we have every genre covered for every mood."
+          subtitle="From page-turning bestsellers to cutting-edge AI books — pick a genre and explore the relevant titles."
         />
 
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {Array.from({ length: 6 }).map((_, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+            {Array.from({ length: 5 }).map((_, i) => (
               <Skeleton key={i} className="h-44 rounded-2xl" />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {categories.map((cat) => {
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+            {CATEGORY_META.map((cat) => {
               const Icon = ICON_MAP[cat.icon] || BookOpen;
+              const count = countFor(cat.tag);
               return (
-                <button
-                  key={cat.id}
+                <Link
+                  key={cat.tag}
+                  to={`/browse?category=${cat.tag}`}
                   className={`group relative ${cat.bg} rounded-2xl p-6 md:p-8 text-center hover:shadow-xl ${cat.shadow} transition-all duration-300 hover:-translate-y-2 border border-white/60`}
                 >
                   <div
@@ -53,10 +60,10 @@ export default function FeaturedCategories() {
                     <Icon className="w-7 h-7 md:w-8 md:h-8 text-white" />
                   </div>
                   <h3 className="text-gray-900 font-bold text-base md:text-lg mb-1">
-                    {cat.name}
+                    {cat.label}
                   </h3>
-                  <p className="text-gray-400 text-sm">{cat.count} books</p>
-                </button>
+                  <p className="text-gray-400 text-sm">{count} books</p>
+                </Link>
               );
             })}
           </div>

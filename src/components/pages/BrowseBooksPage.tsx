@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, Loader2, Search, Users } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ArrowLeft, BookOpen, Filter, Loader2, Search, Users, X } from "lucide-react";
 import { useStoreBooks } from "@/hooks/useHomeContent";
+import { CATEGORY_META } from "@/lib/categories";
 import Pagination from "@/components/ui/Pagination";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { formatCurrency } from "@/utils/helpers";
@@ -16,6 +17,9 @@ const CHUNK = 8; // revealed per scroll step within a page
 export default function BrowseBooksPage({
   onNavigateHome,
 }: BrowseBooksPageProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeCategory = searchParams.get("category") ?? "";
+
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,6 +28,16 @@ export default function BrowseBooksPage({
 
   // ── Fetch the full marketplace catalog via React Query (cached) ──
   const { data: books = [], isLoading, isError } = useStoreBooks();
+
+  /** Set or clear the active category in the URL. */
+  const setCategory = (tag: string) => {
+    const next = new URLSearchParams(searchParams);
+    if (tag) next.set("category", tag);
+    else next.delete("category");
+    setSearchParams(next, { replace: true });
+    setCurrentPage(1);
+    setVisibleInPage(CHUNK);
+  };
 
   // ── Debounce the search box (300ms) ──
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -35,16 +49,28 @@ export default function BrowseBooksPage({
     };
   }, [searchInput]);
 
-  // ── Filter ──
+  // ── Filter by category + text search ──
   const filteredBooks = useMemo(() => {
+    let result = books;
+
+    // Category filter (from URL)
+    if (activeCategory) {
+      result = result.filter((b) =>
+        (b.categories ?? []).includes(activeCategory)
+      );
+    }
+
+    // Text search
     const q = searchQuery.trim().toLowerCase();
-    if (!q) return books;
-    return books.filter(
-      (b) =>
-        b.title.toLowerCase().includes(q) ||
-        b.author.toLowerCase().includes(q)
-    );
-  }, [books, searchQuery]);
+    if (q) {
+      result = result.filter(
+        (b) =>
+          b.title.toLowerCase().includes(q) ||
+          b.author.toLowerCase().includes(q)
+      );
+    }
+    return result;
+  }, [books, activeCategory, searchQuery]);
 
   const totalPages = Math.max(1, Math.ceil(filteredBooks.length / PAGE_SIZE));
 
@@ -119,6 +145,68 @@ export default function BrowseBooksPage({
             />
           </div>
         </div>
+
+        {/* Category filter bar */}
+        {!isLoading && (
+          <div className="mb-6 flex flex-wrap items-center gap-2">
+            <span className="mr-1 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <Filter className="h-3.5 w-3.5" />
+              Filter
+            </span>
+
+            {/* "All" pill */}
+            <button
+              type="button"
+              onClick={() => setCategory("")}
+              className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+                !activeCategory
+                  ? "bg-amber-900 text-white shadow-sm"
+                  : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
+              }`}
+            >
+              All Books
+            </button>
+
+            {/* One pill per real category */}
+            {CATEGORY_META.map((cat) => {
+              const isActive = activeCategory === cat.tag;
+              return (
+                <button
+                  key={cat.tag}
+                  type="button"
+                  onClick={() => setCategory(cat.tag)}
+                  className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+                    isActive
+                      ? "bg-amber-900 text-white shadow-sm"
+                      : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Active category banner (with clear button) */}
+        {activeCategory && !isLoading && (
+          <div className="mb-4 flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3">
+            <span className="text-sm font-bold text-amber-900">
+              Showing: {CATEGORY_META.find((c) => c.tag === activeCategory)?.label ?? activeCategory}
+              <span className="ml-2 font-medium text-amber-600">
+                ({filteredBooks.length} books)
+              </span>
+            </span>
+            <button
+              type="button"
+              onClick={() => setCategory("")}
+              className="ml-auto inline-flex items-center gap-1 rounded-full bg-amber-900 px-3 py-1 text-xs font-bold text-white transition hover:bg-amber-800"
+            >
+              <X className="h-3 w-3" />
+              Clear filter
+            </button>
+          </div>
+        )}
 
         {/* Result count */}
         {!isLoading && !isError && filteredBooks.length > 0 && (
