@@ -222,6 +222,7 @@ export interface SellerRegistrationInput {
   contactPerson: string;
   email: string;
   mobileNumber: string;
+  password: string;
 }
 
 // ── Auth ──

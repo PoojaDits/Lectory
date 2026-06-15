@@ -35,6 +35,7 @@ const sellerInitial: SellerRegistrationInput = {
   contactPerson: "",
   email: "",
   mobileNumber: "",
+  password: "",
 };
 
 function SubmitButton({
@@ -208,8 +209,9 @@ export default function RegistrationPage({
                     Seller Registration
                   </h2>
                   <p className="mt-2 text-sm text-slate-500">
-                    Required: business name, contact person, email, and 10-digit
-                    mobile number. Status is saved as Pending Approval.
+                    Required: business name, contact person, email, 10-digit
+                    mobile number, and password. Status is saved as Pending
+                    Approval.
                   </p>
                 </div>
 
@@ -244,6 +246,14 @@ export default function RegistrationPage({
                       autoComplete="tel"
                     />
                   </div>
+
+                  <FormField
+                    label="Password"
+                    name="password"
+                    type="password"
+                    placeholder="Create a password"
+                    autoComplete="new-password"
+                  />
 
                   <SubmitButton isSubmitting={isSubmitting}>
                     Register Seller

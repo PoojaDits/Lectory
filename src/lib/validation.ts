@@ -28,6 +28,9 @@ export const sellerRegistrationSchema = Yup.object({
     .trim()
     .matches(/^\d{10}$/, "Mobile number must be exactly 10 digits.")
     .required("Mobile number is required."),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters.")
+    .required("Password is required."),
 });
 
 // ── Listing ──

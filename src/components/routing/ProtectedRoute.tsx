@@ -26,6 +26,8 @@ export default function ProtectedRoute({
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
+  // While impersonating, `currentUser` is already the impersonated user
+  // (customer/seller), so the normal role check below applies correctly.
   if (allow.length > 0 && !allow.includes(currentUser.role)) {
     notify.error("You don't have permission to access that page.");
     const home =

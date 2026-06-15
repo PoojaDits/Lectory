@@ -784,6 +784,14 @@
       "profileId": "IK31EltCvMk",
       "createdAt": "2026-06-15T05:12:29.375Z",
       "id": "uVsiUnVOkc0"
+    },
+    {
+      "email": "thor@gmail.com",
+      "password": "Happyme31@",
+      "role": "seller",
+      "profileId": "u0CSrHjhDeg",
+      "createdAt": "2026-06-15T05:32:49.619Z",
+      "id": "vkrc17jhTxM"
     }
   ],
   "admins": [
@@ -835,9 +843,10 @@
       "contactPerson": "Sneha Patel",
       "email": "pending-seller@lectory.com",
       "mobileNumber": "9123456780",
-      "status": "Pending Approval",
+      "status": "Approved",
       "role": "seller",
-      "createdAt": "2026-06-04T09:00:00.000Z"
+      "createdAt": "2026-06-04T09:00:00.000Z",
+      "reviewedAt": "2026-06-15T05:50:17.447Z"
     },
     {
       "id": "3",
@@ -850,6 +859,17 @@
       "role": "seller",
       "createdAt": "2026-06-03T09:30:00.000Z",
       "reviewedAt": "2026-06-03T12:30:00.000Z"
+    },
+    {
+      "businessName": "thor",
+      "contactPerson": "thorji",
+      "email": "thor@gmail.com",
+      "mobileNumber": "8708789646",
+      "status": "Approved",
+      "role": "seller",
+      "createdAt": "2026-06-15T05:32:49.619Z",
+      "id": "u0CSrHjhDeg",
+      "reviewedAt": "2026-06-15T05:50:06.123Z"
     }
   ],
   "books": [
@@ -921,9 +941,10 @@
       "publisher": "Harriman House",
       "description": "Timeless lessons on wealth, greed, and happiness.",
       "coverImage": "https://images.pexels.com/photos/4170629/pexels-photo-4170629.jpeg?auto=compress&cs=tinysrgb&w=400",
-      "status": "Pending Approval",
+      "status": "Approved",
       "createdBySellerId": 1,
-      "createdAt": "2026-06-07T09:00:00.000Z"
+      "createdAt": "2026-06-07T09:00:00.000Z",
+      "reviewedAt": "2026-06-15T05:50:22.403Z"
     }
   ],
   "listings": [

@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 
 // Layout
 import Navbar from "@/components/layout/Navbar";
+import ImpersonationBanner from "@/components/layout/ImpersonationBanner";
 import Footer from "@/components/layout/Footer";
 
 // Auth
@@ -59,6 +60,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 antialiased">
       <Navbar />
+      <ImpersonationBanner />
 
       <Routes>
         <Route path="/" element={<HomePage />} />

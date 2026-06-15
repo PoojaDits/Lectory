@@ -120,10 +120,10 @@ export const registerSeller = async (
     createdAt,
   });
 
-  // Seller logs in with email + mobile number as the password.
+  // Seller logs in with email + password.
   await apiClient.post<UserRecord>("/users", {
     email,
-    password: mobileNumber,
+    password: input.password,
     role: "seller",
     profileId: seller.id,
     createdAt,
