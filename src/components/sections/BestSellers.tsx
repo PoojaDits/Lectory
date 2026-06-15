@@ -1,9 +1,9 @@
-import { useBookStore } from "@/stores/useBookStore";
+import { useBestSellers } from "@/hooks/useHomeContent";
 import SectionHeader from "@/components/ui/SectionHeader";
 import BookCarousel from "@/components/ui/BookCarousel";
 
 export default function BestSellers() {
-  const { bestSellers, isLoading } = useBookStore();
+  const { data: bestSellers = [], isLoading } = useBestSellers();
 
   return (
     <section id="best-sellers" className="py-16 md:py-24 section-bg border-t border-amber-100/60">

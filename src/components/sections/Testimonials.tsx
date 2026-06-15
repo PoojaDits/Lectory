@@ -1,10 +1,10 @@
 import { Star, Quote } from "lucide-react";
-import { useBookStore } from "@/stores/useBookStore";
+import { useTestimonials } from "@/hooks/useHomeContent";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Skeleton from "@/components/ui/Skeleton";
 
 export default function Testimonials() {
-  const { testimonials, isLoading } = useBookStore();
+  const { data: testimonials = [], isLoading } = useTestimonials();
 
   return (
     <section className="py-16 md:py-24 bg-white border-t border-amber-100/60">

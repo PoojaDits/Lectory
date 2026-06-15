@@ -1,9 +1,9 @@
-import { useBookStore } from "@/stores/useBookStore";
+import { useMangaBooks } from "@/hooks/useHomeContent";
 import SectionHeader from "@/components/ui/SectionHeader";
 import BookCarousel from "@/components/ui/BookCarousel";
 
 export default function Manga() {
-  const { mangaBooks, isLoading } = useBookStore();
+  const { data: mangaBooks = [], isLoading } = useMangaBooks();
 
   return (
     <section id="manga" className="py-16 md:py-24 section-bg border-t border-amber-100/60">

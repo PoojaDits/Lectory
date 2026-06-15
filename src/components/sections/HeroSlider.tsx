@@ -1,11 +1,11 @@
-import { useHeroStore } from "@/stores/useHeroStore";
+import { useHeroSlides } from "@/hooks/useHomeContent";
 import { useAutoSlider } from "@/hooks/useAutoSlider";
 import SliderDots from "@/components/ui/SliderDots";
 import SliderArrow from "@/components/ui/SliderArrow";
 import { HeroSkeleton } from "@/components/ui/Skeleton";
 
 export default function HeroSlider() {
-  const { slides, isLoading } = useHeroStore();
+  const { data: slides = [], isLoading } = useHeroSlides();
   const { current, goTo, next, prev } = useAutoSlider({
     totalItems: slides.length,
     interval: 5000,

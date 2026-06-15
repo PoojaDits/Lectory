@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { useBookStore } from "@/stores/useBookStore";
+import { useNewArrivals } from "@/hooks/useHomeContent";
 import Skeleton from "@/components/ui/Skeleton";
 
 const HIGHLIGHTS = [
@@ -9,7 +9,7 @@ const HIGHLIGHTS = [
 ];
 
 export default function NewArrivals() {
-  const { newArrivals, isLoading } = useBookStore();
+  const { data: newArrivals = [], isLoading } = useNewArrivals();
 
   return (
     <section

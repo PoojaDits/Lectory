@@ -1,6 +1,12 @@
-import axios from "axios";
+import axios, { type AxiosError } from "axios";
 
-const API_BASE_URL = "http://localhost:3001";
+/**
+ * Base URL for the JSON Server backend.
+ * Override with VITE_API_BASE_URL when needed.
+ */
+const API_BASE_URL =
+  (import.meta.env.VITE_API_BASE_URL as string | undefined) ??
+  "http://localhost:3001";
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -10,18 +16,20 @@ const apiClient = axios.create({
   },
 });
 
-// Request interceptor
+// Request interceptor — placeholder for auth tokens if added later.
 apiClient.interceptors.request.use(
   (config) => config,
   (error) => Promise.reject(error)
 );
 
-// Response interceptor
+// Response interceptor — normalize errors into Error(message).
 apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
+  (error: AxiosError<{ message?: string }>) => {
     const message =
-      error.response?.data?.message || error.message || "Something went wrong";
+      error.response?.data?.message ||
+      error.message ||
+      "Network error. Is the API server running?";
     return Promise.reject(new Error(message));
   }
 );

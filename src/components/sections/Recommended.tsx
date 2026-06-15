@@ -1,9 +1,9 @@
-import { useBookStore } from "@/stores/useBookStore";
+import { useRecommendedBooks } from "@/hooks/useHomeContent";
 import SectionHeader from "@/components/ui/SectionHeader";
 import BookCarousel from "@/components/ui/BookCarousel";
 
 export default function Recommended() {
-  const { recommendedBooks, isLoading } = useBookStore();
+  const { data: recommendedBooks = [], isLoading } = useRecommendedBooks();
 
   return (
     <section id="recommended" className="py-16 md:py-24 bg-white border-t border-amber-100/60">

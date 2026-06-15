@@ -7,7 +7,7 @@ import {
   Palette,
   type LucideIcon,
 } from "lucide-react";
-import { useBookStore } from "@/stores/useBookStore";
+import { useCategories } from "@/hooks/useHomeContent";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Skeleton from "@/components/ui/Skeleton";
 
@@ -21,7 +21,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
 };
 
 export default function FeaturedCategories() {
-  const { categories, isLoading } = useBookStore();
+  const { data: categories = [], isLoading } = useCategories();
 
   return (
     <section id="categories" className="py-16 md:py-24 bg-amber-50">

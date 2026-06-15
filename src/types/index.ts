@@ -57,15 +57,143 @@ export interface Testimonial {
 
 // ── Registration ──
 export type SellerStatus = "Pending Approval" | "Approved" | "Rejected";
+export type BookStatus = "Pending Approval" | "Approved" | "Rejected";
+export type OrderStatus =
+  | "Created"
+  | "Accepted"
+  | "Shipped"
+  | "Delivered"
+  | "Cancelled";
 
 export type EntityId = number | string;
+
+// ── Marketplace: Master Book record (unique ISBN, exists once) ──
+export interface MarketBook {
+  id: EntityId;
+  isbn: string;
+  title: string;
+  author: string;
+  publisher?: string;
+  description?: string;
+  coverImage?: string;
+  status: BookStatus;
+  createdBySellerId?: EntityId;
+  createdAt: string;
+  reviewedAt?: string;
+}
+
+export interface BookInput {
+  isbn: string;
+  title: string;
+  author: string;
+  publisher?: string;
+  description?: string;
+  coverImage?: string;
+}
+
+// ── Marketplace: Seller Listing (a seller's offer for a book) ──
+export interface Listing {
+  id: EntityId;
+  bookId: EntityId;
+  sellerId: EntityId;
+  price: number;
+  stock: number;
+  active: boolean;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+// Listing enriched with its parent book + seller for display
+export interface ListingWithRefs extends Listing {
+  book?: MarketBook;
+  seller?: Seller;
+}
+
+export interface ListingInput {
+  bookId: EntityId;
+  sellerId: EntityId;
+  price: number;
+  stock: number;
+}
+
+// ── Cart ──
+export interface Cart {
+  id: EntityId;
+  customerId: EntityId;
+}
+
+export interface CartItem {
+  id: EntityId;
+  cartId: EntityId;
+  listingId: EntityId;
+  bookId: EntityId;
+  sellerId: EntityId;
+  quantity: number;
+  // snapshot of price at add-to-cart time
+  price: number;
+  createdAt: string;
+}
+
+// Cart item enriched for rendering
+export interface CartItemWithRefs extends CartItem {
+  book?: MarketBook;
+  seller?: Seller;
+  listing?: Listing;
+}
+
+// ── Orders ──
+export interface Order {
+  id: EntityId;
+  customerId: EntityId;
+  sellerId: EntityId;
+  status: OrderStatus;
+  shippingAddress: string;
+  total: number;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface OrderItem {
+  id: EntityId;
+  orderId: EntityId;
+  listingId: EntityId;
+  bookId: EntityId;
+  sellerId: EntityId;
+  quantity: number;
+  price: number;
+  titleSnapshot: string;
+}
+
+export interface OrderWithItems extends Order {
+  items: OrderItem[];
+  seller?: Seller;
+  customer?: Customer;
+}
+
+// ── Admin dashboard summary ──
+export interface DashboardSummary {
+  totalSellers: number;
+  totalCustomers: number;
+  totalBooks: number;
+  totalOrders: number;
+  pendingSellers: number;
+  pendingBooks: number;
+}
+
+// ── Generic paginated result ──
+export interface Paginated<T> {
+  items: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
 
 export interface Customer {
   id?: EntityId;
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
   role: "customer";
   createdAt: string;
 }
@@ -102,7 +230,6 @@ export type UserRole = "customer" | "seller" | "admin";
 export interface Admin {
   id?: EntityId;
   email: string;
-  password: string;
   name?: string;
   role: "admin";
   createdAt?: string;

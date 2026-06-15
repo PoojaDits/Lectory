@@ -1,10 +1,10 @@
 import { ArrowRight } from "lucide-react";
-import { useBookStore } from "@/stores/useBookStore";
+import { usePreOrders } from "@/hooks/useHomeContent";
 import SectionHeader from "@/components/ui/SectionHeader";
 import BookCarousel from "@/components/ui/BookCarousel";
 
 export default function PreOrder() {
-  const { preOrders, isLoading } = useBookStore();
+  const { data: preOrders = [], isLoading } = usePreOrders();
 
   return (
     <section id="preorder" className="py-16 md:py-24 bg-white border-t border-amber-100/60">
