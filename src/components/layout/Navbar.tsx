@@ -10,6 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useCart } from "@/hooks/useCart";
 import { notify } from "@/lib/toast";
 
 const NAV_LINKS: { label: string; to: string }[] = [
@@ -22,6 +23,7 @@ export default function Navbar() {
   const currentUser = useAuthStore((state) => state.currentUser);
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
+  const { count: cartCount } = useCart();
 
   const closeMobileMenu = () => setMobileOpen(false);
 
@@ -114,11 +116,16 @@ export default function Navbar() {
 
             {currentUser?.role === "customer" && (
               <Link
-                to="/account"
+                to="/cart"
                 className="relative rounded-full p-2.5 text-gray-600 transition-colors hover:bg-amber-50 hover:text-amber-800"
-                aria-label="Cart"
+                aria-label={`Cart with ${cartCount} item${cartCount === 1 ? "" : "s"}`}
               >
                 <ShoppingCart className="h-5 w-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-amber-900 px-1 text-[10px] font-bold text-white shadow">
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                )}
               </Link>
             )}
           </div>

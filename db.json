@@ -1031,7 +1031,41 @@
       "id": "L9R73FYFYlk"
     }
   ],
-  "cartItems": [],
+  "cartItems": [
+    {
+      "cartId": "L9R73FYFYlk",
+      "bookId": "102",
+      "quantity": 2,
+      "price": 239,
+      "title": "The Housemaid's Wedding",
+      "author": "Freida McFadden",
+      "image": "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "createdAt": "2026-06-15T06:40:20.251Z",
+      "id": "RaRRBW9v350"
+    },
+    {
+      "cartId": "L9R73FYFYlk",
+      "bookId": "202",
+      "quantity": 1,
+      "price": 479,
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "image": "https://images.pexels.com/photos/33324725/pexels-photo-33324725.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "createdAt": "2026-06-15T06:47:43.162Z",
+      "id": "Dsskq4aAYlE"
+    },
+    {
+      "cartId": "L9R73FYFYlk",
+      "bookId": "203",
+      "quantity": 1,
+      "price": 499,
+      "title": "Sapiens",
+      "author": "Yuval Noah Harari",
+      "image": "https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
+      "createdAt": "2026-06-15T06:47:46.401Z",
+      "id": "VDrRvE2Jlek"
+    }
+  ],
   "orders": [],
   "orderItems": [],
   "categories": [
@@ -1115,5 +1149,6 @@
       "rating": 5,
       "text": "As a student, I appreciate the academic section and the student discounts. Found rare editions I couldn't find anywhere else. Highly recommended!"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

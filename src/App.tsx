@@ -14,6 +14,8 @@ import AdminDashboard from "@/components/dashboard/AdminDashboard";
 import SellerDashboard from "@/components/dashboard/SellerDashboard";
 import CustomerAccount from "@/components/dashboard/CustomerAccount";
 import BrowseBooksPage from "@/components/pages/BrowseBooksPage";
+import BookDetailsPage from "@/components/pages/BookDetailsPage";
+import CartPage from "@/components/pages/CartPage";
 
 // Routing
 import ProtectedRoute from "@/components/routing/ProtectedRoute";
@@ -65,6 +67,22 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/browse" element={<BrowseBooksPage onNavigateHome={goHome} />} />
+
+        {/* Book details with seller picker (public) */}
+        <Route
+          path="/books/:id"
+          element={<BookDetailsPage onNavigateHome={goHome} />}
+        />
+
+        {/* Cart (customer only) */}
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute allow={["customer"]}>
+              <CartPage onNavigateHome={goHome} />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Auth */}
         <Route

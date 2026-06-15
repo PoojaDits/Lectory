@@ -11,6 +11,8 @@ export const queryKeys = {
       ["books", "list", params ?? {}] as const,
     detail: (id: string | number) => ["books", "detail", String(id)] as const,
     pending: ["books", "pending"] as const,
+    store: ["books", "store"] as const,
+    category: (category: string) => ["books", "category", category] as const,
   },
   listings: {
     all: ["listings"] as const,
@@ -22,6 +24,8 @@ export const queryKeys = {
   cart: {
     byCustomer: (customerId: string | number) =>
       ["cart", String(customerId)] as const,
+    entries: (cartId: string | number) =>
+      ["cart", "entries", String(cartId)] as const,
   },
   orders: {
     byCustomer: (customerId: string | number) =>

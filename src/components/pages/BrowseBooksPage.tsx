@@ -1,17 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, BookOpen, Loader2, Search } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import type { Book } from "@/types";
-import {
-  fetchBestSellers,
-  fetchMangaBooks,
-  fetchAiBooks,
-  fetchRecommendedBooks,
-  fetchPreOrderBooks,
-} from "@/services/bookStoreApi";
-import LazyImage from "@/components/ui/LazyImage";
+import { Link } from "react-router-dom";
+import { ArrowLeft, BookOpen, Loader2, Search, Users } from "lucide-react";
+import { useStoreBooks } from "@/hooks/useHomeContent";
 import Pagination from "@/components/ui/Pagination";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { formatCurrency } from "@/utils/helpers";
 
 interface BrowseBooksPageProps {
   onNavigateHome: () => void;
@@ -19,19 +12,6 @@ interface BrowseBooksPageProps {
 
 const PAGE_SIZE = 16; // books per page
 const CHUNK = 8; // revealed per scroll step within a page
-
-/** Aggregate every catalog source into one de-duplicated list. */
-const fetchAllBooks = async (): Promise<Book[]> => {
-  const results = await Promise.all([
-    fetchBestSellers(),
-    fetchMangaBooks(),
-    fetchAiBooks(),
-    fetchRecommendedBooks(),
-    fetchPreOrderBooks(),
-  ]);
-  const merged = results.flat();
-  return Array.from(new Map(merged.map((b) => [b.id, b])).values());
-};
 
 export default function BrowseBooksPage({
   onNavigateHome,
@@ -42,16 +22,8 @@ export default function BrowseBooksPage({
   // how many of the current page's 16 are revealed (starts at 8)
   const [visibleInPage, setVisibleInPage] = useState(CHUNK);
 
-  // ── Fetch the full catalog via React Query (cached) ──
-  const {
-    data: books = [],
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["browse", "allBooks"],
-    queryFn: fetchAllBooks,
-    staleTime: 5 * 60 * 1000,
-  });
+  // ── Fetch the full marketplace catalog via React Query (cached) ──
+  const { data: books = [], isLoading, isError } = useStoreBooks();
 
   // ── Debounce the search box (300ms) ──
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -201,45 +173,72 @@ export default function BrowseBooksPage({
           <>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:gap-6">
               {visibleBooks.map((book) => (
-                <div
-                  key={book.id}
+                <Link
+                  key={String(book.id)}
+                  to={`/books/${book.id}`}
                   className="group relative mx-auto flex h-full w-full max-w-[220px] flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:shadow-md"
                 >
                   <div className="relative h-48 w-full overflow-hidden bg-slate-100">
-                    <LazyImage
-                      src={book.image}
-                      alt={book.title}
-                      fallbackGradient={book.coverColor}
-                    />
-                    {book.badge && (
-                      <div
-                        className={`absolute left-2 top-2 z-10 rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm ${
-                          book.badgeColor || "bg-amber-500"
-                        }`}
-                      >
-                        {book.badge}
+                    {book.coverImage ? (
+                      <img
+                        src={book.coverImage}
+                        alt={book.title}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-end bg-gradient-to-br from-amber-500 to-orange-600 p-3">
+                        <p className="text-xs font-bold leading-snug text-white drop-shadow line-clamp-3">
+                          {book.title}
+                        </p>
                       </div>
                     )}
+
+                    {/* Seller count badge */}
+                    {book.sellerCount > 0 && (
+                      <span className="absolute left-2 top-2 z-10 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold text-amber-800 shadow-sm">
+                        <Users className="h-3 w-3" />
+                        {book.sellerCount}
+                      </span>
+                    )}
+
+                    {/* Best price / out-of-stock badge */}
+                    {!book.inStock ? (
+                      <span className="absolute right-2 top-2 z-10 rounded-full bg-slate-700 px-2 py-1 text-[10px] font-bold text-white shadow-sm">
+                        Out of stock
+                      </span>
+                    ) : (
+                      book.bestPrice != null && (
+                        <span className="absolute right-2 top-2 z-10 rounded-full bg-amber-500 px-2 py-1 text-[10px] font-bold text-white shadow-sm">
+                          From {formatCurrency(book.bestPrice)}
+                        </span>
+                      )
+                    )}
                   </div>
+
                   <div className="flex flex-1 flex-col p-4">
                     <h3 className="line-clamp-2 text-sm font-bold text-slate-900 group-hover:text-amber-700">
                       {book.title}
                     </h3>
-                    <p className="mt-1 text-xs text-slate-500">{book.author}</p>
+                    <p className="mt-1 line-clamp-1 text-xs text-slate-500">
+                      {book.author}
+                    </p>
                     <div className="mt-auto pt-3">
-                      <div className="flex items-center gap-2">
+                      {book.inStock && book.bestPrice != null ? (
                         <span className="text-lg font-black text-slate-900">
-                          ₹{book.price}
+                          From {formatCurrency(book.bestPrice)}
                         </span>
-                        {(book.originalPrice || book.oldPrice) && (
-                          <span className="text-xs font-semibold text-slate-400 line-through">
-                            ₹{book.originalPrice || book.oldPrice}
-                          </span>
-                        )}
-                      </div>
+                      ) : (
+                        <span className="text-sm font-bold text-slate-400">
+                          Unavailable
+                        </span>
+                      )}
+                      <span className="mt-1 flex items-center gap-1 text-[11px] font-semibold text-amber-700">
+                        View {book.sellerCount} {book.sellerCount === 1 ? "seller" : "sellers"} →
+                      </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
 

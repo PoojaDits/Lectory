@@ -80,6 +80,12 @@ export interface MarketBook {
   createdBySellerId?: EntityId;
   createdAt: string;
   reviewedAt?: string;
+  // ── display-only enrichment (not part of the spec's data model, but used
+  //    by the storefront to group books into sections) ──
+  categories?: string[];
+  rating?: number;
+  pageCount?: number;
+  publishedDate?: string;
 }
 
 export interface BookInput {
@@ -107,6 +113,18 @@ export interface Listing {
 export interface ListingWithRefs extends Listing {
   book?: MarketBook;
   seller?: Seller;
+}
+
+/**
+ * A book enriched with its seller listings and a few derived display values,
+ * so storefront cards can show "From ₹X" and a seller count without joins.
+ */
+export interface BookWithListings extends MarketBook {
+  listings: (Listing & { seller?: Seller })[];
+  /** Cheapest in-stock listing price (undefined when every listing is OOS). */
+  bestPrice?: number;
+  inStock: boolean;
+  sellerCount: number;
 }
 
 export interface ListingInput {
@@ -139,6 +157,42 @@ export interface CartItemWithRefs extends CartItem {
   book?: MarketBook;
   seller?: Seller;
   listing?: Listing;
+}
+
+/**
+ * A cart line. Per the marketplace spec the customer purchases from a
+ * Seller Listing, so the cart stores the chosen **listing** plus a snapshot
+ * of the book + seller so the cart page renders without extra joins.
+ */
+export interface CartEntry {
+  id: EntityId;
+  cartId: EntityId;
+  /** The seller listing the customer chose. */
+  listingId: EntityId;
+  bookId: EntityId;
+  sellerId: EntityId;
+  quantity: number;
+  /** Snapshot of the unit price at the time it was added. */
+  price: number;
+  // ── display snapshots ──
+  title: string;
+  author: string;
+  coverImage?: string;
+  sellerName: string;
+  createdAt: string;
+}
+
+/** Input used when adding a listing to the cart. */
+export interface CartEntryInput {
+  listingId: EntityId;
+  bookId: EntityId;
+  sellerId: EntityId;
+  price: number;
+  title: string;
+  author: string;
+  coverImage?: string;
+  sellerName: string;
+  quantity?: number;
 }
 
 // ── Orders ──
