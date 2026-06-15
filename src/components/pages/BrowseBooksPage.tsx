@@ -76,16 +76,22 @@ export default function BrowseBooksPage({
 
   const totalPages = Math.max(1, Math.ceil(filteredBooks.length / PAGE_SIZE));
 
-  // Reset to page 1 (and first chunk) whenever the search changes.
-  useEffect(() => {
+  // Reset to page 1 (and the first chunk) whenever the search changes.
+  // We adjust state during render (rather than in an effect) so there is no
+  // stale render and no cascading re-render. See React docs:
+  // https://react.dev/reference/react/useState#storing-information-from-previous-renders
+  const [prevSearchQuery, setPrevSearchQuery] = useState(searchQuery);
+  if (prevSearchQuery !== searchQuery) {
+    setPrevSearchQuery(searchQuery);
     setCurrentPage(1);
     setVisibleInPage(CHUNK);
-  }, [searchQuery]);
+  }
 
-  // Keep currentPage valid if the result set shrinks.
-  useEffect(() => {
-    if (currentPage > totalPages) setCurrentPage(totalPages);
-  }, [currentPage, totalPages]);
+  // Keep currentPage valid if the result set shrinks (also adjusted in render).
+  const safePage = Math.min(currentPage, totalPages);
+  if (safePage !== currentPage) {
+    setCurrentPage(safePage);
+  }
 
   // ── Slice the current page (16), then reveal up to visibleInPage of them ──
   const pageStart = (currentPage - 1) * PAGE_SIZE;

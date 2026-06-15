@@ -19,4 +19,14 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // Reusable UI primitives (shadcn/embla-generated components and
+    // IntersectionObserver/Embla integrations) legitimately export non-component
+    // values and synchronize with external systems inside effects.
+    files: ['src/components/ui/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
 ])

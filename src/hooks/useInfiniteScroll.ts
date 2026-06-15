@@ -25,7 +25,12 @@ export function useInfiniteScroll<T extends HTMLElement = HTMLDivElement>({
   const sentinelRef = useRef<T | null>(null);
   // Keep the latest callback without re-creating the observer each render.
   const onLoadMoreRef = useRef(onLoadMore);
-  onLoadMoreRef.current = onLoadMore;
+
+  // Update the ref inside an effect (never during render) so the observer
+  // always calls the freshest `onLoadMore`.
+  useEffect(() => {
+    onLoadMoreRef.current = onLoadMore;
+  });
 
   useEffect(() => {
     const node = sentinelRef.current;
