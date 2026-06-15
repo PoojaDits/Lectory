@@ -17,9 +17,8 @@ export default function Skeleton({ className }: SkeletonProps) {
   );
 }
 
-// ──────────────────────────────────────────────
-// HeroSkeleton — full-height hero placeholder
-// ──────────────────────────────────────────────
+// HeroSkeleton full-height hero placeholder
+
 export function HeroSkeleton() {
   return (
     <div className="relative w-full h-[70vh] md:h-[85vh] mt-16 md:mt-20 overflow-hidden bg-gray-200 animate-pulse">
@@ -39,9 +38,8 @@ export function HeroSkeleton() {
   );
 }
 
-// ──────────────────────────────────────────────
-// BookCardSkeleton — matches BookCard layout
-// ──────────────────────────────────────────────
+// BookCardSkeleton matches BookCard layout
+
 export function BookCardSkeleton() {
   return (
     <div className="flex flex-col gap-3" aria-hidden="true">

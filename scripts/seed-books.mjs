@@ -1,17 +1,4 @@
-/**
- * Seed real books + multi-seller listings into db.json.
- *
- * Real book metadata (title / author / publisher / ISBN) is curated and
- * accurate. Real cover images are served by Open Library by ISBN
- * (https://covers.openlibrary.org/b/isbn/{ISBN}-L.jpg) — every ISBN below was
- * verified to have a cover image.
- *
- * Each book is given 2–3 seller listings (different sellers, prices, stock)
- * so the marketplace's "multiple sellers per book" rule is demonstrable.
- *
- * Every storefront section (genre) has at least 15 books.
- *
- * Usage:  node scripts/seed-books.mjs
+
  */
 import fs from "fs";
 import path from "path";
@@ -23,16 +10,9 @@ const DB_PATH = path.resolve(__dirname, "../db.json");
 // Open Library cover URL by ISBN (real cover art).
 const cover = (isbn) => `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
 
-/**
- * Curated catalog. `price` is a baseline MRP used to derive per-seller prices.
- * `cat` tags drive the storefront sections. All ISBNs are real and have a
- * confirmed Open Library cover image.
- *
- * A book may belong to multiple categories (e.g. a classic can be both
- * "recommended" and "bestseller").
- */
+
 const CATALOG = [
-  // ═══════════════ BEST SELLERS ═══════════════
+  //BEST SELLERS 
   { isbn: "9781847941831", title: "Atomic Habits", author: "James Clear", publisher: "Random House", price: 449, rating: 4.8, pages: 320, year: "2018", cat: ["bestseller"], desc: "An easy and proven way to build good habits and break bad ones. Tiny changes, remarkable results." },
   { isbn: "9780857197689", title: "The Psychology of Money", author: "Morgan Housel", publisher: "Harriman House", price: 299, rating: 4.7, pages: 256, year: "2020", cat: ["bestseller"], desc: "Timeless lessons on wealth, greed, and happiness. Doing well with money isn't about what you know." },
   { isbn: "9780062316097", title: "Sapiens: A Brief History of Humankind", author: "Yuval Noah Harari", publisher: "Harper", price: 499, rating: 4.6, pages: 464, year: "2014", cat: ["bestseller"], desc: "From a renowned historian comes a groundbreaking narrative of humanity's creation and evolution." },
@@ -49,7 +29,7 @@ const CATALOG = [
   { isbn: "9780141439518", title: "Pride and Prejudice", author: "Jane Austen", publisher: "Penguin Books", price: 229, rating: 4.6, pages: 435, year: "1813", cat: ["recommended", "bestseller"], desc: "The beloved classic about love, class, and the stubborn Elizabeth Bennet and proud Mr. Darcy." },
   { isbn: "9780593334836", title: "Book Lovers", author: "Emily Henry", publisher: "Penguin", price: 339, rating: 4.3, pages: 384, year: "2022", cat: ["recommended", "preorder", "bestseller"], desc: "A witty, sparkling enemies-to-lovers romantic comedy from the bestselling author of Beach Read." },
 
-  // ═══════════════ RECOMMENDED (literary fiction & classics) ═══════════════
+  //RECOMMENDED (literary fiction & classics) 
   { isbn: "9780593318171", title: "Klara and the Sun", author: "Kazuo Ishiguro", publisher: "Knopf", price: 429, rating: 4.1, pages: 320, year: "2021", cat: ["recommended", "bestseller", "preorder"], desc: "The first novel by the Nobel laureate since Never Let Me Go — a new story of what it means to love." },
   { isbn: "9780062315007", title: "The Alchemist", author: "Paulo Coelho", publisher: "HarperCollins", price: 279, rating: 4.5, pages: 208, year: "1993", cat: ["recommended", "bestseller"], desc: "A timeless fable about following your dream. An inspirational classic." },
   { isbn: "9780061120084", title: "To Kill a Mockingbird", author: "Harper Lee", publisher: "Harper Perennial", price: 299, rating: 4.7, pages: 384, year: "1960", cat: ["recommended"], desc: "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it." },

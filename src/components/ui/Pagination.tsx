@@ -5,19 +5,18 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  /** How many numbered buttons to show around the current page. */
+  
   siblingCount?: number;
 }
 
 const DOTS = "...";
 
-/** Build the page list with leading/trailing ellipses, e.g. 1 … 4 5 6 … 12 */
 function getPageRange(
   currentPage: number,
   totalPages: number,
   siblingCount: number
 ): (number | string)[] {
-  const totalNumbers = siblingCount * 2 + 5; // first, last, current, 2 dots
+  const totalNumbers = siblingCount * 2 + 5; 
   if (totalPages <= totalNumbers) {
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
@@ -41,9 +40,6 @@ function getPageRange(
   return pages;
 }
 
-/**
- * Numbered pagination control (1 2 3 4 …) with prev/next arrows.
- */
 export default function Pagination({
   currentPage,
   totalPages,

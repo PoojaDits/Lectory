@@ -342,8 +342,6 @@ export default function BrowseBooksPage({
                 </span>
               </div>
             )}
-
-            {/* Numbered pagination (1 2 3 4 …) — appears once the page is fully revealed */}
             {!hasMoreInPage && (
               <Pagination
                 currentPage={currentPage}

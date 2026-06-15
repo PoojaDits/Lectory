@@ -77,7 +77,7 @@ export default function LoginPage({
 
                 <label className="block">
                   <span className="text-sm font-semibold text-slate-700">
-                    Password / Mobile Number
+                    Password
                   </span>
                   <Field
                     type="password"

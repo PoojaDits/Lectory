@@ -10,12 +10,20 @@ import RegistrationPage from "@/components/auth/RegistrationPage";
 import LoginPage from "@/components/auth/LoginPage";
 
 // Dashboards / pages
-import AdminDashboard from "@/components/dashboard/AdminDashboard";
 import SellerDashboard from "@/components/dashboard/SellerDashboard";
 import CustomerAccount from "@/components/dashboard/CustomerAccount";
 import BrowseBooksPage from "@/components/pages/BrowseBooksPage";
 import BookDetailsPage from "@/components/pages/BookDetailsPage";
 import CartPage from "@/components/pages/CartPage";
+
+// Admin portal
+import AdminShell from "@/components/admin/AdminShell";
+import AdminOverview from "@/components/admin/AdminOverview";
+import SellerApprovalPage from "@/components/admin/SellerApprovalPage";
+import BookApprovalPage from "@/components/admin/BookApprovalPage";
+import CatalogManagementPage from "@/components/admin/CatalogManagementPage";
+import CustomerManagementPage from "@/components/admin/CustomerManagementPage";
+import OrderManagementPage from "@/components/admin/OrderManagementPage";
 
 // Routing
 import ProtectedRoute from "@/components/routing/ProtectedRoute";
@@ -119,15 +127,22 @@ export default function App() {
           }
         />
 
-        {/* Admin area */}
+        {/* Admin area — multi-page portal */}
         <Route
           path="/admin"
           element={
             <ProtectedRoute allow={["admin"]}>
-              <AdminDashboard onNavigateHome={goHome} onLogin={goLogin} />
+              <AdminShell onNavigateHome={goHome} onLogin={goLogin} />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<AdminOverview />} />
+          <Route path="sellers" element={<SellerApprovalPage />} />
+          <Route path="books" element={<BookApprovalPage />} />
+          <Route path="catalog" element={<CatalogManagementPage />} />
+          <Route path="customers" element={<CustomerManagementPage />} />
+          <Route path="orders" element={<OrderManagementPage />} />
+        </Route>
 
         <Route path="*" element={<HomePage />} />
       </Routes>

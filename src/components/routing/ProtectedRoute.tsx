@@ -5,15 +5,8 @@ import type { UserRole } from "@/types";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  /** Roles allowed to access this route. Empty = any authenticated user. */
   allow?: UserRole[];
 }
-
-/**
- * Role-based access guard.
- * - Redirects unauthenticated users to /login.
- * - Redirects authenticated users without the right role to their own area.
- */
 export default function ProtectedRoute({
   children,
   allow = [],
@@ -25,9 +18,6 @@ export default function ProtectedRoute({
     notify.warning("Please log in to continue.");
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-
-  // While impersonating, `currentUser` is already the impersonated user
-  // (customer/seller), so the normal role check below applies correctly.
   if (allow.length > 0 && !allow.includes(currentUser.role)) {
     notify.error("You don't have permission to access that page.");
     const home =
