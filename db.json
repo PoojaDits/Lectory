@@ -874,83 +874,529 @@
   ],
   "books": [
     {
-      "id": "1",
+      "id": 1,
       "isbn": "9781847941831",
       "title": "Atomic Habits",
       "author": "James Clear",
       "publisher": "Random House",
-      "description": "An easy & proven way to build good habits and break bad ones. Tiny changes, remarkable results.",
-      "coverImage": "https://images.pexels.com/photos/1741230/pexels-photo-1741230.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "description": "An easy and proven way to build good habits and break bad ones. Tiny changes, remarkable results.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg",
       "status": "Approved",
-      "createdBySellerId": 1,
-      "createdAt": "2026-06-05T09:00:00.000Z"
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.8,
+      "pageCount": 320,
+      "publishedDate": "2018"
     },
     {
-      "id": "2",
-      "isbn": "9780525559474",
-      "title": "The Midnight Library",
-      "author": "Matt Haig",
-      "publisher": "Canongate Books",
-      "description": "Between life and death there is a library, and within that library, the shelves go on forever.",
-      "coverImage": "https://images.pexels.com/photos/2099691/pexels-photo-2099691.jpeg?auto=compress&cs=tinysrgb&w=400",
-      "status": "Approved",
-      "createdBySellerId": 1,
-      "createdAt": "2026-06-05T10:00:00.000Z"
-    },
-    {
-      "id": "3",
-      "isbn": "9780062316097",
-      "title": "Sapiens: A Brief History of Humankind",
-      "author": "Yuval Noah Harari",
-      "publisher": "Harper",
-      "description": "A brief history of humankind exploring how Homo sapiens came to dominate the world.",
-      "coverImage": "https://images.pexels.com/photos/590493/pexels-photo-590493.jpeg?auto=compress&cs=tinysrgb&w=400",
-      "status": "Approved",
-      "createdBySellerId": 1,
-      "createdAt": "2026-06-05T11:00:00.000Z"
-    },
-    {
-      "id": "4",
-      "isbn": "9780593135204",
-      "title": "Project Hail Mary",
-      "author": "Andy Weir",
-      "publisher": "Ballantine Books",
-      "description": "A lone astronaut must save the earth from disaster in this cinematic thriller.",
-      "coverImage": "https://images.pexels.com/photos/3747505/pexels-photo-3747505.jpeg?auto=compress&cs=tinysrgb&w=400",
-      "status": "Approved",
-      "createdBySellerId": 1,
-      "createdAt": "2026-06-06T09:00:00.000Z"
-    },
-    {
-      "id": "5",
-      "isbn": "9780349121819",
-      "title": "Where the Crawdads Sing",
-      "author": "Delia Owens",
-      "publisher": "Corsair",
-      "description": "A coming-of-age murder mystery set in the marshes of North Carolina.",
-      "coverImage": "https://images.pexels.com/photos/1130980/pexels-photo-1130980.jpeg?auto=compress&cs=tinysrgb&w=400",
-      "status": "Approved",
-      "createdBySellerId": 1,
-      "createdAt": "2026-06-06T10:00:00.000Z"
-    },
-    {
-      "id": "6",
+      "id": 2,
       "isbn": "9780857197689",
       "title": "The Psychology of Money",
       "author": "Morgan Housel",
       "publisher": "Harriman House",
-      "description": "Timeless lessons on wealth, greed, and happiness.",
-      "coverImage": "https://images.pexels.com/photos/4170629/pexels-photo-4170629.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "description": "Timeless lessons on wealth, greed, and happiness. Doing well with money isn't about what you know.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780857197689-L.jpg",
       "status": "Approved",
-      "createdBySellerId": 1,
-      "createdAt": "2026-06-07T09:00:00.000Z",
-      "reviewedAt": "2026-06-15T05:50:22.403Z"
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.7,
+      "pageCount": 256,
+      "publishedDate": "2020"
+    },
+    {
+      "id": 3,
+      "isbn": "9780062316097",
+      "title": "Sapiens: A Brief History of Humankind",
+      "author": "Yuval Noah Harari",
+      "publisher": "Harper",
+      "description": "From a renowned historian comes a groundbreaking narrative of humanity's creation and evolution.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.6,
+      "pageCount": 464,
+      "publishedDate": "2014"
+    },
+    {
+      "id": 4,
+      "isbn": "9780525559474",
+      "title": "The Midnight Library",
+      "author": "Matt Haig",
+      "publisher": "Viking",
+      "description": "Between life and death there is a library, and within that library, the shelves go on forever.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780525559474-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.3,
+      "pageCount": 304,
+      "publishedDate": "2020"
+    },
+    {
+      "id": 5,
+      "isbn": "9780735219090",
+      "title": "Where the Crawdads Sing",
+      "author": "Delia Owens",
+      "publisher": "G.P. Putnam's Sons",
+      "description": "A coming-of-age mystery set in the marshes of North Carolina. A #1 New York Times bestseller.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780735219090-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.6,
+      "pageCount": 384,
+      "publishedDate": "2018"
+    },
+    {
+      "id": 6,
+      "isbn": "9781250301697",
+      "title": "The Silent Patient",
+      "author": "Alex Michaelides",
+      "publisher": "Celadon Books",
+      "description": "A shocking psychological thriller of a woman's act of violence against her husband.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9781250301697-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.4,
+      "pageCount": 336,
+      "publishedDate": "2019"
+    },
+    {
+      "id": 7,
+      "isbn": "9780593135204",
+      "title": "Project Hail Mary",
+      "author": "Andy Weir",
+      "publisher": "Ballantine Books",
+      "description": "From the bestselling author of The Martian comes a lone astronaut must save the earth from disaster.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780593135204-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "preorder"
+      ],
+      "rating": 4.7,
+      "pageCount": 496,
+      "publishedDate": "2021"
+    },
+    {
+      "id": 8,
+      "isbn": "9780307277671",
+      "title": "The Da Vinci Code",
+      "author": "Dan Brown",
+      "publisher": "Anchor Books",
+      "description": "A murder in the Louvre reveals a sinister plot to uncover a secret that has been protected since the days of Christ.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780307277671-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.2,
+      "pageCount": 489,
+      "publishedDate": "2003"
+    },
+    {
+      "id": 9,
+      "isbn": "9780593318171",
+      "title": "Klara and the Sun",
+      "author": "Kazuo Ishiguro",
+      "publisher": "Knopf",
+      "description": "The first novel by the Nobel laureate since Never Let Me Go — a thrilling new story of what it means to love.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780593318171-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended",
+        "bestseller",
+        "preorder"
+      ],
+      "rating": 4.1,
+      "pageCount": 320,
+      "publishedDate": "2021"
+    },
+    {
+      "id": 10,
+      "isbn": "9780062315007",
+      "title": "The Alchemist",
+      "author": "Paulo Coelho",
+      "publisher": "HarperCollins",
+      "description": "A timeless fable about following your dream. An inspirational classic.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended",
+        "bestseller"
+      ],
+      "rating": 4.5,
+      "pageCount": 208,
+      "publishedDate": "1993"
+    },
+    {
+      "id": 11,
+      "isbn": "9780061120084",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "publisher": "Harper Perennial",
+      "description": "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780061120084-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.7,
+      "pageCount": 384,
+      "publishedDate": "1960"
+    },
+    {
+      "id": 12,
+      "isbn": "9780547928227",
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "publisher": "Mariner Books",
+      "description": "The fantasy classic that introduced Bilbo Baggins, Gandalf, and the One Ring.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780547928227-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.8,
+      "pageCount": 320,
+      "publishedDate": "1937"
+    },
+    {
+      "id": 13,
+      "isbn": "9780743273565",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "publisher": "Scribner",
+      "description": "The authentic edition of the timeless masterpiece about the dark side of the American Dream.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780743273565-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.3,
+      "pageCount": 180,
+      "publishedDate": "1925"
+    },
+    {
+      "id": 14,
+      "isbn": "9780316769488",
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "publisher": "Little, Brown",
+      "description": "The hero-narrator's voice of an adolescent at odds with the world, in a modern classic.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780316769488-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.2,
+      "pageCount": 288,
+      "publishedDate": "1951"
+    },
+    {
+      "id": 15,
+      "isbn": "9781594633669",
+      "title": "The Girl on the Train",
+      "author": "Paula Hawkins",
+      "publisher": "Riverhead",
+      "description": "A psychological thriller that follows the intertwined lives of three women.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9781594633669-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended",
+        "preorder"
+      ],
+      "rating": 4.1,
+      "pageCount": 336,
+      "publishedDate": "2015"
+    },
+    {
+      "id": 16,
+      "isbn": "9781984822178",
+      "title": "Normal People",
+      "author": "Sally Rooney",
+      "publisher": "Hogarth",
+      "description": "A story of mutual fascination, friendship and a complex, enduring first love.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9781984822178-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4,
+      "pageCount": 288,
+      "publishedDate": "2018"
+    },
+    {
+      "id": 17,
+      "isbn": "9780374257835",
+      "title": "Artificial Intelligence: A Guide for Thinking Humans",
+      "author": "Melanie Mitchell",
+      "publisher": "Farrar, Straus and Giroux",
+      "description": "A penetrating assessment of what AI can and cannot do, from a leading computer scientist.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780374257835-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "ai"
+      ],
+      "rating": 4.5,
+      "pageCount": 352,
+      "publishedDate": "2019"
+    },
+    {
+      "id": 18,
+      "isbn": "9780198739838",
+      "title": "Superintelligence: Paths, Dangers, Strategies",
+      "author": "Nick Bostrom",
+      "publisher": "Oxford University Press",
+      "description": "A foundational analysis of the future of machine intelligence and the existential questions it raises.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780198739838-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "ai"
+      ],
+      "rating": 4.3,
+      "pageCount": 390,
+      "publishedDate": "2014"
+    },
+    {
+      "id": 19,
+      "isbn": "9780262533058",
+      "title": "Introduction to Algorithms",
+      "author": "Thomas H. Cormen et al.",
+      "publisher": "The MIT Press",
+      "description": "The widely used CLRS textbook covering a broad range of algorithms in depth, with rigor and clarity.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780262533058-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "ai"
+      ],
+      "rating": 4.7,
+      "pageCount": 1312,
+      "publishedDate": "2009"
+    },
+    {
+      "id": 20,
+      "isbn": "9780930289232",
+      "title": "Watchmen",
+      "author": "Alan Moore",
+      "publisher": "DC Comics",
+      "description": "A graphic novel masterpiece that redefined the superhero genre for a generation.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780930289232-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "manga"
+      ],
+      "rating": 4.6,
+      "pageCount": 416,
+      "publishedDate": "1986"
+    },
+    {
+      "id": 21,
+      "isbn": "9781607066019",
+      "title": "Saga, Vol. 1",
+      "author": "Brian K. Vaughan",
+      "publisher": "Image Comics",
+      "description": "An epic space opera/fantasy from the award-winning creators of Y: The Last Man.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9781607066019-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "manga",
+        "preorder"
+      ],
+      "rating": 4.7,
+      "pageCount": 160,
+      "publishedDate": "2012"
+    },
+    {
+      "id": 22,
+      "isbn": "9780394747231",
+      "title": "Maus I: A Survivor's Tale",
+      "author": "Art Spiegelman",
+      "publisher": "Pantheon",
+      "description": "The Pulitzer Prize-winning graphic novel about the Holocaust, told with Jews as mice and Nazis as cats.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780394747231-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "manga"
+      ],
+      "rating": 4.8,
+      "pageCount": 160,
+      "publishedDate": "1986"
+    },
+    {
+      "id": 23,
+      "isbn": "9780375714573",
+      "title": "Persepolis",
+      "author": "Marjane Satrapi",
+      "publisher": "Pantheon",
+      "description": "A memoir-in-comics of growing up during the Iranian Revolution.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780375714573-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "manga"
+      ],
+      "rating": 4.6,
+      "pageCount": 160,
+      "publishedDate": "2003"
+    },
+    {
+      "id": 24,
+      "isbn": "9781582406725",
+      "title": "The Walking Dead, Vol. 1: Days Gone Bye",
+      "author": "Robert Kirkman",
+      "publisher": "Image Comics",
+      "description": "The beginning of the acclaimed zombie survival epic.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9781582406725-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "manga"
+      ],
+      "rating": 4.5,
+      "pageCount": 144,
+      "publishedDate": "2006"
     }
   ],
   "listings": [
     {
-      "id": "1",
+      "id": 1,
       "bookId": 1,
+      "sellerId": 1,
+      "price": 449,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "bookId": 1,
+      "sellerId": 2,
+      "price": 409,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "bookId": 1,
+      "sellerId": 3,
+      "price": 409,
+      "stock": 20,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "bookId": 2,
+      "sellerId": 1,
+      "price": 299,
+      "stock": 11,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "bookId": 2,
+      "sellerId": 2,
+      "price": 259,
+      "stock": 18,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "bookId": 2,
+      "sellerId": 3,
+      "price": 259,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "bookId": 3,
+      "sellerId": 1,
+      "price": 499,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "bookId": 3,
+      "sellerId": 2,
+      "price": 559,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 9,
+      "bookId": 3,
+      "sellerId": 3,
+      "price": 559,
+      "stock": 11,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "bookId": 4,
       "sellerId": 1,
       "price": 399,
       "stock": 10,
@@ -958,67 +1404,463 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "2",
-      "bookId": 2,
-      "sellerId": 1,
-      "price": 399,
-      "stock": 25,
-      "active": true,
-      "createdAt": "2026-06-08T09:30:00.000Z"
-    },
-    {
-      "id": "3",
-      "bookId": 3,
-      "sellerId": 1,
-      "price": 549,
-      "stock": 12,
-      "active": true,
-      "createdAt": "2026-06-08T10:00:00.000Z"
-    },
-    {
-      "id": "4",
+      "id": 11,
       "bookId": 4,
-      "sellerId": 1,
-      "price": 429,
-      "stock": 8,
+      "sellerId": 2,
+      "price": 439,
+      "stock": 7,
       "active": true,
-      "createdAt": "2026-06-08T10:30:00.000Z"
+      "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "5",
+      "id": 12,
+      "bookId": 4,
+      "sellerId": 3,
+      "price": 439,
+      "stock": 15,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 13,
       "bookId": 5,
       "sellerId": 1,
       "price": 359,
+      "stock": 9,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 14,
+      "bookId": 5,
+      "sellerId": 2,
+      "price": 359,
+      "stock": 16,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 15,
+      "bookId": 6,
+      "sellerId": 1,
+      "price": 329,
+      "stock": 16,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 16,
+      "bookId": 6,
+      "sellerId": 2,
+      "price": 279,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 17,
+      "bookId": 7,
+      "sellerId": 1,
+      "price": 479,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 18,
+      "bookId": 7,
+      "sellerId": 2,
+      "price": 469,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 19,
+      "bookId": 8,
+      "sellerId": 1,
+      "price": 349,
+      "stock": 16,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 20,
+      "bookId": 8,
+      "sellerId": 2,
+      "price": 329,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 21,
+      "bookId": 9,
+      "sellerId": 1,
+      "price": 429,
+      "stock": 15,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 22,
+      "bookId": 9,
+      "sellerId": 2,
+      "price": 469,
       "stock": 0,
       "active": true,
-      "createdAt": "2026-06-08T11:00:00.000Z"
+      "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "6",
-      "bookId": 1,
-      "sellerId": 3,
-      "price": 380,
-      "stock": 5,
+      "id": 23,
+      "bookId": 10,
+      "sellerId": 1,
+      "price": 279,
+      "stock": 18,
       "active": true,
-      "createdAt": "2026-06-08T12:00:00.000Z"
+      "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "7",
-      "bookId": 3,
+      "id": 24,
+      "bookId": 10,
+      "sellerId": 2,
+      "price": 299,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 25,
+      "bookId": 11,
+      "sellerId": 1,
+      "price": 299,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 26,
+      "bookId": 11,
+      "sellerId": 2,
+      "price": 289,
+      "stock": 18,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 27,
+      "bookId": 11,
       "sellerId": 3,
-      "price": 529,
+      "price": 289,
       "stock": 6,
       "active": true,
-      "createdAt": "2026-06-08T12:30:00.000Z"
+      "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "8",
-      "bookId": 4,
+      "id": 28,
+      "bookId": 12,
+      "sellerId": 1,
+      "price": 399,
+      "stock": 16,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 29,
+      "bookId": 12,
+      "sellerId": 2,
+      "price": 409,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 30,
+      "bookId": 13,
+      "sellerId": 1,
+      "price": 249,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 31,
+      "bookId": 13,
+      "sellerId": 2,
+      "price": 239,
+      "stock": 19,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 32,
+      "bookId": 13,
       "sellerId": 3,
-      "price": 415,
+      "price": 239,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 33,
+      "bookId": 14,
+      "sellerId": 1,
+      "price": 289,
+      "stock": 9,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 34,
+      "bookId": 14,
+      "sellerId": 2,
+      "price": 289,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 35,
+      "bookId": 14,
+      "sellerId": 3,
+      "price": 289,
       "stock": 14,
       "active": true,
-      "createdAt": "2026-06-08T13:00:00.000Z"
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 36,
+      "bookId": 15,
+      "sellerId": 1,
+      "price": 319,
+      "stock": 18,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 37,
+      "bookId": 15,
+      "sellerId": 2,
+      "price": 319,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 38,
+      "bookId": 16,
+      "sellerId": 1,
+      "price": 309,
+      "stock": 11,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 39,
+      "bookId": 16,
+      "sellerId": 2,
+      "price": 339,
+      "stock": 8,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 40,
+      "bookId": 16,
+      "sellerId": 3,
+      "price": 339,
+      "stock": 16,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 41,
+      "bookId": 17,
+      "sellerId": 1,
+      "price": 459,
+      "stock": 17,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 42,
+      "bookId": 17,
+      "sellerId": 2,
+      "price": 489,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 43,
+      "bookId": 18,
+      "sellerId": 1,
+      "price": 529,
+      "stock": 17,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 44,
+      "bookId": 18,
+      "sellerId": 2,
+      "price": 609,
+      "stock": 14,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 45,
+      "bookId": 18,
+      "sellerId": 3,
+      "price": 609,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 46,
+      "bookId": 19,
+      "sellerId": 1,
+      "price": 1499,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 47,
+      "bookId": 19,
+      "sellerId": 2,
+      "price": 1539,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 48,
+      "bookId": 20,
+      "sellerId": 1,
+      "price": 699,
+      "stock": 20,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 49,
+      "bookId": 20,
+      "sellerId": 2,
+      "price": 769,
+      "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 50,
+      "bookId": 21,
+      "sellerId": 1,
+      "price": 379,
+      "stock": 19,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 51,
+      "bookId": 21,
+      "sellerId": 2,
+      "price": 439,
+      "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 52,
+      "bookId": 21,
+      "sellerId": 3,
+      "price": 439,
+      "stock": 14,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 53,
+      "bookId": 22,
+      "sellerId": 1,
+      "price": 549,
+      "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 54,
+      "bookId": 22,
+      "sellerId": 2,
+      "price": 559,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 55,
+      "bookId": 22,
+      "sellerId": 3,
+      "price": 559,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 56,
+      "bookId": 23,
+      "sellerId": 1,
+      "price": 419,
+      "stock": 11,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 57,
+      "bookId": 23,
+      "sellerId": 2,
+      "price": 369,
+      "stock": 19,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 58,
+      "bookId": 23,
+      "sellerId": 3,
+      "price": 369,
+      "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 59,
+      "bookId": 24,
+      "sellerId": 1,
+      "price": 349,
+      "stock": 8,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 60,
+      "bookId": 24,
+      "sellerId": 2,
+      "price": 359,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 61,
+      "bookId": 24,
+      "sellerId": 3,
+      "price": 359,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
     }
   ],
   "carts": [
@@ -1031,41 +1873,7 @@
       "id": "L9R73FYFYlk"
     }
   ],
-  "cartItems": [
-    {
-      "cartId": "L9R73FYFYlk",
-      "bookId": "102",
-      "quantity": 2,
-      "price": 239,
-      "title": "The Housemaid's Wedding",
-      "author": "Freida McFadden",
-      "image": "https://images.pexels.com/photos/1907785/pexels-photo-1907785.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
-      "createdAt": "2026-06-15T06:40:20.251Z",
-      "id": "RaRRBW9v350"
-    },
-    {
-      "cartId": "L9R73FYFYlk",
-      "bookId": "202",
-      "quantity": 1,
-      "price": 479,
-      "title": "Atomic Habits",
-      "author": "James Clear",
-      "image": "https://images.pexels.com/photos/33324725/pexels-photo-33324725.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
-      "createdAt": "2026-06-15T06:47:43.162Z",
-      "id": "Dsskq4aAYlE"
-    },
-    {
-      "cartId": "L9R73FYFYlk",
-      "bookId": "203",
-      "quantity": 1,
-      "price": 499,
-      "title": "Sapiens",
-      "author": "Yuval Noah Harari",
-      "image": "https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340",
-      "createdAt": "2026-06-15T06:47:46.401Z",
-      "id": "VDrRvE2Jlek"
-    }
-  ],
+  "cartItems": [],
   "orders": [],
   "orderItems": [],
   "categories": [
