@@ -62,10 +62,15 @@ export function useImpersonation() {
       }
 
       try {
-        impersonate(user);
-        const label = user.name ?? user.email;
-        notify.success(`Now viewing as ${label}.`);
+        // IMPORTANT: navigate FIRST, then flip the user. React 19 batches
+        // Zustand updates and React-Router location updates together, so
+        // by the time ProtectedRoute re-evaluates the URL is already the
+        // impersonated user's home and the role check passes. Doing this
+        // in the opposite order briefly renders the new role against the
+        // still-admin URL, which fires the "permission denied" toast.
         navigate(user.role === "seller" ? "/seller" : "/account");
+        impersonate(user);
+        notify.success(`Now viewing as ${user.name ?? user.email}.`);
       } catch (err) {
         notify.error(getErrorMessage(err));
       }

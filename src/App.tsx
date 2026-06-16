@@ -1,4 +1,5 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // Layout
 import Navbar from "@/components/layout/Navbar";
@@ -27,6 +28,9 @@ import OrderManagementPage from "@/components/admin/OrderManagementPage";
 
 // Routing
 import ProtectedRoute from "@/components/routing/ProtectedRoute";
+
+// Store
+import { useAuthStore } from "@/stores/useAuthStore";
 
 // Home sections
 import HeroSlider from "@/components/sections/HeroSlider";
@@ -62,6 +66,18 @@ function HomePage() {
 
 export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Clear the impersonation-transition flag once the navigation that
+  // the impersonation action triggered has actually landed. The flag
+  // is set by impersonate()/stopImpersonating() and read by
+  // ProtectedRoute to suppress its "permission denied" toast across
+  // every intermediate render until the URL change commits.
+  useEffect(() => {
+    if (useAuthStore.getState().isRoleTransitioning) {
+      useAuthStore.getState().endRoleTransition();
+    }
+  }, [location.pathname]);
 
   const goHome = () => navigate("/");
   const goLogin = () => navigate("/login");

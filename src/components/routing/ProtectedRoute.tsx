@@ -12,6 +12,8 @@ export default function ProtectedRoute({
   allow = [],
 }: ProtectedRouteProps) {
   const currentUser = useAuthStore((s) => s.currentUser);
+  const impersonator = useAuthStore((s) => s.impersonator);
+  const isRoleTransitioning = useAuthStore((s) => s.isRoleTransitioning);
   const location = useLocation();
 
   if (!currentUser) {
@@ -19,7 +21,18 @@ export default function ProtectedRoute({
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   if (allow.length > 0 && !allow.includes(currentUser.role)) {
-    notify.error("You don't have permission to access that page.");
+    // Suppress the "permission denied" toast while the auth store
+    // signals an in-flight impersonation transition. Both entering and
+    // exiting impersonation flip currentUser.role, which can briefly
+    // mismatch the still-changing URL across one or more renders until
+    // React Router finishes committing the navigation. The toast should
+    // only appear for genuine, user-initiated access attempts — not for
+    // the transitions we ourselves are orchestrating.
+    const isTransitioning =
+      isRoleTransitioning || Boolean(impersonator);
+    if (!isTransitioning) {
+      notify.error("You don't have permission to access that page.");
+    }
     const home =
       currentUser.role === "admin"
         ? "/admin"

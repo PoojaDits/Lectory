@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { flushSync } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -121,9 +122,14 @@ export default function AdminDashboard({
   );
 
   const handleImpersonate = (user: AuthUser) => {
-    impersonate(user);
+    // Flush URL change + role change in a single render so ProtectedRoute
+    // never evaluates the still-admin URL with the new seller/customer
+    // role. See useImpersonation for the full explanation.
+    flushSync(() => {
+      navigate(user.role === "seller" ? "/seller" : "/account");
+      impersonate(user);
+    });
     notify.success(`Now viewing as ${user.name ?? user.email}.`);
-    navigate(user.role === "seller" ? "/seller" : "/account");
   };
 
   const handleLogout = () => {

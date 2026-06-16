@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ShieldAlert, LogOut } from "lucide-react";
+import { flushSync } from "react-dom";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { notify } from "@/lib/toast";
 
@@ -17,9 +18,18 @@ export default function ImpersonationBanner() {
   if (!isImpersonating || !currentUser) return null;
 
   const handleExit = () => {
-    stopImpersonating();
+    // Flush the URL change AND the role change in a single render so
+    // ProtectedRoute never sees the intermediate state where the new
+    // admin role is evaluated against the still-impersonated /seller
+    // (or /account) URL — which would fire the "permission denied"
+    // toast. flushSync guarantees both updates commit together even if
+    // React's automatic batching didn't already cover the external
+    // Zustand update.
+    flushSync(() => {
+      navigate("/admin");
+      stopImpersonating();
+    });
     notify.info("Returned to your admin account.");
-    navigate("/admin");
   };
 
   return (
