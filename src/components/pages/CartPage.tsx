@@ -16,7 +16,6 @@ import {
   useRemoveFromCart,
   useUpdateCartQuantity,
 } from "@/hooks/useCart";
-import { notify } from "@/lib/toast";
 import { formatCurrency } from "@/utils/helpers";
 
 interface CartPageProps {
@@ -35,14 +34,6 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
   if (!currentUser || currentUser.role !== "customer") {
     return null;
   }
-
-  const handleCheckout = () => {
-    if (entries.length === 0) return;
-    // Checkout/payment integration lives elsewhere; for now this simulates a
-    // successful order and clears the cart.
-    notify.success("Order placed! Thank you for shopping with us. 🎉");
-    clearCart.mutate();
-  };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-20 pt-24">
@@ -240,16 +231,14 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                 </span>
               </div>
 
-              <button
-                type="button"
-                onClick={handleCheckout}
-                disabled={clearCart.isPending}
-                className="mt-6 w-full rounded-full bg-amber-900 px-6 py-3 font-bold text-white shadow-sm transition hover:bg-amber-800 disabled:opacity-60"
+              <Link
+                to="/checkout"
+                className="mt-6 flex items-center justify-center w-full rounded-full bg-amber-900 px-6 py-3.5 font-black text-white shadow-lg shadow-amber-900/20 transition hover:bg-amber-800"
               >
-                {clearCart.isPending ? "Processing…" : "Proceed to Checkout"}
-              </button>
+                Proceed to Secure Checkout
+              </Link>
               <p className="mt-3 text-center text-xs text-slate-400">
-                Demo checkout — clears the cart on success.
+                Allows address selection and order placement.
               </p>
             </aside>
           </div>

@@ -207,6 +207,7 @@ export interface Order {
   total: number;
   createdAt: string;
   updatedAt?: string;
+  items?: OrderItem[];
 }
 
 export interface OrderItem {
@@ -218,6 +219,9 @@ export interface OrderItem {
   quantity: number;
   price: number;
   titleSnapshot: string;
+  coverImageSnapshot?: string;
+  authorSnapshot?: string;
+  sellerNameSnapshot?: string;
 }
 
 export interface OrderWithItems extends Order {
@@ -245,6 +249,19 @@ export interface Paginated<T> {
   totalPages: number;
 }
 
+export interface Address {
+  id: string;
+  fullName: string;
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  phone: string;
+  isDefault?: boolean;
+  label?: string; // e.g. "Home", "Work", etc.
+}
+
 export interface Customer {
   id?: EntityId;
   firstName: string;
@@ -252,6 +269,9 @@ export interface Customer {
   email: string;
   role: "customer";
   createdAt: string;
+  phone?: string;
+  addresses?: Address[];
+  avatar?: string;
 }
 
 export interface Seller {
@@ -297,6 +317,12 @@ export interface AuthUser {
   email: string;
   role: UserRole;
   name?: string;
+  // Customer-specific
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  addresses?: Address[];
+  avatar?: string;
   // Seller-specific (present when role === "seller")
   businessName?: string;
   contactPerson?: string;

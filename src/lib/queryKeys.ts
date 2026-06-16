@@ -41,6 +41,7 @@ export const queryKeys = {
   },
   customers: {
     all: ["customers"] as const,
+    detail: (id: string | number) => ["customers", "detail", String(id)] as const,
   },
   admin: {
     dashboard: ["admin", "dashboard"] as const,

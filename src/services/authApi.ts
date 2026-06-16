@@ -28,6 +28,11 @@ const toCustomerUser = (u: UserRecord, c: Customer): AuthUser => ({
   email: u.email,
   role: "customer",
   name: `${c.firstName} ${c.lastName}`.trim(),
+  firstName: c.firstName,
+  lastName: c.lastName,
+  phone: c.phone,
+  addresses: c.addresses ?? [],
+  avatar: c.avatar,
   createdAt: c.createdAt,
 });
 

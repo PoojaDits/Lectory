@@ -1,17 +1,27 @@
-import { Link } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
-  BookOpen,
-  LogOut,
-  Mail,
+  LayoutDashboard,
   Package,
-  ShieldCheck,
-  ShoppingBag,
-  ShoppingCart,
+  MapPin,
+  Settings,
+  LogOut,
   UserCircle,
+  Loader2,
 } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { formatDate } from "@/utils/helpers";
+import {
+  useCustomerProfile,
+  useCustomerOrders,
+  useUpdateCustomerProfile,
+} from "@/hooks/useCustomer";
+import { useCart } from "@/hooks/useCart";
+
+// Sub-tabs
+import CustomerOverviewTab from "@/components/customer/CustomerOverviewTab";
+import CustomerOrdersTab from "@/components/customer/CustomerOrdersTab";
+import CustomerAddressesTab from "@/components/customer/CustomerAddressesTab";
+import CustomerSettingsTab from "@/components/customer/CustomerSettingsTab";
 
 interface CustomerAccountProps {
   onNavigateHome: () => void;
@@ -25,6 +35,17 @@ export default function CustomerAccount({
   const currentUser = useAuthStore((s) => s.currentUser);
   const logout = useAuthStore((s) => s.logout);
   const isImpersonating = useAuthStore((s) => s.isImpersonating);
+  const location = useLocation();
+
+  // Fresh backend queries
+  const { data: customerProfile, isLoading: isCustomerLoading } = useCustomerProfile(
+    currentUser?.id
+  );
+  const { data: customerOrders = [], isLoading: isOrdersLoading } = useCustomerOrders(
+    currentUser?.id
+  );
+  const updateProfile = useUpdateCustomerProfile();
+  const { count: cartCount } = useCart();
 
   const handleLogout = () => {
     logout();
@@ -41,7 +62,7 @@ export default function CustomerAccount({
             Customer login required
           </h1>
           <p className="mt-2 text-slate-500">
-            Please log in as a customer to view your account.
+            Please log in as a customer to view your account dashboard.
           </p>
           <button
             type="button"
@@ -55,15 +76,25 @@ export default function CustomerAccount({
     );
   }
 
+  // Determine active nav
+  const subPath = location.pathname.replace("/account", "").replace(/^\//, "") || "";
+
+  const TABS = [
+    { id: "", label: "Overview", icon: LayoutDashboard, exact: true },
+    { id: "orders", label: "My Orders", icon: Package, badge: customerOrders.length },
+    { id: "addresses", label: "My Addresses", icon: MapPin, badge: customerProfile?.addresses?.length },
+    { id: "settings", label: "Account Settings", icon: Settings },
+  ];
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-16 pt-24">
-      <div className="mx-auto max-w-5xl">
+    <main className="min-h-screen bg-gradient-to-br from-amber-50/70 via-white to-orange-50/60 px-4 pb-20 pt-24">
+      <div className="mx-auto max-w-6xl">
         {/* Top bar */}
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <button
             type="button"
             onClick={onNavigateHome}
-            className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-bold text-amber-900 shadow-sm transition hover:bg-amber-50"
+            className="inline-flex items-center gap-2 rounded-full border border-amber-200/80 bg-white px-5 py-2.5 text-sm font-black text-amber-900 shadow-sm transition hover:bg-amber-50/80 hover:scale-105"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to store
@@ -72,148 +103,122 @@ export default function CustomerAccount({
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-800"
+              className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-black text-white transition hover:bg-slate-800 shadow-md"
             >
-              <LogOut className="h-4 w-4" />
+              <LogOut className="h-4 w-4 text-amber-400" />
               Logout
             </button>
           )}
         </div>
 
-        {/* Header */}
-        <section className="overflow-hidden rounded-[2rem] border border-amber-100 bg-white shadow-2xl shadow-amber-100">
-          <div className="bg-gradient-to-r from-amber-900 to-orange-800 p-8 text-white md:p-10">
-            <p className="text-xs font-bold uppercase tracking-widest text-amber-100">
-              Customer Dashboard
-            </p>
-            <h1 className="mt-2 text-3xl font-black tracking-tight md:text-4xl">
-              Welcome, {currentUser.name}
-            </h1>
-            <p className="mt-2 max-w-2xl text-white/75">
-              Browse the marketplace, manage your cart, and track your orders.
-            </p>
+        {/* Loading state */}
+        {(isCustomerLoading || isOrdersLoading) && !customerProfile ? (
+          <div className="flex flex-col items-center justify-center py-32 text-slate-400">
+            <Loader2 className="h-10 w-10 animate-spin text-amber-700" />
+            <p className="mt-4 font-bold text-slate-600">Loading your impressive profile dashboard…</p>
           </div>
-
-          {/* Profile cards */}
-          <div className="grid gap-5 p-6 md:grid-cols-3 md:p-8">
-            <InfoCard
-              icon={Mail}
-              tone="bg-amber-50 text-amber-700"
-              label="Account Email"
-              value={currentUser.email}
-            />
-            <InfoCard
-              icon={ShieldCheck}
-              tone="bg-emerald-50 text-emerald-700"
-              label="Role"
-              value="Customer"
-            />
-            <InfoCard
-              icon={UserCircle}
-              tone="bg-slate-100 text-slate-700"
-              label="Member Since"
-              value={formatDate(currentUser.createdAt)}
-            />
+        ) : !customerProfile ? (
+          <div className="rounded-[2.5rem] bg-white p-12 text-center shadow-xl">
+            <p className="text-lg font-black text-slate-900">Failed to load customer details.</p>
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="mt-4 rounded-full bg-amber-900 px-6 py-2.5 text-sm font-bold text-white hover:bg-amber-800"
+            >
+              Retry
+            </button>
           </div>
-        </section>
+        ) : (
+          /* Dashboard Main Shell */
+          <div className="grid gap-8 md:grid-cols-[240px_1fr] lg:grid-cols-[280px_1fr]">
+            {/* Sidebar Navigation */}
+            <aside className="space-y-4">
+              <nav className="flex flex-row md:flex-col gap-2 rounded-[2.5rem] border border-slate-200/80 bg-white p-4 shadow-sm overflow-x-auto md:overflow-visible md:sticky md:top-24">
+                {TABS.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = tab.exact ? subPath === "" : subPath.startsWith(tab.id);
 
-        {/* Quick actions */}
-        <h2 className="mb-4 mt-10 text-lg font-black text-slate-900">
-          Quick Actions
-        </h2>
-        <div className="grid gap-5 sm:grid-cols-3">
-          <ActionTile
-            to="/browse"
-            icon={BookOpen}
-            title="Browse Books"
-            desc="Explore the full catalog and compare sellers."
-            tone="from-indigo-500 to-blue-600"
-          />
-          <ActionTile
-            to="/cart"
-            icon={ShoppingCart}
-            title="My Cart"
-            desc="Review the items you've added before checkout."
-            tone="from-amber-500 to-orange-600"
-          />
-          <ActionTile
-            to="/account/orders"
-            icon={Package}
-            title="My Orders"
-            desc="Track order status and view your history."
-            tone="from-emerald-500 to-teal-600"
-          />
-        </div>
+                  return (
+                    <Link
+                      key={tab.id}
+                      to={tab.id}
+                      className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-black transition whitespace-nowrap ${
+                        isActive
+                          ? "bg-gradient-to-r from-amber-900 to-orange-900 text-white shadow-md shadow-amber-950/10 scale-[1.02]"
+                          : "text-slate-600 hover:bg-amber-50 hover:text-amber-900"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className={`h-5 w-5 ${isActive ? "text-amber-200" : "text-slate-400"}`} />
+                        <span>{tab.label}</span>
+                      </div>
+                      {tab.badge != null && (
+                        <span
+                          className={`rounded-full px-2 py-0.5 text-[11px] font-black ${
+                            isActive
+                              ? "bg-white/20 text-white"
+                              : "bg-slate-100 text-slate-600"
+                          }`}
+                        >
+                          {tab.badge}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </aside>
 
-        {/* Empty-state hint */}
-        <div className="mt-10 flex flex-col items-center justify-center rounded-3xl border border-dashed border-amber-200 bg-white/60 p-10 text-center">
-          <ShoppingBag className="h-10 w-10 text-amber-400" />
-          <p className="mt-3 font-bold text-slate-700">
-            Ready to find your next great read?
-          </p>
-          <Link
-            to="/browse"
-            className="mt-4 rounded-full bg-amber-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-amber-800"
-          >
-            Start Browsing
-          </Link>
-        </div>
+            {/* Tab Contents */}
+            <section className="min-w-0">
+              <Routes>
+                <Route
+                  index
+                  element={
+                    <CustomerOverviewTab
+                      customer={customerProfile}
+                      orders={customerOrders}
+                      cartCount={cartCount}
+                    />
+                  }
+                />
+                <Route
+                  path="orders"
+                  element={<CustomerOrdersTab orders={customerOrders} />}
+                />
+                <Route
+                  path="addresses"
+                  element={
+                    <CustomerAddressesTab
+                      customer={customerProfile}
+                      onUpdateAddresses={(addresses) =>
+                        updateProfile.mutate({
+                          id: customerProfile.id!,
+                          updates: { addresses },
+                        })
+                      }
+                    />
+                  }
+                />
+                <Route
+                  path="settings"
+                  element={
+                    <CustomerSettingsTab
+                      customer={customerProfile}
+                      onUpdateProfile={async (updates) => {
+                        await updateProfile.mutateAsync({
+                          id: customerProfile.id!,
+                          updates,
+                        });
+                      }}
+                    />
+                  }
+                />
+              </Routes>
+            </section>
+          </div>
+        )}
       </div>
     </main>
-  );
-}
-
-function InfoCard({
-  icon: Icon,
-  tone,
-  label,
-  value,
-}: {
-  icon: typeof Mail;
-  tone: string;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-3xl bg-slate-50 p-6">
-      <div className={`inline-flex h-10 w-10 items-center justify-center rounded-2xl ${tone}`}>
-        <Icon className="h-5 w-5" />
-      </div>
-      <p className="mt-4 text-xs font-bold uppercase tracking-wide text-slate-400">
-        {label}
-      </p>
-      <p className="mt-1 break-all text-lg font-black text-slate-900">{value}</p>
-    </div>
-  );
-}
-
-function ActionTile({
-  to,
-  icon: Icon,
-  title,
-  desc,
-  tone,
-}: {
-  to: string;
-  icon: typeof BookOpen;
-  title: string;
-  desc: string;
-  tone: string;
-}) {
-  return (
-    <Link
-      to={to}
-      className="group rounded-3xl border border-slate-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-    >
-      <div
-        className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${tone} text-white shadow-md`}
-      >
-        <Icon className="h-6 w-6" />
-      </div>
-      <h3 className="mt-4 text-lg font-black text-slate-900 group-hover:text-amber-700">
-        {title}
-      </h3>
-      <p className="mt-1 text-sm text-slate-500">{desc}</p>
-    </Link>
   );
 }

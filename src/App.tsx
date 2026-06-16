@@ -16,6 +16,7 @@ import CustomerAccount from "@/components/dashboard/CustomerAccount";
 import BrowseBooksPage from "@/components/pages/BrowseBooksPage";
 import BookDetailsPage from "@/components/pages/BookDetailsPage";
 import CartPage from "@/components/pages/CartPage";
+import CheckoutPage from "@/components/pages/CheckoutPage";
 
 // Admin portal
 import AdminShell from "@/components/admin/AdminShell";
@@ -107,6 +108,14 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute allow={["customer"]}>
+              <CheckoutPage />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Auth */}
         <Route
@@ -125,7 +134,7 @@ export default function App() {
 
         {/* Customer area */}
         <Route
-          path="/account"
+          path="/account/*"
           element={
             <ProtectedRoute allow={["customer"]}>
               <CustomerAccount onNavigateHome={goHome} onLogin={goLogin} />
