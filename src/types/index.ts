@@ -86,6 +86,8 @@ export interface MarketBook {
   rating?: number;
   pageCount?: number;
   publishedDate?: string;
+  /** Edition language — drives the sidebar's language filter. */
+  language?: string;
 }
 
 export interface BookInput {

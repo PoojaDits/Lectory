@@ -874,7 +874,7 @@
   ],
   "books": [
     {
-      "id": "1",
+      "id": 1,
       "isbn": "9781847941831",
       "title": "Atomic Habits",
       "author": "James Clear",
@@ -889,10 +889,11 @@
       ],
       "rating": 4.8,
       "pageCount": 320,
-      "publishedDate": "2018"
+      "publishedDate": "2018",
+      "language": "English"
     },
     {
-      "id": "2",
+      "id": 2,
       "isbn": "9780857197689",
       "title": "The Psychology of Money",
       "author": "Morgan Housel",
@@ -907,10 +908,11 @@
       ],
       "rating": 4.7,
       "pageCount": 256,
-      "publishedDate": "2020"
+      "publishedDate": "2020",
+      "language": "English"
     },
     {
-      "id": "3",
+      "id": 3,
       "isbn": "9780062316097",
       "title": "Sapiens: A Brief History of Humankind",
       "author": "Yuval Noah Harari",
@@ -925,10 +927,11 @@
       ],
       "rating": 4.6,
       "pageCount": 464,
-      "publishedDate": "2014"
+      "publishedDate": "2014",
+      "language": "English"
     },
     {
-      "id": "4",
+      "id": 4,
       "isbn": "9780525559474",
       "title": "The Midnight Library",
       "author": "Matt Haig",
@@ -943,10 +946,11 @@
       ],
       "rating": 4.3,
       "pageCount": 304,
-      "publishedDate": "2020"
+      "publishedDate": "2020",
+      "language": "English"
     },
     {
-      "id": "5",
+      "id": 5,
       "isbn": "9780735219090",
       "title": "Where the Crawdads Sing",
       "author": "Delia Owens",
@@ -961,10 +965,11 @@
       ],
       "rating": 4.6,
       "pageCount": 384,
-      "publishedDate": "2018"
+      "publishedDate": "2018",
+      "language": "English"
     },
     {
-      "id": "6",
+      "id": 6,
       "isbn": "9781250301697",
       "title": "The Silent Patient",
       "author": "Alex Michaelides",
@@ -979,10 +984,11 @@
       ],
       "rating": 4.4,
       "pageCount": 336,
-      "publishedDate": "2019"
+      "publishedDate": "2019",
+      "language": "English"
     },
     {
-      "id": "7",
+      "id": 7,
       "isbn": "9780593135204",
       "title": "Project Hail Mary",
       "author": "Andy Weir",
@@ -998,10 +1004,11 @@
       ],
       "rating": 4.7,
       "pageCount": 496,
-      "publishedDate": "2021"
+      "publishedDate": "2021",
+      "language": "English"
     },
     {
-      "id": "8",
+      "id": 8,
       "isbn": "9780307277671",
       "title": "The Da Vinci Code",
       "author": "Dan Brown",
@@ -1016,10 +1023,11 @@
       ],
       "rating": 4.2,
       "pageCount": 489,
-      "publishedDate": "2003"
+      "publishedDate": "2003",
+      "language": "English"
     },
     {
-      "id": "9",
+      "id": 9,
       "isbn": "9780385537858",
       "title": "Inferno",
       "author": "Dan Brown",
@@ -1034,10 +1042,11 @@
       ],
       "rating": 4.1,
       "pageCount": 480,
-      "publishedDate": "2013"
+      "publishedDate": "2013",
+      "language": "English"
     },
     {
-      "id": "10",
+      "id": 10,
       "isbn": "9781501175619",
       "title": "Become a Better You",
       "author": "Joel Osteen",
@@ -1053,10 +1062,11 @@
       ],
       "rating": 4.4,
       "pageCount": 418,
-      "publishedDate": "2017"
+      "publishedDate": "2017",
+      "language": "English"
     },
     {
-      "id": "11",
+      "id": 11,
       "isbn": "9781541674837",
       "title": "The Power of Dignity",
       "author": "Victoria Pratt",
@@ -1072,10 +1082,11 @@
       ],
       "rating": 4.5,
       "pageCount": 256,
-      "publishedDate": "2022"
+      "publishedDate": "2022",
+      "language": "English"
     },
     {
-      "id": "12",
+      "id": 12,
       "isbn": "9780593598139",
       "title": "Dungeons & Dragons: The Legend of Drizzt",
       "author": "R.A. Salvatore",
@@ -1091,10 +1102,11 @@
       ],
       "rating": 4.6,
       "pageCount": 288,
-      "publishedDate": "2023"
+      "publishedDate": "2023",
+      "language": "English"
     },
     {
-      "id": "13",
+      "id": 13,
       "isbn": "9780141187761",
       "title": "Nineteen Eighty-Four",
       "author": "George Orwell",
@@ -1110,10 +1122,11 @@
       ],
       "rating": 4.5,
       "pageCount": 384,
-      "publishedDate": "1949"
+      "publishedDate": "1949",
+      "language": "English"
     },
     {
-      "id": "14",
+      "id": 14,
       "isbn": "9780141439518",
       "title": "Pride and Prejudice",
       "author": "Jane Austen",
@@ -1129,10 +1142,11 @@
       ],
       "rating": 4.6,
       "pageCount": 435,
-      "publishedDate": "1813"
+      "publishedDate": "1813",
+      "language": "English"
     },
     {
-      "id": "15",
+      "id": 15,
       "isbn": "9780593334836",
       "title": "Book Lovers",
       "author": "Emily Henry",
@@ -1149,10 +1163,11 @@
       ],
       "rating": 4.3,
       "pageCount": 384,
-      "publishedDate": "2022"
+      "publishedDate": "2022",
+      "language": "English"
     },
     {
-      "id": "16",
+      "id": 16,
       "isbn": "9780593318171",
       "title": "Klara and the Sun",
       "author": "Kazuo Ishiguro",
@@ -1169,10 +1184,11 @@
       ],
       "rating": 4.1,
       "pageCount": 320,
-      "publishedDate": "2021"
+      "publishedDate": "2021",
+      "language": "English"
     },
     {
-      "id": "17",
+      "id": 17,
       "isbn": "9780062315007",
       "title": "The Alchemist",
       "author": "Paulo Coelho",
@@ -1188,10 +1204,11 @@
       ],
       "rating": 4.5,
       "pageCount": 208,
-      "publishedDate": "1993"
+      "publishedDate": "1993",
+      "language": "English"
     },
     {
-      "id": "18",
+      "id": 18,
       "isbn": "9780061120084",
       "title": "To Kill a Mockingbird",
       "author": "Harper Lee",
@@ -1206,10 +1223,11 @@
       ],
       "rating": 4.7,
       "pageCount": 384,
-      "publishedDate": "1960"
+      "publishedDate": "1960",
+      "language": "English"
     },
     {
-      "id": "19",
+      "id": 19,
       "isbn": "9780547928227",
       "title": "The Hobbit",
       "author": "J.R.R. Tolkien",
@@ -1224,10 +1242,11 @@
       ],
       "rating": 4.8,
       "pageCount": 320,
-      "publishedDate": "1937"
+      "publishedDate": "1937",
+      "language": "English"
     },
     {
-      "id": "20",
+      "id": 20,
       "isbn": "9780743273565",
       "title": "The Great Gatsby",
       "author": "F. Scott Fitzgerald",
@@ -1242,10 +1261,11 @@
       ],
       "rating": 4.3,
       "pageCount": 180,
-      "publishedDate": "1925"
+      "publishedDate": "1925",
+      "language": "English"
     },
     {
-      "id": "21",
+      "id": 21,
       "isbn": "9780316769174",
       "title": "The Catcher in the Rye",
       "author": "J.D. Salinger",
@@ -1260,10 +1280,11 @@
       ],
       "rating": 4.2,
       "pageCount": 288,
-      "publishedDate": "1951"
+      "publishedDate": "1951",
+      "language": "English"
     },
     {
-      "id": "22",
+      "id": 22,
       "isbn": "9781594633669",
       "title": "The Girl on the Train",
       "author": "Paula Hawkins",
@@ -1279,10 +1300,11 @@
       ],
       "rating": 4.1,
       "pageCount": 336,
-      "publishedDate": "2015"
+      "publishedDate": "2015",
+      "language": "English"
     },
     {
-      "id": "23",
+      "id": 23,
       "isbn": "9781984822178",
       "title": "Normal People",
       "author": "Sally Rooney",
@@ -1297,10 +1319,11 @@
       ],
       "rating": 4,
       "pageCount": 288,
-      "publishedDate": "2018"
+      "publishedDate": "2018",
+      "language": "English"
     },
     {
-      "id": "24",
+      "id": 24,
       "isbn": "9780743477109",
       "title": "Macbeth",
       "author": "William Shakespeare",
@@ -1315,10 +1338,11 @@
       ],
       "rating": 4.2,
       "pageCount": 223,
-      "publishedDate": "2002"
+      "publishedDate": "2002",
+      "language": "English"
     },
     {
-      "id": "25",
+      "id": 25,
       "isbn": "9780140283334",
       "title": "Lord of the Flies",
       "author": "William Golding",
@@ -1333,10 +1357,11 @@
       ],
       "rating": 4,
       "pageCount": 192,
-      "publishedDate": "1954"
+      "publishedDate": "1954",
+      "language": "English"
     },
     {
-      "id": "26",
+      "id": 26,
       "isbn": "9780143039433",
       "title": "The Grapes of Wrath",
       "author": "John Steinbeck",
@@ -1351,10 +1376,11 @@
       ],
       "rating": 4.3,
       "pageCount": 464,
-      "publishedDate": "1939"
+      "publishedDate": "1939",
+      "language": "English"
     },
     {
-      "id": "27",
+      "id": 27,
       "isbn": "9780141441146",
       "title": "Jane Eyre",
       "author": "Charlotte Brontë",
@@ -1369,10 +1395,11 @@
       ],
       "rating": 4.4,
       "pageCount": 544,
-      "publishedDate": "1847"
+      "publishedDate": "1847",
+      "language": "English"
     },
     {
-      "id": "28",
+      "id": 28,
       "isbn": "9780140275360",
       "title": "The Iliad",
       "author": "Homer",
@@ -1387,10 +1414,11 @@
       ],
       "rating": 4.1,
       "pageCount": 704,
-      "publishedDate": "1998"
+      "publishedDate": "1998",
+      "language": "English"
     },
     {
-      "id": "29",
+      "id": 29,
       "isbn": "9780141182803",
       "title": "Ulysses",
       "author": "James Joyce",
@@ -1405,10 +1433,11 @@
       ],
       "rating": 3.9,
       "pageCount": 1040,
-      "publishedDate": "1922"
+      "publishedDate": "1922",
+      "language": "English"
     },
     {
-      "id": "30",
+      "id": 30,
       "isbn": "9780140449136",
       "title": "Crime and Punishment",
       "author": "Fyodor Dostoevsky",
@@ -1423,10 +1452,11 @@
       ],
       "rating": 4.4,
       "pageCount": 671,
-      "publishedDate": "1866"
+      "publishedDate": "1866",
+      "language": "English"
     },
     {
-      "id": "31",
+      "id": 31,
       "isbn": "9780140449266",
       "title": "The Count of Monte Cristo",
       "author": "Alexandre Dumas",
@@ -1441,10 +1471,11 @@
       ],
       "rating": 4.6,
       "pageCount": 1276,
-      "publishedDate": "1844"
+      "publishedDate": "1844",
+      "language": "English"
     },
     {
-      "id": "32",
+      "id": 32,
       "isbn": "9780374257835",
       "title": "Artificial Intelligence: A Guide for Thinking Humans",
       "author": "Melanie Mitchell",
@@ -1459,10 +1490,11 @@
       ],
       "rating": 4.5,
       "pageCount": 352,
-      "publishedDate": "2019"
+      "publishedDate": "2019",
+      "language": "English"
     },
     {
-      "id": "33",
+      "id": 33,
       "isbn": "9780198739838",
       "title": "Superintelligence: Paths, Dangers, Strategies",
       "author": "Nick Bostrom",
@@ -1477,10 +1509,11 @@
       ],
       "rating": 4.3,
       "pageCount": 390,
-      "publishedDate": "2014"
+      "publishedDate": "2014",
+      "language": "English"
     },
     {
-      "id": "34",
+      "id": 34,
       "isbn": "9780262533058",
       "title": "Introduction to Algorithms (CLRS)",
       "author": "Thomas H. Cormen et al.",
@@ -1495,10 +1528,11 @@
       ],
       "rating": 4.7,
       "pageCount": 1312,
-      "publishedDate": "2009"
+      "publishedDate": "2009",
+      "language": "English"
     },
     {
-      "id": "35",
+      "id": 35,
       "isbn": "9780136042594",
       "title": "Artificial Intelligence: A Modern Approach",
       "author": "Stuart Russell, Peter Norvig",
@@ -1514,10 +1548,11 @@
       ],
       "rating": 4.6,
       "pageCount": 1152,
-      "publishedDate": "2009"
+      "publishedDate": "2009",
+      "language": "English"
     },
     {
-      "id": "36",
+      "id": 36,
       "isbn": "9781449369415",
       "title": "Introduction to Machine Learning with Python",
       "author": "Andreas C. Müller, Sarah Guido",
@@ -1532,10 +1567,11 @@
       ],
       "rating": 4.5,
       "pageCount": 376,
-      "publishedDate": "2016"
+      "publishedDate": "2016",
+      "language": "English"
     },
     {
-      "id": "37",
+      "id": 37,
       "isbn": "9780132350884",
       "title": "Clean Code",
       "author": "Robert C. Martin",
@@ -1550,10 +1586,11 @@
       ],
       "rating": 4.6,
       "pageCount": 431,
-      "publishedDate": "2008"
+      "publishedDate": "2008",
+      "language": "English"
     },
     {
-      "id": "38",
+      "id": 38,
       "isbn": "9780201616224",
       "title": "The Pragmatic Programmer",
       "author": "Andy Hunt, Dave Thomas",
@@ -1568,10 +1605,11 @@
       ],
       "rating": 4.7,
       "pageCount": 321,
-      "publishedDate": "1999"
+      "publishedDate": "1999",
+      "language": "English"
     },
     {
-      "id": "39",
+      "id": 39,
       "isbn": "9780137081073",
       "title": "The Clean Coder",
       "author": "Robert C. Martin",
@@ -1586,10 +1624,11 @@
       ],
       "rating": 4.4,
       "pageCount": 210,
-      "publishedDate": "2011"
+      "publishedDate": "2011",
+      "language": "English"
     },
     {
-      "id": "40",
+      "id": 40,
       "isbn": "9781617292231",
       "title": "Grokking Algorithms",
       "author": "Aditya Y. Bhargava",
@@ -1604,10 +1643,11 @@
       ],
       "rating": 4.7,
       "pageCount": 256,
-      "publishedDate": "2016"
+      "publishedDate": "2016",
+      "language": "English"
     },
     {
-      "id": "41",
+      "id": 41,
       "isbn": "9780321125217",
       "title": "Domain-Driven Design",
       "author": "Eric Evans",
@@ -1622,10 +1662,11 @@
       ],
       "rating": 4.3,
       "pageCount": 529,
-      "publishedDate": "2003"
+      "publishedDate": "2003",
+      "language": "English"
     },
     {
-      "id": "42",
+      "id": 42,
       "isbn": "9780134494166",
       "title": "Clean Architecture",
       "author": "Robert C. Martin",
@@ -1641,10 +1682,11 @@
       ],
       "rating": 4.5,
       "pageCount": 432,
-      "publishedDate": "2017"
+      "publishedDate": "2017",
+      "language": "English"
     },
     {
-      "id": "43",
+      "id": 43,
       "isbn": "9780134757599",
       "title": "Refactoring",
       "author": "Martin Fowler",
@@ -1660,10 +1702,11 @@
       ],
       "rating": 4.6,
       "pageCount": 448,
-      "publishedDate": "2018"
+      "publishedDate": "2018",
+      "language": "English"
     },
     {
-      "id": "44",
+      "id": 44,
       "isbn": "9781491950357",
       "title": "Building Microservices",
       "author": "Sam Newman",
@@ -1678,10 +1721,11 @@
       ],
       "rating": 4.4,
       "pageCount": 280,
-      "publishedDate": "2015"
+      "publishedDate": "2015",
+      "language": "English"
     },
     {
-      "id": "45",
+      "id": 45,
       "isbn": "9780201835953",
       "title": "The Mythical Man-Month",
       "author": "Frederick P. Brooks",
@@ -1696,10 +1740,11 @@
       ],
       "rating": 4.5,
       "pageCount": 322,
-      "publishedDate": "1995"
+      "publishedDate": "1995",
+      "language": "English"
     },
     {
-      "id": "46",
+      "id": 46,
       "isbn": "9780321573513",
       "title": "Algorithms",
       "author": "Robert Sedgewick, Kevin Wayne",
@@ -1714,10 +1759,11 @@
       ],
       "rating": 4.6,
       "pageCount": 955,
-      "publishedDate": "2011"
+      "publishedDate": "2011",
+      "language": "English"
     },
     {
-      "id": "47",
+      "id": 47,
       "isbn": "9781593275846",
       "title": "Eloquent JavaScript",
       "author": "Marijn Haverbeke",
@@ -1732,10 +1778,11 @@
       ],
       "rating": 4.6,
       "pageCount": 472,
-      "publishedDate": "2018"
+      "publishedDate": "2018",
+      "language": "English"
     },
     {
-      "id": "48",
+      "id": 48,
       "isbn": "9781593275990",
       "title": "Automate the Boring Stuff with Python",
       "author": "Al Sweigart",
@@ -1750,10 +1797,11 @@
       ],
       "rating": 4.6,
       "pageCount": 504,
-      "publishedDate": "2015"
+      "publishedDate": "2015",
+      "language": "English"
     },
     {
-      "id": "49",
+      "id": 49,
       "isbn": "9781718500402",
       "title": "How Linux Works",
       "author": "Brian Ward",
@@ -1769,10 +1817,11 @@
       ],
       "rating": 4.5,
       "pageCount": 390,
-      "publishedDate": "2020"
+      "publishedDate": "2020",
+      "language": "English"
     },
     {
-      "id": "50",
+      "id": 50,
       "isbn": "9780134685991",
       "title": "Effective Java",
       "author": "Joshua Bloch",
@@ -1787,10 +1836,11 @@
       ],
       "rating": 4.7,
       "pageCount": 416,
-      "publishedDate": "2018"
+      "publishedDate": "2018",
+      "language": "English"
     },
     {
-      "id": "51",
+      "id": 51,
       "isbn": "9780321486813",
       "title": "Compilers: Principles, Techniques, and Tools",
       "author": "Alfred V. Aho et al.",
@@ -1806,10 +1856,11 @@
       ],
       "rating": 4.4,
       "pageCount": 1000,
-      "publishedDate": "2006"
+      "publishedDate": "2006",
+      "language": "English"
     },
     {
-      "id": "52",
+      "id": 52,
       "isbn": "9780930289232",
       "title": "Watchmen",
       "author": "Alan Moore",
@@ -1824,10 +1875,11 @@
       ],
       "rating": 4.6,
       "pageCount": 416,
-      "publishedDate": "1986"
+      "publishedDate": "1986",
+      "language": "English"
     },
     {
-      "id": "53",
+      "id": 53,
       "isbn": "9781607066019",
       "title": "Saga, Vol. 1",
       "author": "Brian K. Vaughan",
@@ -1843,10 +1895,11 @@
       ],
       "rating": 4.7,
       "pageCount": 160,
-      "publishedDate": "2012"
+      "publishedDate": "2012",
+      "language": "English"
     },
     {
-      "id": "54",
+      "id": 54,
       "isbn": "9780394747231",
       "title": "Maus I: A Survivor's Tale",
       "author": "Art Spiegelman",
@@ -1861,10 +1914,11 @@
       ],
       "rating": 4.8,
       "pageCount": 160,
-      "publishedDate": "1986"
+      "publishedDate": "1986",
+      "language": "English"
     },
     {
-      "id": "55",
+      "id": 55,
       "isbn": "9780375714573",
       "title": "Persepolis",
       "author": "Marjane Satrapi",
@@ -1879,10 +1933,11 @@
       ],
       "rating": 4.6,
       "pageCount": 160,
-      "publishedDate": "2003"
+      "publishedDate": "2003",
+      "language": "English"
     },
     {
-      "id": "56",
+      "id": 56,
       "isbn": "9781582406725",
       "title": "The Walking Dead, Vol. 1",
       "author": "Robert Kirkman",
@@ -1897,10 +1952,11 @@
       ],
       "rating": 4.5,
       "pageCount": 144,
-      "publishedDate": "2006"
+      "publishedDate": "2006",
+      "language": "English"
     },
     {
-      "id": "57",
+      "id": 57,
       "isbn": "9781569319000",
       "title": "Naruto, Vol. 1",
       "author": "Masashi Kishimoto",
@@ -1915,10 +1971,11 @@
       ],
       "rating": 4.8,
       "pageCount": 192,
-      "publishedDate": "2003"
+      "publishedDate": "2003",
+      "language": "English"
     },
     {
-      "id": "58",
+      "id": 58,
       "isbn": "9781569319864",
       "title": "Dragon Ball Z, Vol. 1",
       "author": "Akira Toriyama",
@@ -1933,10 +1990,11 @@
       ],
       "rating": 4.7,
       "pageCount": 192,
-      "publishedDate": "2003"
+      "publishedDate": "2003",
+      "language": "English"
     },
     {
-      "id": "59",
+      "id": 59,
       "isbn": "9781569319017",
       "title": "One Piece, Vol. 1",
       "author": "Eiichiro Oda",
@@ -1951,10 +2009,11 @@
       ],
       "rating": 4.9,
       "pageCount": 208,
-      "publishedDate": "2003"
+      "publishedDate": "2003",
+      "language": "English"
     },
     {
-      "id": "60",
+      "id": 60,
       "isbn": "9781612620244",
       "title": "Attack on Titan, Vol. 1",
       "author": "Hajime Isayama",
@@ -1970,10 +2029,11 @@
       ],
       "rating": 4.7,
       "pageCount": 208,
-      "publishedDate": "2012"
+      "publishedDate": "2012",
+      "language": "English"
     },
     {
-      "id": "61",
+      "id": 61,
       "isbn": "9781421582696",
       "title": "My Hero Academia, Vol. 1",
       "author": "Kohei Horikoshi",
@@ -1988,10 +2048,11 @@
       ],
       "rating": 4.8,
       "pageCount": 192,
-      "publishedDate": "2015"
+      "publishedDate": "2015",
+      "language": "English"
     },
     {
-      "id": "62",
+      "id": 62,
       "isbn": "9781421580364",
       "title": "Tokyo Ghoul, Vol. 1",
       "author": "Sui Ishida",
@@ -2006,10 +2067,11 @@
       ],
       "rating": 4.6,
       "pageCount": 224,
-      "publishedDate": "2015"
+      "publishedDate": "2015",
+      "language": "English"
     },
     {
-      "id": "63",
+      "id": 63,
       "isbn": "9781612624426",
       "title": "Sailor Moon, Vol. 1",
       "author": "Naoko Takeuchi",
@@ -2025,10 +2087,11 @@
       ],
       "rating": 4.8,
       "pageCount": 240,
-      "publishedDate": "2011"
+      "publishedDate": "2011",
+      "language": "English"
     },
     {
-      "id": "64",
+      "id": 64,
       "isbn": "9781421580326",
       "title": "World Trigger, Vol. 1",
       "author": "Daisuke Ashihara",
@@ -2043,10 +2106,11 @@
       ],
       "rating": 4.5,
       "pageCount": 192,
-      "publishedDate": "2014"
+      "publishedDate": "2014",
+      "language": "English"
     },
     {
-      "id": "65",
+      "id": 65,
       "isbn": "9780785187905",
       "title": "Avengers Epic Collection",
       "author": "Gerry Conway",
@@ -2061,10 +2125,11 @@
       ],
       "rating": 4.4,
       "pageCount": 435,
-      "publishedDate": "2013"
+      "publishedDate": "2013",
+      "language": "English"
     },
     {
-      "id": "66",
+      "id": 66,
       "isbn": "9780785190219",
       "title": "Ms. Marvel, Vol. 1",
       "author": "G. Willow Wilson",
@@ -2079,12 +2144,560 @@
       ],
       "rating": 4.7,
       "pageCount": 120,
-      "publishedDate": "2014"
+      "publishedDate": "2014",
+      "language": "English"
+    },
+    {
+      "id": 67,
+      "isbn": "9788126710111",
+      "title": "गोदान",
+      "author": "Premchand",
+      "publisher": "Rajkamal Prakashan",
+      "description": "Premchand's magnum opus — a poignant story of rural India, poverty, and the quiet heroism of a farmer named Hori. Widely regarded as the first major Hindi novel of the 20th century.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL35242671M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.6,
+      "pageCount": 480,
+      "publishedDate": "1936",
+      "language": "Hindi"
+    },
+    {
+      "id": 68,
+      "isbn": "9788126710128",
+      "title": "रश्मिरथी",
+      "author": "Ramdhari Singh Dinkar",
+      "publisher": "Lok Bharati Prakashan",
+      "description": "An epic narrative poem on the life of Karna from the Mahabharata — Dinkar's ode to the unsung hero. A cornerstone of modern Hindi literature.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL26799617M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.7,
+      "pageCount": 220,
+      "publishedDate": "1952",
+      "language": "Hindi"
+    },
+    {
+      "id": 69,
+      "isbn": "9788126710135",
+      "title": "गीतांजलि",
+      "author": "Rabindranath Tagore",
+      "publisher": "Sahitya Akademi",
+      "description": "Tagore's Nobel-winning collection of spiritual poems, originally written in Bengali and translated across India. Verses that still move readers a century later.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL5092558M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.8,
+      "pageCount": 180,
+      "publishedDate": "1910",
+      "language": "Hindi"
+    },
+    {
+      "id": 70,
+      "isbn": "9788126710142",
+      "title": "कामायनी",
+      "author": "Jaishankar Prasad",
+      "publisher": "Sahitya Akademi",
+      "description": "A modern Hindi epic poem weaving philosophy, love, and mythology — Prasad's masterwork and one of the great landmarks of the Chhayavaad movement.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL32911489M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.4,
+      "pageCount": 260,
+      "publishedDate": "1936",
+      "language": "Hindi"
+    },
+    {
+      "id": 71,
+      "isbn": "9788126710159",
+      "title": "मैला आंचल",
+      "author": "Phanishwarnath Renu",
+      "publisher": "Rajkamal Prakashan",
+      "description": "A vivid portrait of a Bihar village — its people, its caste divisions, and its slow awakening. Considered the first major Hindi 'Aanchalik Upanyas' (regional novel).",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL32409327M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended",
+        "preorder"
+      ],
+      "rating": 4.3,
+      "pageCount": 520,
+      "publishedDate": "1954",
+      "language": "Hindi"
+    },
+    {
+      "id": 72,
+      "isbn": "9788126710166",
+      "title": "चित्रलेखा",
+      "author": "Bhagwaticharan Verma",
+      "publisher": "Sahitya Akademi",
+      "description": "A celebrated Hindi novel that weaves the personal and the political through the life of Chitralekha — set against the non-cooperation movement of 1921.",
+      "coverImage": null,
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.2,
+      "pageCount": 340,
+      "publishedDate": "1934",
+      "language": "Hindi"
+    },
+    {
+      "id": 73,
+      "isbn": "9788126710173",
+      "title": "तीसरी कसम",
+      "author": "Phanishwarnath Renu",
+      "publisher": "Rajkamal Prakashan",
+      "description": "Renu's celebrated short story of a bullock-cart driver and the nautanki dancer he falls for — the basis for the iconic Shailendra film. A small, perfect gem of Hindi prose.",
+      "coverImage": null,
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.5,
+      "pageCount": 140,
+      "publishedDate": "1959",
+      "language": "Hindi"
+    },
+    {
+      "id": 74,
+      "isbn": "9788126710180",
+      "title": "निर्मला",
+      "author": "Munshi Premchand",
+      "publisher": "Saraswati Press",
+      "description": "Premchand's poignant novel of a young girl trapped between an abusive husband and a society that offers no escape — a landmark in the Hindi feminist novel.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL157885M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.4,
+      "pageCount": 220,
+      "publishedDate": "1925",
+      "language": "Hindi"
+    },
+    {
+      "id": 75,
+      "isbn": "9788126710197",
+      "title": "आषाढ़ का एक दिन",
+      "author": "Mohan Rakesh",
+      "publisher": "Radha Krishna Prakashan",
+      "description": "Rakesh's landmark Hindi play that broke with stage tradition — a story of the poet Kalidasa, romantic longing, and the gulf between art and life. A turning point in modern Hindi theatre.",
+      "coverImage": null,
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.3,
+      "pageCount": 120,
+      "publishedDate": "1958",
+      "language": "Hindi"
+    },
+    {
+      "id": 76,
+      "isbn": "9788126710203",
+      "title": "अंधायुग",
+      "author": "Dharamvir Bharati",
+      "publisher": "Sahitya Akademi",
+      "description": "Bharati's post-independence play set in the aftermath of the Mahabharata war — a meditation on guilt, justice, and the moral collapse that follows victory.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL27674729M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.4,
+      "pageCount": 180,
+      "publishedDate": "1954",
+      "language": "Hindi"
+    },
+    {
+      "id": 77,
+      "isbn": "9788126710210",
+      "title": "मधुशाला",
+      "author": "Harivansh Rai Bachchan",
+      "publisher": "Sahitya Akademi",
+      "description": "Bachchan's most famous poetry collection — 135 quatrains built around the metaphor of a tavern. A best-seller in independent India and a touchstone of Hindi poetry.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL10096163M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.6,
+      "pageCount": 96,
+      "publishedDate": "1935",
+      "language": "Hindi"
+    },
+    {
+      "id": 78,
+      "isbn": "9788126710227",
+      "title": "उर्वशी",
+      "author": "Ramdhari Singh Dinkar",
+      "publisher": "Lok Bharati Prakashan",
+      "description": "Dinkar's lyrical epic — the story of the apsara Urvashi and the mortal king Pururavas, told with the grandeur of classical Hindi poetry.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL320824M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "preorder",
+        "recommended"
+      ],
+      "rating": 4.5,
+      "pageCount": 200,
+      "publishedDate": "1961",
+      "language": "Hindi"
+    },
+    {
+      "id": 79,
+      "isbn": "9788126710234",
+      "title": "सूरज का सातवाँ घोड़ा",
+      "author": "Dharamvir Bharati",
+      "publisher": "Sahitya Akademi",
+      "description": "Bharati's most celebrated novel — the seven horses of the sun are a metaphor for the seven stages of a single night in which a young man's life quietly pivots.",
+      "coverImage": null,
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.6,
+      "pageCount": 240,
+      "publishedDate": "1952",
+      "language": "Hindi"
+    },
+    {
+      "id": 80,
+      "isbn": "9788126710241",
+      "title": "झूठा सच",
+      "author": "Yashpal",
+      "publisher": "Lok Bharati Prakashan",
+      "description": "Yashpal's sweeping novel of the Partition — millions displaced, friendships broken, and the question of what 'truth' means in the middle of a catastrophe.",
+      "coverImage": null,
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "preorder"
+      ],
+      "rating": 4.7,
+      "pageCount": 720,
+      "publishedDate": "1958",
+      "language": "Hindi"
+    },
+    {
+      "id": 81,
+      "isbn": "9780307474728",
+      "title": "Cien años de soledad",
+      "author": "Gabriel García Márquez",
+      "publisher": "Editorial Sudamericana",
+      "description": "The multi-generational saga of the Buendía family in the fictional town of Macondo — García Márquez's masterpiece and a cornerstone of magical realism.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780307474728-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.8,
+      "pageCount": 480,
+      "publishedDate": "1967",
+      "language": "Spanish"
+    },
+    {
+      "id": 82,
+      "isbn": "9780060934347",
+      "title": "Don Quijote",
+      "author": "Miguel de Cervantes",
+      "publisher": "Francisco de Robles",
+      "description": "The adventures of the self-styled knight Don Quixote and his squire Sancho Panza — widely regarded as the first modern novel and a founding text of Western literature.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780060934347-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.6,
+      "pageCount": 960,
+      "publishedDate": "1605",
+      "language": "Spanish"
+    },
+    {
+      "id": 83,
+      "isbn": "9780394752846",
+      "title": "Veinte poemas de amor y una canción desesperada",
+      "author": "Pablo Neruda",
+      "publisher": "Editorial Nascimento",
+      "description": "Neruda's most beloved poetry collection — twenty love poems and one song of despair that helped earn him the Nobel Prize in Literature.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780394752846-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.7,
+      "pageCount": 140,
+      "publishedDate": "1924",
+      "language": "Spanish"
+    },
+    {
+      "id": 84,
+      "isbn": "9781501117015",
+      "title": "La casa de los espíritus",
+      "author": "Isabel Allende",
+      "publisher": "Editorial Plaza & Janés",
+      "description": "Allende's debut novel — three generations of the Trueba family unfold against the backdrop of Chile's political upheavals in the 20th century.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9781501117015-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended",
+        "preorder"
+      ],
+      "rating": 4.5,
+      "pageCount": 480,
+      "publishedDate": "1982",
+      "language": "Spanish"
+    },
+    {
+      "id": 85,
+      "isbn": "9780307389732",
+      "title": "El amor en los tiempos del cólera",
+      "author": "Gabriel García Márquez",
+      "publisher": "Editorial Oveja Negra",
+      "description": "A love story that spans fifty-one years, nine months, and four days — García Márquez's tender meditation on aging, memory, and devotion.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780307389732-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.4,
+      "pageCount": 348,
+      "publishedDate": "1985",
+      "language": "Spanish"
+    },
+    {
+      "id": 86,
+      "isbn": "9781400034956",
+      "title": "Crónica de una muerte anunciada",
+      "author": "Gabriel García Márquez",
+      "publisher": "Editorial Oveja Negra",
+      "description": "A novella told with the precision of a journalism investigation — everyone knew the murder was coming, yet no one stopped it. A short, devastating classic.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9781400034956-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.5,
+      "pageCount": 120,
+      "publishedDate": "1981",
+      "language": "Spanish"
+    },
+    {
+      "id": 87,
+      "isbn": "9780143126393",
+      "title": "La sombra del viento",
+      "author": "Carlos Ruiz Zafón",
+      "publisher": "Editorial Planeta",
+      "description": "Zafón's Barcelona-set mystery — a boy discovers a forgotten book in the Cemetery of Forgotten Books and is drawn into a decades-old secret. The first volume of 'El cementerio de los libros olvidados'.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780143126393-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.7,
+      "pageCount": 480,
+      "publishedDate": "2001",
+      "language": "Spanish"
+    },
+    {
+      "id": 88,
+      "isbn": "9780802133908",
+      "title": "Pedro Páramo",
+      "author": "Juan Rulfo",
+      "publisher": "Fondo de Cultura Económica",
+      "description": "Rulfo's short, hallucinatory novel of a man searching for his father in the ghost-town of Comala — the book that redefined what Latin American fiction could be.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780802133908-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.5,
+      "pageCount": 132,
+      "publishedDate": "1955",
+      "language": "Spanish"
+    },
+    {
+      "id": 89,
+      "isbn": "9780060916312",
+      "title": "Rayuela",
+      "author": "Julio Cortázar",
+      "publisher": "Sudamericana",
+      "description": "Cortázar's experimental masterpiece — a novel you can read in two orders, with chapters that can be skipped, shuffled, or followed to two distinct endings. Pure literary play.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL2980196M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.4,
+      "pageCount": 736,
+      "publishedDate": "1963",
+      "language": "Spanish"
+    },
+    {
+      "id": 90,
+      "isbn": "9780802130303",
+      "title": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "publisher": "Emecé Editores",
+      "description": "Borges's classic short-story collection — labyrinths, mirrors, infinite libraries, and the philosophical fictions that reshaped 20th-century literature.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780802130303-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "recommended"
+      ],
+      "rating": 4.8,
+      "pageCount": 224,
+      "publishedDate": "1944",
+      "language": "Spanish"
+    },
+    {
+      "id": 91,
+      "isbn": "9780385474017",
+      "title": "Como agua para chocolate",
+      "author": "Laura Esquivel",
+      "publisher": "Editorial Planeta",
+      "description": "Esquivel's magical-realist novel of food and passion — each chapter is a recipe, each recipe a story, set on the Mexican border at the turn of the 20th century.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL24974997M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.3,
+      "pageCount": 256,
+      "publishedDate": "1989",
+      "language": "Spanish"
+    },
+    {
+      "id": 92,
+      "isbn": "9780143105558",
+      "title": "El túnel",
+      "author": "Ernesto Sábato",
+      "publisher": "Editorial Sur",
+      "description": "Sábato's existential thriller — a painter confesses to a murder he both did and did not commit. A short, claustrophobic classic of Latin American letters.",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780143105558-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "preorder",
+        "recommended"
+      ],
+      "rating": 4.2,
+      "pageCount": 160,
+      "publishedDate": "1948",
+      "language": "Spanish"
+    },
+    {
+      "id": 93,
+      "isbn": "9780330418806",
+      "title": "Los detectives salvajes",
+      "author": "Roberto Bolaño",
+      "publisher": "Anagrama",
+      "description": "Bolaño's sprawling novel of two poets in search of a vanished Mexican writer — a picaresque, heartbreaking ode to youth, literature, and the long aftermath of the avant-garde.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL84382M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller",
+        "recommended"
+      ],
+      "rating": 4.6,
+      "pageCount": 624,
+      "publishedDate": "1998",
+      "language": "Spanish"
+    },
+    {
+      "id": 94,
+      "isbn": "9788490621873",
+      "title": "La fiesta del chivo",
+      "author": "Mario Vargas Llosa",
+      "publisher": "Alfaguara",
+      "description": "Vargas Llosa's novel of the Trujillo dictatorship in the Dominican Republic — a reconstruction of power, terror, and a dictator's final afternoon.",
+      "coverImage": "https://covers.openlibrary.org/b/olid/OL9133932M-L.jpg",
+      "status": "Approved",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "categories": [
+        "bestseller"
+      ],
+      "rating": 4.5,
+      "pageCount": 528,
+      "publishedDate": "2000",
+      "language": "Spanish"
     }
   ],
   "listings": [
     {
-      "id": "1",
+      "id": 1,
       "bookId": 1,
       "sellerId": 1,
       "price": 449,
@@ -2093,7 +2706,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "2",
+      "id": 2,
       "bookId": 1,
       "sellerId": 2,
       "price": 409,
@@ -2102,7 +2715,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "3",
+      "id": 3,
       "bookId": 1,
       "sellerId": 3,
       "price": 409,
@@ -2111,7 +2724,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "4",
+      "id": 4,
       "bookId": 2,
       "sellerId": 1,
       "price": 299,
@@ -2120,7 +2733,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "5",
+      "id": 5,
       "bookId": 2,
       "sellerId": 2,
       "price": 259,
@@ -2129,7 +2742,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "6",
+      "id": 6,
       "bookId": 2,
       "sellerId": 3,
       "price": 259,
@@ -2138,7 +2751,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "7",
+      "id": 7,
       "bookId": 3,
       "sellerId": 1,
       "price": 499,
@@ -2147,7 +2760,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "8",
+      "id": 8,
       "bookId": 3,
       "sellerId": 2,
       "price": 559,
@@ -2156,7 +2769,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "9",
+      "id": 9,
       "bookId": 3,
       "sellerId": 3,
       "price": 559,
@@ -2165,7 +2778,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "10",
+      "id": 10,
       "bookId": 4,
       "sellerId": 1,
       "price": 399,
@@ -2174,7 +2787,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "11",
+      "id": 11,
       "bookId": 4,
       "sellerId": 2,
       "price": 439,
@@ -2183,7 +2796,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "12",
+      "id": 12,
       "bookId": 4,
       "sellerId": 3,
       "price": 439,
@@ -2192,7 +2805,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "13",
+      "id": 13,
       "bookId": 5,
       "sellerId": 1,
       "price": 359,
@@ -2201,7 +2814,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "14",
+      "id": 14,
       "bookId": 5,
       "sellerId": 2,
       "price": 359,
@@ -2210,7 +2823,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "15",
+      "id": 15,
       "bookId": 6,
       "sellerId": 1,
       "price": 329,
@@ -2219,7 +2832,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "16",
+      "id": 16,
       "bookId": 6,
       "sellerId": 2,
       "price": 279,
@@ -2228,7 +2841,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "17",
+      "id": 17,
       "bookId": 7,
       "sellerId": 1,
       "price": 479,
@@ -2237,7 +2850,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "18",
+      "id": 18,
       "bookId": 7,
       "sellerId": 2,
       "price": 469,
@@ -2246,7 +2859,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "19",
+      "id": 19,
       "bookId": 8,
       "sellerId": 1,
       "price": 349,
@@ -2255,7 +2868,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "20",
+      "id": 20,
       "bookId": 8,
       "sellerId": 2,
       "price": 329,
@@ -2264,7 +2877,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "21",
+      "id": 21,
       "bookId": 9,
       "sellerId": 1,
       "price": 369,
@@ -2273,7 +2886,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "22",
+      "id": 22,
       "bookId": 9,
       "sellerId": 2,
       "price": 349,
@@ -2282,7 +2895,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "23",
+      "id": 23,
       "bookId": 9,
       "sellerId": 3,
       "price": 349,
@@ -2291,7 +2904,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "24",
+      "id": 24,
       "bookId": 10,
       "sellerId": 1,
       "price": 399,
@@ -2300,7 +2913,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "25",
+      "id": 25,
       "bookId": 10,
       "sellerId": 2,
       "price": 479,
@@ -2309,7 +2922,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "26",
+      "id": 26,
       "bookId": 10,
       "sellerId": 3,
       "price": 479,
@@ -2318,7 +2931,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "27",
+      "id": 27,
       "bookId": 11,
       "sellerId": 1,
       "price": 299,
@@ -2327,7 +2940,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "28",
+      "id": 28,
       "bookId": 11,
       "sellerId": 2,
       "price": 259,
@@ -2336,7 +2949,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "29",
+      "id": 29,
       "bookId": 11,
       "sellerId": 3,
       "price": 259,
@@ -2345,7 +2958,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "30",
+      "id": 30,
       "bookId": 12,
       "sellerId": 1,
       "price": 459,
@@ -2354,7 +2967,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "31",
+      "id": 31,
       "bookId": 12,
       "sellerId": 2,
       "price": 499,
@@ -2363,7 +2976,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "32",
+      "id": 32,
       "bookId": 12,
       "sellerId": 3,
       "price": 499,
@@ -2372,7 +2985,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "33",
+      "id": 33,
       "bookId": 13,
       "sellerId": 1,
       "price": 259,
@@ -2381,7 +2994,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "34",
+      "id": 34,
       "bookId": 13,
       "sellerId": 2,
       "price": 259,
@@ -2390,7 +3003,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "35",
+      "id": 35,
       "bookId": 13,
       "sellerId": 3,
       "price": 259,
@@ -2399,7 +3012,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "36",
+      "id": 36,
       "bookId": 14,
       "sellerId": 1,
       "price": 229,
@@ -2408,7 +3021,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "37",
+      "id": 37,
       "bookId": 14,
       "sellerId": 2,
       "price": 229,
@@ -2417,7 +3030,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "38",
+      "id": 38,
       "bookId": 14,
       "sellerId": 3,
       "price": 229,
@@ -2426,7 +3039,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "39",
+      "id": 39,
       "bookId": 15,
       "sellerId": 1,
       "price": 339,
@@ -2435,7 +3048,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "40",
+      "id": 40,
       "bookId": 15,
       "sellerId": 2,
       "price": 329,
@@ -2444,7 +3057,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "41",
+      "id": 41,
       "bookId": 15,
       "sellerId": 3,
       "price": 329,
@@ -2453,7 +3066,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "42",
+      "id": 42,
       "bookId": 16,
       "sellerId": 1,
       "price": 429,
@@ -2462,7 +3075,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "43",
+      "id": 43,
       "bookId": 16,
       "sellerId": 2,
       "price": 469,
@@ -2471,7 +3084,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "44",
+      "id": 44,
       "bookId": 17,
       "sellerId": 1,
       "price": 279,
@@ -2480,7 +3093,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "45",
+      "id": 45,
       "bookId": 17,
       "sellerId": 2,
       "price": 299,
@@ -2489,7 +3102,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "46",
+      "id": 46,
       "bookId": 18,
       "sellerId": 1,
       "price": 299,
@@ -2498,7 +3111,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "47",
+      "id": 47,
       "bookId": 18,
       "sellerId": 2,
       "price": 289,
@@ -2507,7 +3120,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "48",
+      "id": 48,
       "bookId": 18,
       "sellerId": 3,
       "price": 289,
@@ -2516,7 +3129,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "49",
+      "id": 49,
       "bookId": 19,
       "sellerId": 1,
       "price": 399,
@@ -2525,7 +3138,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "50",
+      "id": 50,
       "bookId": 19,
       "sellerId": 2,
       "price": 409,
@@ -2534,7 +3147,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "51",
+      "id": 51,
       "bookId": 20,
       "sellerId": 1,
       "price": 249,
@@ -2543,7 +3156,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "52",
+      "id": 52,
       "bookId": 20,
       "sellerId": 2,
       "price": 239,
@@ -2552,7 +3165,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "53",
+      "id": 53,
       "bookId": 20,
       "sellerId": 3,
       "price": 239,
@@ -2561,7 +3174,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "54",
+      "id": 54,
       "bookId": 21,
       "sellerId": 1,
       "price": 289,
@@ -2570,7 +3183,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "55",
+      "id": 55,
       "bookId": 21,
       "sellerId": 2,
       "price": 339,
@@ -2579,7 +3192,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "56",
+      "id": 56,
       "bookId": 22,
       "sellerId": 1,
       "price": 319,
@@ -2588,7 +3201,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "57",
+      "id": 57,
       "bookId": 22,
       "sellerId": 2,
       "price": 319,
@@ -2597,7 +3210,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "58",
+      "id": 58,
       "bookId": 23,
       "sellerId": 1,
       "price": 309,
@@ -2606,7 +3219,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "59",
+      "id": 59,
       "bookId": 23,
       "sellerId": 2,
       "price": 339,
@@ -2615,7 +3228,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "60",
+      "id": 60,
       "bookId": 23,
       "sellerId": 3,
       "price": 339,
@@ -2624,7 +3237,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "61",
+      "id": 61,
       "bookId": 24,
       "sellerId": 1,
       "price": 199,
@@ -2633,7 +3246,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "62",
+      "id": 62,
       "bookId": 24,
       "sellerId": 2,
       "price": 199,
@@ -2642,7 +3255,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "63",
+      "id": 63,
       "bookId": 24,
       "sellerId": 3,
       "price": 199,
@@ -2651,7 +3264,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "64",
+      "id": 64,
       "bookId": 25,
       "sellerId": 1,
       "price": 239,
@@ -2660,7 +3273,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "65",
+      "id": 65,
       "bookId": 25,
       "sellerId": 2,
       "price": 239,
@@ -2669,7 +3282,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "66",
+      "id": 66,
       "bookId": 26,
       "sellerId": 1,
       "price": 269,
@@ -2678,7 +3291,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "67",
+      "id": 67,
       "bookId": 26,
       "sellerId": 2,
       "price": 239,
@@ -2687,7 +3300,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "68",
+      "id": 68,
       "bookId": 26,
       "sellerId": 3,
       "price": 239,
@@ -2696,7 +3309,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "69",
+      "id": 69,
       "bookId": 27,
       "sellerId": 1,
       "price": 219,
@@ -2705,7 +3318,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "70",
+      "id": 70,
       "bookId": 27,
       "sellerId": 2,
       "price": 229,
@@ -2714,7 +3327,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "71",
+      "id": 71,
       "bookId": 28,
       "sellerId": 1,
       "price": 249,
@@ -2723,7 +3336,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "72",
+      "id": 72,
       "bookId": 28,
       "sellerId": 2,
       "price": 279,
@@ -2732,7 +3345,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "73",
+      "id": 73,
       "bookId": 28,
       "sellerId": 3,
       "price": 279,
@@ -2741,7 +3354,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "74",
+      "id": 74,
       "bookId": 29,
       "sellerId": 1,
       "price": 289,
@@ -2750,7 +3363,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "75",
+      "id": 75,
       "bookId": 29,
       "sellerId": 2,
       "price": 289,
@@ -2759,7 +3372,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "76",
+      "id": 76,
       "bookId": 29,
       "sellerId": 3,
       "price": 289,
@@ -2768,7 +3381,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "77",
+      "id": 77,
       "bookId": 30,
       "sellerId": 1,
       "price": 229,
@@ -2777,7 +3390,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "78",
+      "id": 78,
       "bookId": 30,
       "sellerId": 2,
       "price": 259,
@@ -2786,7 +3399,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "79",
+      "id": 79,
       "bookId": 30,
       "sellerId": 3,
       "price": 259,
@@ -2795,7 +3408,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "80",
+      "id": 80,
       "bookId": 31,
       "sellerId": 1,
       "price": 279,
@@ -2804,7 +3417,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "81",
+      "id": 81,
       "bookId": 31,
       "sellerId": 2,
       "price": 319,
@@ -2813,7 +3426,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "82",
+      "id": 82,
       "bookId": 31,
       "sellerId": 3,
       "price": 319,
@@ -2822,7 +3435,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "83",
+      "id": 83,
       "bookId": 32,
       "sellerId": 1,
       "price": 459,
@@ -2831,7 +3444,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "84",
+      "id": 84,
       "bookId": 32,
       "sellerId": 2,
       "price": 489,
@@ -2840,7 +3453,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "85",
+      "id": 85,
       "bookId": 33,
       "sellerId": 1,
       "price": 529,
@@ -2849,7 +3462,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "86",
+      "id": 86,
       "bookId": 33,
       "sellerId": 2,
       "price": 609,
@@ -2858,7 +3471,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "87",
+      "id": 87,
       "bookId": 33,
       "sellerId": 3,
       "price": 609,
@@ -2867,7 +3480,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "88",
+      "id": 88,
       "bookId": 34,
       "sellerId": 1,
       "price": 1499,
@@ -2876,7 +3489,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "89",
+      "id": 89,
       "bookId": 34,
       "sellerId": 2,
       "price": 1539,
@@ -2885,7 +3498,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "90",
+      "id": 90,
       "bookId": 35,
       "sellerId": 1,
       "price": 1299,
@@ -2894,7 +3507,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "91",
+      "id": 91,
       "bookId": 35,
       "sellerId": 2,
       "price": 1409,
@@ -2903,7 +3516,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "92",
+      "id": 92,
       "bookId": 35,
       "sellerId": 3,
       "price": 1409,
@@ -2912,7 +3525,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "93",
+      "id": 93,
       "bookId": 36,
       "sellerId": 1,
       "price": 599,
@@ -2921,7 +3534,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "94",
+      "id": 94,
       "bookId": 36,
       "sellerId": 2,
       "price": 649,
@@ -2930,7 +3543,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "95",
+      "id": 95,
       "bookId": 37,
       "sellerId": 1,
       "price": 499,
@@ -2939,7 +3552,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "96",
+      "id": 96,
       "bookId": 37,
       "sellerId": 2,
       "price": 549,
@@ -2948,7 +3561,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "97",
+      "id": 97,
       "bookId": 37,
       "sellerId": 3,
       "price": 549,
@@ -2957,7 +3570,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "98",
+      "id": 98,
       "bookId": 38,
       "sellerId": 1,
       "price": 449,
@@ -2966,7 +3579,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "99",
+      "id": 99,
       "bookId": 38,
       "sellerId": 2,
       "price": 499,
@@ -2975,7 +3588,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "100",
+      "id": 100,
       "bookId": 38,
       "sellerId": 3,
       "price": 499,
@@ -2984,7 +3597,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "101",
+      "id": 101,
       "bookId": 39,
       "sellerId": 1,
       "price": 379,
@@ -2993,7 +3606,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "102",
+      "id": 102,
       "bookId": 39,
       "sellerId": 2,
       "price": 429,
@@ -3002,7 +3615,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "103",
+      "id": 103,
       "bookId": 39,
       "sellerId": 3,
       "price": 429,
@@ -3011,7 +3624,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "104",
+      "id": 104,
       "bookId": 40,
       "sellerId": 1,
       "price": 429,
@@ -3020,7 +3633,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "105",
+      "id": 105,
       "bookId": 40,
       "sellerId": 2,
       "price": 379,
@@ -3029,7 +3642,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "106",
+      "id": 106,
       "bookId": 41,
       "sellerId": 1,
       "price": 549,
@@ -3038,7 +3651,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "107",
+      "id": 107,
       "bookId": 41,
       "sellerId": 2,
       "price": 569,
@@ -3047,7 +3660,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "108",
+      "id": 108,
       "bookId": 42,
       "sellerId": 1,
       "price": 479,
@@ -3056,7 +3669,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "109",
+      "id": 109,
       "bookId": 42,
       "sellerId": 2,
       "price": 559,
@@ -3065,7 +3678,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "110",
+      "id": 110,
       "bookId": 42,
       "sellerId": 3,
       "price": 559,
@@ -3074,7 +3687,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "111",
+      "id": 111,
       "bookId": 43,
       "sellerId": 1,
       "price": 499,
@@ -3083,7 +3696,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "112",
+      "id": 112,
       "bookId": 43,
       "sellerId": 2,
       "price": 449,
@@ -3092,7 +3705,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "113",
+      "id": 113,
       "bookId": 44,
       "sellerId": 1,
       "price": 529,
@@ -3101,7 +3714,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "114",
+      "id": 114,
       "bookId": 44,
       "sellerId": 2,
       "price": 459,
@@ -3110,7 +3723,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "115",
+      "id": 115,
       "bookId": 44,
       "sellerId": 3,
       "price": 459,
@@ -3119,7 +3732,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "116",
+      "id": 116,
       "bookId": 45,
       "sellerId": 1,
       "price": 399,
@@ -3128,7 +3741,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "117",
+      "id": 117,
       "bookId": 45,
       "sellerId": 2,
       "price": 449,
@@ -3137,7 +3750,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "118",
+      "id": 118,
       "bookId": 45,
       "sellerId": 3,
       "price": 449,
@@ -3146,7 +3759,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "119",
+      "id": 119,
       "bookId": 46,
       "sellerId": 1,
       "price": 699,
@@ -3155,7 +3768,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "120",
+      "id": 120,
       "bookId": 46,
       "sellerId": 2,
       "price": 769,
@@ -3164,7 +3777,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "121",
+      "id": 121,
       "bookId": 47,
       "sellerId": 1,
       "price": 359,
@@ -3173,7 +3786,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "122",
+      "id": 122,
       "bookId": 47,
       "sellerId": 2,
       "price": 389,
@@ -3182,7 +3795,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "123",
+      "id": 123,
       "bookId": 47,
       "sellerId": 3,
       "price": 389,
@@ -3191,7 +3804,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "124",
+      "id": 124,
       "bookId": 48,
       "sellerId": 1,
       "price": 329,
@@ -3200,7 +3813,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "125",
+      "id": 125,
       "bookId": 48,
       "sellerId": 2,
       "price": 339,
@@ -3209,7 +3822,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "126",
+      "id": 126,
       "bookId": 48,
       "sellerId": 3,
       "price": 339,
@@ -3218,7 +3831,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "127",
+      "id": 127,
       "bookId": 49,
       "sellerId": 1,
       "price": 389,
@@ -3227,7 +3840,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "128",
+      "id": 128,
       "bookId": 49,
       "sellerId": 2,
       "price": 439,
@@ -3236,7 +3849,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "129",
+      "id": 129,
       "bookId": 49,
       "sellerId": 3,
       "price": 439,
@@ -3245,7 +3858,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "130",
+      "id": 130,
       "bookId": 50,
       "sellerId": 1,
       "price": 459,
@@ -3254,7 +3867,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "131",
+      "id": 131,
       "bookId": 50,
       "sellerId": 2,
       "price": 509,
@@ -3263,7 +3876,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "132",
+      "id": 132,
       "bookId": 50,
       "sellerId": 3,
       "price": 509,
@@ -3272,7 +3885,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "133",
+      "id": 133,
       "bookId": 51,
       "sellerId": 1,
       "price": 629,
@@ -3281,7 +3894,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "134",
+      "id": 134,
       "bookId": 51,
       "sellerId": 2,
       "price": 599,
@@ -3290,7 +3903,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "135",
+      "id": 135,
       "bookId": 51,
       "sellerId": 3,
       "price": 599,
@@ -3299,7 +3912,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "136",
+      "id": 136,
       "bookId": 52,
       "sellerId": 1,
       "price": 699,
@@ -3308,7 +3921,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "137",
+      "id": 137,
       "bookId": 52,
       "sellerId": 2,
       "price": 769,
@@ -3317,7 +3930,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "138",
+      "id": 138,
       "bookId": 53,
       "sellerId": 1,
       "price": 379,
@@ -3326,7 +3939,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "139",
+      "id": 139,
       "bookId": 53,
       "sellerId": 2,
       "price": 439,
@@ -3335,7 +3948,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "140",
+      "id": 140,
       "bookId": 53,
       "sellerId": 3,
       "price": 439,
@@ -3344,7 +3957,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "141",
+      "id": 141,
       "bookId": 54,
       "sellerId": 1,
       "price": 549,
@@ -3353,7 +3966,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "142",
+      "id": 142,
       "bookId": 54,
       "sellerId": 2,
       "price": 559,
@@ -3362,7 +3975,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "143",
+      "id": 143,
       "bookId": 54,
       "sellerId": 3,
       "price": 559,
@@ -3371,7 +3984,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "144",
+      "id": 144,
       "bookId": 55,
       "sellerId": 1,
       "price": 419,
@@ -3380,7 +3993,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "145",
+      "id": 145,
       "bookId": 55,
       "sellerId": 2,
       "price": 369,
@@ -3389,7 +4002,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "146",
+      "id": 146,
       "bookId": 55,
       "sellerId": 3,
       "price": 369,
@@ -3398,7 +4011,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "147",
+      "id": 147,
       "bookId": 56,
       "sellerId": 1,
       "price": 349,
@@ -3407,7 +4020,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "148",
+      "id": 148,
       "bookId": 56,
       "sellerId": 2,
       "price": 359,
@@ -3416,7 +4029,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "149",
+      "id": 149,
       "bookId": 56,
       "sellerId": 3,
       "price": 359,
@@ -3425,7 +4038,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "150",
+      "id": 150,
       "bookId": 57,
       "sellerId": 1,
       "price": 329,
@@ -3434,7 +4047,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "151",
+      "id": 151,
       "bookId": 57,
       "sellerId": 2,
       "price": 329,
@@ -3443,7 +4056,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "152",
+      "id": 152,
       "bookId": 57,
       "sellerId": 3,
       "price": 329,
@@ -3452,7 +4065,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "153",
+      "id": 153,
       "bookId": 58,
       "sellerId": 1,
       "price": 329,
@@ -3461,7 +4074,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "154",
+      "id": 154,
       "bookId": 58,
       "sellerId": 2,
       "price": 279,
@@ -3470,7 +4083,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "155",
+      "id": 155,
       "bookId": 58,
       "sellerId": 3,
       "price": 279,
@@ -3479,7 +4092,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "156",
+      "id": 156,
       "bookId": 59,
       "sellerId": 1,
       "price": 329,
@@ -3488,7 +4101,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "157",
+      "id": 157,
       "bookId": 59,
       "sellerId": 2,
       "price": 339,
@@ -3497,7 +4110,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "158",
+      "id": 158,
       "bookId": 59,
       "sellerId": 3,
       "price": 339,
@@ -3506,7 +4119,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "159",
+      "id": 159,
       "bookId": 60,
       "sellerId": 1,
       "price": 339,
@@ -3515,7 +4128,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "160",
+      "id": 160,
       "bookId": 60,
       "sellerId": 2,
       "price": 339,
@@ -3524,7 +4137,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "161",
+      "id": 161,
       "bookId": 60,
       "sellerId": 3,
       "price": 339,
@@ -3533,7 +4146,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "162",
+      "id": 162,
       "bookId": 61,
       "sellerId": 1,
       "price": 329,
@@ -3542,7 +4155,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "163",
+      "id": 163,
       "bookId": 61,
       "sellerId": 2,
       "price": 289,
@@ -3551,7 +4164,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "164",
+      "id": 164,
       "bookId": 62,
       "sellerId": 1,
       "price": 329,
@@ -3560,7 +4173,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "165",
+      "id": 165,
       "bookId": 62,
       "sellerId": 2,
       "price": 339,
@@ -3569,7 +4182,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "166",
+      "id": 166,
       "bookId": 62,
       "sellerId": 3,
       "price": 339,
@@ -3578,7 +4191,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "167",
+      "id": 167,
       "bookId": 63,
       "sellerId": 1,
       "price": 329,
@@ -3587,7 +4200,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "168",
+      "id": 168,
       "bookId": 63,
       "sellerId": 2,
       "price": 329,
@@ -3596,7 +4209,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "169",
+      "id": 169,
       "bookId": 64,
       "sellerId": 1,
       "price": 329,
@@ -3605,7 +4218,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "170",
+      "id": 170,
       "bookId": 64,
       "sellerId": 2,
       "price": 369,
@@ -3614,7 +4227,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "171",
+      "id": 171,
       "bookId": 64,
       "sellerId": 3,
       "price": 369,
@@ -3623,7 +4236,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "172",
+      "id": 172,
       "bookId": 65,
       "sellerId": 1,
       "price": 599,
@@ -3632,7 +4245,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "173",
+      "id": 173,
       "bookId": 65,
       "sellerId": 2,
       "price": 519,
@@ -3641,7 +4254,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "174",
+      "id": 174,
       "bookId": 65,
       "sellerId": 3,
       "price": 519,
@@ -3650,7 +4263,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "175",
+      "id": 175,
       "bookId": 66,
       "sellerId": 1,
       "price": 379,
@@ -3659,7 +4272,7 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "176",
+      "id": 176,
       "bookId": 66,
       "sellerId": 2,
       "price": 339,
@@ -3668,11 +4281,677 @@
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
     {
-      "id": "177",
+      "id": 177,
       "bookId": 66,
       "sellerId": 3,
       "price": 339,
       "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 178,
+      "bookId": 67,
+      "sellerId": 1,
+      "price": 449,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 179,
+      "bookId": 67,
+      "sellerId": 2,
+      "price": 459,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 180,
+      "bookId": 67,
+      "sellerId": 3,
+      "price": 459,
+      "stock": 11,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 181,
+      "bookId": 68,
+      "sellerId": 1,
+      "price": 299,
+      "stock": 9,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 182,
+      "bookId": 68,
+      "sellerId": 2,
+      "price": 339,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 183,
+      "bookId": 68,
+      "sellerId": 3,
+      "price": 339,
+      "stock": 14,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 184,
+      "bookId": 69,
+      "sellerId": 1,
+      "price": 249,
+      "stock": 15,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 185,
+      "bookId": 69,
+      "sellerId": 2,
+      "price": 279,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 186,
+      "bookId": 70,
+      "sellerId": 1,
+      "price": 319,
+      "stock": 15,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 187,
+      "bookId": 70,
+      "sellerId": 2,
+      "price": 359,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 188,
+      "bookId": 70,
+      "sellerId": 3,
+      "price": 359,
+      "stock": 20,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 189,
+      "bookId": 71,
+      "sellerId": 1,
+      "price": 549,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 190,
+      "bookId": 71,
+      "sellerId": 2,
+      "price": 589,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 191,
+      "bookId": 71,
+      "sellerId": 3,
+      "price": 589,
+      "stock": 9,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 192,
+      "bookId": 72,
+      "sellerId": 1,
+      "price": 299,
+      "stock": 16,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 193,
+      "bookId": 72,
+      "sellerId": 2,
+      "price": 309,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 194,
+      "bookId": 73,
+      "sellerId": 1,
+      "price": 199,
+      "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 195,
+      "bookId": 73,
+      "sellerId": 2,
+      "price": 209,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 196,
+      "bookId": 73,
+      "sellerId": 3,
+      "price": 209,
+      "stock": 11,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 197,
+      "bookId": 74,
+      "sellerId": 1,
+      "price": 249,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 198,
+      "bookId": 74,
+      "sellerId": 2,
+      "price": 209,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 199,
+      "bookId": 74,
+      "sellerId": 3,
+      "price": 209,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 200,
+      "bookId": 75,
+      "sellerId": 1,
+      "price": 209,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 201,
+      "bookId": 75,
+      "sellerId": 2,
+      "price": 179,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 202,
+      "bookId": 75,
+      "sellerId": 3,
+      "price": 179,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 203,
+      "bookId": 76,
+      "sellerId": 1,
+      "price": 279,
+      "stock": 9,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 204,
+      "bookId": 76,
+      "sellerId": 2,
+      "price": 279,
+      "stock": 17,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 205,
+      "bookId": 77,
+      "sellerId": 1,
+      "price": 169,
+      "stock": 14,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 206,
+      "bookId": 77,
+      "sellerId": 2,
+      "price": 169,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 207,
+      "bookId": 78,
+      "sellerId": 1,
+      "price": 239,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 208,
+      "bookId": 78,
+      "sellerId": 2,
+      "price": 279,
+      "stock": 9,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 209,
+      "bookId": 79,
+      "sellerId": 1,
+      "price": 289,
+      "stock": 10,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 210,
+      "bookId": 79,
+      "sellerId": 2,
+      "price": 309,
+      "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 211,
+      "bookId": 79,
+      "sellerId": 3,
+      "price": 309,
+      "stock": 15,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 212,
+      "bookId": 80,
+      "sellerId": 1,
+      "price": 529,
+      "stock": 18,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 213,
+      "bookId": 80,
+      "sellerId": 2,
+      "price": 479,
+      "stock": 15,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 214,
+      "bookId": 81,
+      "sellerId": 1,
+      "price": 579,
+      "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 215,
+      "bookId": 81,
+      "sellerId": 2,
+      "price": 559,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 216,
+      "bookId": 81,
+      "sellerId": 3,
+      "price": 559,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 217,
+      "bookId": 82,
+      "sellerId": 1,
+      "price": 749,
+      "stock": 8,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 218,
+      "bookId": 82,
+      "sellerId": 2,
+      "price": 749,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 219,
+      "bookId": 82,
+      "sellerId": 3,
+      "price": 749,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 220,
+      "bookId": 83,
+      "sellerId": 1,
+      "price": 219,
+      "stock": 19,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 221,
+      "bookId": 83,
+      "sellerId": 2,
+      "price": 239,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 222,
+      "bookId": 84,
+      "sellerId": 1,
+      "price": 469,
+      "stock": 15,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 223,
+      "bookId": 84,
+      "sellerId": 2,
+      "price": 519,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 224,
+      "bookId": 84,
+      "sellerId": 3,
+      "price": 519,
+      "stock": 20,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 225,
+      "bookId": 85,
+      "sellerId": 1,
+      "price": 399,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 226,
+      "bookId": 85,
+      "sellerId": 2,
+      "price": 399,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 227,
+      "bookId": 85,
+      "sellerId": 3,
+      "price": 399,
+      "stock": 9,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 228,
+      "bookId": 86,
+      "sellerId": 1,
+      "price": 249,
+      "stock": 17,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 229,
+      "bookId": 86,
+      "sellerId": 2,
+      "price": 259,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 230,
+      "bookId": 87,
+      "sellerId": 1,
+      "price": 529,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 231,
+      "bookId": 87,
+      "sellerId": 2,
+      "price": 499,
+      "stock": 22,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 232,
+      "bookId": 87,
+      "sellerId": 3,
+      "price": 499,
+      "stock": 10,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 233,
+      "bookId": 88,
+      "sellerId": 1,
+      "price": 289,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 234,
+      "bookId": 88,
+      "sellerId": 2,
+      "price": 259,
+      "stock": 10,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 235,
+      "bookId": 89,
+      "sellerId": 1,
+      "price": 629,
+      "stock": 12,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 236,
+      "bookId": 89,
+      "sellerId": 2,
+      "price": 559,
+      "stock": 19,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 237,
+      "bookId": 89,
+      "sellerId": 3,
+      "price": 559,
+      "stock": 7,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 238,
+      "bookId": 90,
+      "sellerId": 1,
+      "price": 399,
+      "stock": 8,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 239,
+      "bookId": 90,
+      "sellerId": 2,
+      "price": 389,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 240,
+      "bookId": 90,
+      "sellerId": 3,
+      "price": 389,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 241,
+      "bookId": 91,
+      "sellerId": 1,
+      "price": 469,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 242,
+      "bookId": 91,
+      "sellerId": 2,
+      "price": 409,
+      "stock": 13,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 243,
+      "bookId": 91,
+      "sellerId": 3,
+      "price": 409,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 244,
+      "bookId": 92,
+      "sellerId": 1,
+      "price": 299,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 245,
+      "bookId": 92,
+      "sellerId": 2,
+      "price": 279,
+      "stock": 14,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 246,
+      "bookId": 92,
+      "sellerId": 3,
+      "price": 279,
+      "stock": 21,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 247,
+      "bookId": 93,
+      "sellerId": 1,
+      "price": 579,
+      "stock": 14,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 248,
+      "bookId": 93,
+      "sellerId": 2,
+      "price": 689,
+      "stock": 6,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 249,
+      "bookId": 94,
+      "sellerId": 1,
+      "price": 499,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 250,
+      "bookId": 94,
+      "sellerId": 2,
+      "price": 509,
+      "stock": 0,
+      "active": true,
+      "createdAt": "2026-06-08T09:00:00.000Z"
+    },
+    {
+      "id": 251,
+      "bookId": 94,
+      "sellerId": 3,
+      "price": 509,
+      "stock": 10,
       "active": true,
       "createdAt": "2026-06-08T09:00:00.000Z"
     }
@@ -3771,6 +5050,5 @@
       "rating": 5,
       "text": "As a student, I appreciate the academic section and the student discounts. Found rare editions I couldn't find anywhere else. Highly recommended!"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }
