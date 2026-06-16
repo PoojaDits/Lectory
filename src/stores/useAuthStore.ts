@@ -24,6 +24,13 @@ interface AuthStore {
   /** The original admin while impersonating someone else (null otherwise). */
   impersonator: AuthUser | null;
   isImpersonating: boolean;
+  /**
+   * Set to true at the start of `impersonate` / `stopImpersonating` so
+   * that any ProtectedRoute evaluating the in-flight render(s) before
+   * the navigation commits suppresses its "permission denied" toast.
+   * Cleared by App.tsx after the navigation lands.
+   */
+  isRoleTransitioning: boolean;
 
   setUser: (user: AuthUser) => void;
   logout: () => void;
@@ -32,6 +39,10 @@ interface AuthStore {
   impersonate: (user: AuthUser) => void;
   /** Return to the original admin account. */
   stopImpersonating: () => void;
+  /** Internal: mark a role change in progress. */
+  beginRoleTransition: () => void;
+  /** Internal: clear the role-change flag once navigation has landed. */
+  endRoleTransition: () => void;
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -39,6 +50,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   isAuthenticated: Boolean(initialUser),
   impersonator: initialImpersonator,
   isImpersonating: Boolean(initialImpersonator),
+  isRoleTransitioning: false,
 
   setUser: (user) => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
@@ -49,6 +61,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       isAuthenticated: true,
       impersonator: null,
       isImpersonating: false,
+      isRoleTransitioning: false,
     });
   },
 
@@ -60,13 +73,21 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       isAuthenticated: false,
       impersonator: null,
       isImpersonating: false,
+      isRoleTransitioning: false,
     });
   },
+
+  beginRoleTransition: () => set({ isRoleTransitioning: true }),
+  endRoleTransition: () => set({ isRoleTransitioning: false }),
 
   impersonate: (user) => {
     const { currentUser, impersonator } = get();
     // Only an admin (who is not already impersonating) may start a session.
     if (!currentUser || currentUser.role !== "admin" || impersonator) return;
+
+    // Flag the transition BEFORE flipping state so any render between
+    // this set and the navigation commit can suppress its toast.
+    set({ isRoleTransitioning: true });
 
     window.localStorage.setItem(IMPERSONATOR_KEY, JSON.stringify(currentUser));
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
@@ -81,6 +102,10 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   stopImpersonating: () => {
     const { impersonator } = get();
     if (!impersonator) return;
+
+    // Flag the transition BEFORE flipping state so any render between
+    // this set and the navigation commit can suppress its toast.
+    set({ isRoleTransitioning: true });
 
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(impersonator));
     window.localStorage.removeItem(IMPERSONATOR_KEY);

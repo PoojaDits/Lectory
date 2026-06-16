@@ -39,6 +39,7 @@ export default function ProtectedRoute({
         : currentUser.role === "seller"
           ? "/seller"
           : "/account";
+          
     return <Navigate to={home} replace />;
   }
 
