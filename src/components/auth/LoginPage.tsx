@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useLogin } from "@/hooks/useAuth";
 import { loginSchema } from "@/lib/validation";
 import type { AuthUser, LoginInput } from "@/types";
+import { BookOpen } from "lucide-react";
 
 interface LoginPageProps {
   onNavigateHome: () => void;
@@ -30,7 +31,9 @@ export default function LoginPage({ onNavigateHome, onNavigateRegister }: LoginP
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
           <div className="absolute bottom-0 left-0 p-10 text-white">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center"><span className="text-xl">📚</span></div>
+              <div className="rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 p-2 shadow-lg shadow-amber-200 transition-shadow group-hover:shadow-amber-300">
+              <BookOpen className="h-6 w-6 text-white" />
+            </div>
               <span className="font-bold text-2xl tracking-tight">Lectory</span>
             </div>
             <h1 className="text-5xl font-black leading-none tracking-tighter mb-4">FIND YOUR NEXT<br />GREAT READ</h1>

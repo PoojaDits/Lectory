@@ -59,7 +59,7 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col leading-tight">
               <span className="text-xl font-bold tracking-tight text-amber-900">
-                My Book Store
+                Lectory
               </span>
               <span className="text-[10px] font-medium uppercase tracking-widest text-amber-600">
                 Read • Explore • Discover

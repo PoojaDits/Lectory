@@ -17,10 +17,6 @@ export default function PreOrder() {
             align="left"
             className="max-w-2xl mb-0"
           />
-          <button className="inline-flex items-center gap-2 rounded-full bg-gray-900 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-gray-900/10 transition-all hover:bg-gray-800 fancy-btn">
-            View Full Preorder Collection
-            <ArrowRight className="w-4 h-4" />
-          </button>
         </div>
 
         {isLoading ? (

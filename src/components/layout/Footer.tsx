@@ -32,7 +32,7 @@ export default function Footer() {
               <div className="bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl p-2">
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-bold text-white">My Book Store</span>
+              <span className="text-xl font-bold text-white">Lectory</span>
             </a>
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
               Your trusted destination for books of every genre. Serving readers
