@@ -832,7 +832,7 @@
           "country": "India",
           "phone": "234567890-9876",
           "label": "Home",
-          "isDefault": true
+          "isDefault": false
         },
         {
           "id": "addr_1781593284242_1bi2",
@@ -844,7 +844,7 @@
           "country": "India",
           "phone": "4356768987",
           "label": "Work",
-          "isDefault": false
+          "isDefault": true
         }
       ]
     }
@@ -4992,7 +4992,22 @@
       "id": "L9R73FYFYlk"
     }
   ],
-  "cartItems": [],
+  "cartItems": [
+    {
+      "cartId": "L9R73FYFYlk",
+      "listingId": "36",
+      "bookId": "14",
+      "sellerId": 1,
+      "quantity": 1,
+      "price": 229,
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg",
+      "sellerName": "BookWorld Distributors",
+      "createdAt": "2026-06-17T05:35:33.575Z",
+      "id": "IODRGMNst14"
+    }
+  ],
   "orders": [
     {
       "id": "bZtDPzxkMYQ",

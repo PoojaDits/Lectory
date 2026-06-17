@@ -141,7 +141,7 @@ export default function CustomerAccount({
                   return (
                     <Link
                       key={tab.id}
-                      to={tab.id}
+                      to={`/account/${tab.id}`.replace(/\/$/, "")}
                       className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-black transition whitespace-nowrap ${
                         isActive
                           ? "bg-gradient-to-r from-amber-900 to-orange-900 text-white shadow-md shadow-amber-950/10 scale-[1.02]"
