@@ -897,7 +897,7 @@
       "coverImage": "https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg",
       "status": "Approved",
       "createdAt": "2026-06-01T09:00:00.000Z",
-      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "reviewedAt": "2026-06-17T12:19:26.063Z",
       "categories": [
         "bestseller"
       ],
@@ -5001,7 +5001,7 @@
       "id": "bZtDPzxkMYQ",
       "customerId": "IK31EltCvMk",
       "sellerId": "1",
-      "status": "Created",
+      "status": "Cancelled",
       "shippingAddress": "thor, sw34wedtgcfxd,cjhgki., mumbai, maharastra 400001, India, (234567890-9876)",
       "total": 2754,
       "createdAt": "2026-06-16T07:01:50.668Z",
@@ -5019,7 +5019,8 @@
           "authorSnapshot": "R.A. Salvatore",
           "sellerNameSnapshot": "BookWorld Distributors"
         }
-      ]
+      ],
+      "updatedAt": "2026-06-17T12:18:46.749Z"
     },
     {
       "id": "AcWwUVis2cs",
@@ -5050,7 +5051,7 @@
       "id": "hup5zhVlUHQ",
       "customerId": "IK31EltCvMk",
       "sellerId": "3",
-      "status": "Created",
+      "status": "Shipped",
       "shippingAddress": "thor, sw34wedtgcfxd,cjhgki., mumbai, maharastra 400001, India, (234567890-9876)",
       "total": 609,
       "createdAt": "2026-06-16T07:01:50.668Z",
@@ -5068,7 +5069,8 @@
           "authorSnapshot": "Nick Bostrom",
           "sellerNameSnapshot": "ReadMore Traders"
         }
-      ]
+      ],
+      "updatedAt": "2026-06-17T12:21:45.498Z"
     },
     {
       "id": "mPbBv3YH0HE",
@@ -5098,7 +5100,7 @@
       "id": "ATFhPss9Z14",
       "customerId": "IK31EltCvMk",
       "sellerId": "2",
-      "status": "Created",
+      "status": "Delivered",
       "shippingAddress": "thor, zdsagxfjh jk;iokihhj hjglikhi;l jkjb, Ambala, Haryana 134005, India, (4356768987)",
       "total": 958,
       "createdAt": "2026-06-16T07:44:05.919Z",
@@ -5116,7 +5118,8 @@
           "authorSnapshot": "Joel Osteen",
           "sellerNameSnapshot": "PageTurner Books"
         }
-      ]
+      ],
+      "updatedAt": "2026-06-17T12:18:32.270Z"
     },
     {
       "id": "8snvjVf31oQ",
@@ -5366,7 +5369,7 @@
       "id": "yxp3PUOwA-A",
       "customerId": "IK31EltCvMk",
       "sellerId": "3",
-      "status": "Created",
+      "status": "Accepted",
       "shippingAddress": "thor, sw34wedtgcfxd,cjhgki., mumbai, maharastra 400001, India, (234567890-9876)",
       "total": 927,
       "createdAt": "2026-06-16T07:44:50.318Z",
@@ -5397,7 +5400,8 @@
           "authorSnapshot": "James Clear",
           "sellerNameSnapshot": "ReadMore Traders"
         }
-      ]
+      ],
+      "updatedAt": "2026-06-17T12:21:40.893Z"
     },
     {
       "id": "ciTtQ3QFWkw",

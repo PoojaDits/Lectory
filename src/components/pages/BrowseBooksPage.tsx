@@ -27,21 +27,21 @@ export default function BrowseBooksPage({
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  // how many of the current page's 16 are revealed (starts at 8)
+  // how many of the current page's chunk are revealed
   const [visibleInPage, setVisibleInPage] = useState(CHUNK);
 
   // ── Fetch the full marketplace catalog via React Query (cached) ──
   const { data: books = [], isLoading, isError } = useStoreBooks();
 
-  // ── Subscribe to sidebar (home) filters so this page re-filters
-  //    whenever the user tweaks price / rating / format / language /
-  //    in-stock in the sidebar or its mobile drawer. ──
+  // ── Subscribe to sidebar (home) filters ──
   const priceMin = useHomeFilters((s) => s.priceMin);
   const priceMax = useHomeFilters((s) => s.priceMax);
   const minRating = useHomeFilters((s) => s.minRating);
   const formats = useHomeFilters((s) => s.formats);
   const languages = useHomeFilters((s) => s.languages);
+  const toggleLanguage = useHomeFilters((s) => s.toggleLanguage);
   const inStockOnly = useHomeFilters((s) => s.inStockOnly);
+  const resetFilters = useHomeFilters((s) => s.reset);
 
   /** Set or clear the active category in the URL. */
   const setCategory = (tag: string) => {
@@ -51,6 +51,11 @@ export default function BrowseBooksPage({
     setSearchParams(next, { replace: true });
     setCurrentPage(1);
     setVisibleInPage(CHUNK);
+  };
+
+  const handleClearAll = () => {
+    setCategory("");
+    resetFilters();
   };
 
   // ── Debounce the search box (300ms) ──
@@ -84,7 +89,7 @@ export default function BrowseBooksPage({
       );
     }
 
-    // Sidebar filters (price / rating / format / language / in-stock).
+    // Sidebar filters
     result = applyHomeFilters(result, {
       priceMin,
       priceMax,
@@ -109,10 +114,7 @@ export default function BrowseBooksPage({
 
   const totalPages = Math.max(1, Math.ceil(filteredBooks.length / PAGE_SIZE));
 
-  // Reset to page 1 (and the first chunk) whenever the search changes.
-  // We adjust state during render (rather than in an effect) so there is no
-  // stale render and no cascading re-render. See React docs:
-  // https://react.dev/reference/react/useState#storing-information-from-previous-renders
+  // Reset to page 1 whenever search changes
   const [prevSearchQuery, setPrevSearchQuery] = useState(searchQuery);
   if (prevSearchQuery !== searchQuery) {
     setPrevSearchQuery(searchQuery);
@@ -120,48 +122,46 @@ export default function BrowseBooksPage({
     setVisibleInPage(CHUNK);
   }
 
-  // Keep currentPage valid if the result set shrinks (also adjusted in render).
+  // Keep currentPage valid
   const safePage = Math.min(currentPage, totalPages);
   if (safePage !== currentPage) {
     setCurrentPage(safePage);
   }
 
-  // ── Slice the current page (16), then reveal up to visibleInPage of them ──
   const pageStart = (currentPage - 1) * PAGE_SIZE;
   const pageBooks = filteredBooks.slice(pageStart, pageStart + PAGE_SIZE);
-  const visibleBooks = pageBooks.slice(0, visibleInPage);
   const hasMoreInPage = visibleInPage < pageBooks.length;
 
-  // ── Infinite scroll: reveals the next 8 within the current page ──
+  // ── Infinite scroll sentinel ──
   const sentinelRef = useInfiniteScroll<HTMLDivElement>({
-    hasMore: hasMoreInPage,
+    hasMore: hasMoreInPage || currentPage < totalPages,
     isLoading,
-    onLoadMore: () =>
-      setVisibleInPage((v) => Math.min(v + CHUNK, pageBooks.length)),
+    onLoadMore: () => {
+      if (hasMoreInPage) {
+        setVisibleInPage((v) => Math.min(v + CHUNK, pageBooks.length));
+      } else if (currentPage < totalPages) {
+        setCurrentPage((p) => p + 1);
+        setVisibleInPage(CHUNK);
+      }
+    },
   });
 
   const goToPage = (page: number) => {
     const safe = Math.min(Math.max(1, page), totalPages);
     setCurrentPage(safe);
-    setVisibleInPage(CHUNK); // new page starts by showing first 8 again
+    setVisibleInPage(CHUNK);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24">
       <div className="mx-auto max-w-[1600px] lg:flex lg:items-stretch lg:gap-8">
-        {/* Sidebar — sticky on lg+, collapses into a drawer on mobile.
-            The aside itself is `self-stretch` so it matches the content
-            column's height; without that, the sticky element would
-            release the moment we scrolled past the sidebar's own height
-            (it'd have no room to stay stuck). */}
         <aside className="hidden w-64 flex-shrink-0 self-stretch lg:block">
           <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-amber-100 bg-white p-6 shadow-sm">
             <HomeSidebar />
           </div>
         </aside>
 
-        {/* Main column */}
         <div className="min-w-0 flex-1">
           <div className="mx-auto max-w-7xl">
             {/* Header */}
@@ -203,12 +203,11 @@ export default function BrowseBooksPage({
                   Filter
                 </span>
 
-                {/* "All" pill */}
                 <button
                   type="button"
-                  onClick={() => setCategory("")}
+                  onClick={handleClearAll}
                   className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                    !activeCategory
+                    !activeCategory && languages.length === 0
                       ? "bg-amber-900 text-white shadow-sm"
                       : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
                   }`}
@@ -216,63 +215,88 @@ export default function BrowseBooksPage({
                   All Books
                 </button>
 
-                {/* One pill per real category */}
-                {CATEGORY_META.map((cat) => {
-                  const isActive = activeCategory === cat.tag;
-                  return (
+                {/* Categories */}
+                <div className="flex flex-wrap gap-2 border-l border-slate-200 pl-2">
+                  {CATEGORY_META.map((cat) => (
                     <button
                       key={cat.tag}
                       type="button"
                       onClick={() => setCategory(cat.tag)}
                       className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                        isActive
+                        activeCategory === cat.tag
                           ? "bg-amber-900 text-white shadow-sm"
                           : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
                       }`}
                     >
                       {cat.label}
                     </button>
-                  );
-                })}
+                  ))}
+                </div>
+
+                {/* Languages */}
+                <div className="flex flex-wrap gap-2 border-l border-slate-200 pl-2">
+                  {["Hindi", "Spanish", "English"].map((lang) => {
+                    const id = lang.toLowerCase() as any;
+                    const isActive = languages.includes(id);
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        onClick={() => toggleLanguage(id)}
+                        className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+                          isActive
+                            ? "bg-amber-600 text-white shadow-sm"
+                            : "border border-amber-100 bg-amber-50/50 text-amber-900 hover:bg-amber-100"
+                        }`}
+                      >
+                        {lang}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
-            {/* Active category banner (with clear button) */}
-            {activeCategory && !isLoading && (
-              <div className="mb-4 flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3">
-                <span className="text-sm font-bold text-amber-900">
-                  Showing: {CATEGORY_META.find((c) => c.tag === activeCategory)?.label ?? activeCategory}
+            {/* Active category banner */}
+            {(activeCategory || languages.length > 0) && !isLoading && (
+              <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-sm font-bold text-amber-900">Showing:</span>
+                  {activeCategory && (
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-amber-100 px-2 py-1 text-xs font-bold text-amber-800">
+                      {CATEGORY_META.find((c) => c.tag === activeCategory)?.label ?? activeCategory}
+                    </span>
+                  )}
+                  {languages.map((l) => (
+                    <span key={l} className="inline-flex items-center gap-1 rounded-lg bg-orange-100 px-2 py-1 text-xs font-bold text-orange-800 capitalize">
+                      {l}
+                    </span>
+                  ))}
                   <span className="ml-2 font-medium text-amber-600">
                     ({filteredBooks.length} books)
                   </span>
-                </span>
+                </div>
                 <button
                   type="button"
-                  onClick={() => setCategory("")}
+                  onClick={handleClearAll}
                   className="ml-auto inline-flex items-center gap-1 rounded-full bg-amber-900 px-3 py-1 text-xs font-bold text-white transition hover:bg-amber-800"
                 >
                   <X className="h-3 w-3" />
-                  Clear filter
+                  Clear all filters
                 </button>
               </div>
             )}
 
-            {/* Result count */}
             {!isLoading && !isError && filteredBooks.length > 0 && (
               <p className="mb-4 text-sm font-medium text-slate-500">
-                Page {currentPage} of {totalPages} · showing {visibleBooks.length} of{" "}
-                {pageBooks.length} on this page ({filteredBooks.length} total)
+                Showing {Math.min(filteredBooks.length, (currentPage - 1) * PAGE_SIZE + visibleInPage)} of {filteredBooks.length} books
               </p>
             )}
 
-            {/* Initial loading skeletons */}
             {isLoading ? (
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:gap-6">
                 {Array.from({ length: CHUNK }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm"
-                  >
+                  <div key={i} className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
                     <div className="h-48 w-full animate-pulse bg-slate-200" />
                     <div className="space-y-2 p-4">
                       <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200" />
@@ -287,29 +311,21 @@ export default function BrowseBooksPage({
                 <div className="rounded-full bg-red-50 p-6">
                   <BookOpen className="h-10 w-10 text-red-400" />
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-slate-900">
-                  Couldn't load books
-                </h3>
-                <p className="mt-2 text-slate-500">
-                  Please make sure the API server is running and try again.
-                </p>
+                <h3 className="mt-4 text-lg font-bold text-slate-900">Couldn't load books</h3>
+                <p className="mt-2 text-slate-500">Please check your connection and try again.</p>
               </div>
             ) : filteredBooks.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="rounded-full bg-slate-100 p-6">
                   <BookOpen className="h-10 w-10 text-slate-400" />
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-slate-900">
-                  No books found
-                </h3>
-                <p className="mt-2 text-slate-500">
-                  We couldn't find any books matching your search.
-                </p>
+                <h3 className="mt-4 text-lg font-bold text-slate-900">No books found</h3>
+                <p className="mt-2 text-slate-500">Try adjusting your filters or search terms.</p>
               </div>
             ) : (
               <>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 xl:gap-6">
-                  {visibleBooks.map((book) => (
+                  {filteredBooks.slice(0, (currentPage - 1) * PAGE_SIZE + visibleInPage).map((book) => (
                     <Link
                       key={String(book.id)}
                       to={`/books/${book.id}`}
@@ -332,16 +348,12 @@ export default function BrowseBooksPage({
                             </p>
                           </div>
                         )}
-
-                        {/* Seller count badge */}
                         {book.sellerCount > 0 && (
                           <span className="absolute left-2 top-2 z-10 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold text-amber-800 shadow-sm">
                             <Users className="h-3 w-3" />
                             {book.sellerCount}
                           </span>
                         )}
-
-                        {/* Best price / out-of-stock badge */}
                         {!book.inStock ? (
                           <span className="absolute right-2 top-2 z-10 rounded-full bg-slate-700 px-2 py-1 text-[10px] font-bold text-white shadow-sm">
                             Out of stock
@@ -354,51 +366,30 @@ export default function BrowseBooksPage({
                           )
                         )}
                       </div>
-
                       <div className="flex flex-1 flex-col p-4">
                         <h3 className="line-clamp-2 text-sm font-bold text-slate-900 group-hover:text-amber-700">
                           {book.title}
                         </h3>
-                        <p className="mt-1 line-clamp-1 text-xs text-slate-500">
-                          {book.author}
-                        </p>
+                        <p className="mt-1 line-clamp-1 text-xs text-slate-500">{book.author}</p>
                         <div className="mt-auto pt-3">
                           {book.inStock && book.bestPrice != null ? (
                             <span className="text-lg font-black text-slate-900">
                               From {formatCurrency(book.bestPrice)}
                             </span>
                           ) : (
-                            <span className="text-sm font-bold text-slate-400">
-                              Unavailable
-                            </span>
+                            <span className="text-sm font-bold text-slate-400">Unavailable</span>
                           )}
-                          <span className="mt-1 flex items-center gap-1 text-[11px] font-semibold text-amber-700">
-                            View {book.sellerCount} {book.sellerCount === 1 ? "seller" : "sellers"} →
-                          </span>
                         </div>
                       </div>
                     </Link>
                   ))}
                 </div>
 
-                {/* Infinite scroll: reveal the rest of THIS page (next 8) */}
-                {hasMoreInPage && (
-                  <div
-                    ref={sentinelRef}
-                    className="mt-10 flex items-center justify-center py-6"
-                  >
+                {(hasMoreInPage || currentPage < totalPages) && (
+                  <div ref={sentinelRef} className="mt-10 flex items-center justify-center py-6">
                     <Loader2 className="h-6 w-6 animate-spin text-amber-600" />
-                    <span className="ml-3 text-sm font-semibold text-slate-500">
-                      Loading more books...
-                    </span>
+                    <span className="ml-3 text-sm font-semibold text-slate-500">Loading more books...</span>
                   </div>
-                )}
-                {!hasMoreInPage && (
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={goToPage}
-                  />
                 )}
               </>
             )}
