@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { ArrowLeft, LogIn } from "lucide-react";
 import { useLogin } from "@/hooks/useAuth";
 import { loginSchema } from "@/lib/validation";
 import type { AuthUser, LoginInput } from "@/types";
@@ -12,110 +11,64 @@ interface LoginPageProps {
 
 const initialValues: LoginInput = { email: "", password: "" };
 
-export default function LoginPage({
-  onNavigateHome,
-  onNavigateRegister,
-}: LoginPageProps) {
+export default function LoginPage({ onNavigateHome, onNavigateRegister }: LoginPageProps) {
   const navigate = useNavigate();
-
   const routeForRole = (user: AuthUser) => {
     if (user.role === "admin") navigate("/admin");
     else if (user.role === "seller") navigate("/seller");
     else navigate("/account");
   };
-
   const loginMutation = useLogin(routeForRole);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-16 pt-24">
-      <div className="mx-auto max-w-xl">
-        <button
-          type="button"
-          onClick={onNavigateHome}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-bold text-amber-900 shadow-sm transition hover:bg-amber-50"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to store
-        </button>
-
-        <section className="overflow-hidden rounded-[2rem] border border-amber-100 bg-white shadow-2xl shadow-amber-100">
-          <div className="bg-gradient-to-r from-amber-950 via-amber-900 to-orange-900 p-8 text-white md:p-10">
-            <div className="mb-5 inline-flex rounded-2xl bg-white/10 p-3 ring-1 ring-white/20">
-              <LogIn className="h-8 w-8" />
+    <div className="min-h-screen bg-[#f8f7f4] flex items-center justify-center p-6">
+      <div className="max-w-5xl w-full grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden h-[700px]">
+        
+        {/* LEFT IMAGE */}
+        <div className="relative hidden md:block">
+          <img src="/booklovers.jpeg" alt="Library" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
+          <div className="absolute bottom-0 left-0 p-10 text-white">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center"><span className="text-xl">📚</span></div>
+              <span className="font-bold text-2xl tracking-tight">Lectory</span>
             </div>
-            <p className="section-header-badge text-amber-100">Sign in</p>
-            <h1 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
-              Welcome to Lectory
-            </h1>
-            <p className="mt-3 text-white/75">Sign in to your account.</p>
+            <h1 className="text-5xl font-black leading-none tracking-tighter mb-4">FIND YOUR NEXT<br />GREAT READ</h1>
           </div>
+        </div>
 
-          <div className="p-6 md:p-8">
-            <Formik
-              initialValues={initialValues}
-              validationSchema={loginSchema}
-              onSubmit={(values) => loginMutation.mutate(values)}
-            >
-              <Form className="space-y-5" noValidate>
-                <label className="block">
-                  <span className="text-sm font-semibold text-slate-700">
-                    Email
-                  </span>
-                  <Field
-                    type="email"
-                    name="email"
-                    placeholder="your@email.com"
-                    autoComplete="email"
-                    className="mt-2 w-full rounded-2xl border border-amber-100 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="p"
-                    className="mt-1 text-sm font-medium text-red-600"
-                  />
-                </label>
+        {/* RIGHT FORM */}
+        <div className="p-8 md:p-10 flex flex-col justify-center h-full">
+          <div>
+            <h2 className="text-4xl font-black tracking-tight mb-2">Welcome Back!</h2>
+            <p className="text-slate-500 mb-8">Sign in to your account</p>
 
-                <label className="block">
-                  <span className="text-sm font-semibold text-slate-700">
-                    Password
-                  </span>
-                  <Field
-                    type="password"
-                    name="password"
-                    placeholder="Your password or mobile number"
-                    autoComplete="current-password"
-                    className="mt-2 w-full rounded-2xl border border-amber-100 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
-                  />
-                  <ErrorMessage
-                    name="password"
-                    component="p"
-                    className="mt-1 text-sm font-medium text-red-600"
-                  />
-                </label>
-
-                <button
-                  type="submit"
-                  disabled={loginMutation.isPending}
-                  className="w-full rounded-2xl bg-gradient-to-r from-amber-700 to-amber-900 px-5 py-3.5 font-bold text-white shadow-lg shadow-amber-200 transition hover:from-amber-800 hover:to-amber-950 disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  {loginMutation.isPending ? "Signing in..." : "Login"}
-                </button>
-              </Form>
+            <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={(v) => loginMutation.mutate(v)}>
+              {({ isSubmitting }) => (
+                <Form className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium">Email</label>
+                    <Field name="email" type="email" placeholder="you@example.com" className="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm" />
+                    <ErrorMessage name="email" component="p" className="text-xs text-red-500 mt-0.5" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Password</label>
+                    <Field name="password" type="password" placeholder="Your password" className="mt-1 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm" />
+                    <ErrorMessage name="password" component="p" className="text-xs text-red-500 mt-0.5" />
+                  </div>
+                  <button type="submit" disabled={isSubmitting} className="w-full mt-2 py-3.5 rounded-2xl bg-[#e05c3c] text-white font-semibold text-sm">
+                    {isSubmitting ? "Signing in..." : "Login"}
+                  </button>
+                </Form>
+              )}
             </Formik>
 
-            <p className="mt-6 text-center text-sm text-slate-600">
-              Don&apos;t have an account?{" "}
-              <button
-                type="button"
-                onClick={onNavigateRegister}
-                className="font-bold text-amber-800 underline-offset-2 hover:underline"
-              >
-                Register here
-              </button>
+            <p className="text-center text-sm text-slate-500 mt-6">
+              Don't have an account? <button onClick={onNavigateRegister} className="text-[#e05c3c] font-semibold">Register</button>
             </p>
           </div>
-        </section>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
