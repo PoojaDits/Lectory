@@ -1,12 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Formik, Form, type FormikHelpers } from "formik";
+import { Formik, Form } from "formik";
 import {
   ArrowLeft,
-  BookOpen,
+  User,
   Building2,
-  CheckCircle2,
-  ShieldCheck,
-  UserPlus,
 } from "lucide-react";
 import FormField from "@/components/ui/FormField";
 import { useRegisterCustomer, useRegisterSeller } from "@/hooks/useAuth";
@@ -23,246 +21,156 @@ interface RegistrationPageProps {
   onNavigateHome: () => void;
 }
 
-const customerInitial: CustomerRegistrationInput = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-};
-
-const sellerInitial: SellerRegistrationInput = {
-  businessName: "",
-  contactPerson: "",
-  email: "",
-  mobileNumber: "",
-  password: "",
-};
-
-function SubmitButton({
-  children,
-  isSubmitting,
-}: {
-  children: string;
-  isSubmitting: boolean;
-}) {
-  return (
-    <button
-      type="submit"
-      disabled={isSubmitting}
-      className="fancy-btn w-full rounded-2xl bg-gradient-to-r from-amber-700 to-amber-900 px-5 py-3.5 font-bold text-white shadow-lg shadow-amber-200 transition hover:from-amber-800 hover:to-amber-950 disabled:cursor-not-allowed disabled:opacity-60"
-    >
-      {isSubmitting ? "Saving..." : children}
-    </button>
-  );
-}
-
-export default function RegistrationPage({
-  onNavigateHome,
-}: RegistrationPageProps) {
+export default function RegistrationPage({ onNavigateHome }: RegistrationPageProps) {
   const navigate = useNavigate();
+  const [role, setRole] = useState<"customer" | "seller">("customer");
 
   const registerCustomer = useRegisterCustomer(() => navigate("/login"));
   const registerSeller = useRegisterSeller(() => navigate("/login"));
 
-  const handleCustomer = (
-    values: CustomerRegistrationInput,
-    helpers: FormikHelpers<CustomerRegistrationInput>
-  ) => {
-    registerCustomer.mutate(values, {
-      onSuccess: () => helpers.resetForm(),
-      onSettled: () => helpers.setSubmitting(false),
-    });
+  const customerInitial: CustomerRegistrationInput = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   };
 
-  const handleSeller = (
-    values: SellerRegistrationInput,
-    helpers: FormikHelpers<SellerRegistrationInput>
-  ) => {
-    registerSeller.mutate(values, {
-      onSuccess: () => helpers.resetForm(),
-      onSettled: () => helpers.setSubmitting(false),
-    });
+  const sellerInitial: SellerRegistrationInput = {
+    businessName: "",
+    contactPerson: "",
+    email: "",
+    mobileNumber: "",
+    password: "",
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-16 pt-24">
-      <div className="mx-auto max-w-7xl">
-        <button
-          type="button"
-          onClick={onNavigateHome}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-bold text-amber-900 shadow-sm transition hover:bg-amber-50"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to store
-        </button>
+    <main className="min-h-screen bg-[#f8f7f4] flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-5xl">
+        {/* Top bar */}
+        <div className="flex justify-between items-center mb-8">
+          <button
+            onClick={onNavigateHome}
+            className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900"
+          >
+            <ArrowLeft size={18} /> Back to store
+          </button>
+          <div className="text-sm text-slate-500">Already have an account? <a href="/login" className="text-amber-700 font-semibold hover:underline">Login</a></div>
+        </div>
 
-        <section className="mb-8 overflow-hidden rounded-[2rem] bg-gradient-to-r from-amber-950 via-amber-900 to-orange-900 p-8 text-white shadow-2xl shadow-amber-100 md:p-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <div className="mb-5 inline-flex rounded-2xl bg-white/10 p-3 ring-1 ring-white/20">
-                <BookOpen className="h-8 w-8" />
-              </div>
-              <p className="section-header-badge text-amber-100">
-                Registration
-              </p>
-              <h1 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
-                Join the Lectory Marketplace
-              </h1>
-              <p className="mt-4 max-w-3xl text-white/75">
-                Customer and seller registrations are separate. After
-                registration, records are saved in JSON Server.
-              </p>
-            </div>
-            <div className="grid gap-3 text-sm text-white/80 sm:min-w-80">
-              <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
-                <CheckCircle2 className="h-5 w-5 text-amber-200" />
-                Customer email must be unique
-              </div>
-              <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
-                <ShieldCheck className="h-5 w-5 text-amber-200" />
-                Seller status becomes Pending Approval
-              </div>
-            </div>
+        <div className="bg-white rounded-3xl shadow-xl overflow-hidden grid md:grid-cols-2 border border-slate-100">
+          {/* LEFT PANEL - Custom SVG Illustration */}
+          <div className="bg-[#3f2a1e] flex items-center justify-center p-6">
+            <img 
+              src="/registration-illustration.svg" 
+              alt="Registration illustration" 
+              className="max-w-full max-h-[620px] w-auto h-auto"
+            />
           </div>
-        </section>
 
-        <section className="grid gap-8 lg:grid-cols-2">
-          {/* Customer Registration */}
-          <Formik
-            initialValues={customerInitial}
-            validationSchema={customerRegistrationSchema}
-            onSubmit={handleCustomer}
-          >
-            {({ isSubmitting }) => (
-              <Form className="rounded-[2rem] border border-amber-100 bg-white p-6 shadow-xl shadow-amber-100 md:p-8">
-                <div className="mb-6">
-                  <div className="mb-4 inline-flex rounded-2xl bg-amber-100 p-3 text-amber-800">
-                    <UserPlus className="h-7 w-7" />
-                  </div>
-                  <p className="section-header-badge text-amber-700">
-                    Customer
-                  </p>
-                  <h2 className="mt-2 text-3xl font-black text-slate-900">
-                    Customer Registration
-                  </h2>
-                  <p className="mt-2 text-sm text-slate-500">
-                    Required: first name, last name, unique email, and password.
-                  </p>
-                </div>
+          {/* RIGHT FORM PANEL */}
+          <div className="p-9 md:p-10">
+            {/* Role Tabs */}
+            <div className="flex bg-slate-100 rounded-full p-1 mb-8 w-fit">
+              <button
+                onClick={() => setRole("customer")}
+                className={`px-6 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition-all ${
+                  role === "customer" 
+                    ? "bg-white shadow text-slate-900" 
+                    : "text-slate-500 hover:text-slate-700"
+                }`}
+              >
+                <User size={16} /> Customer
+              </button>
+              <button
+                onClick={() => setRole("seller")}
+                className={`px-6 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition-all ${
+                  role === "seller" 
+                    ? "bg-white shadow text-slate-900" 
+                    : "text-slate-500 hover:text-slate-700"
+                }`}
+              >
+                <Building2 size={16} /> Seller
+              </button>
+            </div>
 
-                <div className="space-y-5">
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <FormField
-                      label="First Name"
-                      name="firstName"
-                      placeholder="Aarav"
-                      autoComplete="given-name"
-                    />
-                    <FormField
-                      label="Last Name"
-                      name="lastName"
-                      placeholder="Sharma"
-                      autoComplete="family-name"
-                    />
-                  </div>
+            {/* FORMS */}
+            {role === "customer" && (
+              <Formik
+                initialValues={customerInitial}
+                validationSchema={customerRegistrationSchema}
+                onSubmit={(values, helpers) => {
+                  registerCustomer.mutate(values, {
+                    onSuccess: () => helpers.resetForm(),
+                    onSettled: () => helpers.setSubmitting(false),
+                  });
+                }}
+              >
+                {({ isSubmitting }) => (
+                  <Form className="space-y-5">
+                    <div>
+                      <h2 className="text-3xl font-bold tracking-tight">Create your account</h2>
+                      <p className="text-sm text-slate-500 mt-1">Join as a customer to start shopping</p>
+                    </div>
 
-                  <FormField
-                    label="Email"
-                    name="email"
-                    type="email"
-                    placeholder="customer@example.com"
-                    autoComplete="email"
-                  />
+                    <div className="grid grid-cols-2 gap-4">
+                      <FormField label="First Name" name="firstName" placeholder="John" />
+                      <FormField label="Last Name" name="lastName" placeholder="Doe" />
+                    </div>
+                    <FormField label="Email address" name="email" type="email" placeholder="you@example.com" />
+                    <FormField label="Password" name="password" type="password" placeholder="Create password" />
 
-                  <FormField
-                    label="Password"
-                    name="password"
-                    type="password"
-                    placeholder="Create a password"
-                    autoComplete="new-password"
-                  />
-
-                  <SubmitButton isSubmitting={isSubmitting}>
-                    Register Customer
-                  </SubmitButton>
-                </div>
-              </Form>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full mt-2 py-3.5 rounded-2xl bg-amber-900 hover:bg-amber-950 text-white font-semibold text-sm transition disabled:opacity-70"
+                    >
+                      {isSubmitting ? "Creating account..." : "Sign up as Customer"}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
             )}
-          </Formik>
 
-          {/* Seller Registration */}
-          <Formik
-            initialValues={sellerInitial}
-            validationSchema={sellerRegistrationSchema}
-            onSubmit={handleSeller}
-          >
-            {({ isSubmitting }) => (
-              <Form className="rounded-[2rem] border border-amber-100 bg-white p-6 shadow-xl shadow-amber-100 md:p-8">
-                <div className="mb-6">
-                  <div className="mb-4 inline-flex rounded-2xl bg-emerald-100 p-3 text-emerald-800">
-                    <Building2 className="h-7 w-7" />
-                  </div>
-                  <p className="section-header-badge text-emerald-700">
-                    Seller — Step 1
-                  </p>
-                  <h2 className="mt-2 text-3xl font-black text-slate-900">
-                    Seller Registration
-                  </h2>
-                  <p className="mt-2 text-sm text-slate-500">
-                    Required: business name, contact person, email, 10-digit
-                    mobile number, and password. Status is saved as Pending
-                    Approval.
-                  </p>
-                </div>
+            {role === "seller" && (
+              <Formik
+                initialValues={sellerInitial}
+                validationSchema={sellerRegistrationSchema}
+                onSubmit={(values, helpers) => {
+                  registerSeller.mutate(values, {
+                    onSuccess: () => helpers.resetForm(),
+                    onSettled: () => helpers.setSubmitting(false),
+                  });
+                }}
+              >
+                {({ isSubmitting }) => (
+                  <Form className="space-y-5">
+                    <div>
+                      <h2 className="text-3xl font-bold tracking-tight">Become a Seller</h2>
+                      <p className="text-sm text-slate-500 mt-1">List and sell your books on Lectory</p>
+                    </div>
 
-                <div className="space-y-5">
-                  <FormField
-                    label="Business Name"
-                    name="businessName"
-                    placeholder="Lectory Book Distributors"
-                    autoComplete="organization"
-                  />
+                    <FormField label="Business Name" name="businessName" placeholder="Book Haven Ltd" />
+                    <FormField label="Contact Person" name="contactPerson" placeholder="Jane Smith" />
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <FormField label="Business Email" name="email" type="email" placeholder="business@example.com" />
+                      <FormField label="Mobile Number" name="mobileNumber" placeholder="0712345678" />
+                    </div>
+                    <FormField label="Password" name="password" type="password" placeholder="Create password" />
 
-                  <FormField
-                    label="Contact Person"
-                    name="contactPerson"
-                    placeholder="Anita Verma"
-                    autoComplete="name"
-                  />
-
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <FormField
-                      label="Email"
-                      name="email"
-                      type="email"
-                      placeholder="seller@example.com"
-                      autoComplete="email"
-                    />
-                    <FormField
-                      label="Mobile Number"
-                      name="mobileNumber"
-                      type="tel"
-                      placeholder="9876543210"
-                      autoComplete="tel"
-                    />
-                  </div>
-
-                  <FormField
-                    label="Password"
-                    name="password"
-                    type="password"
-                    placeholder="Create a password"
-                    autoComplete="new-password"
-                  />
-
-                  <SubmitButton isSubmitting={isSubmitting}>
-                    Register Seller
-                  </SubmitButton>
-                </div>
-              </Form>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full mt-2 py-3.5 rounded-2xl bg-amber-900 hover:bg-amber-950 text-white font-semibold text-sm transition disabled:opacity-70"
+                    >
+                      {isSubmitting ? "Submitting..." : "Register as Seller"}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
             )}
-          </Formik>
-        </section>
+          </div>
+        </div>
       </div>
     </main>
   );
