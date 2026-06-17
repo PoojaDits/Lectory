@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { useNewArrivals } from "@/hooks/useHomeContent";
 import Skeleton from "@/components/ui/Skeleton";
+import LazyImage from "../ui/LazyImage";
 
 const HIGHLIGHTS = [
   { num: "1", title: "Weekly Updates", desc: "New titles added every Tuesday and Friday" },
@@ -71,13 +72,15 @@ export default function NewArrivals() {
                     i % 2 === 1 ? "mt-6" : ""
                   }`}
                 >
-                  <div className="aspect-[3/4]">
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                    />
+                  <div className="aspect-[3/4] bg-slate-50 p-4">
+                    <div className="relative w-full h-full">
+                      <LazyImage
+                        src={book.image}
+                        alt={book.title}
+                        objectFit="contain"
+                        className="drop-shadow-lg transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">

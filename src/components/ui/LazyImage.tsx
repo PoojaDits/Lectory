@@ -6,6 +6,8 @@ interface LazyImageProps {
   src?: string;
   alt: string;
   className?: string;
+  /** How the image should fit its container. Defaults to "cover". */
+  objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   /** Tailwind gradient classes for the placeholder fallback. */
   fallbackGradient?: string;
   /** Start loading this far before the image enters the viewport. */
@@ -24,6 +26,7 @@ export default function LazyImage({
   src,
   alt,
   className,
+  objectFit = "cover",
   fallbackGradient = "from-slate-200 to-slate-300",
   rootMargin = "200px",
 }: LazyImageProps) {
@@ -87,7 +90,14 @@ export default function LazyImage({
               onLoad={() => setLoaded(true)}
               onError={() => setFailed(true)}
               className={cn(
-                "h-full w-full object-cover transition-all duration-500",
+                "h-full w-full transition-all duration-500",
+                {
+                  "object-cover": objectFit === "cover",
+                  "object-contain": objectFit === "contain",
+                  "object-fill": objectFit === "fill",
+                  "object-none": objectFit === "none",
+                  "object-scale-down": objectFit === "scale-down",
+                },
                 loaded ? "opacity-100 group-hover:scale-105" : "opacity-0",
                 className
               )}

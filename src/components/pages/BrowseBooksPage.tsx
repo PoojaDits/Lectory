@@ -9,6 +9,7 @@ import { formatCurrency } from "@/utils/helpers";
 import HomeSidebar from "../Home/HomeSidebar";
 import HomeSidebarDrawer from "../Home/HomeSidebarDrawer";
 import { applyHomeFilters, useHomeFilters } from "@/stores/useHomeFilters";
+import LazyImage from "../ui/LazyImage";
 
 interface BrowseBooksPageProps {
   onNavigateHome: () => void;
@@ -314,14 +315,16 @@ export default function BrowseBooksPage({
                       to={`/books/${book.id}`}
                       className="group relative mx-auto flex h-full w-full max-w-[220px] flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:shadow-md"
                     >
-                      <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                      <div className="relative h-48 w-full overflow-hidden bg-slate-50 p-3">
                         {book.coverImage ? (
-                          <img
-                            src={book.coverImage}
-                            alt={book.title}
-                            loading="lazy"
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
+                          <div className="relative h-full w-full">
+                            <LazyImage
+                              src={book.coverImage}
+                              alt={book.title}
+                              objectFit="contain"
+                              className="drop-shadow-md transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
                         ) : (
                           <div className="flex h-full w-full items-end bg-gradient-to-br from-amber-500 to-orange-600 p-3">
                             <p className="text-xs font-bold leading-snug text-white drop-shadow line-clamp-3">

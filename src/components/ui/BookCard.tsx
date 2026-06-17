@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { formatCurrency } from "@/utils/helpers";
 import type { BookWithListings } from "@/types";
+import LazyImage from "./LazyImage";
 
 interface BookCardProps {
   book: BookWithListings;
@@ -22,13 +23,18 @@ export default function BookCard({ book, className }: BookCardProps) {
       )}
     >
       {/* Book Cover */}
-      <div className="relative aspect-[3/4] bg-slate-100 overflow-hidden">
+      <div className="relative aspect-[3/4] bg-slate-50 overflow-hidden">
         {book.coverImage ? (
-          <img
-            src={book.coverImage}
-            alt={book.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
+          <div className="absolute inset-0 p-4 flex items-center justify-center">
+            <div className="relative w-full h-full">
+              <LazyImage
+                src={book.coverImage}
+                alt={book.title}
+                objectFit="contain"
+                className="drop-shadow-lg transition-transform duration-500 group-hover:scale-110"
+              />
+            </div>
+          </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-100 to-orange-100">
             <span className="text-amber-800 font-bold text-lg text-center px-4">
