@@ -111,13 +111,7 @@ export default function Navbar() {
                   <LogIn className="h-4 w-4" />
                   Login
                 </Link>
-                <Link
-                  to="/register"
-                  className="inline-flex items-center gap-2 rounded-full bg-amber-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-amber-800"
-                >
-                  <UserPlus className="h-4 w-4" />
-                  Registration
-                </Link>
+               
               </>
             )}
 

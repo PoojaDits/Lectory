@@ -147,7 +147,7 @@ export default function BrowseBooksPage({
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24">
+    <main className="min-h-screen bg-[#f8f7f4] px-4 pb-20 pt-24">
       <div className="mx-auto max-w-[1600px] lg:flex lg:items-stretch lg:gap-8">
         {/* Sidebar — sticky on lg+, collapses into a drawer on mobile.
             The aside itself is `self-stretch` so it matches the content

@@ -823,18 +823,6 @@
       "id": "IK31EltCvMk",
       "addresses": [
         {
-          "id": "addr_1781593239077_40np",
-          "fullName": "thor",
-          "street": "sw34wedtgcfxd,cjhgki.",
-          "city": "mumbai",
-          "state": "maharastra",
-          "postalCode": "400001",
-          "country": "India",
-          "phone": "234567890-9876",
-          "label": "Home",
-          "isDefault": false
-        },
-        {
           "id": "addr_1781593284242_1bi2",
           "fullName": "thor",
           "street": "zdsagxfjh jk;iokihhj hjglikhi;l jkjb",
