@@ -101,38 +101,8 @@ export default function CustomerOverviewTab({
           </div>
         </div>
 
-        {/* Business Information */}
-        <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-slate-900">Business Information</h3>
-            <button className="text-amber-600 hover:text-amber-700">
-              <Edit2 size={16} />
-            </button>
-          </div>
+       
 
-          <div className="space-y-3 text-sm">
-            <div>
-              <div className="text-slate-500 text-xs">Name</div>
-              <p className="font-medium">Ikunda Holding LTD</p>
-            </div>
-            <div>
-              <div className="text-slate-500 text-xs">Website</div>
-              <a href="#" className="text-amber-600 hover:underline">ikunda.co.tz</a>
-            </div>
-            <div>
-              <div className="text-slate-500 text-xs">Delivery address</div>
-              <p className="font-medium leading-snug">
-                {defaultAddress?.street}<br />
-                {defaultAddress?.city}, {defaultAddress?.state}<br />
-                {defaultAddress?.country} • {defaultAddress?.postalCode}
-              </p>
-            </div>
-            <div>
-              <div className="text-slate-500 text-xs">Contact</div>
-              <p className="font-medium">+255 756 000 000</p>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* RIGHT CONTENT AREA */}

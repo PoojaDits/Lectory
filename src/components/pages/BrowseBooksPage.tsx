@@ -14,7 +14,7 @@ interface BrowseBooksPageProps {
   onNavigateHome: () => void;
 }
 
-const PAGE_SIZE = 16; // books per page
+const PAGE_SIZE = 15; // books per page
 const CHUNK = 8; // revealed per scroll step within a page
 
 export default function BrowseBooksPage({
@@ -147,7 +147,7 @@ export default function BrowseBooksPage({
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f7f4] px-4 pb-20 pt-24">
+    <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24">
       <div className="mx-auto max-w-[1600px] lg:flex lg:items-stretch lg:gap-8">
         {/* Sidebar — sticky on lg+, collapses into a drawer on mobile.
             The aside itself is `self-stretch` so it matches the content
@@ -307,7 +307,7 @@ export default function BrowseBooksPage({
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:gap-6">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 xl:gap-6">
                   {visibleBooks.map((book) => (
                     <Link
                       key={String(book.id)}
