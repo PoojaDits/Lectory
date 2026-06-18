@@ -15,7 +15,6 @@ import {
   useCustomerOrders,
   useUpdateCustomerProfile,
 } from "@/hooks/useCustomer";
-import { useCart } from "@/hooks/useCart";
 
 // Sub-tabs
 import CustomerOverviewTab from "@/components/customer/CustomerOverviewTab";
@@ -45,7 +44,6 @@ export default function CustomerAccount({
     currentUser?.id
   );
   const updateProfile = useUpdateCustomerProfile();
-  const { count: cartCount } = useCart();
 
   const handleLogout = () => {
     logout();
@@ -178,7 +176,6 @@ export default function CustomerAccount({
                     <CustomerOverviewTab
                       customer={customerProfile}
                       orders={customerOrders}
-                      cartCount={cartCount}
                     />
                   }
                 />
