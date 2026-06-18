@@ -10,8 +10,13 @@ import Footer from "@/components/layout/Footer";
 import RegistrationPage from "@/components/auth/RegistrationPage";
 import LoginPage from "@/components/auth/LoginPage";
 
-// Dashboards / pages
-import SellerDashboard from "@/components/dashboard/SellerDashboard";
+// Seller portal (multi-page)
+import SellerLayout from "@/components/seller/SellerLayout";
+import SellerDashboardPage from "@/components/seller/SellerDashboardPage";
+import SellerOrdersPage from "@/components/seller/SellerOrdersPage";
+import SellerListingsPage from "@/components/seller/SellerListingPage";
+import SellerSubmitBookPage from "@/components/seller/SellerSubmitBookPage";
+import SellerSettingsPage from "@/components/seller/SellerSettingsPage";
 import CustomerAccount from "@/components/dashboard/CustomerAccount";
 import BrowseBooksPage from "@/components/pages/BrowseBooksPage";
 import BookDetailsPage from "@/components/pages/BookDetailsPage";
@@ -151,15 +156,21 @@ export default function App() {
           }
         />
 
-        {/* Seller area */}
+        {/* Seller area — multi-page portal */}
         <Route
           path="/seller"
           element={
             <ProtectedRoute allow={["seller"]}>
-              <SellerDashboard onNavigateHome={goHome} onLogin={goLogin} />
+              <SellerLayout onNavigateHome={goHome} onLogin={goLogin} />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<SellerDashboardPage />} />
+          <Route path="orders" element={<SellerOrdersPage />} />
+          <Route path="listings" element={<SellerListingsPage />} />
+          <Route path="submit-book" element={<SellerSubmitBookPage />} />
+          <Route path="settings" element={<SellerSettingsPage />} />
+        </Route>
 
         {/* Admin area — multi-page portal */}
         <Route

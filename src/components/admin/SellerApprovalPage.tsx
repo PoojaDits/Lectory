@@ -90,7 +90,7 @@ export default function SellerApprovalPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-[65px]">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-widest text-amber-700">

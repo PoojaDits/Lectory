@@ -72,19 +72,11 @@ export default function CustomerOverviewTab({
         <div className="px-6 pb-6 sm:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex items-end gap-4">
-              {/* Avatar: real image or initials (first + last) */}
+              {/* Avatar: initials badge */}
               <div className="-mt-12 sm:-mt-14">
-                {customer.avatar ? (
-                  <img
-                    src={customer.avatar}
-                    alt={`${customer.firstName} ${customer.lastName}`}
-                    className="h-24 w-24 rounded-3xl object-cover ring-4 ring-white shadow-lg sm:h-28 sm:w-28"
-                  />
-                ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-600 to-orange-700 text-3xl font-black text-white shadow-lg ring-4 ring-white sm:h-28 sm:w-28 sm:text-4xl">
-                    {initials}
-                  </div>
-                )}
+                <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-600 to-orange-700 text-3xl font-black text-white shadow-lg ring-4 ring-white sm:h-28 sm:w-28 sm:text-4xl">
+                  {initials}
+                </div>
               </div>
 
               <div className="pb-1">

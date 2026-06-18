@@ -7,12 +7,7 @@ import { formatCurrency, formatDate } from "@/utils/helpers";
 
 const PAGE_SIZE = 8;
 
-/**
- * Customer Management screen.
- *
- * Lists registered buyers with their order activity so the admin can
- * spot high-value customers and support them when needed.
- */
+
 export default function CustomerManagementPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -60,7 +55,7 @@ export default function CustomerManagementPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-[65px]">
       <header>
         <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
           Admin · Customers

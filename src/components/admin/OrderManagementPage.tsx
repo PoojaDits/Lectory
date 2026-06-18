@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   AlertCircle,
   CheckCircle2,
-  ChevronDown,
   Search,
   ShoppingBag,
   Truck,
@@ -14,14 +13,9 @@ import {
   useCustomers,
   useOrders,
   useSellers,
-  useUpdateOrderStatus,
 } from "@/hooks/useAdmin";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatDate } from "@/utils/helpers";
-import {
-  ORDER_STATUS_FLOW,
-  ORDER_STATUS_STYLES,
-} from "@/lib/constants";
 import type { OrderStatus } from "@/types";
 
 type StatusFilter = "all" | OrderStatus;
@@ -37,11 +31,10 @@ const FILTERS: { id: StatusFilter; label: string }[] = [
 const PAGE_SIZE = 8;
 
 /**
- * Order Management screen.
+ * Order Management screen (Admin — Read-only).
  *
- * Marketplace-level oversight of orders. Sellers still process their
- * own orders, but the admin can override the status to mediate disputes
- * or unblock stuck orders (e.g. cancel a shipment that never arrived).
+ * Admins can view all marketplace orders for oversight purposes.
+ * Order status changes are handled by sellers through the Seller Panel.
  */
 export default function OrderManagementPage() {
   const [search, setSearch] = useState("");
@@ -51,7 +44,6 @@ export default function OrderManagementPage() {
   const { data: orders = [], isLoading } = useOrders();
   const { data: customers = [] } = useCustomers();
   const { data: sellers = [] } = useSellers();
-  const updateOrder = useUpdateOrderStatus();
 
   const counts = useMemo(() => {
     const out: Record<string, number> = { all: orders.length };
@@ -99,7 +91,7 @@ export default function OrderManagementPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-[65px]">
       <header>
         <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
           Admin · Orders
@@ -108,8 +100,8 @@ export default function OrderManagementPage() {
           Order Management
         </h1>
         <p className="mt-1 max-w-2xl text-sm text-slate-600">
-          Marketplace-wide view of every order. Override status to mediate
-          disputes or unblock stuck shipments.
+          Marketplace-wide view of every order. For status changes, refer to the
+          seller managing the order.
         </p>
       </header>
 
@@ -210,8 +202,7 @@ export default function OrderManagementPage() {
           <div className="col-span-2">Seller</div>
           <div className="col-span-2">Total</div>
           <div className="col-span-2">Status</div>
-          <div className="col-span-1">Placed</div>
-          <div className="col-span-2 text-right">Action</div>
+          <div className="col-span-2">Placed</div>
         </div>
 
         {isLoading ? (
@@ -264,17 +255,8 @@ export default function OrderManagementPage() {
                   <div className="col-span-2">
                     <StatusBadge status={o.status} />
                   </div>
-                  <div className="col-span-1 text-xs text-slate-500">
+                  <div className="col-span-2 text-xs text-slate-500">
                     {formatDate(o.createdAt)}
-                  </div>
-                  <div className="col-span-2 flex justify-end">
-                    <StatusChanger
-                      current={o.status}
-                      disabled={updateOrder.isPending}
-                      onChange={(status) =>
-                        updateOrder.mutate({ id: o.id, status })
-                      }
-                    />
                   </div>
                 </li>
               );
@@ -288,89 +270,6 @@ export default function OrderManagementPage() {
         totalPages={totalPages}
         onPageChange={(p) => setPage(p)}
       />
-    </div>
-  );
-}
-
-// ── Status changer (admin override) ───────────────────────────────────────
-
-function StatusChanger({
-  current,
-  disabled,
-  onChange,
-}: {
-  current: OrderStatus;
-  disabled?: boolean;
-  onChange: (next: OrderStatus) => void;
-}) {
-  const [open, setOpen] = useState(false);
-
-  const allowed = (ORDER_STATUS_FLOW[current] ?? []) as OrderStatus[];
-  const all: OrderStatus[] = [
-    "Created",
-    "Accepted",
-    "Shipped",
-    "Delivered",
-    "Cancelled",
-  ];
-
-  return (
-    <div className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        disabled={disabled}
-        className={cn(
-          "inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50",
-          open && "ring-2 ring-amber-200"
-        )}
-      >
-        Change status
-        <ChevronDown className="h-3.5 w-3.5" />
-      </button>
-
-      {open && (
-        <div
-          className="absolute right-0 top-full z-20 mt-2 w-48 rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg"
-          onMouseLeave={() => setOpen(false)}
-        >
-          {all.map((s) => {
-            const isCurrent = s === current;
-            const isSellerFlow = allowed.includes(s);
-            return (
-              <button
-                key={s}
-                type="button"
-                onClick={() => {
-                  onChange(s);
-                  setOpen(false);
-                }}
-                disabled={isCurrent}
-                className={cn(
-                  "flex w-full items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-xs font-bold transition",
-                  isCurrent
-                    ? "cursor-not-allowed bg-slate-100 text-slate-400"
-                    : "text-slate-700 hover:bg-amber-50"
-                )}
-              >
-                <span
-                  className={cn(
-                    "rounded-full px-2 py-0.5 text-[10px] font-extrabold",
-                    ORDER_STATUS_STYLES[s]
-                  )}
-                >
-                  {s}
-                </span>
-                {!isSellerFlow && !isCurrent && (
-                  <span className="text-[10px] font-bold text-amber-700">
-                    override
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 }

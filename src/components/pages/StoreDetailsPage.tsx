@@ -40,7 +40,7 @@ export default function StoreDetailsPage({
   }, [books, query]);
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24">
+    <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24 ">
       <div className="mx-auto max-w-7xl">
         {/* Back nav */}
         <button
@@ -195,7 +195,7 @@ function StoreHeader({
       </div>
 
       {/* Body */}
-      <div className="px-6 pb-6 sm:px-8">
+      <div className="px-6 pb-6 sm:px-8 mt-[65px]">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex items-end gap-4">
             {/* Avatar */}

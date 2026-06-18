@@ -32,17 +32,6 @@ const FILTERS: { id: StatusFilter; label: string }[] = [
 
 const PAGE_SIZE = 8;
 
-/**
- * Catalog Management screen.
- *
- * Implements the document requirement:
- *   "Admin can: Manage marketplace catalog"
- *
- * Lets the admin curate the master book catalog (approve, reject,
- * delete duplicates, and add new titles directly to the marketplace).
- * Each catalog book is shown together with the seller listings that
- * offer it so the admin can see supply at a glance.
- */
 export default function CatalogManagementPage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<StatusFilter>("all");
@@ -104,7 +93,7 @@ export default function CatalogManagementPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-[65px]">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
@@ -145,7 +134,7 @@ export default function CatalogManagementPage() {
         </div>
       )}
 
-      {/* ── Filter pills + search ── */}
+      {/*Filter pills + search */}
       <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <div className="flex flex-wrap gap-1">
           {FILTERS.map((f) => {
@@ -195,7 +184,7 @@ export default function CatalogManagementPage() {
         </div>
       </div>
 
-      {/* ── Catalog table ── */}
+      {/*Catalog table*/}
       <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div className="grid grid-cols-12 gap-4 border-b border-slate-200 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
           <div className="col-span-4">Book</div>
@@ -250,7 +239,7 @@ export default function CatalogManagementPage() {
   );
 }
 
-// ── Catalog row ────────────────────────────────────────────────────────────
+// Catalog row 
 
 function CatalogRow({
   book,

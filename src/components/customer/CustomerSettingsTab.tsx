@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, Mail, Phone, Shield, Camera, Save, RefreshCw } from "lucide-react";
+import { User, Mail, Phone, Save } from "lucide-react";
 import type { Customer } from "@/types";
 
 interface CustomerSettingsTabProps {
@@ -16,7 +16,7 @@ export default function CustomerSettingsTab({
   const [firstName, setFirstName] = useState(customer.firstName || "");
   const [lastName, setLastName] = useState(customer.lastName || "");
   const [phone, setPhone] = useState(customer.phone || "");
-  const [avatar, setAvatar] = useState(customer.avatar || "");
+  const [avatar] = useState(customer.avatar || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMsg, setSuccessMsg] = useState(false);
 

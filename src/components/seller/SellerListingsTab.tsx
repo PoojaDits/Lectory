@@ -50,7 +50,7 @@ export default function SellerListingsTab({ sellerId }: SellerListingsTabProps) 
   );
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-6 mt-[65px] animate-in fade-in duration-300">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
         <div>
           <h2 className="text-2xl font-black text-slate-900 sm:text-3xl">

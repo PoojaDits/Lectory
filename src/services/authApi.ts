@@ -61,7 +61,7 @@ const findUserByEmail = async (email: string): Promise<UserRecord | null> => {
   const { data } = await apiClient.get<UserRecord[]>("/users", {
     params: { email },
   });
-  return data.find((u) => normalizeEmail(u.email) === email) ?? null;
+  return data.find((u) => normalizeEmail(u.email) === normalizeEmail(email)) ?? null;
 };
 
 // ── Registration: Customer ──
@@ -70,23 +70,26 @@ export const registerCustomer = async (
 ): Promise<Customer> => {
   const email = normalizeEmail(input.email);
 
+  // Validate email uniqueness
   const existing = await findUserByEmail(email);
   if (existing) {
-    throw new Error("Email already exists. Please use another email.");
+    throw new Error("An account with this email already exists. Please use a different email or login.");
   }
 
   const createdAt = new Date().toISOString();
 
-  // 1. Create profile
+  // 1. Create customer profile
   const { data: customer } = await apiClient.post<Customer>("/customers", {
     firstName: input.firstName.trim(),
     lastName: input.lastName.trim(),
     email,
     role: "customer",
     createdAt,
+    phone: "",
+    addresses: [],
   });
 
-  // 2. Create credentials row
+  // 2. Create credentials row with proper profileId
   await apiClient.post<UserRecord>("/users", {
     email,
     password: input.password,
@@ -108,13 +111,35 @@ export const registerSeller = async (
   const email = normalizeEmail(input.email);
   const mobileNumber = input.mobileNumber.trim();
 
+  // Validate email uniqueness
   const existing = await findUserByEmail(email);
   if (existing) {
-    throw new Error("A seller with this email already exists.");
+    throw new Error("A seller account with this email already exists. Please use a different email or login.");
+  }
+
+  // Validate mobile number format (must be exactly 10 digits)
+  if (!/^\d{10}$/.test(mobileNumber)) {
+    throw new Error("Mobile number must be exactly 10 digits.");
+  }
+
+  // Validate business name
+  if (!input.businessName.trim()) {
+    throw new Error("Business name is required.");
+  }
+
+  // Validate contact person
+  if (!input.contactPerson.trim()) {
+    throw new Error("Contact person name is required.");
+  }
+
+  // Validate password strength
+  if (input.password.length < 6) {
+    throw new Error("Password must be at least 6 characters long.");
   }
 
   const createdAt = new Date().toISOString();
 
+  // 1. Create seller profile
   const { data: seller } = await apiClient.post<Seller>("/sellers", {
     businessName: input.businessName.trim(),
     contactPerson: input.contactPerson.trim(),
@@ -125,7 +150,7 @@ export const registerSeller = async (
     createdAt,
   });
 
-  // Seller logs in with email + password.
+  // 2. Create credentials row with proper profileId
   await apiClient.post<UserRecord>("/users", {
     email,
     password: input.password,
@@ -142,34 +167,56 @@ export const login = async (input: LoginInput): Promise<AuthUser> => {
   const email = normalizeEmail(input.email);
   const password = input.password;
 
-  const user = await findUserByEmail(email);
-  if (!user || user.password !== password) {
-    throw new Error("Invalid email or password.");
+  // Validate input
+  if (!email) {
+    throw new Error("Email is required.");
+  }
+  if (!password) {
+    throw new Error("Password is required.");
   }
 
+  // Find user
+  const user = await findUserByEmail(email);
+  if (!user) {
+    throw new Error("No account found with this email. Please register first.");
+  }
+
+  // Verify password
+  if (user.password !== password) {
+    throw new Error("Incorrect password. Please try again.");
+  }
+
+  // Build AuthUser based on role
   if (user.role === "admin") {
     const { data: admins } = await apiClient.get<Admin[]>("/admins");
     const admin = admins.find((a) => sameId(a.id, user.profileId));
-    if (!admin) throw new Error("Admin profile not found.");
+    if (!admin) throw new Error("Admin profile not found. Please contact support.");
     return toAdminUser(user, admin);
   }
 
   if (user.role === "customer") {
     const { data: customers } = await apiClient.get<Customer[]>("/customers");
     const customer = customers.find((c) => sameId(c.id, user.profileId));
-    if (!customer) throw new Error("Customer profile not found.");
+    if (!customer) throw new Error("Customer profile not found. Please contact support.");
     return toCustomerUser(user, customer);
   }
 
   // seller
   const { data: sellers } = await apiClient.get<Seller[]>("/sellers");
   const seller = sellers.find((s) => sameId(s.id, user.profileId));
-  if (!seller) throw new Error("Seller profile not found.");
+  if (!seller) throw new Error("Seller profile not found. Please contact support.");
 
-  if (seller.status !== "Approved") {
+  if (seller.status === "Pending Approval") {
     throw new Error(
-      `Your seller account is "${seller.status}". Please wait for admin approval before logging in.`
+      "Your seller account is still pending approval. Please wait for the admin team to review your application before logging in."
     );
   }
+
+  if (seller.status === "Rejected") {
+    throw new Error(
+      "Your seller account has been rejected. Please contact support for more information."
+    );
+  }
+
   return toSellerUser(user, seller);
 };

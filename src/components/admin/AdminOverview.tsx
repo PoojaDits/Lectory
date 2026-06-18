@@ -1,11 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import {
-  AlertCircle,
-  ArrowRight,
-  BookOpen,
-  CheckCircle2,
-  ClipboardList,
+import {AlertCircle,ArrowRight,BookOpen,CheckCircle2,ClipboardList,
   Clock3,
   LogIn,
   ShoppingBag,
@@ -110,7 +105,7 @@ export default function AdminOverview() {
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mt-[65px]">
       {/* ── Header ── */}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>

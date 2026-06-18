@@ -3,7 +3,6 @@ import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeft, BookOpen, Filter, Loader2, Search, Users, X } from "lucide-react";
 import { useStoreBooks } from "@/hooks/useHomeContent";
 import { CATEGORY_META } from "@/lib/categories";
-import Pagination from "@/components/ui/Pagination";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { formatCurrency } from "@/utils/helpers";
 import HomeSidebar from "../Home/HomeSidebar";
@@ -145,13 +144,6 @@ export default function BrowseBooksPage({
       }
     },
   });
-
-  const goToPage = (page: number) => {
-    const safe = Math.min(Math.max(1, page), totalPages);
-    setCurrentPage(safe);
-    setVisibleInPage(CHUNK);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24">

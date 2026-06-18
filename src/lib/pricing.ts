@@ -37,15 +37,14 @@ export function computeOrderTotals(subtotal: number): OrderTotals {
  * Normalise an order's totals for display, gracefully falling back to `total`
  * for legacy orders created before the breakdown fields existed.
  */
-export function orderTotals(
-  order: Pick<Order, "subtotal" | "discount" | "shipping" | "tax" | "total">
-): OrderTotals {
-  const subtotal = order.subtotal ?? order.total ?? 0;
+export function orderTotals(order: Order): OrderTotals {
+  // Orders from the API only store `total`. We treat that as the subtotal
+  // since tax, shipping, and discount are all currently 0.
   return {
-    subtotal,
-    discount: order.discount ?? 0,
-    shipping: order.shipping ?? 0,
-    tax: order.tax ?? 0,
-    total: order.total ?? subtotal,
+    subtotal: order.total ?? 0,
+    discount: 0,
+    shipping: 0,
+    tax: 0,
+    total: order.total ?? 0,
   };
 }

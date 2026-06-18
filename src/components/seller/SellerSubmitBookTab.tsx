@@ -71,7 +71,7 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
   };
 
   return (
-    <div className="max-w-3xl animate-in fade-in duration-300">
+    <div className="max-w-3xl mt-[65px] animate-in fade-in duration-300">
       <div className="mb-6 border-b border-slate-100 pb-6">
         <h2 className="text-2xl font-black text-slate-900 sm:text-3xl">
           Submit New Book

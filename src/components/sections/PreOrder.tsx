@@ -1,11 +1,8 @@
-import { ArrowRight } from "lucide-react";
 import { usePreOrders } from "@/hooks/useHomeContent";
 import SectionHeader from "@/components/ui/SectionHeader";
 import BookCarousel from "@/components/ui/BookCarousel";
-
 export default function PreOrder() {
   const { data: preOrders = [], isLoading } = usePreOrders();
-
   return (
     <section id="preorder" className="py-16 md:py-24 bg-white border-t border-amber-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,7 +15,6 @@ export default function PreOrder() {
             className="max-w-2xl mb-0"
           />
         </div>
-
         {isLoading ? (
           <div className="flex gap-6 overflow-hidden">
             {Array.from({ length: 4 }).map((_, index) => (

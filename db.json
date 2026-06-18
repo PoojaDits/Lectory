@@ -756,7 +756,7 @@
     {
       "id": "3",
       "email": "seller@lectory.com",
-      "password": "9876543210",
+      "password": "seller123",
       "role": "seller",
       "profileId": 1,
       "createdAt": "2026-06-03T09:00:00.000Z"
@@ -764,7 +764,7 @@
     {
       "id": "4",
       "email": "pending-seller@lectory.com",
-      "password": "9123456780",
+      "password": "pending123",
       "role": "seller",
       "profileId": 2,
       "createdAt": "2026-06-04T09:00:00.000Z"
@@ -772,26 +772,34 @@
     {
       "id": "5",
       "email": "seller-b@lectory.com",
-      "password": "9000000002",
+      "password": "sellerb123",
       "role": "seller",
       "profileId": 3,
       "createdAt": "2026-06-03T09:30:00.000Z"
     },
     {
+      "id": "6",
       "email": "jspuja02@gmail.com",
       "password": "Happyme31@",
       "role": "customer",
       "profileId": "IK31EltCvMk",
-      "createdAt": "2026-06-15T05:12:29.375Z",
-      "id": "uVsiUnVOkc0"
+      "createdAt": "2026-06-15T05:12:29.375Z"
     },
     {
+      "id": "7",
       "email": "thor@gmail.com",
       "password": "Happyme31@",
       "role": "seller",
       "profileId": "u0CSrHjhDeg",
-      "createdAt": "2026-06-15T05:32:49.619Z",
-      "id": "vkrc17jhTxM"
+      "createdAt": "2026-06-15T05:32:49.619Z"
+    },
+    {
+      "id": "8",
+      "email": "knowledgehub@lectory.com",
+      "password": "store123",
+      "role": "seller",
+      "profileId": 4,
+      "createdAt": "2026-06-18T11:08:34.417Z"
     }
   ],
   "admins": [
@@ -812,19 +820,24 @@
       "lastName": "Sharma",
       "email": "customer@lectory.com",
       "role": "customer",
-      "createdAt": "2026-06-02T09:00:00.000Z"
+      "createdAt": "2026-06-02T09:00:00.000Z",
+      "phone": "",
+      "addresses": [],
+      "avatar": ""
     },
     {
+      "id": "IK31EltCvMk",
+      "userId": 6,
       "firstName": "Pooja",
       "lastName": "Joshi",
       "email": "jspuja02@gmail.com",
       "role": "customer",
       "createdAt": "2026-06-15T05:12:29.375Z",
-      "id": "IK31EltCvMk",
+      "phone": "",
       "addresses": [
         {
           "id": "addr_1781593284242_1bi2",
-          "fullName": "thor",
+          "fullName": "Pooja Joshi",
           "street": "zdsagxfjh jk;iokihhj hjglikhi;l jkjb",
           "city": "Ambala",
           "state": "Haryana",
@@ -835,7 +848,6 @@
           "isDefault": true
         }
       ],
-      "phone": "",
       "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
     }
   ],
@@ -850,7 +862,12 @@
       "status": "Approved",
       "role": "seller",
       "createdAt": "2026-06-03T09:00:00.000Z",
-      "reviewedAt": "2026-06-03T12:00:00.000Z"
+      "reviewedAt": "2026-06-03T12:00:00.000Z",
+      "tagline": "Your trusted book distributor",
+      "description": "Wide selection of books across all genres",
+      "logo": "",
+      "rating": 4.5,
+      "location": "Mumbai, India"
     },
     {
       "id": "2",
@@ -862,7 +879,12 @@
       "status": "Approved",
       "role": "seller",
       "createdAt": "2026-06-04T09:00:00.000Z",
-      "reviewedAt": "2026-06-15T05:50:17.447Z"
+      "reviewedAt": "2026-06-15T05:50:17.447Z",
+      "tagline": "Turning pages, delivering joy",
+      "description": "Curated book selections for every reader",
+      "logo": "",
+      "rating": 4.2,
+      "location": "Delhi, India"
     },
     {
       "id": "3",
@@ -874,9 +896,16 @@
       "status": "Approved",
       "role": "seller",
       "createdAt": "2026-06-03T09:30:00.000Z",
-      "reviewedAt": "2026-06-03T12:30:00.000Z"
+      "reviewedAt": "2026-06-03T12:30:00.000Z",
+      "tagline": "Read more, learn more",
+      "description": "Affordable books for every budget",
+      "logo": "",
+      "rating": 4,
+      "location": "Bangalore, India"
     },
     {
+      "id": "u0CSrHjhDeg",
+      "userId": 7,
       "businessName": "thor",
       "contactPerson": "thorji",
       "email": "thor@gmail.com",
@@ -884,8 +913,29 @@
       "status": "Approved",
       "role": "seller",
       "createdAt": "2026-06-15T05:32:49.619Z",
-      "id": "u0CSrHjhDeg",
-      "reviewedAt": "2026-06-15T05:50:06.123Z"
+      "reviewedAt": "2026-06-15T05:50:06.123Z",
+      "tagline": "",
+      "description": "",
+      "logo": "",
+      "rating": 0,
+      "location": ""
+    },
+    {
+      "id": "4",
+      "userId": 8,
+      "businessName": "Knowledge Hub",
+      "contactPerson": "Rajesh Gupta",
+      "email": "knowledgehub@lectory.com",
+      "mobileNumber": "9988776655",
+      "status": "Approved",
+      "role": "seller",
+      "createdAt": "2026-06-18T11:08:34.417Z",
+      "reviewedAt": "2026-06-18T11:08:34.417Z",
+      "tagline": "Your gateway to knowledge",
+      "description": "Premium books for curious minds",
+      "logo": "",
+      "rating": 0,
+      "location": "Chennai, India"
     }
   ],
   "books": [
@@ -5164,7 +5214,7 @@
       "id": "8x-sBM5zJqI",
       "customerId": "IK31EltCvMk",
       "sellerId": "2",
-      "status": "Created",
+      "status": "Delivered",
       "shippingAddress": "thor, sw34wedtgcfxd,cjhgki., mumbai, maharastra 400001, India, (234567890-9876)",
       "total": 958,
       "createdAt": "2026-06-16T07:44:11.700Z",
@@ -5182,7 +5232,8 @@
           "authorSnapshot": "Joel Osteen",
           "sellerNameSnapshot": "PageTurner Books"
         }
-      ]
+      ],
+      "updatedAt": "2026-06-18T11:22:37.495Z"
     },
     {
       "id": "QjeZK1wncy0",
@@ -5347,7 +5398,7 @@
       "id": "O6cLrQuyBc0",
       "customerId": "IK31EltCvMk",
       "sellerId": "2",
-      "status": "Created",
+      "status": "Accepted",
       "shippingAddress": "thor, sw34wedtgcfxd,cjhgki., mumbai, maharastra 400001, India, (234567890-9876)",
       "total": 958,
       "createdAt": "2026-06-16T07:44:50.318Z",
@@ -5365,7 +5416,8 @@
           "authorSnapshot": "Joel Osteen",
           "sellerNameSnapshot": "PageTurner Books"
         }
-      ]
+      ],
+      "updatedAt": "2026-06-18T11:23:08.897Z"
     },
     {
       "id": "yxp3PUOwA-A",
