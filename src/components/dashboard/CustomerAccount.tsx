@@ -18,9 +18,9 @@ import {
 
 // Sub-tabs
 import CustomerOverviewTab from "@/components/customer/CustomerOverviewTab";
-import CustomerOrdersTab from "@/components/customer/CustomerOrdersTab";
 import CustomerAddressesTab from "@/components/customer/CustomerAddressesTab";
 import CustomerSettingsTab from "@/components/customer/CustomerSettingsTab";
+import CustomerOrdersTab from "../customer/CustomerOrdersTab";
 
 interface CustomerAccountProps {
   onNavigateHome: () => void;

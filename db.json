@@ -4984,18 +4984,18 @@
   ],
   "cartItems": [
     {
-      "cartId": "L9R73FYFYlk",
-      "listingId": "36",
-      "bookId": "14",
+      "cartId": "1",
+      "listingId": "7",
+      "bookId": "3",
       "sellerId": 1,
       "quantity": 1,
-      "price": 229,
-      "title": "Pride and Prejudice",
-      "author": "Jane Austen",
-      "coverImage": "https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg",
+      "price": 499,
+      "title": "Sapiens: A Brief History of Humankind",
+      "author": "Yuval Noah Harari",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg",
       "sellerName": "BookWorld Distributors",
-      "createdAt": "2026-06-17T05:35:33.575Z",
-      "id": "IODRGMNst14"
+      "createdAt": "2026-06-18T08:31:10.645Z",
+      "id": "xYhi-SW8oq0"
     }
   ],
   "orders": [
@@ -5476,6 +5476,30 @@
           "sellerNameSnapshot": "PageTurner Books"
         }
       ]
+    },
+    {
+      "id": "O3f4fQ8He98",
+      "customerId": "IK31EltCvMk",
+      "sellerId": "1",
+      "status": "Created",
+      "shippingAddress": "thor, zdsagxfjh jk;iokihhj hjglikhi;l jkjb, Ambala, Haryana 134005, India, (4356768987)",
+      "total": 229,
+      "createdAt": "2026-06-18T08:31:40.453Z",
+      "items": [
+        {
+          "id": "oitem_1781771500453_0_fzz",
+          "orderId": "ord_1781771500453_7x2n",
+          "listingId": "36",
+          "bookId": "14",
+          "sellerId": 1,
+          "quantity": 1,
+          "price": 229,
+          "titleSnapshot": "Pride and Prejudice",
+          "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg",
+          "authorSnapshot": "Jane Austen",
+          "sellerNameSnapshot": "BookWorld Distributors"
+        }
+      ]
     }
   ],
   "orderItems": [
@@ -5751,6 +5775,19 @@
       "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9780593135204-L.jpg",
       "authorSnapshot": "Andy Weir",
       "sellerNameSnapshot": "PageTurner Books"
+    },
+    {
+      "id": "f6lBaifZFBE",
+      "orderId": "ord_1781771500453_7x2n",
+      "listingId": "36",
+      "bookId": "14",
+      "sellerId": 1,
+      "quantity": 1,
+      "price": 229,
+      "titleSnapshot": "Pride and Prejudice",
+      "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg",
+      "authorSnapshot": "Jane Austen",
+      "sellerNameSnapshot": "BookWorld Distributors"
     }
   ],
   "categories": [
