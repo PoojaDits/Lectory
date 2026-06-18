@@ -18,6 +18,7 @@ import { notify } from "@/lib/toast";
 const NAV_LINKS: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
   { label: "Browse Books", to: "/browse" },
+  { label: "Stores", to: "/stores" },
 ];
 
 export default function Navbar() {

@@ -15,6 +15,8 @@ import SellerDashboard from "@/components/dashboard/SellerDashboard";
 import CustomerAccount from "@/components/dashboard/CustomerAccount";
 import BrowseBooksPage from "@/components/pages/BrowseBooksPage";
 import BookDetailsPage from "@/components/pages/BookDetailsPage";
+import StoresPage from "@/components/pages/StorePage";
+import StoreDetailsPage from "@/components/pages/StoreDetailsPage";
 import CartPage from "@/components/pages/CartPage";
 import CheckoutPage from "@/components/pages/CheckoutPage";
 
@@ -92,6 +94,13 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/browse" element={<BrowseBooksPage onNavigateHome={goHome} />} />
+
+        {/* Stores (sellers shown as bookstores) */}
+        <Route path="/stores" element={<StoresPage onNavigateHome={goHome} />} />
+        <Route
+          path="/stores/:id"
+          element={<StoreDetailsPage onNavigateHome={goHome} />}
+        />
 
         {/* Book details with seller picker (public) */}
         <Route

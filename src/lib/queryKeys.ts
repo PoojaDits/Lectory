@@ -39,6 +39,12 @@ export const queryKeys = {
     pending: ["sellers", "pending"] as const,
     detail: (id: string | number) => ["sellers", "detail", String(id)] as const,
   },
+  // ── Public "Stores" pages (sellers shown as bookstores) ──
+  stores: {
+    all: ["stores"] as const,
+    list: ["stores", "list"] as const,
+    detail: (id: string | number) => ["stores", "detail", String(id)] as const,
+  },
   customers: {
     all: ["customers"] as const,
     detail: (id: string | number) => ["customers", "detail", String(id)] as const,

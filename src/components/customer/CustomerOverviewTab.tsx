@@ -78,26 +78,8 @@ export default function CustomerOverviewTab({
               </div>
               <p className="font-medium text-slate-900">{customer.email}</p>
             </div>
-            <div>
-              <div className="flex items-center gap-2 text-slate-500 mb-1">
-                <Calendar size={15} /> Birthday
-              </div>
-              <p className="font-medium text-slate-900">August 3, 1980</p>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 text-slate-500 mb-1">
-                <Tag size={15} /> Tags
-              </div>
-              <span className="inline-block px-3 py-0.5 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">
-                Gold Tier
-              </span>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 text-slate-500 mb-1">
-                <User size={15} /> Owner
-              </div>
-              <p className="font-medium text-slate-900">John Doe</p>
-            </div>
+           
+           
           </div>
         </div>
 

@@ -284,6 +284,21 @@ export interface Seller {
   role: "seller";
   createdAt: string;
   reviewedAt?: string;
+  // ── Store-profile enrichment (shown on the Stores pages) ──
+  tagline?: string;
+  description?: string;
+  logo?: string;
+  rating?: number;
+  location?: string;
+}
+
+/**
+ * A seller enriched with a derived book count, used by the Stores listing
+ * page (where each seller is shown as a book "store").
+ */
+export interface Store extends Seller {
+  /** Number of distinct books this store currently lists for sale. */
+  bookCount: number;
 }
 
 export interface CustomerRegistrationInput {
