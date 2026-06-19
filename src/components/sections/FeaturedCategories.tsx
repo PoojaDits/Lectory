@@ -30,7 +30,7 @@ export default function FeaturedCategories() {
 
   return (
     <section id="categories" className="py-16 md:py-24 bg-amber-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="📚 Browse by Category"
           title="Find Your Perfect Genre"

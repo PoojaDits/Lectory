@@ -17,7 +17,7 @@ export default function NewArrivals() {
       id="new-arrivals"
       className="py-16 md:py-24 bg-gradient-to-b from-white to-amber-50"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl  px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left */}
           <div>
@@ -73,7 +73,7 @@ export default function NewArrivals() {
                   }`}
                 >
                   <div className="aspect-[3/4] bg-slate-50 p-4">
-                    <div className="relative w-full h-full">
+                    <div className="relative w-70% h-full">
                       <LazyImage
                         src={book.image}
                         alt={book.title}

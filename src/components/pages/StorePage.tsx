@@ -58,7 +58,7 @@ export default function StoresPage({ onNavigateHome }: StoresPageProps) {
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-8xl">
         {/* Header */}
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -93,7 +93,7 @@ export default function StoresPage({ onNavigateHome }: StoresPageProps) {
 
         {/* States */}
         {isLoading ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
@@ -139,7 +139,7 @@ export default function StoresPage({ onNavigateHome }: StoresPageProps) {
             <p className="mb-4 text-sm font-medium text-slate-500">
               {filtered.length} store{filtered.length !== 1 && "s"} available
             </p>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-30 sm:grid-cols-2 lg:grid-cols-2 p-20">
               {filtered.map((store) => (
                 <StoreCard key={String(store.id)} store={store} />
               ))}
