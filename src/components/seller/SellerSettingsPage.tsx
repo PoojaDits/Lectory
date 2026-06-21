@@ -7,7 +7,7 @@ export default function SellerSettingsPage() {
   const currentUser = useAuthStore((s) => s.currentUser);
 
   return (
-    <div className="max-w-3xl mt-[65px] space-y-8">
+    <div className="max-w-none mt-[65px] space-y-8">
       <div>
         <p className="text-xs font-black uppercase tracking-widest text-emerald-700">
           Seller · Settings

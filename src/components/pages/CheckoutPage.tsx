@@ -57,7 +57,7 @@ export default function CheckoutPage() {
   // Guard against non-customers
   if (!currentUser || currentUser.role !== "customer") {
     return (
-      <main className="min-h-screen bg-slate-50 px-4 py-28 text-center">
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 py-28 text-center">
         <div className="mx-auto max-w-lg rounded-3xl bg-white p-8 shadow-xl">
           <h1 className="text-2xl font-black text-slate-900">Customer Access Required</h1>
           <p className="mt-2 text-slate-500">Please log in to complete your checkout.</p>
@@ -119,7 +119,7 @@ export default function CheckoutPage() {
 
   if (isCustomerLoading || isCartLoading) {
     return (
-      <main className="min-h-screen bg-slate-50 px-4 py-32 text-center">
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 py-32 text-center">
         <Loader2 className="mx-auto h-10 w-10 animate-spin text-amber-900" />
         <p className="mt-4 text-sm font-bold text-slate-600">Loading checkout session…</p>
       </main>

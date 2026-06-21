@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   CheckCircle2,
+  ImagePlus,
   Loader2,
   Send,
   ShieldAlert,
+  X,
 } from "lucide-react";
 import { useSubmitNewBook } from "@/hooks/useSeller";
 import type { EntityId } from "@/types";
@@ -23,6 +25,8 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
     description: "",
     coverImage: "",
   });
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [success, setSuccess] = useState(false);
 
@@ -33,11 +37,23 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
     }
     if (!form.title.trim()) errs.title = "Title is required.";
     if (!form.author.trim()) errs.author = "Author is required.";
-    if (form.coverImage.trim() && !/^https?:\/\/.+/.test(form.coverImage.trim())) {
-      errs.coverImage = "Cover image must be a valid URL.";
-    }
+    // No URL validation needed — coverImage is now a data URL from file upload
     setErrors(errs);
     return Object.keys(errs).length === 0;
+  };
+
+  const handleImageFile = (file: File) => {
+    if (file.size > 5 * 1024 * 1024) {
+      setErrors((prev) => ({ ...prev, coverImage: "Image must be under 5 MB." }));
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      setImagePreview(dataUrl);
+      setForm((prev) => ({ ...prev, coverImage: dataUrl }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -64,6 +80,8 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
             description: "",
             coverImage: "",
           });
+          setImagePreview(null);
+          if (fileInputRef.current) fileInputRef.current.value = "";
           setTimeout(() => setSuccess(false), 5000);
         },
       }
@@ -71,7 +89,7 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
   };
 
   return (
-    <div className="max-w-3xl mt-[65px] animate-in fade-in duration-300">
+    <div className="max-w-none mt-[65px] animate-in fade-in duration-300">
       <div className="mb-6 border-b border-slate-100 pb-6">
         <h2 className="text-2xl font-black text-slate-900 sm:text-3xl">
           Submit New Book
@@ -136,13 +154,75 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
           placeholder="Random House"
         />
 
-        <TextField
-          label="Cover Image URL (optional)"
-          value={form.coverImage}
-          onChange={(v) => setForm({ ...form, coverImage: v })}
-          placeholder="https://example.com/cover.jpg"
-          error={errors.coverImage}
-        />
+        {/* ── Cover Image Upload ── */}
+        <div>
+          <label className="mb-1 block text-xs font-bold text-slate-700">
+            Cover Image (optional)
+          </label>
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
+            onDrop={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const file = e.dataTransfer.files?.[0];
+              if (file && file.type.startsWith("image/")) {
+                handleImageFile(file);
+              }
+            }}
+            className={`relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed bg-white px-4 py-8 transition hover:border-emerald-400 hover:bg-emerald-50/30 ${
+              imagePreview
+                ? "border-emerald-300"
+                : "border-slate-200"
+            }`}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleImageFile(file);
+              }}
+            />
+
+            {imagePreview ? (
+              <div className="relative">
+                <img
+                  src={imagePreview}
+                  alt="Cover preview"
+                  className="h-40 w-auto rounded-lg object-contain shadow-md"
+                />
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setImagePreview(null);
+                    setForm({ ...form, coverImage: "" });
+                    if (fileInputRef.current) fileInputRef.current.value = "";
+                  }}
+                  className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-rose-500 text-white shadow-sm transition hover:bg-rose-600"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+                <p className="mt-3 text-xs font-semibold text-emerald-700">
+                  Click or drag to replace
+                </p>
+              </div>
+            ) : (
+              <>
+                <ImagePlus className="mb-2 h-8 w-8 text-slate-400" />
+                <p className="text-sm font-semibold text-slate-600">
+                  Click to upload or drag &amp; drop
+                </p>
+                <p className="mt-1 text-xs text-slate-400">
+                  PNG, JPG, WEBP up to 5 MB
+                </p>
+              </>
+            )}
+          </div>
+        </div>
 
         <div>
           <label className="mb-1 block text-xs font-bold text-slate-700">

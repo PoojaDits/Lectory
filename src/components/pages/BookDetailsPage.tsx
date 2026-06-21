@@ -117,7 +117,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
   // ── Render ──
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-slate-50 px-4 pt-24">
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pt-24">
         <div className="mx-auto flex max-w-5xl items-center justify-center py-24 text-slate-400">
           <Loader2 className="h-7 w-7 animate-spin" />
           <span className="ml-3 font-medium">Loading book…</span>
@@ -128,7 +128,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
 
   if (isError || !book) {
     return (
-      <main className="min-h-screen bg-slate-50 px-4 pt-24">
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pt-24">
         <div className="mx-auto max-w-2xl rounded-3xl border border-slate-100 bg-white p-10 text-center shadow-sm">
           <BookOpen className="mx-auto h-12 w-12 text-slate-300" />
           <h1 className="mt-4 text-2xl font-black text-slate-900">
@@ -149,7 +149,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-20 pt-24">
       <div className="mx-auto max-w-6xl">
         {/* Back */}
         <button

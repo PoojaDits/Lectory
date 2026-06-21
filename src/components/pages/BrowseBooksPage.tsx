@@ -1,22 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowLeft, BookOpen, Filter, Loader2, Search, Users, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Filter, Search, Users, X } from "lucide-react";
 import { useStoreBooks } from "@/hooks/useHomeContent";
 import { CATEGORY_META } from "@/lib/categories";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { formatCurrency } from "@/utils/helpers";
 import HomeSidebar from "../Home/HomeSidebar";
 import HomeSidebarDrawer from "../Home/HomeSidebarDrawer";
 import { applyHomeFilters, useHomeFilters } from "@/stores/useHomeFilters";
+import { useHomeUI } from "@/stores/useHomeUI";
 import LazyImage from "../ui/LazyImage";
 
 interface BrowseBooksPageProps {
   onNavigateHome: () => void;
 }
-
-const PAGE_SIZE = 15; // books per page
-const CHUNK = 8; // revealed per scroll step within a page
-
 export default function BrowseBooksPage({
   onNavigateHome,
 }: BrowseBooksPageProps) {
@@ -26,8 +22,6 @@ export default function BrowseBooksPage({
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  // how many of the current page's chunk are revealed
-  const [visibleInPage, setVisibleInPage] = useState(CHUNK);
 
   // ── Fetch the full marketplace catalog via React Query (cached) ──
   const { data: books = [], isLoading, isError } = useStoreBooks();
@@ -38,9 +32,9 @@ export default function BrowseBooksPage({
   const minRating = useHomeFilters((s) => s.minRating);
   const formats = useHomeFilters((s) => s.formats);
   const languages = useHomeFilters((s) => s.languages);
-  const toggleLanguage = useHomeFilters((s) => s.toggleLanguage);
   const inStockOnly = useHomeFilters((s) => s.inStockOnly);
   const resetFilters = useHomeFilters((s) => s.reset);
+  const openFilterDrawer = useHomeUI((s) => s.openFilterDrawer);
 
   /** Set or clear the active category in the URL. */
   const setCategory = (tag: string) => {
@@ -48,8 +42,6 @@ export default function BrowseBooksPage({
     if (tag) next.set("category", tag);
     else next.delete("category");
     setSearchParams(next, { replace: true });
-    setCurrentPage(1);
-    setVisibleInPage(CHUNK);
   };
 
   const handleClearAll = () => {
@@ -111,45 +103,29 @@ export default function BrowseBooksPage({
     inStockOnly,
   ]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredBooks.length / PAGE_SIZE));
+  // Exactly 4 pages
+  const PAGE_SIZE = Math.max(1, Math.ceil(filteredBooks.length / 4));
+  const totalPages = Math.ceil(filteredBooks.length / PAGE_SIZE);
 
-  // Reset to page 1 whenever search changes
-  const [prevSearchQuery, setPrevSearchQuery] = useState(searchQuery);
-  if (prevSearchQuery !== searchQuery) {
-    setPrevSearchQuery(searchQuery);
+  // Reset to page 1 whenever filters/search change
+  useEffect(() => {
     setCurrentPage(1);
-    setVisibleInPage(CHUNK);
-  }
+  }, [filteredBooks.length]); // simple proxy for filter changes
 
-  // Keep currentPage valid
-  const safePage = Math.min(currentPage, totalPages);
-  if (safePage !== currentPage) {
-    setCurrentPage(safePage);
-  }
-
-  const pageStart = (currentPage - 1) * PAGE_SIZE;
-  const pageBooks = filteredBooks.slice(pageStart, pageStart + PAGE_SIZE);
-  const hasMoreInPage = visibleInPage < pageBooks.length;
-
-  // ── Infinite scroll sentinel ──
-  const sentinelRef = useInfiniteScroll<HTMLDivElement>({
-    hasMore: hasMoreInPage || currentPage < totalPages,
-    isLoading,
-    onLoadMore: () => {
-      if (hasMoreInPage) {
-        setVisibleInPage((v) => Math.min(v + CHUNK, pageBooks.length));
-      } else if (currentPage < totalPages) {
-        setCurrentPage((p) => p + 1);
-        setVisibleInPage(CHUNK);
-      }
-    },
-  });
+  const pageBooks = filteredBooks.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24">
-      <div className="mx-auto max-w-[1600px] lg:flex lg:items-stretch lg:gap-8">
-        <aside className="hidden w-64 flex-shrink-0 self-stretch lg:block">
-          <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-amber-100 bg-white p-6 shadow-sm">
+    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-20 pt-24 relative overflow-hidden">
+      {/* Decorative BG Blobs */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-200/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-200/30 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+
+      <div className="relative mx-auto max-w-[1600px] lg:flex lg:items-stretch lg:gap-8 z-10">
+        <aside className="hidden w-72 flex-shrink-0 self-stretch lg:block">
+          <div className="sticky top-24 h-fit rounded-2xl border border-amber-100 bg-white p-6 shadow-sm">
             <HomeSidebar />
           </div>
         </aside>
@@ -190,62 +166,52 @@ export default function BrowseBooksPage({
             {/* Category filter bar */}
             {!isLoading && (
               <div className="mb-6 flex flex-wrap items-center gap-2">
-                <span className="mr-1 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400">
+                <button
+                  type="button"
+                  onClick={openFilterDrawer}
+                  className="mr-1 lg:hidden inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-amber-700 bg-amber-100 hover:bg-amber-200 px-3 py-1.5 rounded-full transition-colors"
+                >
+                  <Filter className="h-3.5 w-3.5" />
+                  Filters
+                </button>
+                <span className="mr-1 hidden lg:inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400">
                   <Filter className="h-3.5 w-3.5" />
                   Filter
                 </span>
 
-                <button
-                  type="button"
-                  onClick={handleClearAll}
-                  className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                    !activeCategory && languages.length === 0
-                      ? "bg-amber-900 text-white shadow-sm"
-                      : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
-                  }`}
-                >
-                  All Books
-                </button>
+                <div className="hidden md:flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleClearAll}
+                    className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+                      !activeCategory && languages.length === 0
+                        ? "bg-amber-900 text-white shadow-sm"
+                        : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
+                    }`}
+                  >
+                    All Books
+                  </button>
 
-                {/* Categories */}
-                <div className="flex flex-wrap gap-2 border-l border-slate-200 pl-2">
-                  {CATEGORY_META.map((cat) => (
-                    <button
-                      key={cat.tag}
-                      type="button"
-                      onClick={() => setCategory(cat.tag)}
-                      className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                        activeCategory === cat.tag
-                          ? "bg-amber-900 text-white shadow-sm"
-                          : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
-                      }`}
-                    >
-                      {cat.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Languages */}
-                <div className="flex flex-wrap gap-2 border-l border-slate-200 pl-2">
-                  {["Hindi", "Spanish", "English"].map((lang) => {
-                    const id = lang.toLowerCase() as any;
-                    const isActive = languages.includes(id);
-                    return (
+                  {/* Categories */}
+                  <div className="flex flex-wrap gap-2 border-l border-slate-200 pl-2">
+                    {CATEGORY_META.map((cat) => (
                       <button
-                        key={id}
+                        key={cat.tag}
                         type="button"
-                        onClick={() => toggleLanguage(id)}
+                        onClick={() => setCategory(cat.tag)}
                         className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                          isActive
-                            ? "bg-amber-600 text-white shadow-sm"
-                            : "border border-amber-100 bg-amber-50/50 text-amber-900 hover:bg-amber-100"
+                          activeCategory === cat.tag
+                            ? "bg-amber-900 text-white shadow-sm"
+                            : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
                         }`}
                       >
-                        {lang}
+                        {cat.label}
                       </button>
-                    );
-                  })}
+                    ))}
+                  </div>
                 </div>
+
+
               </div>
             )}
 
@@ -281,13 +247,13 @@ export default function BrowseBooksPage({
 
             {!isLoading && !isError && filteredBooks.length > 0 && (
               <p className="mb-4 text-sm font-medium text-slate-500">
-                Showing {Math.min(filteredBooks.length, (currentPage - 1) * PAGE_SIZE + visibleInPage)} of {filteredBooks.length} books
+                Showing page {currentPage} of {totalPages || 1} ({filteredBooks.length} books total)
               </p>
             )}
 
             {isLoading ? (
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:gap-6">
-                {Array.from({ length: CHUNK }).map((_, i) => (
+                {Array.from({ length: PAGE_SIZE || 8 }).map((_, i) => (
                   <div key={i} className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
                     <div className="h-48 w-full animate-pulse bg-slate-200" />
                     <div className="space-y-2 p-4">
@@ -317,7 +283,7 @@ export default function BrowseBooksPage({
             ) : (
               <>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 xl:gap-6">
-                  {filteredBooks.slice(0, (currentPage - 1) * PAGE_SIZE + visibleInPage).map((book) => (
+                  {pageBooks.map((book) => (
                     <Link
                       key={String(book.id)}
                       to={`/books/${book.id}`}
@@ -377,10 +343,44 @@ export default function BrowseBooksPage({
                   ))}
                 </div>
 
-                {(hasMoreInPage || currentPage < totalPages) && (
-                  <div ref={sentinelRef} className="mt-10 flex items-center justify-center py-6">
-                    <Loader2 className="h-6 w-6 animate-spin text-amber-600" />
-                    <span className="ml-3 text-sm font-semibold text-slate-500">Loading more books...</span>
+                {totalPages > 1 && (
+                  <div className="mt-10 flex flex-wrap items-center justify-center gap-2 py-6">
+                    <button
+                      onClick={() => {
+                        setCurrentPage(p => Math.max(1, p - 1));
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      disabled={currentPage === 1}
+                      className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-600 shadow-sm transition hover:bg-slate-50 disabled:opacity-50"
+                    >
+                      Previous
+                    </button>
+                    {Array.from({ length: totalPages }).map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => {
+                          setCurrentPage(i + 1);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className={`flex h-10 w-10 items-center justify-center rounded-xl border text-sm font-bold shadow-sm transition-colors ${
+                          currentPage === i + 1
+                            ? "border-amber-600 bg-amber-600 text-white"
+                            : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                        }`}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => {
+                        setCurrentPage(p => Math.min(totalPages, p + 1));
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      disabled={currentPage === totalPages}
+                      className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-600 shadow-sm transition hover:bg-slate-50 disabled:opacity-50"
+                    >
+                      Next
+                    </button>
                   </div>
                 )}
               </>

@@ -375,7 +375,7 @@ function CatalogRow({
       </div>
 
       {expanded && listings.length > 0 && (
-        <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+        <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4 overflow-x-auto">
           <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
             Seller listings for this book
           </p>

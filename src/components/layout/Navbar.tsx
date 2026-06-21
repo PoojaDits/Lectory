@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   BookOpen,
   LogIn,
   LogOut,
   Menu,
   ShoppingCart,
-  SlidersHorizontal,
   UserPlus,
   X,
 } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useCart } from "@/hooks/useCart";
-import { useHomeUI } from "@/stores/useHomeUI";
 import { notify } from "@/lib/toast";
 
 const NAV_LINKS: { label: string; to: string }[] = [
@@ -25,13 +23,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const currentUser = useAuthStore((state) => state.currentUser);
   const logout = useAuthStore((state) => state.logout);
-  const openFilterDrawer = useHomeUI((state) => state.openFilterDrawer);
   const navigate = useNavigate();
-  const location = useLocation();
   const { count: cartCount } = useCart();
-  // The filter sidebar only lives on the Browse page, so the mobile
-  // trigger button is only meaningful there.
-  const isBrowsePage = location.pathname === "/browse";
 
   const closeMobileMenu = () => setMobileOpen(false);
 
@@ -134,16 +127,6 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <div className="flex items-center gap-1 md:hidden">
-            {isBrowsePage && (
-              <button
-                type="button"
-                onClick={openFilterDrawer}
-                className="rounded-lg p-2 text-gray-600 transition hover:bg-amber-50 hover:text-amber-800"
-                aria-label="Open filters"
-              >
-                <SlidersHorizontal className="h-5 w-5" />
-              </button>
-            )}
             <button
               className="rounded-lg p-2 text-gray-600 hover:bg-amber-50 md:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}

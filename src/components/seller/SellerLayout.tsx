@@ -219,8 +219,35 @@ export default function SellerLayout({
           </div>
         </div>
 
+        {/* ── Mobile sub-navigation ── */}
+        <div className="fixed inset-x-0 top-[48px] z-40 flex overflow-x-auto border-b border-slate-200 bg-white/95 px-4 py-2 backdrop-blur scrollbar-hide md:hidden gap-2">
+          {items.map(({ to, label, icon: Icon, badge }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === "/seller"}
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold whitespace-nowrap transition-colors",
+                  isActive
+                    ? "bg-emerald-700 text-white shadow-sm"
+                    : "text-slate-700 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700"
+                )
+              }
+            >
+              <Icon className="h-3.5 w-3.5 shrink-0" />
+              <span>{label}</span>
+              {badge !== undefined && badge > 0 && (
+                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[9px] font-extrabold text-emerald-800">
+                  {badge}
+                </span>
+              )}
+            </NavLink>
+          ))}
+        </div>
+
         {/* ── Page content ── */}
-        <main className="min-w-0 flex-1 pt-20 md:pt-0 pb-16">
+        <main className="min-w-0 flex-1 pt-[110px] md:pt-0 pb-16">
           <Outlet />
         </main>
       </div>

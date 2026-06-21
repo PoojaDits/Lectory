@@ -196,11 +196,11 @@ export default function OrderManagementPage() {
 
       {/* ── Orders table ── */}
       <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-4 border-b border-slate-200 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
-          <div className="col-span-1">#</div>
+        <div className="grid grid-cols-12 gap-2 border-b border-slate-200 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
+          <div className="col-span-2">#</div>
           <div className="col-span-2">Customer</div>
-          <div className="col-span-2">Seller</div>
-          <div className="col-span-2">Total</div>
+          <div className="col-span-3">Seller</div>
+          <div className="col-span-1">Total</div>
           <div className="col-span-2">Status</div>
           <div className="col-span-2">Placed</div>
         </div>
@@ -226,10 +226,15 @@ export default function OrderManagementPage() {
               return (
                 <li
                   key={String(o.id)}
-                  className="grid grid-cols-12 items-center gap-4 px-5 py-4 text-sm transition hover:bg-amber-50/40"
+                  className="grid grid-cols-12 items-center gap-2 px-5 py-4 text-sm transition hover:bg-amber-50/40"
                 >
-                  <div className="col-span-1 font-extrabold text-slate-900">
-                    #{String(o.id)}
+                  <div className="col-span-2 min-w-0">
+                    <p
+                      className="truncate font-mono text-xs font-extrabold text-slate-700"
+                      title={`#${String(o.id)}`}
+                    >
+                      #{String(o.id).slice(0, 8)}…
+                    </p>
                   </div>
                   <div className="col-span-2 min-w-0">
                     <p className="truncate text-sm font-bold text-slate-900">
@@ -241,7 +246,7 @@ export default function OrderManagementPage() {
                       {customer?.email}
                     </p>
                   </div>
-                  <div className="col-span-2 min-w-0">
+                  <div className="col-span-3 min-w-0">
                     <p className="truncate text-sm font-bold text-slate-900">
                       {seller?.businessName ?? `Seller #${o.sellerId}`}
                     </p>
@@ -249,7 +254,7 @@ export default function OrderManagementPage() {
                       {o.shippingAddress}
                     </p>
                   </div>
-                  <div className="col-span-2 text-sm font-bold text-emerald-700">
+                  <div className="col-span-1 text-sm font-bold text-emerald-700">
                     {formatCurrency(o.total)}
                   </div>
                   <div className="col-span-2">

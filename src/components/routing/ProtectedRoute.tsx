@@ -17,7 +17,6 @@ export default function ProtectedRoute({
   const location = useLocation();
 
   if (!currentUser) {
-    notify.warning("Please log in to continue.");
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   if (allow.length > 0 && !allow.includes(currentUser.role)) {

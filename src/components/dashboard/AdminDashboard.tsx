@@ -163,7 +163,7 @@ export default function AdminDashboard({
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 pb-16 pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 px-4 pb-16 pt-24">
       <div className="mx-auto max-w-7xl">
         {/* Top bar */}
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">

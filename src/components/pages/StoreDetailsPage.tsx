@@ -40,7 +40,7 @@ export default function StoreDetailsPage({
   }, [books, query]);
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 pb-20 pt-24 ">
+    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-20 pt-24 ">
       <div className="mx-auto max-w-7xl">
         {/* Back nav */}
         <button

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { AuthUser } from "@/types";
+import { notify } from "@/lib/toast";
 
 const STORAGE_KEY = "lectory-auth-user";
 const IMPERSONATOR_KEY = "lectory-impersonator";

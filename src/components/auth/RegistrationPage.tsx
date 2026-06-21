@@ -72,7 +72,7 @@ export default function RegistrationPage() {
 
   return (
     <div className="min-h-screen bg-amber-50 flex items-center justify-center p-6">
-      <div className="max-w-5xl w-full grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden h-[720px]">
+      <div className="max-w-[1024px] w-full grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden h-auto md:h-[720px]">
         
         {/* LEFT IMAGE */}
         <div className="relative hidden md:block">

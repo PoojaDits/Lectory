@@ -199,7 +199,7 @@ export default function CustomerOverviewTab({
             cta={{ label: "Start shopping", to: "/browse" }}
           />
         ) : (
-          <div className="overflow-hidden rounded-2xl border border-slate-100">
+          <div className="overflow-x-auto rounded-2xl border border-slate-100">
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-slate-100 bg-slate-50/70 text-xs font-bold uppercase tracking-wide text-slate-400">

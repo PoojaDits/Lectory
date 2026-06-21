@@ -51,11 +51,12 @@ import NewArrivals from "@/components/sections/NewArrivals";
 import Manga from "@/components/sections/Manga";
 import ArtificialIntelligence from "@/components/sections/ArtificialIntelligence";
 import Newsletter from "@/components/sections/Newsletter";
+import DiscoverMore from "@/components/sections/DiscoverMore";
 
 function HomePage() {
   return (
     <>
-      <main>
+      <main className="overflow-x-hidden w-full">
         <HeroSlider />
         <PromoBanner />
         <FeaturedCategories />
@@ -66,6 +67,7 @@ function HomePage() {
         <ArtificialIntelligence />
         <NewArrivals />
         <Newsletter />
+        <DiscoverMore />
       </main>
       <Footer />
     </>
@@ -136,14 +138,13 @@ export default function App() {
           path="/login"
           element={
             <LoginPage
-              onNavigateHome={goHome}
               onNavigateRegister={goRegister}
             />
           }
         />
         <Route
           path="/register"
-          element={<RegistrationPage onNavigateHome={goHome} />}
+          element={<RegistrationPage />}
         />
 
         {/* Customer area */}

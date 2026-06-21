@@ -30,7 +30,7 @@ export default function FeaturedCategories() {
 
   return (
     <section id="categories" className="py-16 md:py-24 bg-amber-50">
-      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="📚 Browse by Category"
           title="Find Your Perfect Genre"
@@ -52,17 +52,18 @@ export default function FeaturedCategories() {
                 <Link
                   key={cat.tag}
                   to={`/browse?category=${cat.tag}`}
-                  className={`group relative ${cat.bg} rounded-2xl p-6 md:p-8 text-center hover:shadow-xl ${cat.shadow} transition-all duration-300 hover:-translate-y-2 border border-white/60`}
+                  className={`group relative ${cat.bg} rounded-2xl p-6 md:p-8 text-center hover:shadow-2xl ${cat.shadow} transition-all duration-300 hover:-translate-y-2 border border-white/80 overflow-hidden`}
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div
-                    className={`inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${cat.gradient} shadow-lg ${cat.shadow} mb-4 group-hover:scale-110 transition-transform`}
+                    className={`relative inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${cat.gradient} shadow-lg ${cat.shadow} mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 z-10`}
                   >
-                    <Icon className="w-7 h-7 md:w-8 md:h-8 text-white" />
+                    <Icon className="w-7 h-7 md:w-8 md:h-8 text-white group-hover:animate-pulse" />
                   </div>
-                  <h3 className="text-gray-900 font-bold text-base md:text-lg mb-1">
+                  <h3 className="relative text-gray-900 font-bold text-base md:text-lg mb-1 z-10 group-hover:text-amber-900 transition-colors">
                     {cat.label}
                   </h3>
-                  <p className="text-gray-400 text-sm">{count} books</p>
+                  <p className="relative text-gray-500 text-sm z-10 group-hover:text-gray-700 transition-colors">{count} books</p>
                 </Link>
               );
             })}

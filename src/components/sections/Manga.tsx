@@ -7,7 +7,7 @@ export default function Manga() {
 
   return (
     <section id="manga" className="py-16 md:py-24 section-bg border-t border-amber-100/60">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="📚 Manga"
           title="Explore the latest manga releases"

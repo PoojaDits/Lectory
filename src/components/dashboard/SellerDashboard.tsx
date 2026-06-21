@@ -45,7 +45,7 @@ export default function SellerDashboard({
   // ── Guard ──
   if (!currentUser || currentUser.role !== "seller") {
     return (
-      <main className="min-h-screen bg-emerald-50 px-4 pt-28">
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pt-28">
         <div className="mx-auto max-w-2xl rounded-[2rem] bg-white p-8 text-center shadow-xl">
           <Store className="mx-auto h-14 w-14 text-emerald-700" />
           <h1 className="mt-4 text-3xl font-black text-slate-900">
@@ -68,7 +68,7 @@ export default function SellerDashboard({
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 px-4 pb-20 pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-20 pt-24">
       <div className="mx-auto max-w-6xl">
         {/* Top bar */}
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">

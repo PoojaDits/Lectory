@@ -3,7 +3,7 @@ import { Mail, Sparkles } from "lucide-react";
 export default function Newsletter() {
   return (
     <section className="py-16 md:py-24 bg-white">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative bg-gradient-to-br from-amber-700 via-amber-800 to-amber-950 rounded-3xl p-8 md:p-16 overflow-hidden">
           {/* BG blobs */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-600/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
