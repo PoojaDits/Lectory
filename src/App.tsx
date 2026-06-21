@@ -51,7 +51,6 @@ import NewArrivals from "@/components/sections/NewArrivals";
 import Manga from "@/components/sections/Manga";
 import ArtificialIntelligence from "@/components/sections/ArtificialIntelligence";
 import Newsletter from "@/components/sections/Newsletter";
-import DiscoverMore from "@/components/sections/DiscoverMore";
 
 function HomePage() {
   return (
@@ -67,7 +66,7 @@ function HomePage() {
         <ArtificialIntelligence />
         <NewArrivals />
         <Newsletter />
-        <DiscoverMore />
+
       </main>
       <Footer />
     </>

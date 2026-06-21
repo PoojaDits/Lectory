@@ -392,13 +392,12 @@ function ActiveOrderCard({ order }: { order: Order }) {
             <div key={step} className="flex flex-1 items-center last:flex-none">
               <div className="flex flex-col items-center">
                 <div
-                  className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-black transition ${
-                    done
-                      ? isCurrent
-                        ? "bg-amber-600 text-white ring-4 ring-amber-100"
-                        : "bg-emerald-500 text-white"
-                      : "bg-white text-slate-400 ring-1 ring-slate-200"
-                  }`}
+                  className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-black transition ${done
+                    ? isCurrent
+                      ? "bg-amber-600 text-white ring-4 ring-amber-100"
+                      : "bg-emerald-500 text-white"
+                    : "bg-white text-slate-400 ring-1 ring-slate-200"
+                    }`}
                 >
                   {done && !isCurrent ? (
                     <CheckCircle2 className="h-4 w-4" />
@@ -407,18 +406,16 @@ function ActiveOrderCard({ order }: { order: Order }) {
                   )}
                 </div>
                 <span
-                  className={`mt-1.5 text-[10px] font-bold ${
-                    done ? "text-slate-700" : "text-slate-400"
-                  }`}
+                  className={`mt-1.5 text-[10px] font-bold ${done ? "text-slate-700" : "text-slate-400"
+                    }`}
                 >
                   {step}
                 </span>
               </div>
               {idx < PIPELINE.length - 1 && (
                 <div
-                  className={`mx-1 h-0.5 flex-1 rounded ${
-                    idx < currentStep ? "bg-emerald-400" : "bg-slate-200"
-                  }`}
+                  className={`mx-1 h-0.5 flex-1 rounded ${idx < currentStep ? "bg-emerald-400" : "bg-slate-200"
+                    }`}
                 />
               )}
             </div>
