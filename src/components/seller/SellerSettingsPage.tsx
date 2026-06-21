@@ -9,7 +9,7 @@ export default function SellerSettingsPage() {
   return (
     <div className="max-w-none mt-[65px] space-y-8">
       <div>
-        <p className="text-xs font-black uppercase tracking-widest text-emerald-700">
+        <p className="text-xs font-black uppercase tracking-widest text-amber-700">
           Seller · Settings
         </p>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
@@ -62,27 +62,26 @@ export default function SellerSettingsPage() {
         <h2 className="text-lg font-black text-slate-900 mb-6">
           Account Status
         </h2>
-        <div className="flex items-center justify-between rounded-2xl bg-emerald-50 border border-emerald-200 p-5">
+        <div className="flex items-center justify-between rounded-2xl bg-amber-50 border border-amber-200 p-5">
           <div>
-            <p className="text-sm font-bold text-emerald-900">
+            <p className="text-sm font-bold text-amber-900">
               Seller Status
             </p>
-            <p className="text-xs text-emerald-700 mt-0.5">
+            <p className="text-xs text-amber-700 mt-0.5">
               {currentUser?.status === "Approved"
                 ? "Your seller account is active and approved."
                 : currentUser?.status === "Pending Approval"
-                ? "Your account is under review by admin."
-                : "Your account has been rejected. Please contact support."}
+                  ? "Your account is under review by admin."
+                  : "Your account has been rejected. Please contact support."}
             </p>
           </div>
           <span
-            className={`rounded-full px-4 py-1.5 text-xs font-extrabold ${
-              currentUser?.status === "Approved"
-                ? "bg-emerald-200 text-emerald-900"
-                : currentUser?.status === "Pending Approval"
+            className={`rounded-full px-4 py-1.5 text-xs font-extrabold ${currentUser?.status === "Approved"
                 ? "bg-amber-200 text-amber-900"
-                : "bg-rose-200 text-rose-900"
-            }`}
+                : currentUser?.status === "Pending Approval"
+                  ? "bg-amber-200 text-amber-900"
+                  : "bg-rose-200 text-rose-900"
+              }`}
           >
             {currentUser?.status ?? "—"}
           </span>
@@ -116,7 +115,7 @@ function SettingField({
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
           <Icon className="h-5 w-5" />
         </div>
         <span className="text-sm font-bold text-slate-700">{label}</span>

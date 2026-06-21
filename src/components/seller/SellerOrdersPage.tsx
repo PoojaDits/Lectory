@@ -86,7 +86,7 @@ export default function SellerOrdersPage() {
     <div className="space-y-6 mt-[65px]">
       {/* ── Header ── */}
       <header>
-        <p className="text-xs font-black uppercase tracking-widest text-emerald-700">
+        <p className="text-xs font-black uppercase tracking-widest text-amber-700">
           Seller · Orders
         </p>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
@@ -110,7 +110,7 @@ export default function SellerOrdersPage() {
           label="Created"
           value={counts.Created ?? 0}
           icon={AlertCircle}
-          tone="blue"
+          tone="amber"
         />
         <PipelineTile
           label="Accepted"
@@ -122,13 +122,13 @@ export default function SellerOrdersPage() {
           label="Shipped"
           value={counts.Shipped ?? 0}
           icon={Truck}
-          tone="indigo"
+          tone="amber"
         />
         <PipelineTile
           label="Delivered"
           value={counts.Delivered ?? 0}
           icon={CheckCircle2}
-          tone="emerald"
+          tone="amber"
         />
         <PipelineTile
           label="Cancelled"
@@ -152,7 +152,7 @@ export default function SellerOrdersPage() {
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
-                    ? "bg-emerald-700 text-white shadow-sm"
+                    ? "bg-amber-700 text-white shadow-sm"
                     : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                 )}
               >
@@ -182,7 +182,7 @@ export default function SellerOrdersPage() {
               setPage(1);
             }}
             placeholder="Search by order ID or address…"
-            className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
           />
         </div>
       </div>
@@ -226,7 +226,7 @@ export default function SellerOrdersPage() {
                       <Calendar className="h-3.5 w-3.5" />
                       {formatDate(order.createdAt)}
                     </span>
-                    <span className="text-sm font-bold text-emerald-700">
+                    <span className="text-sm font-bold text-amber-700">
                       {formatCurrency(order.total)}
                     </span>
                   </div>
@@ -245,7 +245,7 @@ export default function SellerOrdersPage() {
                             });
                           }}
                           disabled={updateOrder.isPending}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-emerald-700 px-4 py-2 text-xs font-black text-white hover:bg-emerald-800 transition shadow-md shadow-emerald-900/20 disabled:opacity-50"
+                          className="inline-flex items-center gap-1.5 rounded-full bg-amber-700 px-4 py-2 text-xs font-black text-white hover:bg-amber-800 transition shadow-md shadow-amber-900/20 disabled:opacity-50"
                         >
                           <CheckCircle2 className="h-3.5 w-3.5" />
                           Accept
@@ -280,7 +280,7 @@ export default function SellerOrdersPage() {
                           });
                         }}
                         disabled={updateOrder.isPending}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-indigo-600 px-4 py-2 text-xs font-black text-white hover:bg-indigo-700 transition shadow-md shadow-indigo-900/20 disabled:opacity-50 animate-pulse"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-amber-600 px-4 py-2 text-xs font-black text-white hover:bg-amber-700 transition shadow-md shadow-amber-900/20 disabled:opacity-50 animate-pulse"
                       >
                         <Truck className="h-3.5 w-3.5" />
                         Mark as Shipped
@@ -297,7 +297,7 @@ export default function SellerOrdersPage() {
                           });
                         }}
                         disabled={updateOrder.isPending}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-emerald-700 px-4 py-2 text-xs font-black text-white hover:bg-emerald-800 transition shadow-md disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-amber-700 px-4 py-2 text-xs font-black text-white hover:bg-amber-800 transition shadow-md disabled:opacity-50"
                       >
                         <CheckCircle2 className="h-3.5 w-3.5" />
                         Confirm Delivery
@@ -338,7 +338,7 @@ export default function SellerOrdersPage() {
                                   className="h-full w-full object-cover"
                                 />
                               ) : (
-                                <div className="flex h-full w-full items-center justify-center bg-emerald-800 text-white">
+                                <div className="flex h-full w-full items-center justify-center bg-amber-800 text-white">
                                   <BookOpen className="h-4 w-4" />
                                 </div>
                               )}
@@ -354,7 +354,7 @@ export default function SellerOrdersPage() {
                                 <span className="font-extrabold text-slate-700">
                                   Qty: {it.quantity}
                                 </span>
-                                <span className="font-black text-emerald-700">
+                                <span className="font-black text-amber-700">
                                   {formatCurrency(it.price * it.quantity)}
                                 </span>
                               </div>
@@ -365,8 +365,8 @@ export default function SellerOrdersPage() {
                     </div>
 
                     {/* Shipping Address */}
-                    <div className="rounded-2xl bg-emerald-50/50 p-4 border border-emerald-100/80 flex items-start gap-3 text-xs">
-                      <MapPin className="h-5 w-5 text-emerald-800 shrink-0 mt-0.5" />
+                    <div className="rounded-2xl bg-amber-50/50 p-4 border border-amber-100/80 flex items-start gap-3 text-xs">
+                      <MapPin className="h-5 w-5 text-amber-800 shrink-0 mt-0.5" />
                       <div className="text-slate-700">
                         <span className="font-black text-slate-900 block mb-0.5">
                           Customer Delivery Address:
@@ -388,7 +388,7 @@ export default function SellerOrdersPage() {
                           {order.status === "Cancelled" && "❌"}
                         </span>
                         <div>
-                          <strong className="text-emerald-400 block font-black uppercase tracking-wider text-[11px]">
+                          <strong className="text-amber-400 block font-black uppercase tracking-wider text-[11px]">
                             Fulfillment Stage:
                           </strong>
                           <span className="text-slate-200 mt-0.5 block leading-relaxed">
@@ -405,7 +405,7 @@ export default function SellerOrdersPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-emerald-300 bg-emerald-950 border border-emerald-800 px-3.5 py-1.5 rounded-full self-start sm:self-auto shrink-0">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-amber-950 border border-amber-800 px-3.5 py-1.5 rounded-full self-start sm:self-auto shrink-0">
                         Live Sync ✨
                       </span>
                     </div>
@@ -439,12 +439,14 @@ function PipelineTile({
   icon: typeof ShoppingBag;
   tone: "slate" | "blue" | "amber" | "indigo" | "emerald" | "rose";
 }) {
+  // Warm amber palette — uses different intensities of amber/orange
+  // to distinguish pipeline stages while staying on-theme.
   const tones = {
     slate: "bg-slate-100 text-slate-700",
-    blue: "bg-blue-100 text-blue-800",
-    amber: "bg-amber-100 text-amber-800",
-    indigo: "bg-indigo-100 text-indigo-800",
-    emerald: "bg-emerald-100 text-emerald-800",
+    blue: "bg-amber-50 text-amber-600",
+    amber: "bg-amber-100 text-amber-700",
+    indigo: "bg-amber-200 text-amber-800",
+    emerald: "bg-orange-100 text-orange-800",
     rose: "bg-rose-100 text-rose-800",
   } as const;
   return (

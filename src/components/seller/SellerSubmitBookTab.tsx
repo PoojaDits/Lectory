@@ -100,12 +100,12 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
         </p>
       </div>
 
-      <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-4 text-sm text-indigo-900 mb-6">
+      <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 mb-6">
         <div className="flex items-start gap-3">
-          <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-indigo-700" />
+          <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" />
           <div>
             <p className="font-bold">Submission is reviewed by admin</p>
-            <p className="text-indigo-800">
+            <p className="text-amber-800">
               Duplicate ISBNs are not allowed. The book will be created with
               status "Pending Approval" and will only become visible after
               admin approval.
@@ -115,7 +115,7 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
       </div>
 
       {success && (
-        <div className="mb-6 flex items-center gap-2 rounded-2xl bg-emerald-50 p-4 text-sm font-black text-emerald-800 border border-emerald-200 animate-in fade-in">
+        <div className="mb-6 flex items-center gap-2 rounded-2xl bg-amber-50 p-4 text-sm font-black text-amber-800 border border-amber-200 animate-in fade-in">
           <CheckCircle2 className="h-5 w-5" />
           <span>Book submitted successfully! It will appear in the catalog once approved.</span>
         </div>
@@ -170,11 +170,10 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
                 handleImageFile(file);
               }
             }}
-            className={`relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed bg-white px-4 py-8 transition hover:border-emerald-400 hover:bg-emerald-50/30 ${
-              imagePreview
-                ? "border-emerald-300"
+            className={`relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed bg-white px-4 py-8 transition hover:border-amber-400 hover:bg-amber-50/30 ${imagePreview
+                ? "border-amber-300"
                 : "border-slate-200"
-            }`}
+              }`}
           >
             <input
               ref={fileInputRef}
@@ -206,7 +205,7 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>
-                <p className="mt-3 text-xs font-semibold text-emerald-700">
+                <p className="mt-3 text-xs font-semibold text-amber-700">
                   Click or drag to replace
                 </p>
               </div>
@@ -233,7 +232,7 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
             onChange={(e) => setForm({ ...form, description: e.target.value })}
             rows={4}
             placeholder="Brief description of the book..."
-            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
           />
         </div>
 
@@ -241,7 +240,7 @@ export default function SellerSubmitBookTab({ sellerId }: SellerSubmitBookTabPro
           <button
             type="submit"
             disabled={submitBook.isPending}
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-8 py-3.5 text-sm font-black text-white hover:bg-emerald-800 transition shadow-lg shadow-emerald-900/20 disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-full bg-amber-700 px-8 py-3.5 text-sm font-black text-white hover:bg-amber-800 transition shadow-lg shadow-amber-900/20 disabled:opacity-50"
           >
             {submitBook.isPending ? (
               <>
@@ -282,11 +281,10 @@ function TextField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm outline-none focus:ring-4 ${
-          error
+        className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm outline-none focus:ring-4 ${error
             ? "border-rose-300 focus:border-rose-400 focus:ring-rose-100"
-            : "border-slate-200 focus:border-emerald-500 focus:ring-emerald-100"
-        }`}
+            : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+          }`}
       />
       {error && <p className="mt-1 text-xs font-bold text-rose-600">{error}</p>}
     </div>

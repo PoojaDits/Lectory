@@ -89,7 +89,7 @@ export default function SellerLayout({
   if (!currentUser || currentUser.role !== "seller") {
     return (
       <main className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-6 text-center">
-        <ShieldCheck className="h-16 w-16 text-emerald-500" />
+        <ShieldCheck className="h-16 w-16 text-amber-500" />
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900">
             Seller access required
@@ -102,7 +102,7 @@ export default function SellerLayout({
         <button
           type="button"
           onClick={onLogin}
-          className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800"
+          className="rounded-full bg-amber-700 px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-amber-800"
         >
           <LogIn className="mr-2 inline h-4 w-4" />
           Go to Login
@@ -112,21 +112,21 @@ export default function SellerLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/30">
       <ImpersonationBanner />
 
       <div className="mx-auto flex w-full max-w-[1400px] gap-6 px-4 py-8 sm:px-6 lg:px-8">
         {/* ── Sidebar ── */}
         <aside className="sticky top-24 hidden h-fit w-64 shrink-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:block">
           <div className="mb-6 flex items-center gap-3 border-b border-slate-100 pb-5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-700 text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-700 text-white">
               <BookOpen className="h-5 w-5" />
             </div>
             <div className="min-w-0">
               <p className="truncate text-sm font-extrabold text-slate-900">
                 {currentUser.businessName ?? currentUser.name}
               </p>
-              <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+              <p className="text-xs font-bold uppercase tracking-wider text-amber-700">
                 Seller
               </p>
             </div>
@@ -142,8 +142,8 @@ export default function SellerLayout({
                   cn(
                     linkBase,
                     isActive
-                      ? "bg-emerald-700 text-white shadow-sm"
-                      : "text-slate-700 hover:bg-emerald-50 hover:text-emerald-700"
+                      ? "bg-amber-700 text-white shadow-sm"
+                      : "text-slate-700 hover:bg-amber-50 hover:text-amber-700"
                   )
                 }
               >
@@ -153,7 +153,7 @@ export default function SellerLayout({
                   <span
                     className={cn(
                       "ml-auto rounded-full px-2 py-0.5 text-[10px] font-extrabold",
-                      "bg-emerald-100 text-emerald-800"
+                      "bg-amber-100 text-amber-800"
                     )}
                   >
                     {badge}
@@ -191,7 +191,7 @@ export default function SellerLayout({
         {/* ── Mobile top bar ── */}
         <div className="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur md:hidden">
           <div className="flex items-center gap-2">
-            <BookOpen className="h-5 w-5 text-emerald-700" />
+            <BookOpen className="h-5 w-5 text-amber-700" />
             <span className="text-sm font-extrabold text-slate-900">
               Seller Portal
             </span>
@@ -230,15 +230,15 @@ export default function SellerLayout({
                 cn(
                   "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold whitespace-nowrap transition-colors",
                   isActive
-                    ? "bg-emerald-700 text-white shadow-sm"
-                    : "text-slate-700 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700"
+                    ? "bg-amber-700 text-white shadow-sm"
+                    : "text-slate-700 bg-slate-100 hover:bg-amber-50 hover:text-amber-700"
                 )
               }
             >
               <Icon className="h-3.5 w-3.5 shrink-0" />
               <span>{label}</span>
               {badge !== undefined && badge > 0 && (
-                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[9px] font-extrabold text-emerald-800">
+                <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[9px] font-extrabold text-amber-800">
                   {badge}
                 </span>
               )}

@@ -62,17 +62,17 @@ export default function SellerDashboardPage() {
   return (
     <div className="space-y-8 mt-[65px]">
       {/* ── Welcome Header ── */}
-      <header className="mb-8 overflow-hidden md:p-12 relative">
-        <div className="absolute -right-12 -bottom-12 h-64 w-64 rounded-full bg-white/5 blur-2xl pointer-events-none" />
+      <header className="mb-8 overflow-hidden rounded-3xl bg-gradient-to-br from-amber-700 via-amber-800 to-orange-900 p-8 md:p-12 relative shadow-lg shadow-amber-900/20">
+        <div className="absolute -right-12 -bottom-12 h-64 w-64 rounded-full bg-white/10 blur-2xl pointer-events-none" />
 
         <div className="relative z-10">
-          <p className="text-xs font-black uppercase tracking-widest text-amber-700">
+          <p className="text-xs font-black uppercase tracking-widest text-amber-100">
             Seller Command Center
           </p>
-          <h1 className="mt-2 text-3xl font-black md:text-4xl tracking-tight">
+          <h1 className="mt-2 text-3xl font-black text-white md:text-4xl tracking-tight">
             Welcome, {currentUser?.businessName ?? currentUser?.name ?? "Seller"}
           </h1>
-          <p className="mt-2 max-w-2xl text-white/70">
+          <p className="mt-2 max-w-2xl text-amber-50/90">
             Monitor your sales, manage your inventory, and process orders from
             your seller dashboard.
           </p>
@@ -85,14 +85,14 @@ export default function SellerDashboardPage() {
           label="Total Orders"
           value={orders.length}
           icon={ShoppingBag}
-          tone="emerald"
+          tone="amber"
           hint={`${pendingActionOrders.length} pending action`}
         />
         <StatCard
           label="Revenue"
           value={formatCurrency(revenue)}
           icon={DollarSign}
-          tone="blue"
+          tone="amber"
           hint="From delivered orders"
         />
         <StatCard
@@ -106,7 +106,7 @@ export default function SellerDashboardPage() {
           label="Approved Books"
           value={approvedBooks.length}
           icon={BookOpen}
-          tone="indigo"
+          tone="amber"
           hint="In marketplace catalog"
         />
       </section>
@@ -117,7 +117,7 @@ export default function SellerDashboardPage() {
           label="Created"
           value={orderCounts.Created}
           icon={AlertCircle}
-          tone="blue"
+          tone="amber"
         />
         <PipelineTile
           label="Accepted"
@@ -129,13 +129,13 @@ export default function SellerDashboardPage() {
           label="Shipped"
           value={orderCounts.Shipped}
           icon={Truck}
-          tone="indigo"
+          tone="amber"
         />
         <PipelineTile
           label="Delivered"
           value={orderCounts.Delivered}
           icon={CheckCircle2}
-          tone="emerald"
+          tone="amber"
         />
         <PipelineTile
           label="Cancelled"
@@ -159,7 +159,7 @@ export default function SellerDashboardPage() {
           <button
             type="button"
             onClick={() => navigate("/seller/orders")}
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-4 py-2 text-xs font-black text-white hover:bg-emerald-800 transition shadow-sm"
+            className="inline-flex items-center gap-2 rounded-full bg-amber-700 px-4 py-2 text-xs font-black text-white hover:bg-amber-800 transition shadow-sm"
           >
             View All
             <TrendingUp className="h-3.5 w-3.5" />
@@ -181,7 +181,7 @@ export default function SellerDashboardPage() {
             {orders.slice(0, 5).map((order) => (
               <div
                 key={String(order.id)}
-                className="flex items-center justify-between p-5 hover:bg-emerald-50/30 transition"
+                className="flex items-center justify-between p-5 hover:bg-amber-50/30 transition"
               >
                 <div className="flex items-center gap-4">
                   <span className="font-black text-slate-900 text-sm">
@@ -192,7 +192,7 @@ export default function SellerDashboardPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-sm font-bold text-emerald-700">
+                  <span className="text-sm font-bold text-amber-700">
                     {formatCurrency(order.total)}
                   </span>
                   <StatusBadge status={order.status} />
@@ -212,7 +212,7 @@ export default function SellerDashboardPage() {
           icon={ShoppingBag}
           title="Manage Orders"
           desc="Accept, ship, and deliver customer orders in real time."
-          color="emerald"
+          color="amber"
           onClick={() => navigate("/seller/orders")}
         />
         <QuickActionCard
@@ -226,7 +226,7 @@ export default function SellerDashboardPage() {
           icon={BookOpen}
           title="Submit New Book"
           desc="Add new book titles to the marketplace catalog for approval."
-          color="indigo"
+          color="amber"
           onClick={() => navigate("/seller/submit-book")}
         />
       </section>
@@ -247,12 +247,14 @@ function PipelineTile({
   icon: typeof ShoppingBag;
   tone: "slate" | "blue" | "amber" | "indigo" | "emerald" | "rose";
 }) {
+  // Warm amber palette — uses different intensities of amber/orange
+  // to distinguish pipeline stages while staying on-theme.
   const tones = {
     slate: "bg-slate-100 text-slate-700",
-    blue: "bg-blue-100 text-blue-800",
-    amber: "bg-amber-100 text-amber-800",
-    indigo: "bg-indigo-100 text-indigo-800",
-    emerald: "bg-emerald-100 text-emerald-800",
+    blue: "bg-amber-50 text-amber-600",
+    amber: "bg-amber-100 text-amber-700",
+    indigo: "bg-amber-200 text-amber-800",
+    emerald: "bg-orange-100 text-orange-800",
     rose: "bg-rose-100 text-rose-800",
   } as const;
   return (
@@ -293,9 +295,9 @@ function QuickActionCard({
   onClick: () => void;
 }) {
   const colors = {
-    emerald: "from-emerald-700 to-teal-700 border-emerald-200 hover:border-emerald-300",
+    emerald: "from-amber-700 to-orange-700 border-amber-200 hover:border-amber-300",
     amber: "from-amber-600 to-orange-600 border-amber-200 hover:border-amber-300",
-    indigo: "from-indigo-600 to-blue-600 border-indigo-200 hover:border-indigo-300",
+    indigo: "from-amber-600 to-orange-600 border-amber-200 hover:border-amber-300",
     rose: "from-rose-600 to-pink-600 border-rose-200 hover:border-rose-300",
   } as const;
 
@@ -322,7 +324,7 @@ function QuickActionCard({
         >
           <Icon className="h-6 w-6" />
         </div>
-        <h3 className="text-lg font-black text-slate-900 group-hover:text-emerald-700 transition">
+        <h3 className="text-lg font-black text-slate-900 group-hover:text-amber-700 transition">
           {title}
         </h3>
         <p className="mt-1 text-xs text-slate-500 leading-relaxed">{desc}</p>

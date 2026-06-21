@@ -64,7 +64,7 @@ export default function SellerListingsTab({ sellerId }: SellerListingsTabProps) 
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-5 py-2.5 text-sm font-black text-white shadow-md hover:bg-emerald-800 transition"
+          className="inline-flex items-center gap-2 rounded-full bg-amber-700 px-5 py-2.5 text-sm font-black text-white shadow-md hover:bg-amber-800 transition"
         >
           <Plus className="h-4 w-4" /> Create Listing
         </button>
@@ -78,7 +78,7 @@ export default function SellerListingsTab({ sellerId }: SellerListingsTabProps) 
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search your listings by title, author, or ISBN…"
-          className="w-full rounded-2xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+          className="w-full rounded-2xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
         />
       </div>
 
@@ -98,7 +98,7 @@ export default function SellerListingsTab({ sellerId }: SellerListingsTabProps) 
           <button
             type="button"
             onClick={() => setShowCreate(true)}
-            className="mt-5 rounded-full bg-emerald-700 px-6 py-3 text-sm font-black text-white hover:bg-emerald-800 transition"
+            className="mt-5 rounded-full bg-amber-700 px-6 py-3 text-sm font-black text-white hover:bg-amber-800 transition"
           >
             Create a Listing
           </button>
@@ -174,7 +174,7 @@ function ListingCard({
           {book?.coverImage ? (
             <img src={book.coverImage} alt={book.title} className="h-full w-full object-cover" />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-emerald-800 text-white">
+            <div className="flex h-full w-full items-center justify-center bg-amber-800 text-white">
               <BookOpen className="h-5 w-5" />
             </div>
           )}
@@ -202,7 +202,7 @@ function ListingCard({
                   min={1}
                   value={price}
                   onChange={(e) => setPrice(Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2 pl-8 pr-2 text-sm font-bold outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2 pl-8 pr-2 text-sm font-bold outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
                 />
               </div>
             </div>
@@ -217,7 +217,7 @@ function ListingCard({
                   min={0}
                   value={stock}
                   onChange={(e) => setStock(Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2 pl-8 pr-2 text-sm font-bold outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2 pl-8 pr-2 text-sm font-bold outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
                 />
               </div>
             </div>
@@ -228,7 +228,7 @@ function ListingCard({
               type="checkbox"
               checked={active}
               onChange={(e) => setActive(e.target.checked)}
-              className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+              className="h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500"
             />
             Listing active
           </label>
@@ -238,7 +238,7 @@ function ListingCard({
               type="button"
               onClick={() => onSave({ price, stock, active })}
               disabled={isBusy}
-              className="flex-1 rounded-full bg-emerald-700 py-2 text-xs font-black text-white hover:bg-emerald-800 transition disabled:opacity-50"
+              className="flex-1 rounded-full bg-amber-700 py-2 text-xs font-black text-white hover:bg-amber-800 transition disabled:opacity-50"
             >
               Save
             </button>
@@ -260,18 +260,17 @@ function ListingCard({
           </div>
           <div className="flex items-center justify-between text-sm">
             <span className="text-slate-500">Stock</span>
-            <span className={`font-black ${listing.stock > 0 ? "text-emerald-700" : "text-rose-600"}`}>
+            <span className={`font-black ${listing.stock > 0 ? "text-amber-700" : "text-rose-600"}`}>
               {listing.stock > 0 ? `${listing.stock} available` : "Out of stock"}
             </span>
           </div>
           <div className="flex items-center justify-between text-sm">
             <span className="text-slate-500">Status</span>
             <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-extrabold ${
-                listing.active && listing.stock > 0
-                  ? "bg-emerald-100 text-emerald-800"
+              className={`rounded-full px-2 py-0.5 text-[10px] font-extrabold ${listing.active && listing.stock > 0
+                  ? "bg-amber-100 text-amber-800"
                   : "bg-slate-200 text-slate-700"
-              }`}
+                }`}
             >
               {listing.active && listing.stock > 0 ? "Live" : "Inactive"}
             </span>
@@ -300,7 +299,7 @@ function ListingCard({
       {book?.id && (
         <Link
           to={`/books/${book.id}`}
-          className="mt-4 text-center text-xs font-bold text-emerald-700 hover:text-emerald-800"
+          className="mt-4 text-center text-xs font-bold text-amber-700 hover:text-amber-800"
         >
           View storefront page →
         </Link>
@@ -358,7 +357,7 @@ function CreateListingDialog({
       >
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Layers className="h-5 w-5 text-emerald-700" />
+            <Layers className="h-5 w-5 text-amber-700" />
             <h2 className="text-xl font-extrabold text-slate-900">Create Listing</h2>
           </div>
           <button
@@ -388,7 +387,7 @@ function CreateListingDialog({
             <select
               value={bookId}
               onChange={(e) => setBookId(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
             >
               <option value="">Select an approved book…</option>
               {books.map((b: ApprovedBook) => (
@@ -412,7 +411,7 @@ function CreateListingDialog({
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="399"
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
                 />
               </div>
             </div>
@@ -428,7 +427,7 @@ function CreateListingDialog({
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
                   placeholder="10"
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
                 />
               </div>
             </div>
@@ -445,7 +444,7 @@ function CreateListingDialog({
             <button
               type="submit"
               disabled={isPending}
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-5 py-2 text-sm font-bold text-white hover:bg-emerald-800 transition disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-full bg-amber-700 px-5 py-2 text-sm font-bold text-white hover:bg-amber-800 transition disabled:opacity-50"
             >
               {isPending ? (
                 <>
