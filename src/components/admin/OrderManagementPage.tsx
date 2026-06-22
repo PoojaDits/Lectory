@@ -30,12 +30,7 @@ const FILTERS: { id: StatusFilter; label: string }[] = [
 
 const PAGE_SIZE = 8;
 
-/**
- * Order Management screen (Admin — Read-only).
- *
- * Admins can view all marketplace orders for oversight purposes.
- * Order status changes are handled by sellers through the Seller Panel.
- */
+
 export default function OrderManagementPage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<StatusFilter>("all");

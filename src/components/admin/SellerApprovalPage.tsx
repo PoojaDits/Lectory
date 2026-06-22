@@ -226,7 +226,7 @@ export default function SellerApprovalPage() {
   );
 }
 
-// ── Single row ─────────────────────────────────────────────────────────────
+// Single row 
 
 function SellerRow({
   seller,
@@ -350,7 +350,7 @@ function SellerRow({
               Reject
             </button>
           )}
-          {/* Impersonation — only for approved sellers */}
+          {/* Impersonation only for approved sellers */}
           {isApproved && (
             <ActionBtn
               tone="indigo"

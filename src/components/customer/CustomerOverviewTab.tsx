@@ -22,7 +22,7 @@ interface CustomerOverviewTabProps {
   orders: Order[];
 }
 
-/** Orders that are still in-flight — not yet with the customer. */
+/** Orders that are still in-flight not yet with the customer. */
 const ACTIVE_STATUSES: OrderStatus[] = ["Created", "Accepted", "Shipped"];
 /** Orders that have reached a terminal state. */
 const HISTORY_STATUSES: OrderStatus[] = ["Delivered", "Cancelled"];
@@ -30,7 +30,7 @@ const HISTORY_STATUSES: OrderStatus[] = ["Delivered", "Cancelled"];
 /** Fulfillment pipeline shown on the "Yet to Reach" progress tracker. */
 const PIPELINE: OrderStatus[] = ["Created", "Accepted", "Shipped", "Delivered"];
 
-/** Up to two leading initials (first + last name) for the avatar. */
+/** Up to two leading initials */
 function initialsOf(customer: Customer): string {
   const a = customer.firstName?.trim()?.[0] ?? "";
   const b = customer.lastName?.trim()?.[0] ?? "";

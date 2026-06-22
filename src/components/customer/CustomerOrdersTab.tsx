@@ -20,11 +20,11 @@ interface CustomerOrdersTabProps {
   orders: Order[];
 }
 
-/** Orders still in-flight — not yet with the customer. */
+/** Orders still in-flight not yet with the customer. */
 const ACTIVE_STATUSES: OrderStatus[] = ["Created", "Accepted", "Shipped"];
 
 /**
- * Classic, Amazon-style status line — a single colored sentence,
+ * Classic, Amazon-style status line a single colored sentence,
  * not a flashy banner.
  */
 const STATUS_LINE: Record<
@@ -66,7 +66,7 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
     });
   }, [sortedOrders, search]);
 
-  // ── Group the (search-filtered) orders into display sections ──
+  // Group the (search-filtered) orders into display sections
   const yetToReach = filtered.filter((o) => ACTIVE_STATUSES.includes(o.status));
   const delivered = filtered.filter((o) => o.status === "Delivered");
   const cancelled = filtered.filter((o) => o.status === "Cancelled");
@@ -76,7 +76,7 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
   ).length;
   const totalDelivered = orders.filter((o) => o.status === "Delivered").length;
 
-  // ── No orders placed yet ──
+  // No orders placed yet
   if (orders.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-secondary-200 bg-white/50 p-16 text-center">
@@ -96,7 +96,7 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
     );
   }
 
-  // ── Search returned nothing ──
+  // Search returned nothing
   if (filtered.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-secondary-200 bg-white/50 p-16 text-center">
@@ -117,7 +117,7 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
     );
   }
 
-  // Ordered list of sections — Yet to Reach first, then Delivered, then Cancelled.
+  // Ordered list of sections Yet to Reach first, then Delivered, then Cancelled.
   const sections = [
     {
       key: "yet-to-reach",
@@ -219,7 +219,7 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
   );
 }
 
-/* ───────────────────────── Order card (classic Amazon style) ───────────────────────── */
+/*  Order card (classic Amazon style) */
 
 function OrderCard({ order }: { order: Order }) {
   const items = order.items ?? [];
@@ -227,7 +227,7 @@ function OrderCard({ order }: { order: Order }) {
 
   return (
     <div className="overflow-hidden rounded-xl border border-secondary-200 bg-white shadow-sm transition hover:border-slate-300 hover:shadow-md">
-      {/* ── Header bar: ORDER PLACED · TOTAL · ORDER # ── */}
+      {/* ── Header bar*/}
       <div className="flex flex-wrap items-stretch gap-x-8 gap-y-2 border-b border-secondary-200 bg-secondary-50 px-5 py-4 sm:px-6">
         <div className="min-w-[110px]">
           <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400">
@@ -257,9 +257,9 @@ function OrderCard({ order }: { order: Order }) {
         </div>
       </div>
 
-      {/* ── Body ── */}
+      {/* Body*/}
       <div className="px-5 py-5 sm:px-6">
-        {/* Clean, single-line colored status (Amazon-style) */}
+        {/*colored status */}
         <div className="mb-5 flex items-center gap-2">
           <StatusBadge status={order.status} />
           <span className={`text-sm font-semibold ${statusLine.className}`}>
