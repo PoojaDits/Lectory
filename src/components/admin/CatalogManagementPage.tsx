@@ -96,13 +96,13 @@ export default function CatalogManagementPage() {
     <div className="space-y-6 mt-[65px]">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
+          <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
             Admin · Catalog
           </p>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
             Catalog Management
           </h1>
-          <p className="mt-1 max-w-2xl text-sm text-slate-600">
+          <p className="mt-1 max-w-2xl text-sm text-secondary-600">
             Curate the marketplace's master book catalog. Each book is unique
             (by ISBN) and may be offered by multiple sellers.
           </p>
@@ -110,7 +110,7 @@ export default function CatalogManagementPage() {
         <button
           type="button"
           onClick={() => setShowAddForm(true)}
-          className="inline-flex items-center gap-2 rounded-full bg-amber-900 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-amber-800"
+          className="inline-flex items-center gap-2 rounded-full bg-primary-900 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-primary-800"
         >
           <Plus className="h-4 w-4" />
           Add book to catalog
@@ -119,14 +119,14 @@ export default function CatalogManagementPage() {
 
       {/* Duplicate ISBN warning */}
       {duplicateIsbns.size > 0 && (
-        <div className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+        <div className="flex items-start gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-4 py-3 text-sm text-primary-900">
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-primary-600" />
           <div>
             <p className="font-bold">
               {duplicateIsbns.size} duplicate ISBN
               {duplicateIsbns.size === 1 ? "" : "s"} in the catalog.
             </p>
-            <p className="text-amber-800">
+            <p className="text-primary-800">
               A book should exist only once in the system. Delete the
               duplicates below to keep the catalog clean.
             </p>
@@ -135,7 +135,7 @@ export default function CatalogManagementPage() {
       )}
 
       {/*Filter pills + search */}
-      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
         <div className="flex flex-wrap gap-1">
           {FILTERS.map((f) => {
             const count =
@@ -149,8 +149,8 @@ export default function CatalogManagementPage() {
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
-                    ? "bg-amber-900 text-white shadow-sm"
-                    : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                    ? "bg-primary-900 text-white shadow-sm"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
                 )}
               >
                 {f.label}
@@ -159,7 +159,7 @@ export default function CatalogManagementPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-slate-100 text-slate-600"
+                      : "bg-secondary-100 text-secondary-600"
                   )}
                 >
                   {count}
@@ -179,14 +179,14 @@ export default function CatalogManagementPage() {
               setPage(1);
             }}
             placeholder="Search the catalog…"
-            className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+            className="w-full rounded-full border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
           />
         </div>
       </div>
 
       {/*Catalog table*/}
-      <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-4 border-b border-slate-200 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
+      <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
+        <div className="grid grid-cols-12 gap-4 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
           <div className="col-span-4">Book</div>
           <div className="col-span-2">Status</div>
           <div className="col-span-3">Listings</div>
@@ -204,7 +204,7 @@ export default function CatalogManagementPage() {
             No books match the current filters.
           </div>
         ) : (
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-secondary-100">
             {pageItems.map((b) => (
               <CatalogRow
                 key={String(b.id)}
@@ -270,15 +270,15 @@ function CatalogRow({
     );
 
   return (
-    <li className="px-5 py-4 text-sm transition hover:bg-amber-50/40">
+    <li className="px-5 py-4 text-sm transition hover:bg-primary-50/40">
       <div className="grid grid-cols-12 items-center gap-4">
         <div className="col-span-4 min-w-0">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-100 text-primary-800">
               <BookOpen className="h-5 w-5" />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-sm font-extrabold text-slate-900">
+              <p className="truncate text-sm font-extrabold text-secondary-900">
                 {book.title}
               </p>
               <p className="truncate text-xs text-slate-500">
@@ -286,7 +286,7 @@ function CatalogRow({
                 <span
                   className={cn(
                     "font-mono",
-                    isDuplicate ? "font-bold text-amber-700" : ""
+                    isDuplicate ? "font-bold text-primary-700" : ""
                   )}
                 >
                   ISBN {book.isbn}
@@ -299,7 +299,7 @@ function CatalogRow({
         <div className="col-span-2">
           <StatusBadge status={book.status} />
           {isDuplicate && (
-            <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-extrabold text-amber-800">
+            <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary-100 px-1.5 py-0.5 text-[10px] font-extrabold text-primary-800">
               <AlertTriangle className="h-3 w-3" /> duplicate
             </p>
           )}
@@ -320,14 +320,14 @@ function CatalogRow({
                 {listings.length === 1 ? "" : "s"}
               </span>
               {bestPrice !== null && (
-                <span className="text-xs font-bold text-slate-700">
+                <span className="text-xs font-bold text-secondary-700">
                   · from {formatCurrency(bestPrice)}
                 </span>
               )}
               <button
                 type="button"
                 onClick={() => setExpanded((v) => !v)}
-                className="inline-flex items-center gap-1 text-xs font-bold text-amber-800 hover:text-amber-900"
+                className="inline-flex items-center gap-1 text-xs font-bold text-primary-800 hover:text-primary-900"
               >
                 <Eye className="h-3.5 w-3.5" />
                 {expanded ? "Hide" : "View"}
@@ -365,7 +365,7 @@ function CatalogRow({
             type="button"
             onClick={onDelete}
             disabled={busy}
-            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-full border border-secondary-200 bg-white px-3 py-1.5 text-xs font-bold text-secondary-700 transition hover:bg-secondary-50 disabled:opacity-50"
             title="Delete from catalog"
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -375,7 +375,7 @@ function CatalogRow({
       </div>
 
       {expanded && listings.length > 0 && (
-        <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4 overflow-x-auto">
+        <div className="mt-3 rounded-xl border border-secondary-200 bg-secondary-50 p-4 overflow-x-auto">
           <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
             Seller listings for this book
           </p>
@@ -388,14 +388,14 @@ function CatalogRow({
                 <th className="pb-2">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-secondary-200">
               {listings.map((l) => {
                 const seller = sellers.find(
                   (s) => String(s.id) === String(l.sellerId)
                 );
                 return (
-                  <tr key={String(l.id)} className="text-slate-700">
-                    <td className="py-2 font-bold text-slate-900">
+                  <tr key={String(l.id)} className="text-secondary-700">
+                    <td className="py-2 font-bold text-secondary-900">
                       {seller?.businessName ?? `Seller #${l.sellerId}`}
                     </td>
                     <td className="py-2">{formatCurrency(l.price)}</td>
@@ -406,7 +406,7 @@ function CatalogRow({
                           "rounded-full px-2 py-0.5 text-[10px] font-extrabold",
                           l.active && l.stock > 0
                             ? "bg-emerald-100 text-emerald-800"
-                            : "bg-slate-200 text-slate-700"
+                            : "bg-secondary-200 text-secondary-700"
                         )}
                       >
                         {l.active
@@ -465,16 +465,16 @@ function AddBookDialog({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-secondary-900/50 p-4"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-xl"
+        className="w-full max-w-lg rounded-2xl border border-secondary-200 bg-white p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-extrabold text-slate-900">
+        <h2 className="text-xl font-extrabold text-secondary-900">
           Add book to catalog
         </h2>
         <p className="mt-1 text-sm text-slate-500">
@@ -512,7 +512,7 @@ function AddBookDialog({ onClose }: { onClose: () => void }) {
             onChange={(v) => setForm({ ...form, publisher: v })}
           />
           <div>
-            <label className="mb-1 block text-xs font-bold text-slate-700">
+            <label className="mb-1 block text-xs font-bold text-secondary-700">
               Description (optional)
             </label>
             <textarea
@@ -521,22 +521,22 @@ function AddBookDialog({ onClose }: { onClose: () => void }) {
                 setForm({ ...form, description: e.target.value })
               }
               rows={3}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+              className="w-full rounded-xl border border-secondary-200 bg-white px-3 py-2 text-sm outline-none focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
             />
           </div>
 
-          <div className="mt-4 flex items-center justify-end gap-2 border-t border-slate-100 pt-4">
+          <div className="mt-4 flex items-center justify-end gap-2 border-t border-secondary-100 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50"
+              className="rounded-full border border-secondary-200 bg-white px-4 py-2 text-sm font-bold text-secondary-700 hover:bg-secondary-50"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={create.isPending}
-              className="rounded-full bg-amber-900 px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-amber-800 disabled:opacity-50"
+              className="rounded-full bg-primary-900 px-5 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary-800 disabled:opacity-50"
             >
               {create.isPending ? "Adding…" : "Add to catalog"}
             </button>
@@ -562,7 +562,7 @@ function FormField({
 }) {
   return (
     <div>
-      <label className="mb-1 block text-xs font-bold text-slate-700">
+      <label className="mb-1 block text-xs font-bold text-secondary-700">
         {label}
       </label>
       <input
@@ -574,7 +574,7 @@ function FormField({
           "w-full rounded-xl border bg-white px-3 py-2 text-sm outline-none focus:ring-4",
           error
             ? "border-rose-300 focus:border-rose-400 focus:ring-rose-100"
-            : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
         )}
       />
       {error && (

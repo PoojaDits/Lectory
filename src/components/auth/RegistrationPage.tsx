@@ -49,12 +49,12 @@ export default function RegistrationPage() {
 
   if (registrationSuccess) {
     return (
-      <div className="min-h-screen bg-amber-50 flex items-center justify-center p-6">
+      <div className="min-h-screen bg-primary-50 flex items-center justify-center p-6">
         <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-10 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
             <CheckCircle2 className="h-8 w-8 text-emerald-700" />
           </div>
-          <h2 className="text-2xl font-black text-slate-900 mb-2">
+          <h2 className="text-2xl font-black text-secondary-900 mb-2">
             {role === "customer" ? "Account Created!" : "Registration Submitted!"}
           </h2>
           <p className="text-sm text-slate-500 mb-6">
@@ -62,7 +62,7 @@ export default function RegistrationPage() {
               ? "Your customer account is ready. Redirecting to login..."
               : "Your seller account is pending admin approval. You'll be able to log in once approved."}
           </p>
-          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-secondary-100 rounded-full overflow-hidden">
             <div className="h-full bg-emerald-500 rounded-full animate-pulse" style={{ width: "60%" }} />
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function RegistrationPage() {
   }
 
   return (
-    <div className="min-h-screen bg-amber-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-primary-50 flex items-center justify-center p-6">
       <div className="max-w-[1024px] w-full grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden h-auto md:h-[720px]">
         
         {/* LEFT IMAGE */}
@@ -80,7 +80,7 @@ export default function RegistrationPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
           <div className="absolute bottom-0 left-0 p-10 text-white">
             <div className="flex items-center gap-3 mb-6">
-              <div className="rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 p-2 shadow-lg">
+              <div className="rounded-xl bg-gradient-to-br from-primary-600 to-primary-800 p-2 shadow-lg">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
               <span className="font-bold text-2xl tracking-tight">Lectory</span>
@@ -99,12 +99,12 @@ export default function RegistrationPage() {
         {/* RIGHT FORM */}
         <div className="pt-3 pb-6 px-8 md:px-10 flex flex-col h-full overflow-y-auto">
           {/* Role Tabs */}
-          <div className="flex bg-slate-100 rounded-full p-1 mb-4 w-fit">
+          <div className="flex bg-secondary-100 rounded-full p-1 mb-4 w-fit">
             <button
               type="button"
               onClick={() => setRole("customer")}
               className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                role === "customer" ? "bg-white shadow text-slate-900" : "text-slate-500 hover:text-slate-700"
+                role === "customer" ? "bg-white shadow text-secondary-900" : "text-slate-500 hover:text-secondary-700"
               }`}
             >
               Customer
@@ -113,7 +113,7 @@ export default function RegistrationPage() {
               type="button"
               onClick={() => setRole("seller")}
               className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                role === "seller" ? "bg-white shadow text-slate-900" : "text-slate-500 hover:text-slate-700"
+                role === "seller" ? "bg-white shadow text-secondary-900" : "text-slate-500 hover:text-secondary-700"
               }`}
             >
               Seller
@@ -146,25 +146,25 @@ export default function RegistrationPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-slate-700">First Name</label>
+                      <label className="text-sm font-medium text-secondary-700">First Name</label>
                       <Field
                         name="firstName"
                         className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                           errors.firstName && touched.firstName
                             ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                            : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                         }`}
                       />
                       <ErrorMessage name="firstName" component="p" className="text-xs text-red-500 mt-1" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-slate-700">Last Name</label>
+                      <label className="text-sm font-medium text-secondary-700">Last Name</label>
                       <Field
                         name="lastName"
                         className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                           errors.lastName && touched.lastName
                             ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                            : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                         }`}
                       />
                       <ErrorMessage name="lastName" component="p" className="text-xs text-red-500 mt-1" />
@@ -172,7 +172,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-700">Email</label>
+                    <label className="text-sm font-medium text-secondary-700">Email</label>
                     <Field
                       name="email"
                       type="email"
@@ -180,14 +180,14 @@ export default function RegistrationPage() {
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                         errors.email && touched.email
                           ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                          : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                          : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                       }`}
                     />
                     <ErrorMessage name="email" component="p" className="text-xs text-red-500 mt-1" />
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-700">Password</label>
+                    <label className="text-sm font-medium text-secondary-700">Password</label>
                     <div className="relative mt-1">
                       <Field
                         name="password"
@@ -195,13 +195,13 @@ export default function RegistrationPage() {
                         className={`w-full rounded-2xl border pr-11 pl-4 py-3 text-sm outline-none transition focus:ring-4 ${
                           errors.password && touched.password
                             ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                            : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                         }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-secondary-600 transition"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -251,26 +251,26 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-700">Business Name</label>
+                    <label className="text-sm font-medium text-secondary-700">Business Name</label>
                     <Field
                       name="businessName"
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                         errors.businessName && touched.businessName
                           ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                          : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                          : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                       }`}
                     />
                     <ErrorMessage name="businessName" component="p" className="text-xs text-red-500 mt-1" />
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-700">Contact Person</label>
+                    <label className="text-sm font-medium text-secondary-700">Contact Person</label>
                     <Field
                       name="contactPerson"
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                         errors.contactPerson && touched.contactPerson
                           ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                          : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                          : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                       }`}
                     />
                     <ErrorMessage name="contactPerson" component="p" className="text-xs text-red-500 mt-1" />
@@ -278,7 +278,7 @@ export default function RegistrationPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-slate-700">Email</label>
+                      <label className="text-sm font-medium text-secondary-700">Email</label>
                       <Field
                         name="email"
                         type="email"
@@ -286,20 +286,20 @@ export default function RegistrationPage() {
                         className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                           errors.email && touched.email
                             ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                            : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                         }`}
                       />
                       <ErrorMessage name="email" component="p" className="text-xs text-red-500 mt-1" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-slate-700">Mobile Number</label>
+                      <label className="text-sm font-medium text-secondary-700">Mobile Number</label>
                       <Field
                         name="mobileNumber"
                         placeholder="10 digit number"
                         className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                           errors.mobileNumber && touched.mobileNumber
                             ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                            : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                         }`}
                       />
                       <ErrorMessage name="mobileNumber" component="p" className="text-xs text-red-500 mt-1" />
@@ -307,7 +307,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-slate-700">Password</label>
+                    <label className="text-sm font-medium text-secondary-700">Password</label>
                     <div className="relative mt-1">
                       <Field
                         name="password"
@@ -315,13 +315,13 @@ export default function RegistrationPage() {
                         className={`w-full rounded-2xl border pr-11 pl-4 py-3 text-sm outline-none transition focus:ring-4 ${
                           errors.password && touched.password
                             ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                            : "border-slate-200 focus:border-amber-500 focus:ring-amber-100"
+                            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
                         }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-secondary-600 transition"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>

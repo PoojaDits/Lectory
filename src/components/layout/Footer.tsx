@@ -29,7 +29,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1 mb-4 lg:mb-0">
             <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl p-2">
+              <div className="bg-gradient-to-br from-amber-500 to-primary-700 rounded-xl p-2">
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold text-white">Lectory</span>
@@ -43,7 +43,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-amber-600 flex items-center justify-center transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-primary-600 flex items-center justify-center transition-colors"
                 >
                   <Icon className="w-4 h-4" />
                 </a>

@@ -62,7 +62,7 @@ export default function Pagination({
         type="button"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={cn(baseBtn, "border-slate-200 bg-white text-slate-700 hover:bg-slate-50")}
+        className={cn(baseBtn, "border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50")}
         aria-label="Previous page"
       >
         <ChevronLeft className="h-4 w-4" />
@@ -85,8 +85,8 @@ export default function Pagination({
             className={cn(
               baseBtn,
               page === currentPage
-                ? "border-amber-700 bg-amber-900 text-white shadow-sm"
-                : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                ? "border-primary-700 bg-primary-900 text-white shadow-sm"
+                : "border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
             )}
           >
             {page}
@@ -98,7 +98,7 @@ export default function Pagination({
         type="button"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={cn(baseBtn, "border-slate-200 bg-white text-slate-700 hover:bg-slate-50")}
+        className={cn(baseBtn, "border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50")}
         aria-label="Next page"
       >
         <ChevronRight className="h-4 w-4" />

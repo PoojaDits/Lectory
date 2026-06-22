@@ -17,13 +17,13 @@ export default function BookCard({ book, className }: BookCardProps) {
     <Link
       to={`/books/${book.id}`}
       className={cn(
-        "group flex flex-col rounded-2xl overflow-hidden bg-white border border-slate-100 h-full w-full max-w-[320px]",
+        "group flex flex-col rounded-2xl overflow-hidden bg-white border border-secondary-100 h-full w-full max-w-[320px]",
         "transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5",
         className
       )}
     >
       {/* Book Cover */}
-      <div className="relative aspect-[3/4] bg-slate-50 overflow-hidden">
+      <div className="relative aspect-[3/4] bg-secondary-50 overflow-hidden">
         {book.coverImage ? (
           <div className="absolute inset-0 p-4 flex items-center justify-center">
             <div className="relative w-full h-full">
@@ -36,8 +36,8 @@ export default function BookCard({ book, className }: BookCardProps) {
             </div>
           </div>
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-100 to-orange-100">
-            <span className="text-amber-800 font-bold text-lg text-center px-4">
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-100 to-orange-100">
+            <span className="text-primary-800 font-bold text-lg text-center px-4">
               {book.title}
             </span>
           </div>
@@ -46,11 +46,11 @@ export default function BookCard({ book, className }: BookCardProps) {
         {/* Stock / Price Badge */}
         <div className="absolute top-3 right-3">
           {outOfStock ? (
-            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-slate-800 text-white">
+            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-secondary-800 text-white">
               Out of stock
             </span>
           ) : book.bestPrice != null ? (
-            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-white shadow text-amber-900">
+            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-white shadow text-primary-900">
               {formatCurrency(book.bestPrice)}
             </span>
           ) : null}
@@ -58,7 +58,7 @@ export default function BookCard({ book, className }: BookCardProps) {
 
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-          <span className="px-5 py-2 rounded-full bg-white text-sm font-semibold text-slate-900 shadow">
+          <span className="px-5 py-2 rounded-full bg-white text-sm font-semibold text-secondary-900 shadow">
             View Details
           </span>
         </div>
@@ -66,7 +66,7 @@ export default function BookCard({ book, className }: BookCardProps) {
 
       {/* Book Info */}
       <div className="p-4 flex flex-col flex-1">
-        <h3 className="font-semibold text-slate-900 line-clamp-2 group-hover:text-amber-700 transition">
+        <h3 className="font-semibold text-secondary-900 line-clamp-2 group-hover:text-primary-700 transition">
           {book.title}
         </h3>
         <p className="text-sm text-slate-500 mt-0.5 line-clamp-1">{book.author}</p>
@@ -75,7 +75,7 @@ export default function BookCard({ book, className }: BookCardProps) {
         {book.rating != null && (
           <div className="flex items-center gap-1 mt-2">
             <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-            <span className="text-sm text-slate-600 font-medium">{book.rating.toFixed(1)}</span>
+            <span className="text-sm text-secondary-600 font-medium">{book.rating.toFixed(1)}</span>
           </div>
         )}
 
@@ -85,7 +85,7 @@ export default function BookCard({ book, className }: BookCardProps) {
             <span className="text-slate-400 font-medium">Unavailable</span>
           ) : (
             <>
-              <span className="font-bold text-slate-900">
+              <span className="font-bold text-secondary-900">
                 {book.bestPrice ? formatCurrency(book.bestPrice) : "—"}
               </span>
               <span className="text-xs text-slate-500">

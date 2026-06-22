@@ -65,22 +65,22 @@ export default function CustomerOverviewTab({
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* ───────── Profile header ───────── */}
-      <section className="overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-sm">
+      <section className="overflow-hidden rounded-[2rem] border border-secondary-200/80 bg-white shadow-sm">
         {/* Gradient banner */}
-        <div className="h-24 bg-gradient-to-r from-amber-700 via-orange-700 to-amber-800 sm:h-28" />
+        <div className="h-24 bg-gradient-to-r from-primary-700 via-orange-700 to-primary-800 sm:h-28" />
 
         <div className="px-6 pb-6 sm:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex items-end gap-4">
               {/* Avatar: initials badge */}
               <div className="-mt-12 sm:-mt-14">
-                <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-600 to-orange-700 text-3xl font-black text-white shadow-lg ring-4 ring-white sm:h-28 sm:w-28 sm:text-4xl">
+                <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-primary-600 to-orange-700 text-3xl font-black text-white shadow-lg ring-4 ring-white sm:h-28 sm:w-28 sm:text-4xl">
                   {initials}
                 </div>
               </div>
 
               <div className="pb-1">
-                <h1 className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+                <h1 className="text-2xl font-black tracking-tight text-secondary-900 sm:text-3xl">
                   {customer.firstName} {customer.lastName}
                 </h1>
                 <span className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
@@ -92,7 +92,7 @@ export default function CustomerOverviewTab({
 
             <Link
               to="/account/settings"
-              className="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-black text-slate-700 shadow-sm transition hover:bg-amber-50 hover:text-amber-900 sm:self-auto"
+              className="inline-flex items-center gap-2 self-start rounded-full border border-secondary-200 bg-white px-5 py-2.5 text-sm font-black text-secondary-700 shadow-sm transition hover:bg-primary-50 hover:text-primary-900 sm:self-auto"
             >
               Edit profile
               <ChevronRight className="h-4 w-4" />
@@ -100,7 +100,7 @@ export default function CustomerOverviewTab({
           </div>
 
           {/* Contact meta */}
-          <div className="mt-6 grid grid-cols-1 gap-4 border-t border-slate-100 pt-6 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid grid-cols-1 gap-4 border-t border-secondary-100 pt-6 text-sm text-secondary-600 sm:grid-cols-2 lg:grid-cols-4">
             <MetaItem icon={Mail} label="Email" value={customer.email} />
             {phone && <MetaItem icon={Phone} label="Phone" value={phone} />}
             <MetaItem
@@ -127,7 +127,7 @@ export default function CustomerOverviewTab({
           icon={Package}
           label="Total orders"
           value={String(orders.length)}
-          tint="bg-amber-50 text-amber-700"
+          tint="bg-primary-50 text-primary-700"
         />
         <StatCard
           icon={Truck}
@@ -150,7 +150,7 @@ export default function CustomerOverviewTab({
       </section>
 
       {/* ───────── Yet to reach (active orders) ───────── */}
-      <section className="rounded-[2rem] border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
+      <section className="rounded-[2rem] border border-secondary-200/80 bg-white p-6 shadow-sm sm:p-8">
         <SectionHeader
           icon={Truck}
           title="Yet to reach"
@@ -175,7 +175,7 @@ export default function CustomerOverviewTab({
       </section>
 
       {/* ───────── Order history (delivered + cancelled) ───────── */}
-      <section className="rounded-[2rem] border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
+      <section className="rounded-[2rem] border border-secondary-200/80 bg-white p-6 shadow-sm sm:p-8">
         <SectionHeader
           icon={Clock}
           title="Order history"
@@ -184,7 +184,7 @@ export default function CustomerOverviewTab({
           action={
             <Link
               to="/account/orders"
-              className="text-sm font-black text-amber-700 hover:text-amber-800 hover:underline"
+              className="text-sm font-black text-primary-700 hover:text-primary-800 hover:underline"
             >
               View all
             </Link>
@@ -199,10 +199,10 @@ export default function CustomerOverviewTab({
             cta={{ label: "Start shopping", to: "/browse" }}
           />
         ) : (
-          <div className="overflow-x-auto rounded-2xl border border-slate-100">
+          <div className="overflow-x-auto rounded-2xl border border-secondary-100">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-slate-100 bg-slate-50/70 text-xs font-bold uppercase tracking-wide text-slate-400">
+                <tr className="border-b border-secondary-100 bg-secondary-50/70 text-xs font-bold uppercase tracking-wide text-slate-400">
                   <th className="px-4 py-3">Order</th>
                   <th className="px-4 py-3">Date</th>
                   <th className="hidden px-4 py-3 sm:table-cell">Items</th>
@@ -210,13 +210,13 @@ export default function CustomerOverviewTab({
                   <th className="px-4 py-3 text-right">Total</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-secondary-100">
                 {history.slice(0, 6).map((order) => (
-                  <tr key={String(order.id)} className="hover:bg-amber-50/40">
-                    <td className="px-4 py-3 font-mono text-xs font-bold text-amber-700">
+                  <tr key={String(order.id)} className="hover:bg-primary-50/40">
+                    <td className="px-4 py-3 font-mono text-xs font-bold text-primary-700">
                       #{String(order.id).slice(-6)}
                     </td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-secondary-600">
                       {formatDate(order.createdAt)}
                     </td>
                     <td className="hidden px-4 py-3 text-slate-500 sm:table-cell">
@@ -226,7 +226,7 @@ export default function CustomerOverviewTab({
                     <td className="px-4 py-3">
                       <StatusBadge status={order.status} />
                     </td>
-                    <td className="px-4 py-3 text-right font-black text-slate-900">
+                    <td className="px-4 py-3 text-right font-black text-secondary-900">
                       {formatCurrency(order.total)}
                     </td>
                   </tr>
@@ -257,7 +257,7 @@ function MetaItem({
         <Icon className="h-3.5 w-3.5" />
         {label}
       </div>
-      <p className="truncate font-semibold text-slate-900">{value}</p>
+      <p className="truncate font-semibold text-secondary-900">{value}</p>
     </div>
   );
 }
@@ -274,13 +274,13 @@ function StatCard({
   tint: string;
 }) {
   return (
-    <div className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm">
+    <div className="rounded-3xl border border-secondary-100 bg-white p-5 shadow-sm">
       <div
         className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl ${tint}`}
       >
         <Icon className="h-5 w-5" />
       </div>
-      <div className="text-2xl font-black text-slate-900 sm:text-3xl">{value}</div>
+      <div className="text-2xl font-black text-secondary-900 sm:text-3xl">{value}</div>
       <div className="mt-0.5 text-xs font-semibold text-slate-500">{label}</div>
     </div>
   );
@@ -302,13 +302,13 @@ function SectionHeader({
   return (
     <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
       <div className="flex items-center gap-3">
-        <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
+        <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-100 text-secondary-600">
           <Icon className="h-5 w-5" />
         </div>
         <div>
-          <h2 className="flex items-center gap-2 text-lg font-black text-slate-900">
+          <h2 className="flex items-center gap-2 text-lg font-black text-secondary-900">
             {title}
-            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-500">
+            <span className="rounded-full bg-secondary-100 px-2 py-0.5 text-xs font-bold text-slate-500">
               {count}
             </span>
           </h2>
@@ -326,7 +326,7 @@ function ActiveOrderCard({ order }: { order: Order }) {
   const currentStep = PIPELINE.indexOf(order.status); // -1 if Cancelled (not shown here)
 
   return (
-    <div className="rounded-3xl border border-slate-100 bg-slate-50/50 p-5 transition hover:border-amber-200 hover:bg-white hover:shadow-sm">
+    <div className="rounded-3xl border border-secondary-100 bg-secondary-50/50 p-5 transition hover:border-primary-200 hover:bg-white hover:shadow-sm">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-start gap-3">
           {/* Item thumbnails */}
@@ -334,7 +334,7 @@ function ActiveOrderCard({ order }: { order: Order }) {
             {items.slice(0, 3).map((it, idx) => (
               <div
                 key={String(it.id ?? idx)}
-                className="h-12 w-9 overflow-hidden rounded-md border-2 border-white bg-amber-100 shadow-sm"
+                className="h-12 w-9 overflow-hidden rounded-md border-2 border-white bg-primary-100 shadow-sm"
               >
                 {it.coverImageSnapshot ? (
                   <img
@@ -343,24 +343,24 @@ function ActiveOrderCard({ order }: { order: Order }) {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-amber-700 text-[8px] font-bold text-white">
+                  <div className="flex h-full w-full items-center justify-center bg-primary-700 text-[8px] font-bold text-white">
                     {it.titleSnapshot?.[0] ?? "?"}
                   </div>
                 )}
               </div>
             ))}
             {items.length > 3 && (
-              <div className="flex h-12 w-9 items-center justify-center rounded-md border-2 border-white bg-slate-200 text-[10px] font-bold text-slate-600 shadow-sm">
+              <div className="flex h-12 w-9 items-center justify-center rounded-md border-2 border-white bg-secondary-200 text-[10px] font-bold text-secondary-600 shadow-sm">
                 +{items.length - 3}
               </div>
             )}
           </div>
 
           <div>
-            <p className="font-mono text-xs font-bold text-amber-700">
+            <p className="font-mono text-xs font-bold text-primary-700">
               #{String(order.id).slice(-6)}
             </p>
-            <p className="text-sm font-bold text-slate-900">
+            <p className="text-sm font-bold text-secondary-900">
               {items[0]?.titleSnapshot ?? "Order"}
               {items.length > 1 && (
                 <span className="font-medium text-slate-500">
@@ -377,7 +377,7 @@ function ActiveOrderCard({ order }: { order: Order }) {
 
         <div className="flex items-center gap-3">
           <StatusBadge status={order.status} />
-          <span className="text-sm font-black text-slate-900">
+          <span className="text-sm font-black text-secondary-900">
             {formatCurrency(order.total)}
           </span>
         </div>
@@ -394,9 +394,9 @@ function ActiveOrderCard({ order }: { order: Order }) {
                 <div
                   className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-black transition ${done
                     ? isCurrent
-                      ? "bg-amber-600 text-white ring-4 ring-amber-100"
+                      ? "bg-primary-600 text-white ring-4 ring-primary-100"
                       : "bg-emerald-500 text-white"
-                    : "bg-white text-slate-400 ring-1 ring-slate-200"
+                    : "bg-white text-slate-400 ring-1 ring-secondary-200"
                     }`}
                 >
                   {done && !isCurrent ? (
@@ -406,7 +406,7 @@ function ActiveOrderCard({ order }: { order: Order }) {
                   )}
                 </div>
                 <span
-                  className={`mt-1.5 text-[10px] font-bold ${done ? "text-slate-700" : "text-slate-400"
+                  className={`mt-1.5 text-[10px] font-bold ${done ? "text-secondary-700" : "text-slate-400"
                     }`}
                 >
                   {step}
@@ -414,7 +414,7 @@ function ActiveOrderCard({ order }: { order: Order }) {
               </div>
               {idx < PIPELINE.length - 1 && (
                 <div
-                  className={`mx-1 h-0.5 flex-1 rounded ${idx < currentStep ? "bg-emerald-400" : "bg-slate-200"
+                  className={`mx-1 h-0.5 flex-1 rounded ${idx < currentStep ? "bg-emerald-400" : "bg-secondary-200"
                     }`}
                 />
               )}
@@ -438,16 +438,16 @@ function EmptyState({
   cta?: { label: string; to: string };
 }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50/40 px-6 py-12 text-center">
-      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-secondary-200 bg-secondary-50/40 px-6 py-12 text-center">
+      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary-100 text-slate-400">
         <Icon className="h-6 w-6" />
       </div>
-      <h3 className="text-base font-black text-slate-900">{title}</h3>
+      <h3 className="text-base font-black text-secondary-900">{title}</h3>
       <p className="mt-1 max-w-sm text-sm text-slate-500">{text}</p>
       {cta && (
         <Link
           to={cta.to}
-          className="mt-5 rounded-full bg-amber-900 px-6 py-2.5 text-sm font-black text-white shadow-md transition hover:bg-amber-800"
+          className="mt-5 rounded-full bg-primary-900 px-6 py-2.5 text-sm font-black text-white shadow-md transition hover:bg-primary-800"
         >
           {cta.label}
         </Link>

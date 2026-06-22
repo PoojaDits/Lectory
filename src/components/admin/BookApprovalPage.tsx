@@ -94,13 +94,13 @@ export default function BookApprovalPage() {
     <div className="space-y-6 mt-[65px]">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
+          <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
             Admin · Books
           </p>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
             Book Approval
           </h1>
-          <p className="mt-1 max-w-2xl text-sm text-slate-600">
+          <p className="mt-1 max-w-2xl text-sm text-secondary-600">
             Approve or reject books submitted by sellers. Only{" "}
             <b>Approved</b> books are visible to customers in the marketplace.
           </p>
@@ -114,14 +114,14 @@ export default function BookApprovalPage() {
 
       {/* Duplicate ISBN warning */}
       {duplicateIsbns.size > 0 && (
-        <div className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+        <div className="flex items-start gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-4 py-3 text-sm text-primary-900">
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-primary-600" />
           <div>
             <p className="font-bold">
               {duplicateIsbns.size} duplicate ISBN
               {duplicateIsbns.size === 1 ? "" : "s"} detected in the catalog.
             </p>
-            <p className="text-amber-800">
+            <p className="text-primary-800">
               Rule 1: A book should exist only once in the system. Review and
               merge or reject the duplicates below.
             </p>
@@ -130,7 +130,7 @@ export default function BookApprovalPage() {
       )}
 
       {/* ── Filter pills + search ── */}
-      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
         <div className="flex flex-wrap gap-1">
           {FILTERS.map((f) => {
             const count =
@@ -144,8 +144,8 @@ export default function BookApprovalPage() {
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
-                    ? "bg-amber-900 text-white shadow-sm"
-                    : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                    ? "bg-primary-900 text-white shadow-sm"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
                 )}
               >
                 {f.label}
@@ -154,7 +154,7 @@ export default function BookApprovalPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-slate-100 text-slate-600"
+                      : "bg-secondary-100 text-secondary-600"
                   )}
                 >
                   {count}
@@ -174,7 +174,7 @@ export default function BookApprovalPage() {
               setPage(1);
             }}
             placeholder="Search by title, author, ISBN, or publisher…"
-            className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+            className="w-full rounded-full border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
           />
         </div>
       </div>
@@ -184,7 +184,7 @@ export default function BookApprovalPage() {
         {isLoading ? (
           <SkeletonGrid />
         ) : pageItems.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-200 bg-white px-5 py-12 text-center text-sm text-slate-500">
+          <div className="rounded-2xl border border-dashed border-secondary-200 bg-white px-5 py-12 text-center text-sm text-slate-500">
             No books match the current filters.
           </div>
         ) : (
@@ -234,13 +234,13 @@ function BookCard({
   const isPending = book.status === "Pending Approval";
 
   return (
-    <article className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <article className="flex flex-col gap-3 rounded-2xl border border-secondary-200 bg-white p-5 shadow-sm transition hover:shadow-md">
       <header className="flex items-start gap-3">
-        <div className="flex h-14 w-11 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-800">
+        <div className="flex h-14 w-11 shrink-0 items-center justify-center rounded-lg bg-primary-100 text-primary-800">
           <BookOpen className="h-6 w-6" />
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="line-clamp-2 text-sm font-extrabold leading-snug text-slate-900">
+          <h3 className="line-clamp-2 text-sm font-extrabold leading-snug text-secondary-900">
             {book.title}
           </h3>
           <p className="mt-0.5 truncate text-xs text-slate-500">
@@ -250,7 +250,7 @@ function BookCard({
         <StatusBadge status={book.status} />
       </header>
 
-      <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600">
+      <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-secondary-600">
         <div>
           <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             ISBN
@@ -258,12 +258,12 @@ function BookCard({
           <dd
             className={cn(
               "font-mono font-bold",
-              isDuplicate ? "text-amber-700" : "text-slate-800"
+              isDuplicate ? "text-primary-700" : "text-secondary-800"
             )}
           >
             {book.isbn}
             {isDuplicate && (
-              <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-extrabold text-amber-800">
+              <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-primary-100 px-1.5 py-0.5 text-[10px] font-extrabold text-primary-800">
                 <AlertTriangle className="h-3 w-3" /> duplicate
               </span>
             )}
@@ -273,7 +273,7 @@ function BookCard({
           <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Publisher
           </dt>
-          <dd className="font-bold text-slate-800">
+          <dd className="font-bold text-secondary-800">
             {book.publisher ?? "—"}
           </dd>
         </div>
@@ -281,15 +281,15 @@ function BookCard({
           <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Submitted
           </dt>
-          <dd className="text-slate-800">{formatDate(book.createdAt)}</dd>
+          <dd className="text-secondary-800">{formatDate(book.createdAt)}</dd>
         </div>
       </dl>
 
       {book.description && (
-        <p className="line-clamp-3 text-xs text-slate-600">{book.description}</p>
+        <p className="line-clamp-3 text-xs text-secondary-600">{book.description}</p>
       )}
 
-      <footer className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-3">
+      <footer className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-secondary-100 pt-3">
         <div className="text-[11px] text-slate-500">
           {book.reviewedAt && (
             <span>
@@ -358,24 +358,24 @@ function SkeletonGrid() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+          className="rounded-2xl border border-secondary-200 bg-white p-5 shadow-sm"
           aria-hidden="true"
         >
           <div className="flex items-start gap-3">
-            <div className="h-14 w-11 animate-pulse rounded-lg bg-slate-200" />
+            <div className="h-14 w-11 animate-pulse rounded-lg bg-secondary-200" />
             <div className="flex-1 space-y-2">
-              <div className="h-3 w-3/4 animate-pulse rounded bg-slate-200" />
-              <div className="h-3 w-1/2 animate-pulse rounded bg-slate-200" />
+              <div className="h-3 w-3/4 animate-pulse rounded bg-secondary-200" />
+              <div className="h-3 w-1/2 animate-pulse rounded bg-secondary-200" />
             </div>
-            <div className="h-5 w-20 animate-pulse rounded-full bg-slate-200" />
+            <div className="h-5 w-20 animate-pulse rounded-full bg-secondary-200" />
           </div>
           <div className="mt-4 space-y-2">
-            <div className="h-3 w-full animate-pulse rounded bg-slate-200" />
-            <div className="h-3 w-2/3 animate-pulse rounded bg-slate-200" />
+            <div className="h-3 w-full animate-pulse rounded bg-secondary-200" />
+            <div className="h-3 w-2/3 animate-pulse rounded bg-secondary-200" />
           </div>
           <div className="mt-4 flex justify-end gap-2">
-            <div className="h-7 w-20 animate-pulse rounded-full bg-slate-200" />
-            <div className="h-7 w-16 animate-pulse rounded-full bg-slate-200" />
+            <div className="h-7 w-20 animate-pulse rounded-full bg-secondary-200" />
+            <div className="h-7 w-16 animate-pulse rounded-full bg-secondary-200" />
           </div>
         </div>
       ))}

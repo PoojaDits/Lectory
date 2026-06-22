@@ -57,20 +57,20 @@ export default function CustomerManagementPage() {
   return (
     <div className="space-y-6 mt-[65px]">
       <header>
-        <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
           Admin · Customers
         </p>
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+        <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
           Customer Management
         </h1>
-        <p className="mt-1 max-w-2xl text-sm text-slate-600">
+        <p className="mt-1 max-w-2xl text-sm text-secondary-600">
           All registered buyers on the marketplace. View order history and
           contact information.
         </p>
       </header>
 
       {/* ── Search + counter ── */}
-      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
         <div className="flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-bold text-indigo-900">
           <Users className="h-4 w-4" />
           {customers.length} registered customer
@@ -87,14 +87,14 @@ export default function CustomerManagementPage() {
               setPage(1);
             }}
             placeholder="Search by name or email…"
-            className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+            className="w-full rounded-full border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
           />
         </div>
       </div>
 
       {/* ── Table ── */}
-      <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-4 border-b border-slate-200 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
+      <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
+        <div className="grid grid-cols-12 gap-4 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
           <div className="col-span-4">Customer</div>
           <div className="col-span-2">Joined</div>
           <div className="col-span-2">Orders</div>
@@ -111,13 +111,13 @@ export default function CustomerManagementPage() {
             No customers match your search.
           </div>
         ) : (
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-secondary-100">
             {pageItems.map((c) => {
               const stats = customerStats.get(String(c.id));
               return (
                 <li
                   key={String(c.id)}
-                  className="grid grid-cols-12 items-center gap-4 px-5 py-4 text-sm transition hover:bg-amber-50/40"
+                  className="grid grid-cols-12 items-center gap-4 px-5 py-4 text-sm transition hover:bg-primary-50/40"
                 >
                   <div className="col-span-4 min-w-0">
                     <div className="flex items-center gap-3">
@@ -125,7 +125,7 @@ export default function CustomerManagementPage() {
                         <UserCircle className="h-5 w-5" />
                       </span>
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-extrabold text-slate-900">
+                        <p className="truncate text-sm font-extrabold text-secondary-900">
                           {c.firstName} {c.lastName}
                         </p>
                         <p className="truncate text-xs text-slate-500">
@@ -134,12 +134,12 @@ export default function CustomerManagementPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="col-span-2 text-xs text-slate-600">
+                  <div className="col-span-2 text-xs text-secondary-600">
                     {formatDate(c.createdAt)}
                   </div>
                   <div className="col-span-2">
                     {stats ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary-100 px-2 py-0.5 text-xs font-bold text-primary-800">
                         <ShoppingBag className="h-3 w-3" />
                         {stats.ordersCount}
                       </span>

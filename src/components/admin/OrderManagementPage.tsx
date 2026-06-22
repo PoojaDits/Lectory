@@ -93,13 +93,13 @@ export default function OrderManagementPage() {
   return (
     <div className="space-y-6 mt-[65px]">
       <header>
-        <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
           Admin · Orders
         </p>
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+        <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
           Order Management
         </h1>
-        <p className="mt-1 max-w-2xl text-sm text-slate-600">
+        <p className="mt-1 max-w-2xl text-sm text-secondary-600">
           Marketplace-wide view of every order. For status changes, refer to the
           seller managing the order.
         </p>
@@ -146,7 +146,7 @@ export default function OrderManagementPage() {
       </section>
 
       {/* ── Filter pills + search ── */}
-      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
         <div className="flex flex-wrap gap-1">
           {FILTERS.map((f) => {
             const count = counts[f.id] ?? 0;
@@ -159,8 +159,8 @@ export default function OrderManagementPage() {
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
-                    ? "bg-amber-900 text-white shadow-sm"
-                    : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                    ? "bg-primary-900 text-white shadow-sm"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
                 )}
               >
                 {f.label}
@@ -169,7 +169,7 @@ export default function OrderManagementPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-slate-100 text-slate-600"
+                      : "bg-secondary-100 text-secondary-600"
                   )}
                 >
                   {count}
@@ -189,14 +189,14 @@ export default function OrderManagementPage() {
               setPage(1);
             }}
             placeholder="Search by ID, customer, seller, or address…"
-            className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+            className="w-full rounded-full border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
           />
         </div>
       </div>
 
       {/* ── Orders table ── */}
-      <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-2 border-b border-slate-200 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
+      <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
+        <div className="grid grid-cols-12 gap-2 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
           <div className="col-span-2">#</div>
           <div className="col-span-2">Customer</div>
           <div className="col-span-3">Seller</div>
@@ -215,7 +215,7 @@ export default function OrderManagementPage() {
             No orders match the current filters.
           </div>
         ) : (
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-secondary-100">
             {pageItems.map((o) => {
               const customer = customers.find(
                 (c) => String(c.id) === String(o.customerId)
@@ -226,18 +226,18 @@ export default function OrderManagementPage() {
               return (
                 <li
                   key={String(o.id)}
-                  className="grid grid-cols-12 items-center gap-2 px-5 py-4 text-sm transition hover:bg-amber-50/40"
+                  className="grid grid-cols-12 items-center gap-2 px-5 py-4 text-sm transition hover:bg-primary-50/40"
                 >
                   <div className="col-span-2 min-w-0">
                     <p
-                      className="truncate font-mono text-xs font-extrabold text-slate-700"
+                      className="truncate font-mono text-xs font-extrabold text-secondary-700"
                       title={`#${String(o.id)}`}
                     >
                       #{String(o.id).slice(0, 8)}…
                     </p>
                   </div>
                   <div className="col-span-2 min-w-0">
-                    <p className="truncate text-sm font-bold text-slate-900">
+                    <p className="truncate text-sm font-bold text-secondary-900">
                       {customer
                         ? `${customer.firstName} ${customer.lastName}`
                         : "—"}
@@ -247,7 +247,7 @@ export default function OrderManagementPage() {
                     </p>
                   </div>
                   <div className="col-span-3 min-w-0">
-                    <p className="truncate text-sm font-bold text-slate-900">
+                    <p className="truncate text-sm font-bold text-secondary-900">
                       {seller?.businessName ?? `Seller #${o.sellerId}`}
                     </p>
                     <p className="truncate text-xs text-slate-500">
@@ -293,15 +293,15 @@ function PipelineTile({
   tone: "slate" | "blue" | "amber" | "indigo" | "emerald" | "rose";
 }) {
   const tones = {
-    slate: "bg-slate-100 text-slate-700",
+    slate: "bg-secondary-100 text-secondary-700",
     blue: "bg-blue-100 text-blue-800",
-    amber: "bg-amber-100 text-amber-800",
+    amber: "bg-primary-100 text-primary-800",
     indigo: "bg-indigo-100 text-indigo-800",
     emerald: "bg-emerald-100 text-emerald-800",
     rose: "bg-rose-100 text-rose-800",
   } as const;
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
       <span
         className={cn(
           "flex h-10 w-10 items-center justify-center rounded-xl",
@@ -314,7 +314,7 @@ function PipelineTile({
         <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
           {label}
         </p>
-        <p className="text-2xl font-extrabold leading-none text-slate-900">
+        <p className="text-2xl font-extrabold leading-none text-secondary-900">
           {value}
         </p>
       </div>

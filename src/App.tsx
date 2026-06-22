@@ -93,7 +93,7 @@ export default function App() {
   const goRegister = () => navigate("/register");
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 antialiased">
+    <div className="min-h-screen bg-white font-sans text-secondary-900 antialiased">
       <Navbar />
       <ImpersonationBanner />
 

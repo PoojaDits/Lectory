@@ -12,7 +12,7 @@ export default function StatusBadge({ status, className }: StatusBadgeProps) {
   const style =
     (STATUS_STYLES as Record<string, string>)[status] ??
     (ORDER_STATUS_STYLES as Record<string, string>)[status] ??
-    "bg-slate-100 text-slate-700";
+    "bg-secondary-100 text-secondary-700";
 
   return (
     <span

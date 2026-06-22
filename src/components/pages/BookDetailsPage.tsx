@@ -117,7 +117,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
   // ── Render ──
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pt-24">
+      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pt-24">
         <div className="mx-auto flex max-w-5xl items-center justify-center py-24 text-slate-400">
           <Loader2 className="h-7 w-7 animate-spin" />
           <span className="ml-3 font-medium">Loading book…</span>
@@ -128,10 +128,10 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
 
   if (isError || !book) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pt-24">
-        <div className="mx-auto max-w-2xl rounded-3xl border border-slate-100 bg-white p-10 text-center shadow-sm">
+      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pt-24">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-secondary-100 bg-white p-10 text-center shadow-sm">
           <BookOpen className="mx-auto h-12 w-12 text-slate-300" />
-          <h1 className="mt-4 text-2xl font-black text-slate-900">
+          <h1 className="mt-4 text-2xl font-black text-secondary-900">
             Book not found
           </h1>
           <p className="mt-2 text-slate-500">
@@ -139,7 +139,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
           </p>
           <Link
             to="/browse"
-            className="mt-6 inline-block rounded-full bg-amber-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-amber-800"
+            className="mt-6 inline-block rounded-full bg-primary-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-primary-800"
           >
             Browse all books
           </Link>
@@ -149,13 +149,13 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-20 pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24">
       <div className="mx-auto max-w-6xl">
         {/* Back */}
         <button
           type="button"
           onClick={onNavigateHome}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-bold text-amber-900 shadow-sm transition hover:bg-amber-50"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-bold text-primary-900 shadow-sm transition hover:bg-primary-50"
         >
           <ArrowLeft className="h-4 w-4" />
           Back
@@ -164,7 +164,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
         <div className="grid gap-8 lg:grid-cols-[340px_1fr]">
           {/* Cover */}
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100">
+            <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-secondary-100">
               {book.coverImage ? (
                 <img
                   src={book.coverImage}
@@ -183,33 +183,33 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
 
           {/* Details */}
           <div>
-            <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+            <h1 className="text-3xl font-black tracking-tight text-secondary-900 sm:text-4xl">
               {book.title}
             </h1>
-            <p className="mt-2 text-lg text-slate-600">by {book.author}</p>
+            <p className="mt-2 text-lg text-secondary-600">by {book.author}</p>
 
             {/* Meta row */}
             <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
               {book.rating != null && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 font-bold text-amber-800">
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 font-bold text-primary-800">
                   ⭐ {book.rating.toFixed(1)}
                 </span>
               )}
-              <span className="rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-600">
+              <span className="rounded-full bg-secondary-100 px-3 py-1 font-medium text-secondary-600">
                 ISBN: {book.isbn}
               </span>
               {book.publisher && (
-                <span className="rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-600">
+                <span className="rounded-full bg-secondary-100 px-3 py-1 font-medium text-secondary-600">
                   {book.publisher}
                 </span>
               )}
               {book.publishedDate && (
-                <span className="rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-600">
+                <span className="rounded-full bg-secondary-100 px-3 py-1 font-medium text-secondary-600">
                   {book.publishedDate}
                 </span>
               )}
               {book.pageCount != null && (
-                <span className="rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-600">
+                <span className="rounded-full bg-secondary-100 px-3 py-1 font-medium text-secondary-600">
                   {book.pageCount} pages
                 </span>
               )}
@@ -217,15 +217,15 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
 
             {/* Description */}
             {book.description && (
-              <p className="mt-6 leading-relaxed text-slate-700">
+              <p className="mt-6 leading-relaxed text-secondary-700">
                 {book.description}
               </p>
             )}
 
             {/* Seller listings */}
             <div className="mt-8">
-              <h2 className="flex items-center gap-2 text-lg font-black text-slate-900">
-                <Store className="h-5 w-5 text-amber-700" />
+              <h2 className="flex items-center gap-2 text-lg font-black text-secondary-900">
+                <Store className="h-5 w-5 text-primary-700" />
                 Choose a seller
                 <span className="text-sm font-medium text-slate-400">
                   ({book.listings.length} available)
@@ -244,8 +244,8 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
                       disabled={oos}
                       className={`flex w-full items-center justify-between gap-4 rounded-2xl border-2 p-4 text-left transition ${
                         isSelected
-                          ? "border-amber-500 bg-amber-50"
-                          : "border-slate-100 bg-white hover:border-amber-200"
+                          ? "border-amber-500 bg-primary-50"
+                          : "border-secondary-100 bg-white hover:border-primary-200"
                       } ${oos ? "cursor-not-allowed opacity-60" : ""}`}
                     >
                       <div className="flex items-center gap-3">
@@ -261,7 +261,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
                           )}
                         </div>
                         <div>
-                          <p className="font-bold text-slate-900">
+                          <p className="font-bold text-secondary-900">
                             {l.seller?.businessName ?? "Unknown seller"}
                           </p>
                           <p className="flex items-center gap-1 text-xs text-slate-500">
@@ -272,7 +272,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
                           </p>
                         </div>
                       </div>
-                      <span className="text-xl font-black text-slate-900">
+                      <span className="text-xl font-black text-secondary-900">
                         {formatCurrency(l.price)}
                       </span>
                     </button>
@@ -284,17 +284,17 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
             {/* Add to cart */}
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
               {/* Quantity stepper */}
-              <div className="inline-flex items-center rounded-full border-2 border-slate-200 bg-white">
+              <div className="inline-flex items-center rounded-full border-2 border-secondary-200 bg-white">
                 <button
                   type="button"
                   onClick={() => setQty((q) => Math.max(1, q - 1))}
                   disabled={!selectedListing}
                   aria-label="Decrease quantity"
-                  className="flex h-11 w-11 items-center justify-center rounded-full text-slate-600 transition hover:bg-amber-50 hover:text-amber-800 disabled:opacity-40"
+                  className="flex h-11 w-11 items-center justify-center rounded-full text-secondary-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:opacity-40"
                 >
                   <Minus className="h-4 w-4" />
                 </button>
-                <span className="w-10 text-center text-base font-bold text-slate-900">
+                <span className="w-10 text-center text-base font-bold text-secondary-900">
                   {qty}
                 </span>
                 <button
@@ -314,7 +314,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
                     (selectedListing.stock > 0 && qty >= selectedListing.stock)
                   }
                   aria-label="Increase quantity"
-                  className="flex h-11 w-11 items-center justify-center rounded-full text-slate-600 transition hover:bg-amber-50 hover:text-amber-800 disabled:opacity-40"
+                  className="flex h-11 w-11 items-center justify-center rounded-full text-secondary-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:opacity-40"
                 >
                   <Plus className="h-4 w-4" />
                 </button>
@@ -328,7 +328,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
                   !selectedListing ||
                   selectedListing.stock <= 0
                 }
-                className="flex flex-1 items-center justify-center gap-2 rounded-full bg-amber-900 px-8 py-3 font-bold text-white shadow-sm transition hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex flex-1 items-center justify-center gap-2 rounded-full bg-primary-900 px-8 py-3 font-bold text-white shadow-sm transition hover:bg-primary-800 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <ShoppingCart className="h-5 w-5" />
                 {isPending
@@ -345,7 +345,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
               <button
                 type="button"
                 onClick={() => navigate("/cart")}
-                className="mt-4 text-sm font-bold text-amber-700 underline-offset-4 hover:underline"
+                className="mt-4 text-sm font-bold text-primary-700 underline-offset-4 hover:underline"
               >
                 This item is in your cart — view cart →
               </button>

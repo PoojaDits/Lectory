@@ -29,7 +29,7 @@ export default function SectionHeader({
         <span
           className={cn(
             "inline-block px-4 py-1.5 border text-sm font-semibold rounded-full",
-            badgeClass ?? "bg-amber-50 text-amber-700 border border-amber-200"
+            badgeClass ?? "bg-primary-50 text-primary-700 border border-primary-200"
           )}
         >
           {badge}

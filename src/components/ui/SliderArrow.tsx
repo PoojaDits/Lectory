@@ -24,7 +24,7 @@ export default function SliderArrow({
         className={cn(
           "inline-flex items-center justify-center w-10 h-10 rounded-full",
           "border-2 border-gray-200 bg-white text-gray-600",
-          "hover:border-amber-500 hover:text-amber-600 hover:shadow-md",
+          "hover:border-amber-500 hover:text-primary-600 hover:shadow-md",
           "transition-all duration-200 hover:scale-110 active:scale-95",
           className
         )}

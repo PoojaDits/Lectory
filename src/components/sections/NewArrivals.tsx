@@ -15,7 +15,7 @@ export default function NewArrivals() {
   return (
     <section
       id="new-arrivals"
-      className="py-16 md:py-24 bg-gradient-to-b from-white to-amber-50"
+      className="py-16 md:py-24 bg-gradient-to-b from-white to-primary-50"
     >
       <div className="max-w-7xl  px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -36,8 +36,8 @@ export default function NewArrivals() {
             <div className="space-y-4 mb-8">
               {HIGHLIGHTS.map((h) => (
                 <div key={h.num} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-amber-600 font-bold text-sm">{h.num}</span>
+                  <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-primary-600 font-bold text-sm">{h.num}</span>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-800">{h.title}</h4>
@@ -72,7 +72,7 @@ export default function NewArrivals() {
                     i % 2 === 1 ? "mt-6" : ""
                   }`}
                 >
-                  <div className="aspect-[3/4] bg-slate-50 p-4">
+                  <div className="aspect-[3/4] bg-secondary-50 p-4">
                     <div className="relative w-70% h-full">
                       <LazyImage
                         src={book.image}

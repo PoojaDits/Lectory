@@ -62,17 +62,17 @@ export default function SellerDashboardPage() {
   return (
     <div className="space-y-8 mt-[65px]">
       {/* ── Welcome Header ── */}
-      <header className="mb-8 overflow-hidden rounded-3xl bg-gradient-to-br from-amber-700 via-amber-800 to-orange-900 p-8 md:p-12 relative shadow-lg shadow-amber-900/20">
+      <header className="mb-8 overflow-hidden rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-orange-900 p-8 md:p-12 relative shadow-lg shadow-primary-900/20">
         <div className="absolute -right-12 -bottom-12 h-64 w-64 rounded-full bg-white/10 blur-2xl pointer-events-none" />
 
         <div className="relative z-10">
-          <p className="text-xs font-black uppercase tracking-widest text-amber-100">
+          <p className="text-xs font-black uppercase tracking-widest text-primary-100">
             Seller Command Center
           </p>
           <h1 className="mt-2 text-3xl font-black text-white md:text-4xl tracking-tight">
             Welcome, {currentUser?.businessName ?? currentUser?.name ?? "Seller"}
           </h1>
-          <p className="mt-2 max-w-2xl text-amber-50/90">
+          <p className="mt-2 max-w-2xl text-primary-50/90">
             Monitor your sales, manage your inventory, and process orders from
             your seller dashboard.
           </p>
@@ -146,10 +146,10 @@ export default function SellerDashboardPage() {
       </section>
 
       {/* ── Recent Orders ── */}
-      <section className="rounded-3xl border border-slate-100 bg-white shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between border-b border-slate-100 p-6">
+      <section className="rounded-3xl border border-secondary-100 bg-white shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between border-b border-secondary-100 p-6">
           <div>
-            <h2 className="text-lg font-black text-slate-900">
+            <h2 className="text-lg font-black text-secondary-900">
               Recent Orders
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
@@ -159,7 +159,7 @@ export default function SellerDashboardPage() {
           <button
             type="button"
             onClick={() => navigate("/seller/orders")}
-            className="inline-flex items-center gap-2 rounded-full bg-amber-700 px-4 py-2 text-xs font-black text-white hover:bg-amber-800 transition shadow-sm"
+            className="inline-flex items-center gap-2 rounded-full bg-primary-700 px-4 py-2 text-xs font-black text-white hover:bg-primary-800 transition shadow-sm"
           >
             View All
             <TrendingUp className="h-3.5 w-3.5" />
@@ -177,14 +177,14 @@ export default function SellerDashboardPage() {
             listings.
           </div>
         ) : (
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-secondary-100">
             {orders.slice(0, 5).map((order) => (
               <div
                 key={String(order.id)}
-                className="flex items-center justify-between p-5 hover:bg-amber-50/30 transition"
+                className="flex items-center justify-between p-5 hover:bg-primary-50/30 transition"
               >
                 <div className="flex items-center gap-4">
-                  <span className="font-black text-slate-900 text-sm">
+                  <span className="font-black text-secondary-900 text-sm">
                     #{String(order.id)}
                   </span>
                   <span className="text-xs text-slate-500">
@@ -192,7 +192,7 @@ export default function SellerDashboardPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-sm font-bold text-amber-700">
+                  <span className="text-sm font-bold text-primary-700">
                     {formatCurrency(order.total)}
                   </span>
                   <StatusBadge status={order.status} />
@@ -250,15 +250,15 @@ function PipelineTile({
   // Warm amber palette — uses different intensities of amber/orange
   // to distinguish pipeline stages while staying on-theme.
   const tones = {
-    slate: "bg-slate-100 text-slate-700",
-    blue: "bg-amber-50 text-amber-600",
-    amber: "bg-amber-100 text-amber-700",
-    indigo: "bg-amber-200 text-amber-800",
+    slate: "bg-secondary-100 text-secondary-700",
+    blue: "bg-primary-50 text-primary-600",
+    amber: "bg-primary-100 text-primary-700",
+    indigo: "bg-primary-200 text-primary-800",
     emerald: "bg-orange-100 text-orange-800",
     rose: "bg-rose-100 text-rose-800",
   } as const;
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
       <span
         className={cn(
           "flex h-10 w-10 items-center justify-center rounded-xl",
@@ -271,7 +271,7 @@ function PipelineTile({
         <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
           {label}
         </p>
-        <p className="text-2xl font-extrabold leading-none text-slate-900">
+        <p className="text-2xl font-extrabold leading-none text-secondary-900">
           {value}
         </p>
       </div>
@@ -295,9 +295,9 @@ function QuickActionCard({
   onClick: () => void;
 }) {
   const colors = {
-    emerald: "from-amber-700 to-orange-700 border-amber-200 hover:border-amber-300",
-    amber: "from-amber-600 to-orange-600 border-amber-200 hover:border-amber-300",
-    indigo: "from-amber-600 to-orange-600 border-amber-200 hover:border-amber-300",
+    emerald: "from-primary-700 to-orange-700 border-primary-200 hover:border-amber-300",
+    amber: "from-primary-600 to-orange-600 border-primary-200 hover:border-amber-300",
+    indigo: "from-primary-600 to-orange-600 border-primary-200 hover:border-amber-300",
     rose: "from-rose-600 to-pink-600 border-rose-200 hover:border-rose-300",
   } as const;
 
@@ -324,7 +324,7 @@ function QuickActionCard({
         >
           <Icon className="h-6 w-6" />
         </div>
-        <h3 className="text-lg font-black text-slate-900 group-hover:text-amber-700 transition">
+        <h3 className="text-lg font-black text-secondary-900 group-hover:text-primary-700 transition">
           {title}
         </h3>
         <p className="mt-1 text-xs text-slate-500 leading-relaxed">{desc}</p>

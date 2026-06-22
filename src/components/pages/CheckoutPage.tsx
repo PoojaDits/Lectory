@@ -57,13 +57,13 @@ export default function CheckoutPage() {
   // Guard against non-customers
   if (!currentUser || currentUser.role !== "customer") {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 py-28 text-center">
+      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 py-28 text-center">
         <div className="mx-auto max-w-lg rounded-3xl bg-white p-8 shadow-xl">
-          <h1 className="text-2xl font-black text-slate-900">Customer Access Required</h1>
+          <h1 className="text-2xl font-black text-secondary-900">Customer Access Required</h1>
           <p className="mt-2 text-slate-500">Please log in to complete your checkout.</p>
           <Link
             to="/login"
-            className="mt-6 inline-block rounded-full bg-amber-900 px-8 py-3 text-sm font-black text-white hover:bg-amber-800"
+            className="mt-6 inline-block rounded-full bg-primary-900 px-8 py-3 text-sm font-black text-white hover:bg-primary-800"
           >
             Go to Login
           </Link>
@@ -119,15 +119,15 @@ export default function CheckoutPage() {
 
   if (isCustomerLoading || isCartLoading) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 py-32 text-center">
-        <Loader2 className="mx-auto h-10 w-10 animate-spin text-amber-900" />
-        <p className="mt-4 text-sm font-bold text-slate-600">Loading checkout session…</p>
+      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 py-32 text-center">
+        <Loader2 className="mx-auto h-10 w-10 animate-spin text-primary-900" />
+        <p className="mt-4 text-sm font-bold text-secondary-600">Loading checkout session…</p>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50/60 via-white to-orange-50/50 px-4 pb-24 pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50/60 via-white to-orange-50/50 px-4 pb-24 pt-24">
       <div className="mx-auto max-w-4xl">
         {/* Top Header Step Indicator */}
         {step !== "success" && (
@@ -135,16 +135,16 @@ export default function CheckoutPage() {
             <button
               type="button"
               onClick={() => (step === "review" ? setStep("address") : navigate("/cart"))}
-              className="inline-flex items-center gap-2 text-xs font-black text-amber-900 hover:text-amber-700 transition mb-4"
+              className="inline-flex items-center gap-2 text-xs font-black text-primary-900 hover:text-primary-700 transition mb-4"
             >
               <ArrowLeft className="h-4 w-4" />
               {step === "review" ? "Back to Address Selection" : "Return to Cart"}
             </button>
 
-            <div className="flex items-center justify-between border-b border-slate-200/80 pb-5">
+            <div className="flex items-center justify-between border-b border-secondary-200/80 pb-5">
               <div className="flex items-center gap-3">
                 <Lock className="h-6 w-6 text-emerald-700" />
-                <h1 className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+                <h1 className="text-2xl font-black tracking-tight text-secondary-900 sm:text-3xl">
                   Secure Marketplace Checkout
                 </h1>
               </div>
@@ -154,8 +154,8 @@ export default function CheckoutPage() {
                 <span
                   className={`px-3 py-1 rounded-full ${
                     step === "address"
-                      ? "bg-amber-900 text-white shadow-sm"
-                      : "bg-slate-200 text-slate-700"
+                      ? "bg-primary-900 text-white shadow-sm"
+                      : "bg-secondary-200 text-secondary-700"
                   }`}
                 >
                   1. Shipping Address
@@ -164,8 +164,8 @@ export default function CheckoutPage() {
                 <span
                   className={`px-3 py-1 rounded-full ${
                     step === "review"
-                      ? "bg-amber-900 text-white shadow-sm"
-                      : "bg-slate-200 text-slate-500"
+                      ? "bg-primary-900 text-white shadow-sm"
+                      : "bg-secondary-200 text-slate-500"
                   }`}
                 >
                   2. Review & Place Order
@@ -178,9 +178,9 @@ export default function CheckoutPage() {
         {/* STEP 1: ADDRESS SELECTION */}
         {step === "address" && (
           <section className="space-y-6 animate-in fade-in duration-300">
-            <div className="flex items-center justify-between bg-white p-6 rounded-3xl border border-slate-200/70 shadow-sm">
+            <div className="flex items-center justify-between bg-white p-6 rounded-3xl border border-secondary-200/70 shadow-sm">
               <div>
-                <h2 className="text-lg font-black text-slate-900">
+                <h2 className="text-lg font-black text-secondary-900">
                   Where should we send your books?
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
@@ -191,7 +191,7 @@ export default function CheckoutPage() {
               <button
                 type="button"
                 onClick={() => setModalOpen(true)}
-                className="inline-flex items-center gap-1.5 rounded-full bg-amber-900 px-5 py-2.5 text-xs font-black text-white hover:bg-amber-800 transition shadow-md shrink-0"
+                className="inline-flex items-center gap-1.5 rounded-full bg-primary-900 px-5 py-2.5 text-xs font-black text-white hover:bg-primary-800 transition shadow-md shrink-0"
               >
                 <Plus className="h-4 w-4" /> Add Address
               </button>
@@ -199,16 +199,16 @@ export default function CheckoutPage() {
 
             {/* Addresses list */}
             {addresses.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-amber-200 bg-amber-50/40 p-12 text-center">
-                <MapPin className="h-12 w-12 text-amber-700 mb-3" />
-                <h3 className="text-base font-black text-slate-900">No Delivery Addresses Found</h3>
+              <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-primary-200 bg-primary-50/40 p-12 text-center">
+                <MapPin className="h-12 w-12 text-primary-700 mb-3" />
+                <h3 className="text-base font-black text-secondary-900">No Delivery Addresses Found</h3>
                 <p className="mt-1 text-xs text-slate-500 max-w-sm">
                   Please add your delivery address so we can calculate delivery options and complete your order.
                 </p>
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
-                  className="mt-5 rounded-full bg-amber-900 px-6 py-3 text-xs font-black text-white hover:bg-amber-800 transition"
+                  className="mt-5 rounded-full bg-primary-900 px-6 py-3 text-xs font-black text-white hover:bg-primary-800 transition"
                 >
                   Add New Delivery Address
                 </button>
@@ -225,8 +225,8 @@ export default function CheckoutPage() {
                       onClick={() => setSelectedAddrId(addr.id)}
                       className={`relative flex flex-col justify-between rounded-3xl border p-6 cursor-pointer transition-all ${
                         isSelected
-                          ? "border-amber-900 bg-amber-50/30 ring-2 ring-amber-900 shadow-md scale-[1.01]"
-                          : "border-slate-200/80 bg-white hover:border-slate-300"
+                          ? "border-primary-900 bg-primary-50/30 ring-2 ring-primary-900 shadow-md scale-[1.01]"
+                          : "border-secondary-200/80 bg-white hover:border-slate-300"
                       }`}
                     >
                       <div>
@@ -236,7 +236,7 @@ export default function CheckoutPage() {
                               {addr.label || "Shipping"}
                             </span>
                             {isDef && (
-                              <span className="rounded-full bg-amber-900/10 px-2.5 py-0.5 text-[10px] font-black uppercase text-amber-900">
+                              <span className="rounded-full bg-primary-900/10 px-2.5 py-0.5 text-[10px] font-black uppercase text-primary-900">
                                 Default
                               </span>
                             )}
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
                           <div
                             className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
                               isSelected
-                                ? "bg-amber-900 border-amber-900 text-white"
+                                ? "bg-primary-900 border-primary-900 text-white"
                                 : "border-slate-300 bg-white"
                             }`}
                           >
@@ -253,12 +253,12 @@ export default function CheckoutPage() {
                           </div>
                         </div>
 
-                        <h3 className="text-base font-black text-slate-900">{addr.fullName}</h3>
-                        <div className="mt-2 text-xs text-slate-600 space-y-1">
-                          <p className="font-medium text-slate-800">{addr.street}</p>
+                        <h3 className="text-base font-black text-secondary-900">{addr.fullName}</h3>
+                        <div className="mt-2 text-xs text-secondary-600 space-y-1">
+                          <p className="font-medium text-secondary-800">{addr.street}</p>
                           <p>{addr.city}, {addr.state} {addr.postalCode}</p>
                           <p>{addr.country}</p>
-                          <p className="pt-1 font-bold text-slate-800">📞 {addr.phone}</p>
+                          <p className="pt-1 font-bold text-secondary-800">📞 {addr.phone}</p>
                         </div>
                       </div>
                     </label>
@@ -269,14 +269,14 @@ export default function CheckoutPage() {
 
             {/* Bottom Proceed bar */}
             {addresses.length > 0 && (
-              <div className="flex items-center justify-end pt-6 border-t border-slate-200/80">
+              <div className="flex items-center justify-end pt-6 border-t border-secondary-200/80">
                 <button
                   type="button"
                   onClick={() => {
                     if (!selectedAddrId) return alert("Please select an address.");
                     setStep("review");
                   }}
-                  className="inline-flex items-center gap-2 rounded-full bg-amber-900 px-10 py-4 text-sm font-black text-white hover:bg-amber-800 transition shadow-xl shadow-amber-900/20"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary-900 px-10 py-4 text-sm font-black text-white hover:bg-primary-800 transition shadow-xl shadow-primary-900/20"
                 >
                   <span>Proceed to Order Review</span>
                   <ChevronRight className="h-4 w-4" />
@@ -290,17 +290,17 @@ export default function CheckoutPage() {
         {step === "review" && (
           <section className="space-y-6 animate-in fade-in duration-300">
             {/* Address Review snippet */}
-            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 flex items-center justify-between gap-4 shadow-sm">
+            <div className="rounded-3xl border border-secondary-200/80 bg-white p-6 flex items-center justify-between gap-4 shadow-sm">
               <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-amber-900 shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-primary-900 shrink-0 mt-0.5" />
                 <div>
                   <span className="text-xs font-extrabold uppercase tracking-widest text-slate-400 block">
                     Deliver To
                   </span>
-                  <p className="text-sm font-black text-slate-900 mt-0.5">
+                  <p className="text-sm font-black text-secondary-900 mt-0.5">
                     {chosenAddress?.fullName} <span className="font-medium text-slate-500">({chosenAddress?.label})</span>
                   </p>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <p className="text-xs text-secondary-600 mt-1">
                     {chosenAddress?.street}, {chosenAddress?.city}, {chosenAddress?.state} {chosenAddress?.postalCode}
                   </p>
                 </div>
@@ -309,36 +309,36 @@ export default function CheckoutPage() {
               <button
                 type="button"
                 onClick={() => setStep("address")}
-                className="rounded-full bg-slate-100 px-4 py-2 text-xs font-black text-amber-900 hover:bg-amber-50 transition shrink-0"
+                className="rounded-full bg-secondary-100 px-4 py-2 text-xs font-black text-primary-900 hover:bg-primary-50 transition shrink-0"
               >
                 Change Address
               </button>
             </div>
 
             {/* Items Summary */}
-            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm">
-              <h2 className="text-lg font-black text-slate-900 mb-4">
+            <div className="rounded-3xl border border-secondary-200/80 bg-white p-6 sm:p-8 shadow-sm">
+              <h2 className="text-lg font-black text-secondary-900 mb-4">
                 Purchased Books ({count} Line Items)
               </h2>
 
-              <ul className="divide-y divide-slate-100 space-y-4">
+              <ul className="divide-y divide-secondary-100 space-y-4">
                 {entries.map((entry) => (
                   <li key={String(entry.id)} className="pt-4 first:pt-0 flex items-center gap-4">
-                    <div className="h-16 w-12 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+                    <div className="h-16 w-12 shrink-0 overflow-hidden rounded-lg bg-secondary-100">
                       {entry.coverImage && (
                         <img src={entry.coverImage} alt={entry.title} className="h-full w-full object-cover" />
                       )}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-bold text-slate-900 text-sm truncate">{entry.title}</h3>
+                      <h3 className="font-bold text-secondary-900 text-sm truncate">{entry.title}</h3>
                       <p className="text-xs text-slate-500">{entry.author}</p>
-                      <span className="inline-block bg-amber-50 text-amber-900 font-bold text-[10px] px-2 py-0.5 rounded mt-1">
+                      <span className="inline-block bg-primary-50 text-primary-900 font-bold text-[10px] px-2 py-0.5 rounded mt-1">
                         Seller: {entry.sellerName}
                       </span>
                     </div>
                     <div className="text-right">
                       <p className="text-xs text-slate-400">{entry.quantity} x {formatCurrency(entry.price)}</p>
-                      <p className="text-sm font-black text-slate-900">{formatCurrency(entry.price * entry.quantity)}</p>
+                      <p className="text-sm font-black text-secondary-900">{formatCurrency(entry.price * entry.quantity)}</p>
                     </div>
                   </li>
                 ))}
@@ -346,11 +346,11 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Options Simulator */}
-            <div className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm flex items-center justify-between">
+            <div className="rounded-3xl border border-secondary-200/80 bg-white p-6 shadow-sm flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <CreditCard className="h-6 w-6 text-indigo-700" />
                 <div>
-                  <h3 className="text-sm font-black text-slate-900">Payment Simulation</h3>
+                  <h3 className="text-sm font-black text-secondary-900">Payment Simulation</h3>
                   <p className="text-xs text-slate-500">Instant One-Click Approval / Verified Simulated Escrow</p>
                 </div>
               </div>
@@ -360,15 +360,15 @@ export default function CheckoutPage() {
             </div>
 
             {/* Price Total & Final Place Order */}
-            <div className="rounded-3xl bg-gradient-to-r from-amber-900 via-amber-800 to-orange-900 p-8 text-white shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className="rounded-3xl bg-gradient-to-r from-primary-900 via-primary-800 to-orange-900 p-8 text-white shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div>
-                <p className="text-xs font-black uppercase tracking-widest text-amber-200">
+                <p className="text-xs font-black uppercase tracking-widest text-primary-200">
                   Total Payable Amount
                 </p>
                 <p className="text-3xl font-black mt-1 sm:text-4xl">
                   {formatCurrency(subtotal)}
                 </p>
-                <p className="text-xs text-amber-100/80 mt-1">
+                <p className="text-xs text-primary-100/80 mt-1">
                   🎉 Free Priority Express Shipping Included
                 </p>
               </div>
@@ -377,7 +377,7 @@ export default function CheckoutPage() {
                 type="button"
                 onClick={handleCompleteOrder}
                 disabled={createOrders.isPending}
-                className="rounded-full bg-white px-10 py-4 text-base font-black text-amber-950 hover:bg-amber-100 transition shadow-lg hover:scale-105 disabled:opacity-50 shrink-0 inline-flex items-center justify-center gap-2"
+                className="rounded-full bg-white px-10 py-4 text-base font-black text-amber-950 hover:bg-primary-100 transition shadow-lg hover:scale-105 disabled:opacity-50 shrink-0 inline-flex items-center justify-center gap-2"
               >
                 {createOrders.isPending ? (
                   <>
@@ -385,7 +385,7 @@ export default function CheckoutPage() {
                   </>
                 ) : (
                   <>
-                    <Sparkles className="h-5 w-5 text-amber-700" /> Place Order Now
+                    <Sparkles className="h-5 w-5 text-primary-700" /> Place Order Now
                   </>
                 )}
               </button>
@@ -396,7 +396,7 @@ export default function CheckoutPage() {
         {/* STEP 3: SUCCESS CELEBRATION */}
         {step === "success" && (
           <section className="animate-in zoom-in-95 duration-500 py-8">
-            <div className="overflow-hidden rounded-[3rem] bg-white p-8 sm:p-14 border border-slate-200 shadow-2xl text-center relative">
+            <div className="overflow-hidden rounded-[3rem] bg-white p-8 sm:p-14 border border-secondary-200 shadow-2xl text-center relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-3 bg-gradient-to-r from-amber-500 via-orange-500 to-emerald-500" />
 
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 mb-6 sm:h-24 sm:w-24">
@@ -407,20 +407,20 @@ export default function CheckoutPage() {
                 Order Placed Successfully
               </span>
 
-              <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+              <h1 className="text-3xl font-black tracking-tight text-secondary-900 sm:text-4xl md:text-5xl">
                 Thank you for your order!
               </h1>
 
-              <p className="mt-3 max-w-xl mx-auto text-slate-600 sm:text-base leading-relaxed">
+              <p className="mt-3 max-w-xl mx-auto text-secondary-600 sm:text-base leading-relaxed">
                 Your order has been confirmed and submitted to our marketplace sellers for stock verification and fulfillment approval. Your shopping cart is now empty.
               </p>
 
               {/* Placed Order IDs pill */}
-              <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl bg-slate-50 p-4 border border-slate-100 text-xs text-slate-700 font-bold">
-                <ShoppingBag className="h-4 w-4 text-amber-900" />
+              <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl bg-secondary-50 p-4 border border-secondary-100 text-xs text-secondary-700 font-bold">
+                <ShoppingBag className="h-4 w-4 text-primary-900" />
                 <span>Marketplace Reference ID(s):</span>
                 {placedOrderIds.map((id) => (
-                  <span key={id} className="bg-white border border-slate-200 px-2.5 py-1 rounded-md font-black text-slate-900">
+                  <span key={id} className="bg-white border border-secondary-200 px-2.5 py-1 rounded-md font-black text-secondary-900">
                     #{id}
                   </span>
                 ))}
@@ -430,14 +430,14 @@ export default function CheckoutPage() {
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <Link
                   to="/account/orders"
-                  className="rounded-full bg-amber-900 px-8 py-4 text-sm font-black text-white hover:bg-amber-800 transition shadow-lg shadow-amber-900/20"
+                  className="rounded-full bg-primary-900 px-8 py-4 text-sm font-black text-white hover:bg-primary-800 transition shadow-lg shadow-primary-900/20"
                 >
                   View My Order History
                 </Link>
 
                 <Link
                   to="/browse"
-                  className="rounded-full bg-slate-100 border border-slate-200 px-8 py-4 text-sm font-black text-slate-800 hover:bg-slate-200 transition"
+                  className="rounded-full bg-secondary-100 border border-secondary-200 px-8 py-4 text-sm font-black text-secondary-800 hover:bg-secondary-200 transition"
                 >
                   Continue Shopping
                 </Link>

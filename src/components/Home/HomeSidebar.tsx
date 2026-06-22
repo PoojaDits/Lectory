@@ -57,7 +57,7 @@ export default function HomeSidebar({
             <button
               type="button"
               onClick={filters.reset}
-              className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold text-amber-700 transition hover:bg-amber-50"
+              className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold text-primary-700 transition hover:bg-primary-50"
             >
               <RotateCcw className="h-3 w-3" />
               Reset
@@ -106,14 +106,14 @@ export default function HomeSidebar({
           {RATINGS.map((r) => (
             <label
               key={r.value}
-              className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-amber-50"
+              className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-primary-50"
             >
               <input
                 type="radio"
                 name="min-rating"
                 checked={filters.minRating === r.value}
                 onChange={() => filters.setMinRating(r.value)}
-                className="h-4 w-4 cursor-pointer accent-amber-700"
+                className="h-4 w-4 cursor-pointer accent-primary-700"
               />
               <span className="flex items-center gap-1.5 text-sm font-semibold text-gray-700">
                 {r.value > 0 && (
@@ -144,13 +144,13 @@ export default function HomeSidebar({
           {FORMATS.map((f) => (
             <label
               key={f.id}
-              className="flex cursor-pointer items-start gap-2 rounded-lg px-2 py-1.5 transition hover:bg-amber-50"
+              className="flex cursor-pointer items-start gap-2 rounded-lg px-2 py-1.5 transition hover:bg-primary-50"
             >
               <input
                 type="checkbox"
                 checked={filters.formats.includes(f.id)}
                 onChange={() => filters.toggleFormat(f.id)}
-                className="mt-0.5 h-4 w-4 cursor-pointer accent-amber-700"
+                className="mt-0.5 h-4 w-4 cursor-pointer accent-primary-700"
               />
               <div className="flex-1">
                 <p className="text-sm font-semibold text-gray-700">{f.label}</p>
@@ -167,13 +167,13 @@ export default function HomeSidebar({
           {LANGUAGES.map((l) => (
             <label
               key={l.id}
-              className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-amber-50"
+              className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-primary-50"
             >
               <input
                 type="checkbox"
                 checked={filters.languages.includes(l.id)}
                 onChange={() => filters.toggleLanguage(l.id)}
-                className="h-4 w-4 cursor-pointer accent-amber-700"
+                className="h-4 w-4 cursor-pointer accent-primary-700"
               />
               <span className="text-sm font-semibold text-gray-700">
                 {l.label}
@@ -219,7 +219,7 @@ function NumberField({
   return (
     <label className="flex-1">
       <span className="sr-only">{label}</span>
-      <div className="flex items-center rounded-lg border border-amber-200 bg-white px-2 py-1.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-100">
+      <div className="flex items-center rounded-lg border border-primary-200 bg-white px-2 py-1.5 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-primary-100">
         <span className="text-xs font-bold text-gray-400">₹</span>
         <input
           type="number"

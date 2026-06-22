@@ -29,7 +29,7 @@ export default function FeaturedCategories() {
     books.filter((b) => (b.categories ?? []).includes(tag)).length;
 
   return (
-    <section id="categories" className="py-16 md:py-24 bg-amber-50">
+    <section id="categories" className="py-16 md:py-24 bg-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="📚 Browse by Category"
@@ -60,7 +60,7 @@ export default function FeaturedCategories() {
                   >
                     <Icon className="w-7 h-7 md:w-8 md:h-8 text-white group-hover:animate-pulse" />
                   </div>
-                  <h3 className="relative text-gray-900 font-bold text-base md:text-lg mb-1 z-10 group-hover:text-amber-900 transition-colors">
+                  <h3 className="relative text-gray-900 font-bold text-base md:text-lg mb-1 z-10 group-hover:text-primary-900 transition-colors">
                     {cat.label}
                   </h3>
                   <p className="relative text-gray-500 text-sm z-10 group-hover:text-gray-700 transition-colors">{count} books</p>

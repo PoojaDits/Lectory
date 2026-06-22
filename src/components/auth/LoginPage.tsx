@@ -46,7 +46,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-amber-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-primary-50 flex items-center justify-center p-6">
       <div className="max-w-[1024px] w-full grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden h-auto md:h-[700px]">
         
         {/* LEFT IMAGE */}
@@ -55,7 +55,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
           <div className="absolute bottom-0 left-0 p-10 text-white">
             <div className="flex items-center gap-3 mb-6">
-              <div className="rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 p-2 shadow-lg shadow-amber-200">
+              <div className="rounded-xl bg-gradient-to-br from-primary-600 to-primary-800 p-2 shadow-lg shadow-primary-200">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
               <span className="font-bold text-2xl tracking-tight">Lectory</span>
@@ -81,7 +81,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
                 <Form className="space-y-4">
                   {/* Email Field */}
                   <div>
-                    <label className="text-sm font-medium text-slate-700">Email</label>
+                    <label className="text-sm font-medium text-secondary-700">Email</label>
                     <Field
                       name="email"
                       type="email"
@@ -89,7 +89,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                         errors.email && touched.email
                           ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                          : "border-slate-200 bg-white focus:border-amber-500 focus:ring-amber-100"
+                          : "border-secondary-200 bg-white focus:border-amber-500 focus:ring-primary-100"
                       }`}
                     />
                     <ErrorMessage name="email" component="p" className="text-xs text-red-500 mt-1" />
@@ -97,7 +97,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
 
                   {/* Password Field */}
                   <div>
-                    <label className="text-sm font-medium text-slate-700">Password</label>
+                    <label className="text-sm font-medium text-secondary-700">Password</label>
                     <div className="relative mt-1">
                       <Field
                         name="password"
@@ -106,13 +106,13 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
                         className={`w-full rounded-2xl border pr-11 pl-4 py-3 text-sm outline-none transition focus:ring-4 ${
                           errors.password && touched.password
                             ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
-                            : "border-slate-200 bg-white focus:border-amber-500 focus:ring-amber-100"
+                            : "border-secondary-200 bg-white focus:border-amber-500 focus:ring-primary-100"
                         }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-secondary-600 transition"
                       >
                         {showPassword ? (
                           <EyeOff className="h-4 w-4" />

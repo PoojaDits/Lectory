@@ -36,13 +36,13 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-20 pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24">
       <div className="mx-auto max-w-5xl">
         {/* Top bar */}
         <button
           type="button"
           onClick={onNavigateHome}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-4 py-2 text-sm font-bold text-amber-900 shadow-sm transition hover:bg-amber-50"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-bold text-primary-900 shadow-sm transition hover:bg-primary-50"
         >
           <ArrowLeft className="h-4 w-4" />
           Continue shopping
@@ -50,12 +50,12 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
 
         <header className="mb-8">
           <div className="flex items-center gap-3">
-            <ShoppingCart className="h-7 w-7 text-amber-700" />
-            <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+            <ShoppingCart className="h-7 w-7 text-primary-700" />
+            <h1 className="text-3xl font-black tracking-tight text-secondary-900 sm:text-4xl">
               My Cart
             </h1>
           </div>
-          <p className="mt-2 text-slate-600">
+          <p className="mt-2 text-secondary-600">
             {count > 0
               ? `${count} item${count === 1 ? "" : "s"} in your cart`
               : "Your cart is waiting for great books."}
@@ -70,11 +70,11 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
           </div>
         ) : entries.length === 0 ? (
           /* Empty state */
-          <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-amber-200 bg-white/70 p-12 text-center">
-            <div className="rounded-full bg-amber-50 p-6">
+          <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-primary-200 bg-white/70 p-12 text-center">
+            <div className="rounded-full bg-primary-50 p-6">
               <ShoppingCart className="h-12 w-12 text-amber-400" />
             </div>
-            <h2 className="mt-5 text-xl font-black text-slate-900">
+            <h2 className="mt-5 text-xl font-black text-secondary-900">
               Your cart is empty
             </h2>
             <p className="mt-2 max-w-sm text-slate-500">
@@ -83,7 +83,7 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
             </p>
             <Link
               to="/browse"
-              className="mt-6 rounded-full bg-amber-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-amber-800"
+              className="mt-6 rounded-full bg-primary-900 px-6 py-3 text-sm font-bold text-white transition hover:bg-primary-800"
             >
               Browse Books
             </Link>
@@ -97,12 +97,12 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                 {entries.map((entry) => (
                   <li
                     key={String(entry.id)}
-                    className="flex gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm"
+                    className="flex gap-4 rounded-2xl border border-secondary-100 bg-white p-4 shadow-sm"
                   >
                     {/* Cover */}
                     <Link
                       to={`/books/${entry.bookId}`}
-                      className="relative h-28 w-20 shrink-0 overflow-hidden rounded-xl bg-slate-100"
+                      className="relative h-28 w-20 shrink-0 overflow-hidden rounded-xl bg-secondary-100"
                     >
                       {entry.coverImage ? (
                         <img
@@ -121,13 +121,13 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                     <div className="flex flex-1 flex-col">
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
-                          <h3 className="line-clamp-2 font-bold text-slate-900">
+                          <h3 className="line-clamp-2 font-bold text-secondary-900">
                             {entry.title}
                           </h3>
                           <p className="mt-0.5 text-xs text-slate-500">
                             {entry.author}
                           </p>
-                          <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-bold text-amber-800">
+                          <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary-50 px-2 py-0.5 text-[11px] font-bold text-primary-800">
                             <Store className="h-3 w-3" />
                             {entry.sellerName}
                           </p>
@@ -144,7 +144,7 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
 
                       <div className="mt-auto flex items-end justify-between pt-3">
                         {/* Quantity stepper */}
-                        <div className="inline-flex items-center rounded-full border border-slate-200">
+                        <div className="inline-flex items-center rounded-full border border-secondary-200">
                           <button
                             type="button"
                             onClick={() =>
@@ -155,11 +155,11 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                             }
                             disabled={entry.quantity <= 1}
                             aria-label="Decrease quantity"
-                            className="flex h-8 w-8 items-center justify-center rounded-full text-slate-600 transition hover:bg-amber-50 hover:text-amber-800 disabled:cursor-not-allowed disabled:opacity-40"
+                            className="flex h-8 w-8 items-center justify-center rounded-full text-secondary-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:cursor-not-allowed disabled:opacity-40"
                           >
                             <Minus className="h-3.5 w-3.5" />
                           </button>
-                          <span className="w-8 text-center text-sm font-bold text-slate-900">
+                          <span className="w-8 text-center text-sm font-bold text-secondary-900">
                             {entry.quantity}
                           </span>
                           <button
@@ -171,7 +171,7 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                               })
                             }
                             aria-label="Increase quantity"
-                            className="flex h-8 w-8 items-center justify-center rounded-full text-slate-600 transition hover:bg-amber-50 hover:text-amber-800"
+                            className="flex h-8 w-8 items-center justify-center rounded-full text-secondary-600 transition hover:bg-primary-50 hover:text-primary-800"
                           >
                             <Plus className="h-3.5 w-3.5" />
                           </button>
@@ -182,7 +182,7 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                           <p className="text-xs text-slate-400">
                             {formatCurrency(entry.price)} each
                           </p>
-                          <p className="text-lg font-black text-slate-900">
+                          <p className="text-lg font-black text-secondary-900">
                             {formatCurrency(entry.price * entry.quantity)}
                           </p>
                         </div>
@@ -204,18 +204,18 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
             </div>
 
             {/* Summary */}
-            <aside className="h-fit rounded-3xl border border-slate-100 bg-white p-6 shadow-sm lg:sticky lg:top-24">
-              <h2 className="text-lg font-black text-slate-900">
+            <aside className="h-fit rounded-3xl border border-secondary-100 bg-white p-6 shadow-sm lg:sticky lg:top-24">
+              <h2 className="text-lg font-black text-secondary-900">
                 Order Summary
               </h2>
               <dl className="mt-4 space-y-3 text-sm">
                 <div className="flex justify-between">
                   <dt className="text-slate-500">Items</dt>
-                  <dd className="font-bold text-slate-900">{count}</dd>
+                  <dd className="font-bold text-secondary-900">{count}</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-slate-500">Subtotal</dt>
-                  <dd className="font-bold text-slate-900">
+                  <dd className="font-bold text-secondary-900">
                     {formatCurrency(subtotal)}
                   </dd>
                 </div>
@@ -224,16 +224,16 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                   <dd className="font-bold text-emerald-600">Free</dd>
                 </div>
               </dl>
-              <div className="mt-4 flex items-baseline justify-between border-t border-slate-100 pt-4">
-                <span className="font-black text-slate-900">Total</span>
-                <span className="text-2xl font-black text-amber-900">
+              <div className="mt-4 flex items-baseline justify-between border-t border-secondary-100 pt-4">
+                <span className="font-black text-secondary-900">Total</span>
+                <span className="text-2xl font-black text-primary-900">
                   {formatCurrency(subtotal)}
                 </span>
               </div>
 
               <Link
                 to="/checkout"
-                className="mt-6 flex items-center justify-center w-full rounded-full bg-amber-900 px-6 py-3.5 font-black text-white shadow-lg shadow-amber-900/20 transition hover:bg-amber-800"
+                className="mt-6 flex items-center justify-center w-full rounded-full bg-primary-900 px-6 py-3.5 font-black text-white shadow-lg shadow-primary-900/20 transition hover:bg-primary-800"
               >
                 Proceed to Secure Checkout
               </Link>

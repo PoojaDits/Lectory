@@ -45,7 +45,7 @@ export default function ImpersonationBanner() {
         <button
           type="button"
           onClick={handleExit}
-          className="inline-flex items-center gap-1.5 rounded-full bg-amber-950 px-3 py-1.5 text-xs font-bold text-amber-50 transition hover:bg-amber-900"
+          className="inline-flex items-center gap-1.5 rounded-full bg-amber-950 px-3 py-1.5 text-xs font-bold text-primary-50 transition hover:bg-primary-900"
         >
           <LogOut className="h-3.5 w-3.5" />
           Exit impersonation

@@ -87,14 +87,14 @@ export default function AddressModal({
   const PRESET_LABELS = ["Home", "Work", "Apartment", "Other"];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg overflow-hidden rounded-[2.5rem] bg-white shadow-2xl shadow-slate-900/40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-secondary-900/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg overflow-hidden rounded-[2.5rem] bg-white shadow-2xl shadow-secondary-900/40">
         {/* Header */}
-        <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-orange-900 p-6 text-white sm:p-8">
+        <div className="bg-gradient-to-r from-primary-900 via-primary-800 to-orange-900 p-6 text-white sm:p-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-md">
-                <MapPin className="h-5 w-5 text-amber-200" />
+                <MapPin className="h-5 w-5 text-primary-200" />
               </div>
               <h2 className="text-xl font-black tracking-tight sm:text-2xl">
                 {editingAddress ? "Edit Shipping Address" : "Add New Address"}
@@ -109,7 +109,7 @@ export default function AddressModal({
               <X className="h-6 w-6" />
             </button>
           </div>
-          <p className="mt-2 text-sm text-amber-100/80">
+          <p className="mt-2 text-sm text-primary-100/80">
             {editingAddress
               ? "Update your delivery details below."
               : "Enter your delivery details to ensure prompt book shipments."}
@@ -137,8 +137,8 @@ export default function AddressModal({
                   onClick={() => setLabel(item)}
                   className={`rounded-full px-4 py-2 text-xs font-extrabold transition border ${
                     label === item
-                      ? "bg-amber-900 text-white border-amber-900 shadow-sm"
-                      : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                      ? "bg-primary-900 text-white border-primary-900 shadow-sm"
+                      : "bg-secondary-50 text-secondary-600 border-secondary-200 hover:bg-secondary-100"
                   }`}
                 >
                   {item}
@@ -160,7 +160,7 @@ export default function AddressModal({
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Aarav Sharma"
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                  className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
                 />
               </div>
             </div>
@@ -176,7 +176,7 @@ export default function AddressModal({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="e.g. +91 98765 43210"
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                  className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
                 />
               </div>
             </div>
@@ -194,7 +194,7 @@ export default function AddressModal({
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
                 placeholder="e.g. 402, Sunshine Towers, M.G. Road, Near Metro Station"
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100 resize-none"
+                className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100 resize-none"
               />
             </div>
           </div>
@@ -210,7 +210,7 @@ export default function AddressModal({
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="e.g. Mumbai"
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 p-3 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 p-3 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
               />
             </div>
 
@@ -223,7 +223,7 @@ export default function AddressModal({
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 placeholder="e.g. Maharashtra"
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 p-3 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 p-3 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
               />
             </div>
           </div>
@@ -239,7 +239,7 @@ export default function AddressModal({
                 value={postalCode}
                 onChange={(e) => setPostalCode(e.target.value)}
                 placeholder="e.g. 400001"
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 p-3 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 p-3 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
               />
             </div>
 
@@ -253,7 +253,7 @@ export default function AddressModal({
                   type="text"
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                  className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
                 />
               </div>
             </div>
@@ -271,29 +271,29 @@ export default function AddressModal({
               />
               <div className={`flex h-6 w-6 items-center justify-center rounded-lg border-2 transition ${
                 isDefault
-                  ? "bg-amber-900 border-amber-900 text-white"
+                  ? "bg-primary-900 border-primary-900 text-white"
                   : "border-slate-300 bg-white group-hover:border-slate-400"
               }`}>
                 {isDefault && <Check className="h-4 w-4 stroke-[3]" />}
               </div>
-              <span className="text-sm font-bold text-slate-800">
+              <span className="text-sm font-bold text-secondary-800">
                 Set as my default shipping address
               </span>
             </label>
           </div>
 
           {/* Footer Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-secondary-100">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full px-6 py-3 text-sm font-bold text-slate-500 hover:bg-slate-100 transition"
+              className="rounded-full px-6 py-3 text-sm font-bold text-slate-500 hover:bg-secondary-100 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-full bg-amber-900 px-8 py-3 text-sm font-black text-white hover:bg-amber-800 shadow-md shadow-amber-900/20 transition hover:-translate-y-0.5"
+              className="rounded-full bg-primary-900 px-8 py-3 text-sm font-black text-white hover:bg-primary-800 shadow-md shadow-primary-900/20 transition hover:-translate-y-0.5"
             >
               {editingAddress ? "Save Changes" : "Save Address"}
             </button>

@@ -25,8 +25,8 @@ export const CATEGORY_META: CategoryMeta[] = [
     label: "Best Sellers",
     icon: "TrendingUp",
     gradient: "from-amber-500 to-orange-600",
-    shadow: "shadow-amber-200",
-    bg: "bg-amber-50",
+    shadow: "shadow-primary-200",
+    bg: "bg-primary-50",
     badge: "🔥 Best Sellers",
   },
   {

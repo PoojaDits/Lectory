@@ -93,19 +93,19 @@ export default function SellerApprovalPage() {
     <div className="space-y-6 mt-[65px]">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
+          <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
             Admin · Sellers
           </p>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
             Seller Approval
           </h1>
-          <p className="mt-1 max-w-2xl text-sm text-slate-600">
+          <p className="mt-1 max-w-2xl text-sm text-secondary-600">
             Review seller registrations. Only <b>Approved</b> sellers can create
             listings and appear in the marketplace. Use{" "}
             <b>Login as</b> on approved sellers to debug their experience.
           </p>
         </div>
-        <div className="flex items-center gap-2 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-bold text-amber-900">
+        <div className="flex items-center gap-2 rounded-2xl border border-primary-200 bg-primary-50 px-4 py-2 text-sm font-bold text-primary-900">
           <ShieldCheck className="h-4 w-4" />
           {counts["Pending Approval"]} pending review
           {counts["Pending Approval"] === 1 ? "" : "s"}
@@ -113,8 +113,8 @@ export default function SellerApprovalPage() {
       </header>
 
       {isImpersonating && (
-        <div className="flex items-start gap-3 rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+        <div className="flex items-start gap-3 rounded-2xl border border-amber-300 bg-primary-50 px-4 py-3 text-sm text-primary-900">
+          <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-primary-600" />
           <p className="font-semibold">
             You are currently impersonating another user. Finish that session
             (use the yellow banner above) before starting a new one.
@@ -123,7 +123,7 @@ export default function SellerApprovalPage() {
       )}
 
       {/* ── Filter pills + search ── */}
-      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
         <div className="flex flex-wrap gap-1">
           {FILTERS.map((f) => {
             const count =
@@ -137,8 +137,8 @@ export default function SellerApprovalPage() {
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
-                    ? "bg-amber-900 text-white shadow-sm"
-                    : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                    ? "bg-primary-900 text-white shadow-sm"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
                 )}
               >
                 {f.label}
@@ -147,7 +147,7 @@ export default function SellerApprovalPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-slate-100 text-slate-600"
+                      : "bg-secondary-100 text-secondary-600"
                   )}
                 >
                   {count}
@@ -167,14 +167,14 @@ export default function SellerApprovalPage() {
               setPage(1);
             }}
             placeholder="Search by business, contact, email, or mobile…"
-            className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+            className="w-full rounded-full border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
           />
         </div>
       </div>
 
       {/* ── Results table ── */}
-      <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-4 border-b border-slate-200 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
+      <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
+        <div className="grid grid-cols-12 gap-4 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
           <div className="col-span-4">Business</div>
           <div className="col-span-3">Contact</div>
           <div className="col-span-2">Status</div>
@@ -189,7 +189,7 @@ export default function SellerApprovalPage() {
             No sellers match the current filters.
           </div>
         ) : (
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-secondary-100">
             {pageItems.map((s) => (
               <SellerRow
                 key={String(s.id)}
@@ -255,15 +255,15 @@ function SellerRow({
   const canImpersonate = isApproved && !impersonateDisabled;
 
   return (
-    <li className="px-5 py-4 text-sm transition hover:bg-amber-50/40">
+    <li className="px-5 py-4 text-sm transition hover:bg-primary-50/40">
       <div className="grid grid-cols-12 items-center gap-4">
         <div className="col-span-4 min-w-0">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-100 text-primary-800">
               <Store className="h-5 w-5" />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-sm font-extrabold text-slate-900">
+              <p className="truncate text-sm font-extrabold text-secondary-900">
                 {seller.businessName}
               </p>
               <p className="truncate text-xs text-slate-500">
@@ -274,7 +274,7 @@ function SellerRow({
         </div>
 
         <div className="col-span-3 min-w-0">
-          <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
+          <div className="flex items-center gap-2 text-sm font-bold text-secondary-900">
             <UserCircle className="h-4 w-4 shrink-0 text-slate-400" />
             <span className="truncate">{seller.contactPerson}</span>
           </div>
@@ -375,7 +375,7 @@ function SellerRow({
             <button
               type="button"
               onClick={onCancelConfirm}
-              className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50"
+              className="rounded-full border border-secondary-200 bg-white px-3 py-1.5 text-xs font-bold text-secondary-700 transition hover:bg-secondary-50"
             >
               Cancel
             </button>
@@ -411,7 +411,7 @@ function ActionBtn({
     emerald:
       "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100",
     rose: "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100",
-    slate: "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100",
+    slate: "border-secondary-200 bg-secondary-50 text-secondary-700 hover:bg-secondary-100",
     indigo:
       "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100",
   } as const;
@@ -433,7 +433,7 @@ function ActionBtn({
 
 function SkeletonRows() {
   return (
-    <div className="divide-y divide-slate-100">
+    <div className="divide-y divide-secondary-100">
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
@@ -441,25 +441,25 @@ function SkeletonRows() {
           aria-hidden="true"
         >
           <div className="col-span-4 flex items-center gap-3">
-            <div className="h-10 w-10 animate-pulse rounded-xl bg-slate-200" />
+            <div className="h-10 w-10 animate-pulse rounded-xl bg-secondary-200" />
             <div className="flex-1 space-y-2">
-              <div className="h-3 w-2/3 animate-pulse rounded bg-slate-200" />
-              <div className="h-2 w-1/3 animate-pulse rounded bg-slate-200" />
+              <div className="h-3 w-2/3 animate-pulse rounded bg-secondary-200" />
+              <div className="h-2 w-1/3 animate-pulse rounded bg-secondary-200" />
             </div>
           </div>
           <div className="col-span-3 space-y-2">
-            <div className="h-3 w-3/4 animate-pulse rounded bg-slate-200" />
-            <div className="h-2 w-2/3 animate-pulse rounded bg-slate-200" />
+            <div className="h-3 w-3/4 animate-pulse rounded bg-secondary-200" />
+            <div className="h-2 w-2/3 animate-pulse rounded bg-secondary-200" />
           </div>
           <div className="col-span-2">
-            <div className="h-6 w-24 animate-pulse rounded-full bg-slate-200" />
+            <div className="h-6 w-24 animate-pulse rounded-full bg-secondary-200" />
           </div>
           <div className="col-span-1">
-            <div className="h-3 w-20 animate-pulse rounded bg-slate-200" />
+            <div className="h-3 w-20 animate-pulse rounded bg-secondary-200" />
           </div>
           <div className="col-span-2 flex justify-end gap-2">
-            <div className="h-7 w-20 animate-pulse rounded-full bg-slate-200" />
-            <div className="h-7 w-16 animate-pulse rounded-full bg-slate-200" />
+            <div className="h-7 w-20 animate-pulse rounded-full bg-secondary-200" />
+            <div className="h-7 w-16 animate-pulse rounded-full bg-secondary-200" />
           </div>
         </div>
       ))}

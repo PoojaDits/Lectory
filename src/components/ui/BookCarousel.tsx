@@ -43,8 +43,8 @@ export default function BookCarousel({ books, className }: BookCarouselProps) {
       </CarouselContent>
 
       {/* shadcn/ui arrows - styled to match your aesthetic */}
-      <CarouselPrevious className="hidden md:flex -left-3 md:-left-5 bg-white/95 backdrop-blur border-amber-200 hover:bg-amber-50 hover:text-amber-700" />
-      <CarouselNext className="hidden md:flex -right-3 md:-right-5 bg-white/95 backdrop-blur border-amber-200 hover:bg-amber-50 hover:text-amber-700" />
+      <CarouselPrevious className="hidden md:flex -left-3 md:-left-5 bg-white/95 backdrop-blur border-primary-200 hover:bg-primary-50 hover:text-primary-700" />
+      <CarouselNext className="hidden md:flex -right-3 md:-right-5 bg-white/95 backdrop-blur border-primary-200 hover:bg-primary-50 hover:text-primary-700" />
     </Carousel>
   )
 }

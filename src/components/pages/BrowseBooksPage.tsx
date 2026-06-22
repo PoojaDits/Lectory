@@ -118,14 +118,14 @@ export default function BrowseBooksPage({
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 px-4 pb-20 pt-24 relative overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24 relative overflow-hidden">
       {/* Decorative BG Blobs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-200/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-200/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-200/30 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
       <div className="relative mx-auto max-w-[1600px] lg:flex lg:items-stretch lg:gap-8 z-10">
         <aside className="hidden w-72 flex-shrink-0 self-stretch lg:block">
-          <div className="sticky top-24 h-fit rounded-2xl border border-amber-100 bg-white p-6 shadow-sm">
+          <div className="sticky top-24 h-fit rounded-2xl border border-primary-100 bg-white p-6 shadow-sm">
             <HomeSidebar />
           </div>
         </aside>
@@ -138,15 +138,15 @@ export default function BrowseBooksPage({
                 <button
                   type="button"
                   onClick={onNavigateHome}
-                  className="mb-4 inline-flex items-center gap-2 text-sm font-bold text-amber-900 transition hover:text-amber-700"
+                  className="mb-4 inline-flex items-center gap-2 text-sm font-bold text-primary-900 transition hover:text-primary-700"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   Back to Home
                 </button>
-                <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+                <h1 className="text-3xl font-black tracking-tight text-secondary-900 sm:text-4xl">
                   Browse All Books
                 </h1>
-                <p className="mt-2 text-slate-600">
+                <p className="mt-2 text-secondary-600">
                   Discover your next great read from our entire collection.
                 </p>
               </div>
@@ -158,7 +158,7 @@ export default function BrowseBooksPage({
                   placeholder="Search books or authors..."
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+                  className="w-full rounded-2xl border border-secondary-200 bg-white py-3 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
                 />
               </div>
             </div>
@@ -169,7 +169,7 @@ export default function BrowseBooksPage({
                 <button
                   type="button"
                   onClick={openFilterDrawer}
-                  className="mr-1 lg:hidden inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-amber-700 bg-amber-100 hover:bg-amber-200 px-3 py-1.5 rounded-full transition-colors"
+                  className="mr-1 lg:hidden inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-primary-700 bg-primary-100 hover:bg-primary-200 px-3 py-1.5 rounded-full transition-colors"
                 >
                   <Filter className="h-3.5 w-3.5" />
                   Filters
@@ -185,15 +185,15 @@ export default function BrowseBooksPage({
                     onClick={handleClearAll}
                     className={`rounded-full px-4 py-2 text-sm font-bold transition ${
                       !activeCategory && languages.length === 0
-                        ? "bg-amber-900 text-white shadow-sm"
-                        : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
+                        ? "bg-primary-900 text-white shadow-sm"
+                        : "border border-secondary-200 bg-white text-secondary-600 hover:bg-primary-50"
                     }`}
                   >
                     All Books
                   </button>
 
                   {/* Categories */}
-                  <div className="flex flex-wrap gap-2 border-l border-slate-200 pl-2">
+                  <div className="flex flex-wrap gap-2 border-l border-secondary-200 pl-2">
                     {CATEGORY_META.map((cat) => (
                       <button
                         key={cat.tag}
@@ -201,8 +201,8 @@ export default function BrowseBooksPage({
                         onClick={() => setCategory(cat.tag)}
                         className={`rounded-full px-4 py-2 text-sm font-bold transition ${
                           activeCategory === cat.tag
-                            ? "bg-amber-900 text-white shadow-sm"
-                            : "border border-slate-200 bg-white text-slate-600 hover:bg-amber-50"
+                            ? "bg-primary-900 text-white shadow-sm"
+                            : "border border-secondary-200 bg-white text-secondary-600 hover:bg-primary-50"
                         }`}
                       >
                         {cat.label}
@@ -217,11 +217,11 @@ export default function BrowseBooksPage({
 
             {/* Active category banner */}
             {(activeCategory || languages.length > 0) && !isLoading && (
-              <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3">
+              <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-4 py-3">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-bold text-amber-900">Showing:</span>
+                  <span className="text-sm font-bold text-primary-900">Showing:</span>
                   {activeCategory && (
-                    <span className="inline-flex items-center gap-1 rounded-lg bg-amber-100 px-2 py-1 text-xs font-bold text-amber-800">
+                    <span className="inline-flex items-center gap-1 rounded-lg bg-primary-100 px-2 py-1 text-xs font-bold text-primary-800">
                       {CATEGORY_META.find((c) => c.tag === activeCategory)?.label ?? activeCategory}
                     </span>
                   )}
@@ -230,14 +230,14 @@ export default function BrowseBooksPage({
                       {l}
                     </span>
                   ))}
-                  <span className="ml-2 font-medium text-amber-600">
+                  <span className="ml-2 font-medium text-primary-600">
                     ({filteredBooks.length} books)
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={handleClearAll}
-                  className="ml-auto inline-flex items-center gap-1 rounded-full bg-amber-900 px-3 py-1 text-xs font-bold text-white transition hover:bg-amber-800"
+                  className="ml-auto inline-flex items-center gap-1 rounded-full bg-primary-900 px-3 py-1 text-xs font-bold text-white transition hover:bg-primary-800"
                 >
                   <X className="h-3 w-3" />
                   Clear all filters
@@ -254,12 +254,12 @@ export default function BrowseBooksPage({
             {isLoading ? (
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:gap-6">
                 {Array.from({ length: PAGE_SIZE || 8 }).map((_, i) => (
-                  <div key={i} className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
-                    <div className="h-48 w-full animate-pulse bg-slate-200" />
+                  <div key={i} className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-secondary-100 bg-white shadow-sm">
+                    <div className="h-48 w-full animate-pulse bg-secondary-200" />
                     <div className="space-y-2 p-4">
-                      <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200" />
-                      <div className="h-3 w-1/2 animate-pulse rounded bg-slate-100" />
-                      <div className="h-5 w-1/3 animate-pulse rounded bg-slate-200" />
+                      <div className="h-4 w-3/4 animate-pulse rounded bg-secondary-200" />
+                      <div className="h-3 w-1/2 animate-pulse rounded bg-secondary-100" />
+                      <div className="h-5 w-1/3 animate-pulse rounded bg-secondary-200" />
                     </div>
                   </div>
                 ))}
@@ -269,15 +269,15 @@ export default function BrowseBooksPage({
                 <div className="rounded-full bg-red-50 p-6">
                   <BookOpen className="h-10 w-10 text-red-400" />
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-slate-900">Couldn't load books</h3>
+                <h3 className="mt-4 text-lg font-bold text-secondary-900">Couldn't load books</h3>
                 <p className="mt-2 text-slate-500">Please check your connection and try again.</p>
               </div>
             ) : filteredBooks.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
-                <div className="rounded-full bg-slate-100 p-6">
+                <div className="rounded-full bg-secondary-100 p-6">
                   <BookOpen className="h-10 w-10 text-slate-400" />
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-slate-900">No books found</h3>
+                <h3 className="mt-4 text-lg font-bold text-secondary-900">No books found</h3>
                 <p className="mt-2 text-slate-500">Try adjusting your filters or search terms.</p>
               </div>
             ) : (
@@ -287,9 +287,9 @@ export default function BrowseBooksPage({
                     <Link
                       key={String(book.id)}
                       to={`/books/${book.id}`}
-                      className="group relative mx-auto flex h-full w-full max-w-[220px] flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:shadow-md"
+                      className="group relative mx-auto flex h-full w-full max-w-[220px] flex-col overflow-hidden rounded-2xl border border-secondary-100 bg-white shadow-sm transition hover:shadow-md"
                     >
-                      <div className="relative h-48 w-full overflow-hidden bg-slate-50 p-3">
+                      <div className="relative h-48 w-full overflow-hidden bg-secondary-50 p-3">
                         {book.coverImage ? (
                           <div className="relative h-full w-full">
                             <LazyImage
@@ -307,13 +307,13 @@ export default function BrowseBooksPage({
                           </div>
                         )}
                         {book.sellerCount > 0 && (
-                          <span className="absolute left-2 top-2 z-10 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold text-amber-800 shadow-sm">
+                          <span className="absolute left-2 top-2 z-10 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold text-primary-800 shadow-sm">
                             <Users className="h-3 w-3" />
                             {book.sellerCount}
                           </span>
                         )}
                         {!book.inStock ? (
-                          <span className="absolute right-2 top-2 z-10 rounded-full bg-slate-700 px-2 py-1 text-[10px] font-bold text-white shadow-sm">
+                          <span className="absolute right-2 top-2 z-10 rounded-full bg-secondary-700 px-2 py-1 text-[10px] font-bold text-white shadow-sm">
                             Out of stock
                           </span>
                         ) : (
@@ -325,13 +325,13 @@ export default function BrowseBooksPage({
                         )}
                       </div>
                       <div className="flex flex-1 flex-col p-4">
-                        <h3 className="line-clamp-2 text-sm font-bold text-slate-900 group-hover:text-amber-700">
+                        <h3 className="line-clamp-2 text-sm font-bold text-secondary-900 group-hover:text-primary-700">
                           {book.title}
                         </h3>
                         <p className="mt-1 line-clamp-1 text-xs text-slate-500">{book.author}</p>
                         <div className="mt-auto pt-3">
                           {book.inStock && book.bestPrice != null ? (
-                            <span className="text-lg font-black text-slate-900">
+                            <span className="text-lg font-black text-secondary-900">
                               From {formatCurrency(book.bestPrice)}
                             </span>
                           ) : (
@@ -351,7 +351,7 @@ export default function BrowseBooksPage({
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                       disabled={currentPage === 1}
-                      className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-600 shadow-sm transition hover:bg-slate-50 disabled:opacity-50"
+                      className="rounded-xl border border-secondary-200 bg-white px-4 py-2.5 text-sm font-bold text-secondary-600 shadow-sm transition hover:bg-secondary-50 disabled:opacity-50"
                     >
                       Previous
                     </button>
@@ -364,8 +364,8 @@ export default function BrowseBooksPage({
                         }}
                         className={`flex h-10 w-10 items-center justify-center rounded-xl border text-sm font-bold shadow-sm transition-colors ${
                           currentPage === i + 1
-                            ? "border-amber-600 bg-amber-600 text-white"
-                            : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                            ? "border-primary-600 bg-primary-600 text-white"
+                            : "border-secondary-200 bg-white text-secondary-600 hover:bg-secondary-50"
                         }`}
                       >
                         {i + 1}
@@ -377,7 +377,7 @@ export default function BrowseBooksPage({
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                       disabled={currentPage === totalPages}
-                      className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-600 shadow-sm transition hover:bg-slate-50 disabled:opacity-50"
+                      className="rounded-xl border border-secondary-200 bg-white px-4 py-2.5 text-sm font-bold text-secondary-600 shadow-sm transition hover:bg-secondary-50 disabled:opacity-50"
                     >
                       Next
                     </button>

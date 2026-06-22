@@ -13,7 +13,7 @@ export const fallbackHeroSlides: HeroSlide[] = [
     title: "Discover Your Next\nGreat Adventure",
     subtitle: "Explore thousands of titles across every genre — from thrilling mysteries to heartfelt romances.",
     cta: "Browse Collection",
-    accent: "from-amber-900/80 via-amber-900/50 to-transparent",
+    accent: "from-primary-900/80 via-primary-900/50 to-transparent",
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ export const fallbackHeroSlides: HeroSlide[] = [
     title: "New Arrivals\nEvery Week",
     subtitle: "Stay ahead of the curve with fresh releases and exclusive pre-orders delivered to your door.",
     cta: "Shop New Arrivals",
-    accent: "from-slate-900/80 via-slate-900/50 to-transparent",
+    accent: "from-secondary-900/80 via-secondary-900/50 to-transparent",
   },
   {
     id: 4,
@@ -52,7 +52,7 @@ export const fallbackHeroSlides: HeroSlide[] = [
 export const fallbackCategories: Category[] = [
   { id: 1, name: "Fiction", count: "2,340+", icon: "BookOpen", gradient: "from-blue-500 to-indigo-600", shadow: "shadow-blue-200", bg: "bg-blue-50" },
   { id: 2, name: "Romance", count: "1,820+", icon: "Heart", gradient: "from-rose-500 to-pink-600", shadow: "shadow-rose-200", bg: "bg-rose-50" },
-  { id: 3, name: "Self-Help", count: "980+", icon: "Lightbulb", gradient: "from-amber-500 to-orange-600", shadow: "shadow-amber-200", bg: "bg-amber-50" },
+  { id: 3, name: "Self-Help", count: "980+", icon: "Lightbulb", gradient: "from-amber-500 to-orange-600", shadow: "shadow-primary-200", bg: "bg-primary-50" },
   { id: 4, name: "Academic", count: "3,100+", icon: "GraduationCap", gradient: "from-emerald-500 to-teal-600", shadow: "shadow-emerald-200", bg: "bg-emerald-50" },
   { id: 5, name: "Sci-Fi", count: "1,540+", icon: "Rocket", gradient: "from-violet-500 to-purple-600", shadow: "shadow-violet-200", bg: "bg-violet-50" },
   { id: 6, name: "Art & Design", count: "760+", icon: "Palette", gradient: "from-cyan-500 to-sky-600", shadow: "shadow-cyan-200", bg: "bg-cyan-50" },
@@ -73,7 +73,7 @@ export const fallbackPreOrderBooks: Book[] = [
   { id: 101, title: "Metro 2035", author: "Dmitry Glukhovsky", price: 559, originalPrice: 699, image: "https://images.pexels.com/photos/302640/pexels-photo-302640.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-cyan-100 text-cyan-800" },
   { id: 102, title: "The Housemaid's Wedding", author: "Freida McFadden", price: 239, originalPrice: 299, image: "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-rose-100 text-rose-800" },
   { id: 103, title: "A Deal With The Elf King", author: "Elise Kova", price: 720, originalPrice: 899, image: "https://images.pexels.com/photos/3747416/pexels-photo-3747416.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-emerald-100 text-emerald-800" },
-  { id: 104, title: "Kid Detectives: Skyscraper", author: "Adam Bushnell", price: 399, originalPrice: 599, image: "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-amber-100 text-amber-800" },
+  { id: 104, title: "Kid Detectives: Skyscraper", author: "Adam Bushnell", price: 399, originalPrice: 599, image: "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-primary-100 text-primary-800" },
   { id: 105, title: "The Women", author: "Kristin Hannah", price: 449, originalPrice: 599, image: "https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-pink-100 text-pink-800" },
   { id: 106, title: "The Frozen River", author: "Ariel Lawhon", price: 399, originalPrice: 549, image: "https://images.pexels.com/photos/29458840/pexels-photo-29458840.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-blue-100 text-blue-800" },
   { id: 107, title: "The Hunter", author: "Tana French", price: 519, originalPrice: 699, image: "https://images.pexels.com/photos/327482/pexels-photo-327482.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Pre-Order", badgeColor: "bg-teal-100 text-teal-800" },
@@ -81,24 +81,24 @@ export const fallbackPreOrderBooks: Book[] = [
 ];
 
 export const fallbackBestSellers: Book[] = [
-  { id: 201, title: "The Midnight Library", author: "Matt Haig", price: 399, originalPrice: 599, image: "https://images.pexels.com/photos/29458840/pexels-photo-29458840.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-amber-100 text-amber-800" },
+  { id: 201, title: "The Midnight Library", author: "Matt Haig", price: 399, originalPrice: 599, image: "https://images.pexels.com/photos/29458840/pexels-photo-29458840.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-primary-100 text-primary-800" },
   { id: 202, title: "Atomic Habits", author: "James Clear", price: 479, originalPrice: 799, image: "https://images.pexels.com/photos/33324725/pexels-photo-33324725.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-red-100 text-red-800" },
   { id: 203, title: "Sapiens", author: "Yuval Noah Harari", price: 499, originalPrice: 799, image: "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-indigo-100 text-indigo-800" },
   { id: 204, title: "Where the Crawdads Sing", author: "Delia Owens", price: 359, originalPrice: 559, image: "https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-emerald-100 text-emerald-800" },
-  { id: 205, title: "The Silent Patient", author: "Alex Michaelides", price: 299, originalPrice: 449, image: "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-slate-100 text-slate-800" },
+  { id: 205, title: "The Silent Patient", author: "Alex Michaelides", price: 299, originalPrice: 449, image: "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-secondary-100 text-secondary-800" },
   { id: 206, title: "Daisy Jones & The Six", author: "Taylor Jenkins Reid", price: 319, originalPrice: 499, image: "https://images.pexels.com/photos/3756476/pexels-photo-3756476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Popular", badgeColor: "bg-purple-100 text-purple-800" },
   { id: 207, title: "The Seven Husbands of Evelyn Hugo", author: "Taylor Jenkins Reid", price: 329, originalPrice: 499, image: "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-pink-100 text-pink-800" },
   { id: 208, title: "Project Hail Mary", author: "Andy Weir", price: 429, originalPrice: 699, image: "https://images.pexels.com/photos/327482/pexels-photo-327482.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-teal-100 text-teal-800" },
   { id: 209, title: "Klara and the Sun", author: "Kazuo Ishiguro", price: 399, originalPrice: 549, image: "https://images.pexels.com/photos/3756476/pexels-photo-3756476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Popular", badgeColor: "bg-violet-100 text-violet-800" },
-  { id: 210, title: "Educated", author: "Tara Westover", price: 379, originalPrice: 599, image: "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-amber-100 text-amber-800" },
+  { id: 210, title: "Educated", author: "Tara Westover", price: 379, originalPrice: 599, image: "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Best Seller", badgeColor: "bg-primary-100 text-primary-800" },
 ];
 
 export const fallbackRecommendedBooks: Book[] = [
   { id: 301, title: "A Little Life", author: "Hanya Yanagihara", price: 349, originalPrice: 499, image: "https://images.pexels.com/photos/261909/pexels-photo-261909.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-violet-100 text-violet-800", rating: 4.9 },
   { id: 302, title: "Project Hail Mary", author: "Andy Weir", price: 429, originalPrice: 699, image: "https://images.pexels.com/photos/327482/pexels-photo-327482.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-teal-100 text-teal-800", rating: 4.7 },
-  { id: 303, title: "The Alchemist", author: "Paulo Coelho", price: 249, originalPrice: 399, image: "https://images.pexels.com/photos/897633/pexels-photo-897633.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-amber-100 text-amber-800", rating: 4.8 },
+  { id: 303, title: "The Alchemist", author: "Paulo Coelho", price: 249, originalPrice: 399, image: "https://images.pexels.com/photos/897633/pexels-photo-897633.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-primary-100 text-primary-800", rating: 4.8 },
   { id: 304, title: "Klara and the Sun", author: "Kazuo Ishiguro", price: 399, originalPrice: 549, image: "https://images.pexels.com/photos/3756476/pexels-photo-3756476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-rose-100 text-rose-800", rating: 4.6 },
-  { id: 305, title: "The Silent Patient", author: "Alex Michaelides", price: 299, originalPrice: 449, image: "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-slate-100 text-slate-800", rating: 4.5 },
+  { id: 305, title: "The Silent Patient", author: "Alex Michaelides", price: 299, originalPrice: 449, image: "https://images.pexels.com/photos/159711/book-pages-open-pages-159711.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-secondary-100 text-secondary-800", rating: 4.5 },
   { id: 306, title: "Daisy Jones & The Six", author: "Taylor Jenkins Reid", price: 319, originalPrice: 499, image: "https://images.pexels.com/photos/3756476/pexels-photo-3756476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Staff Pick", badgeColor: "bg-purple-100 text-purple-800", rating: 4.8 },
   { id: 307, title: "The Seven Husbands of Evelyn Hugo", author: "Taylor Jenkins Reid", price: 329, originalPrice: 499, image: "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Recommended", badgeColor: "bg-pink-100 text-pink-800", rating: 4.9 },
   { id: 308, title: "Where the Crawdads Sing", author: "Delia Owens", price: 359, originalPrice: 559, image: "https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "Reader Favorite", badgeColor: "bg-emerald-100 text-emerald-800", rating: 4.7 },
@@ -119,11 +119,11 @@ export const fallbackMangaBooks: Book[] = [
 ];
 
 export const fallbackAiBooks: Book[] = [
-  { id: 501, title: "Artificial Intelligence: A Modern Approach", author: "Stuart Russell", price: 899, originalPrice: 1099, image: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-slate-100 text-slate-800", rating: 4.9 },
+  { id: 501, title: "Artificial Intelligence: A Modern Approach", author: "Stuart Russell", price: 899, originalPrice: 1099, image: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-secondary-100 text-secondary-800", rating: 4.9 },
   { id: 502, title: "Deep Learning", author: "Ian Goodfellow", price: 799, originalPrice: 999, image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-cyan-100 text-cyan-800", rating: 4.8 },
   { id: 503, title: "Machine Learning Yearning", author: "Andrew Ng", price: 499, originalPrice: 599, image: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-green-100 text-green-800", rating: 4.7 },
   { id: 504, title: "AI Superpowers", author: "Kai-Fu Lee", price: 549, originalPrice: 699, image: "https://images.pexels.com/photos/3861963/pexels-photo-3861963.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-indigo-100 text-indigo-800", rating: 4.5 },
-  { id: 505, title: "The Alignment Problem", author: "Brian Christian", price: 649, originalPrice: 899, image: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-amber-100 text-amber-800", rating: 4.6 },
+  { id: 505, title: "The Alignment Problem", author: "Brian Christian", price: 649, originalPrice: 899, image: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-primary-100 text-primary-800", rating: 4.6 },
   { id: 506, title: "Human Compatible", author: "Stuart Russell", price: 729, originalPrice: 999, image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-teal-100 text-teal-800", rating: 4.8 },
   { id: 507, title: "Life 3.0", author: "Max Tegmark", price: 499, originalPrice: 699, image: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-violet-100 text-violet-800", rating: 4.4 },
   { id: 508, title: "The Coming Wave", author: "Mustafa Suleyman", price: 599, originalPrice: 799, image: "https://images.pexels.com/photos/3861963/pexels-photo-3861963.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=340", badge: "AI", badgeColor: "bg-red-100 text-red-800", rating: 4.7 },

@@ -26,11 +26,11 @@ export default function FormField({
   rows,
 }: FormFieldProps) {
   const baseClass =
-    "mt-2 w-full rounded-2xl border border-amber-100 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100";
+    "mt-2 w-full rounded-2xl border border-primary-100 bg-white px-4 py-3 text-secondary-900 outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100";
 
   return (
     <label className="block">
-      <span className="text-sm font-semibold text-slate-700">{label}</span>
+      <span className="text-sm font-semibold text-secondary-700">{label}</span>
       <Field
         as={as}
         name={name}

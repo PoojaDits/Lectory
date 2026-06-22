@@ -42,8 +42,8 @@ export default function CustomerSettingsTab({
   return (
     <div className="space-y-8 animate-in fade-in duration-300 max-w-4xl mx-auto">
       {/* Header */}
-      <div className="border-b border-slate-100 pb-6">
-        <h1 className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+      <div className="border-b border-secondary-100 pb-6">
+        <h1 className="text-2xl font-black tracking-tight text-secondary-900 sm:text-3xl">
           Account Settings
         </h1>
         <p className="mt-1 text-sm text-slate-500">
@@ -52,7 +52,7 @@ export default function CustomerSettingsTab({
       </div>
 
       {/* Form Card */}
-      <div className="rounded-[2.5rem] border border-slate-200/80 bg-white p-8 sm:p-12 shadow-sm">
+      <div className="rounded-[2.5rem] border border-secondary-200/80 bg-white p-8 sm:p-12 shadow-sm">
         <form onSubmit={handleSubmit} className="space-y-8">
           {successMsg && (
             <div className="rounded-2xl bg-emerald-50 p-4 text-sm font-black text-emerald-800 border border-emerald-200 flex items-center gap-2 animate-in fade-in">
@@ -60,7 +60,7 @@ export default function CustomerSettingsTab({
             </div>
           )}
           {/* Personal Information */}
-          <div className="grid gap-6 sm:grid-cols-2 pt-4 border-t border-slate-100">
+          <div className="grid gap-6 sm:grid-cols-2 pt-4 border-t border-secondary-100">
             <div>
               <label className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-2">
                 First Name
@@ -72,7 +72,7 @@ export default function CustomerSettingsTab({
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   required
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                  className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
                 />
               </div>
             </div>
@@ -88,14 +88,14 @@ export default function CustomerSettingsTab({
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   required
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                  className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
                 />
               </div>
             </div>
           </div>
 
           {/* Contact Information */}
-          <div className="grid gap-6 sm:grid-cols-2 pt-4 border-t border-slate-100">
+          <div className="grid gap-6 sm:grid-cols-2 pt-4 border-t border-secondary-100">
             <div>
               <label className="block text-xs font-black uppercase tracking-wider text-slate-400 mb-2">
                 Email Address (Login ID)
@@ -106,7 +106,7 @@ export default function CustomerSettingsTab({
                   type="email"
                   value={customer.email}
                   disabled
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-100/80 py-3 pl-10 pr-4 text-sm font-medium text-slate-500 cursor-not-allowed select-none"
+                  className="w-full rounded-2xl border border-secondary-200 bg-secondary-100/80 py-3 pl-10 pr-4 text-sm font-medium text-slate-500 cursor-not-allowed select-none"
                 />
               </div>
               <span className="text-[11px] text-slate-400 mt-1 block">
@@ -125,7 +125,7 @@ export default function CustomerSettingsTab({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="e.g. +91 98765 43210"
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-amber-700 focus:bg-white focus:ring-4 focus:ring-amber-100"
+                  className="w-full rounded-2xl border border-secondary-200 bg-secondary-50/50 py-3 pl-10 pr-4 text-sm font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
                 />
               </div>
             </div>
@@ -136,7 +136,7 @@ export default function CustomerSettingsTab({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-amber-900 px-10 py-4 text-base font-black text-white hover:bg-amber-800 shadow-xl shadow-amber-900/20 transition hover:-translate-y-0.5 disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary-900 px-10 py-4 text-base font-black text-white hover:bg-primary-800 shadow-xl shadow-primary-900/20 transition hover:-translate-y-0.5 disabled:opacity-50"
             >
               <Save className="h-5 w-5" />
               {isSubmitting ? "Saving Preferences..." : "Save Profile Preferences"}

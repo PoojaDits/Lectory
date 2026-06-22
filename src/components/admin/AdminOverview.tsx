@@ -37,7 +37,7 @@ export default function AdminOverview() {
 
   const { start: startImpersonation, isImpersonating } = useImpersonation();
 
-  // ── Derived data ──
+  //Derived data 
   const pendingSellers = useMemo(
     () => sellers.filter((s) => s.status === "Pending Approval"),
     [sellers]
@@ -77,7 +77,7 @@ export default function AdminOverview() {
     [books]
   );
 
-  // Approved sellers only — non-approved can't access the seller area anyway.
+  // Approved sellers only 
   const approvedSellers = useMemo(
     () => sellers.filter((s) => s.status === "Approved"),
     [sellers]
@@ -106,16 +106,16 @@ export default function AdminOverview() {
 
   return (
     <div className="space-y-8 mt-[65px]">
-      {/* ── Header ── */}
+      {/*Header */}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-amber-700">
+          <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
             Admin Portal
           </p>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
             Marketplace Dashboard
           </h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-secondary-600">
             Overview of sellers, customers, books, and order activity across
             the marketplace.
           </p>
@@ -188,10 +188,10 @@ export default function AdminOverview() {
           {pendingSellers.slice(0, 3).map((s: Seller) => (
             <li
               key={String(s.id)}
-              className="flex items-center justify-between gap-4 rounded-xl border border-slate-100 bg-white px-4 py-3"
+              className="flex items-center justify-between gap-4 rounded-xl border border-secondary-100 bg-white px-4 py-3"
             >
               <div className="min-w-0">
-                <p className="truncate text-sm font-bold text-slate-900">
+                <p className="truncate text-sm font-bold text-secondary-900">
                   {s.businessName}
                 </p>
                 <p className="truncate text-xs text-slate-500">
@@ -219,10 +219,10 @@ export default function AdminOverview() {
           {pendingBooks.slice(0, 3).map((b: MarketBook) => (
             <li
               key={String(b.id)}
-              className="flex items-center justify-between gap-4 rounded-xl border border-slate-100 bg-white px-4 py-3"
+              className="flex items-center justify-between gap-4 rounded-xl border border-secondary-100 bg-white px-4 py-3"
             >
               <div className="min-w-0">
-                <p className="truncate text-sm font-bold text-slate-900">
+                <p className="truncate text-sm font-bold text-secondary-900">
                   {b.title}
                 </p>
                 <p className="truncate text-xs text-slate-500">
@@ -253,12 +253,12 @@ export default function AdminOverview() {
       {/* ── Order pipeline ── */}
       <section
         aria-label="Order pipeline"
-        className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+        className="rounded-2xl border border-secondary-200 bg-white p-6 shadow-sm"
       >
         <header className="mb-4 flex items-center justify-between">
           <div>
-            <h2 className="flex items-center gap-2 text-lg font-extrabold text-slate-900">
-              <ClipboardList className="h-5 w-5 text-amber-700" />
+            <h2 className="flex items-center gap-2 text-lg font-extrabold text-secondary-900">
+              <ClipboardList className="h-5 w-5 text-primary-700" />
               Order pipeline
             </h2>
             <p className="text-sm text-slate-500">
@@ -267,7 +267,7 @@ export default function AdminOverview() {
           </div>
           <Link
             to="/admin/orders"
-            className="hidden items-center gap-1 text-sm font-bold text-amber-800 hover:text-amber-900 sm:inline-flex"
+            className="hidden items-center gap-1 text-sm font-bold text-primary-800 hover:text-primary-900 sm:inline-flex"
           >
             View all orders <ArrowRight className="h-4 w-4" />
           </Link>
@@ -359,15 +359,15 @@ function ImpersonationPanel({
   return (
     <section
       aria-label="Quick impersonation"
-      className="rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-amber-50 p-6 shadow-sm"
+      className="rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-primary-50 p-6 shadow-sm"
     >
       <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="flex items-center gap-2 text-lg font-extrabold text-slate-900">
+          <h2 className="flex items-center gap-2 text-lg font-extrabold text-secondary-900">
             <LogIn className="h-5 w-5 text-indigo-700" />
             Login as a user
           </h2>
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-secondary-600">
             Jump into any approved seller or customer account to debug what
             they see in the marketplace. Use the yellow banner to exit.
           </p>
@@ -376,7 +376,7 @@ function ImpersonationPanel({
           className={cn(
             "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold",
             isImpersonating
-              ? "bg-amber-100 text-amber-900"
+              ? "bg-primary-100 text-primary-900"
               : "bg-indigo-100 text-indigo-800"
           )}
         >
@@ -392,7 +392,7 @@ function ImpersonationPanel({
             Approved sellers ({approvedSellers.length})
           </p>
           {approvedSellers.length === 0 ? (
-            <p className="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-4 text-sm text-slate-500">
+            <p className="rounded-xl border border-dashed border-secondary-200 bg-white px-4 py-4 text-sm text-slate-500">
               No approved sellers yet.
             </p>
           ) : (
@@ -400,10 +400,10 @@ function ImpersonationPanel({
               {approvedSellers.slice(0, 4).map((s) => (
                 <li
                   key={String(s.id)}
-                  className="flex items-center justify-between gap-3 rounded-xl border border-amber-200 bg-white px-4 py-3"
+                  className="flex items-center justify-between gap-3 rounded-xl border border-primary-200 bg-white px-4 py-3"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-bold text-slate-900">
+                    <p className="truncate text-sm font-bold text-secondary-900">
                       {s.businessName}
                     </p>
                     <p className="truncate text-xs text-slate-500">
@@ -438,7 +438,7 @@ function ImpersonationPanel({
             Customers ({customers.length})
           </p>
           {customers.length === 0 ? (
-            <p className="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-4 text-sm text-slate-500">
+            <p className="rounded-xl border border-dashed border-secondary-200 bg-white px-4 py-4 text-sm text-slate-500">
               No customers yet.
             </p>
           ) : (
@@ -449,7 +449,7 @@ function ImpersonationPanel({
                   className="flex items-center justify-between gap-3 rounded-xl border border-indigo-200 bg-white px-4 py-3"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-bold text-slate-900">
+                    <p className="truncate text-sm font-bold text-secondary-900">
                       {c.firstName} {c.lastName}
                     </p>
                     <p className="truncate text-xs text-slate-500">
@@ -481,7 +481,7 @@ function ImpersonationPanel({
       </div>
 
       {isImpersonating && (
-        <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs font-bold text-amber-900">
+        <p className="mt-4 rounded-xl border border-primary-200 bg-primary-50 px-4 py-3 text-xs font-bold text-primary-900">
           Exit the current impersonation session from the banner above before
           logging in as someone else.
         </p>
@@ -514,7 +514,7 @@ function ActionCard({
   children,
 }: ActionCardProps) {
   const toneMap = {
-    amber: "bg-amber-100 text-amber-800",
+    amber: "bg-primary-100 text-primary-800",
     emerald: "bg-emerald-100 text-emerald-800",
     indigo: "bg-indigo-100 text-indigo-800",
     rose: "bg-rose-100 text-rose-800",
@@ -524,12 +524,12 @@ function ActionCard({
     <section
       className={cn(
         "rounded-2xl border p-6 shadow-sm",
-        empty ? "border-slate-200 bg-white" : "border-amber-200 bg-amber-50/40"
+        empty ? "border-secondary-200 bg-white" : "border-primary-200 bg-primary-50/40"
       )}
     >
       <header className="mb-4 flex items-start justify-between gap-4">
         <div>
-          <h2 className="flex items-center gap-2 text-lg font-extrabold text-slate-900">
+          <h2 className="flex items-center gap-2 text-lg font-extrabold text-secondary-900">
             <span
               className={cn(
                 "flex h-8 w-8 items-center justify-center rounded-lg",
@@ -540,18 +540,18 @@ function ActionCard({
             </span>
             {title}
           </h2>
-          <p className="text-sm text-slate-600">{subtitle}</p>
+          <p className="text-sm text-secondary-600">{subtitle}</p>
         </div>
         <Link
           to={to}
-          className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm transition hover:bg-slate-50"
+          className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-secondary-700 shadow-sm transition hover:bg-secondary-50"
         >
           Review <ArrowRight className="h-3 w-3" />
         </Link>
       </header>
 
       {empty ? (
-        <div className="flex items-center gap-3 rounded-xl border border-dashed border-slate-200 bg-white px-4 py-6 text-sm text-slate-500">
+        <div className="flex items-center gap-3 rounded-xl border border-dashed border-secondary-200 bg-white px-4 py-6 text-sm text-slate-500">
           <AlertCircle className="h-4 w-4 text-emerald-500" />
           {emptyLabel}
         </div>
@@ -572,13 +572,13 @@ function PipelineTile({
   icon: typeof Clock3;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-slate-700 shadow-sm">
+    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-secondary-50 px-4 py-3">
+      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-secondary-700 shadow-sm">
         <Icon className="h-5 w-5" />
       </div>
       <div className="min-w-0">
         <StatusBadge status={status as never} />
-        <p className="mt-1 text-2xl font-extrabold leading-none text-slate-900">
+        <p className="mt-1 text-2xl font-extrabold leading-none text-secondary-900">
           {count}
         </p>
       </div>
@@ -608,22 +608,22 @@ function RecentList({
   empty: string;
 }) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <section className="rounded-2xl border border-secondary-200 bg-white p-6 shadow-sm">
       <header className="mb-4 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-lg font-extrabold text-slate-900">
-          <Icon className="h-5 w-5 text-amber-700" />
+        <h2 className="flex items-center gap-2 text-lg font-extrabold text-secondary-900">
+          <Icon className="h-5 w-5 text-primary-700" />
           {title}
         </h2>
         <Link
           to={linkTo}
-          className="inline-flex items-center gap-1 text-sm font-bold text-amber-800 hover:text-amber-900"
+          className="inline-flex items-center gap-1 text-sm font-bold text-primary-800 hover:text-primary-900"
         >
           View all <ArrowRight className="h-4 w-4" />
         </Link>
       </header>
 
       {items.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+        <p className="rounded-xl border border-dashed border-secondary-200 bg-secondary-50 px-4 py-6 text-center text-sm text-slate-500">
           {empty}
         </p>
       ) : (
@@ -631,10 +631,10 @@ function RecentList({
           {items.map((it) => (
             <li
               key={it.id}
-              className="flex items-center justify-between gap-4 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3"
+              className="flex items-center justify-between gap-4 rounded-xl border border-secondary-100 bg-secondary-50 px-4 py-3"
             >
               <div className="min-w-0">
-                <p className="truncate text-sm font-bold text-slate-900">
+                <p className="truncate text-sm font-bold text-secondary-900">
                   {it.primary}
                 </p>
                 <p className="truncate text-xs text-slate-500">
@@ -665,22 +665,22 @@ function RecentOrdersList({
   customers: { id?: string | number; firstName: string; lastName: string }[];
 }) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <section className="rounded-2xl border border-secondary-200 bg-white p-6 shadow-sm">
       <header className="mb-4 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-lg font-extrabold text-slate-900">
-          <ShoppingBag className="h-5 w-5 text-amber-700" />
+        <h2 className="flex items-center gap-2 text-lg font-extrabold text-secondary-900">
+          <ShoppingBag className="h-5 w-5 text-primary-700" />
           Recent orders
         </h2>
         <Link
           to="/admin/orders"
-          className="inline-flex items-center gap-1 text-sm font-bold text-amber-800 hover:text-amber-900"
+          className="inline-flex items-center gap-1 text-sm font-bold text-primary-800 hover:text-primary-900"
         >
           View all <ArrowRight className="h-4 w-4" />
         </Link>
       </header>
 
       {orders.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+        <p className="rounded-xl border border-dashed border-secondary-200 bg-secondary-50 px-4 py-6 text-center text-sm text-slate-500">
           No orders have been placed yet.
         </p>
       ) : (
@@ -695,7 +695,7 @@ function RecentOrdersList({
                 <th className="pb-3">Placed</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-secondary-100">
               {orders.map((o) => {
                 const customer = customers.find(
                   (c) => String(c.id) === String(o.customerId)
@@ -704,8 +704,8 @@ function RecentOrdersList({
                   ? `${customer.firstName} ${customer.lastName}`
                   : "—";
                 return (
-                  <tr key={String(o.id)} className="text-slate-700">
-                    <td className="py-3 font-bold text-slate-900">
+                  <tr key={String(o.id)} className="text-secondary-700">
+                    <td className="py-3 font-bold text-secondary-900">
                       #{String(o.id)}
                     </td>
                     <td className="py-3">{customerName}</td>

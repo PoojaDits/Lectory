@@ -50,7 +50,7 @@ export default function HeroSlider() {
                     className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-4 animate-fade-in-up"
                     style={{ animationDelay: '200ms', animationFillMode: 'both' }}
                   >
-                    <button className="px-8 py-3.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-semibold rounded-full shadow-[0_8px_30px_rgba(217,119,6,0.4)] transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+                    <button className="px-8 py-3.5 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-amber-500 hover:to-primary-600 text-white font-semibold rounded-full shadow-[0_8px_30px_rgba(217,119,6,0.4)] transition-all duration-300 hover:scale-105 hover:-translate-y-1">
                       {slide.cta}
                     </button>
                     <button className="px-8 py-3.5 glass-premium hover:bg-white/20 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:-translate-y-1">
@@ -74,7 +74,7 @@ export default function HeroSlider() {
       </div>
 
       {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-amber-50 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-primary-50 to-transparent" />
     </section>
   );
 }

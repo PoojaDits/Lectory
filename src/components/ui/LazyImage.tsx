@@ -27,7 +27,7 @@ export default function LazyImage({
   alt,
   className,
   objectFit = "cover",
-  fallbackGradient = "from-slate-200 to-slate-300",
+  fallbackGradient = "from-secondary-200 to-slate-300",
   rootMargin = "200px",
 }: LazyImageProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -78,7 +78,7 @@ export default function LazyImage({
         <>
           {/* Shimmer placeholder until the image is decoded */}
           {!loaded && (
-            <div className="absolute inset-0 animate-pulse bg-slate-200" />
+            <div className="absolute inset-0 animate-pulse bg-secondary-200" />
           )}
 
           {/* Only attach src once the element is in view */}

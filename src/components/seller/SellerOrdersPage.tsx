@@ -86,13 +86,13 @@ export default function SellerOrdersPage() {
     <div className="space-y-6 mt-[65px]">
       {/* ── Header ── */}
       <header>
-        <p className="text-xs font-black uppercase tracking-widest text-amber-700">
+        <p className="text-xs font-black uppercase tracking-widest text-primary-700">
           Seller · Orders
         </p>
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+        <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
           Order Management
         </h1>
-        <p className="mt-1 max-w-2xl text-sm text-slate-600">
+        <p className="mt-1 max-w-2xl text-sm text-secondary-600">
           Process your customer orders. Accept, ship, deliver, or cancel orders
           using the status workflow below.
         </p>
@@ -139,7 +139,7 @@ export default function SellerOrdersPage() {
       </section>
 
       {/* ── Filter pills + search ── */}
-      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
         <div className="flex flex-wrap gap-1">
           {FILTERS.map((f) => {
             const count = counts[f.id] ?? 0;
@@ -152,8 +152,8 @@ export default function SellerOrdersPage() {
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
-                    ? "bg-amber-700 text-white shadow-sm"
-                    : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                    ? "bg-primary-700 text-white shadow-sm"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
                 )}
               >
                 {f.label}
@@ -162,7 +162,7 @@ export default function SellerOrdersPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-slate-100 text-slate-600"
+                      : "bg-secondary-100 text-secondary-600"
                   )}
                 >
                   {count}
@@ -182,7 +182,7 @@ export default function SellerOrdersPage() {
               setPage(1);
             }}
             placeholder="Search by order ID or address…"
-            className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-amber-100"
+            className="w-full rounded-full border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
           />
         </div>
       </div>
@@ -193,9 +193,9 @@ export default function SellerOrdersPage() {
           Loading orders…
         </div>
       ) : pageItems.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-slate-200 bg-white/70 p-16 text-center shadow-sm">
+        <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-secondary-200 bg-white/70 p-16 text-center shadow-sm">
           <ShoppingBag className="h-14 w-14 text-slate-300 mb-3" />
-          <h3 className="text-lg font-black text-slate-900">
+          <h3 className="text-lg font-black text-secondary-900">
             No orders found
           </h3>
           <p className="mt-1 text-xs text-slate-500 max-w-sm">
@@ -210,7 +210,7 @@ export default function SellerOrdersPage() {
             return (
               <div
                 key={String(order.id)}
-                className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition hover:shadow-md"
+                className="overflow-hidden rounded-2xl border border-secondary-200/80 bg-white shadow-sm transition hover:shadow-md"
               >
                 {/* ── Order header row ── */}
                 <div className="p-5 flex flex-wrap items-center justify-between gap-4 cursor-pointer"
@@ -219,14 +219,14 @@ export default function SellerOrdersPage() {
                   }
                 >
                   <div className="flex items-center gap-4">
-                    <span className="text-base font-black text-slate-900">
+                    <span className="text-base font-black text-secondary-900">
                       #{String(order.id)}
                     </span>
                     <span className="text-xs text-slate-500 inline-flex items-center gap-1">
                       <Calendar className="h-3.5 w-3.5" />
                       {formatDate(order.createdAt)}
                     </span>
-                    <span className="text-sm font-bold text-amber-700">
+                    <span className="text-sm font-bold text-primary-700">
                       {formatCurrency(order.total)}
                     </span>
                   </div>
@@ -245,7 +245,7 @@ export default function SellerOrdersPage() {
                             });
                           }}
                           disabled={updateOrder.isPending}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-amber-700 px-4 py-2 text-xs font-black text-white hover:bg-amber-800 transition shadow-md shadow-amber-900/20 disabled:opacity-50"
+                          className="inline-flex items-center gap-1.5 rounded-full bg-primary-700 px-4 py-2 text-xs font-black text-white hover:bg-primary-800 transition shadow-md shadow-primary-900/20 disabled:opacity-50"
                         >
                           <CheckCircle2 className="h-3.5 w-3.5" />
                           Accept
@@ -280,7 +280,7 @@ export default function SellerOrdersPage() {
                           });
                         }}
                         disabled={updateOrder.isPending}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-amber-600 px-4 py-2 text-xs font-black text-white hover:bg-amber-700 transition shadow-md shadow-amber-900/20 disabled:opacity-50 animate-pulse"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-primary-600 px-4 py-2 text-xs font-black text-white hover:bg-primary-700 transition shadow-md shadow-primary-900/20 disabled:opacity-50 animate-pulse"
                       >
                         <Truck className="h-3.5 w-3.5" />
                         Mark as Shipped
@@ -297,7 +297,7 @@ export default function SellerOrdersPage() {
                           });
                         }}
                         disabled={updateOrder.isPending}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-amber-700 px-4 py-2 text-xs font-black text-white hover:bg-amber-800 transition shadow-md disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-primary-700 px-4 py-2 text-xs font-black text-white hover:bg-primary-800 transition shadow-md disabled:opacity-50"
                       >
                         <CheckCircle2 className="h-3.5 w-3.5" />
                         Confirm Delivery
@@ -318,7 +318,7 @@ export default function SellerOrdersPage() {
 
                 {/* ── Expanded details ── */}
                 {isExpanded && (
-                  <div className="border-t border-slate-100 p-5 space-y-4 animate-in fade-in duration-200">
+                  <div className="border-t border-secondary-100 p-5 space-y-4 animate-in fade-in duration-200">
                     {/* Items */}
                     <div>
                       <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-3">
@@ -328,9 +328,9 @@ export default function SellerOrdersPage() {
                         {items.map((it, idx) => (
                           <li
                             key={String(it.id || idx)}
-                            className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4"
+                            className="flex items-center gap-4 rounded-2xl border border-secondary-100 bg-secondary-50/50 p-4"
                           >
-                            <div className="h-20 w-14 shrink-0 overflow-hidden rounded-xl bg-slate-200">
+                            <div className="h-20 w-14 shrink-0 overflow-hidden rounded-xl bg-secondary-200">
                               {it.coverImageSnapshot ? (
                                 <img
                                   src={it.coverImageSnapshot}
@@ -338,23 +338,23 @@ export default function SellerOrdersPage() {
                                   className="h-full w-full object-cover"
                                 />
                               ) : (
-                                <div className="flex h-full w-full items-center justify-center bg-amber-800 text-white">
+                                <div className="flex h-full w-full items-center justify-center bg-primary-800 text-white">
                                   <BookOpen className="h-4 w-4" />
                                 </div>
                               )}
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="font-bold text-slate-900 text-sm truncate">
+                              <p className="font-bold text-secondary-900 text-sm truncate">
                                 {it.titleSnapshot}
                               </p>
                               <p className="text-xs text-slate-500 truncate mt-0.5">
                                 {it.authorSnapshot || "Author"}
                               </p>
                               <div className="mt-2 flex items-center justify-between text-xs">
-                                <span className="font-extrabold text-slate-700">
+                                <span className="font-extrabold text-secondary-700">
                                   Qty: {it.quantity}
                                 </span>
-                                <span className="font-black text-amber-700">
+                                <span className="font-black text-primary-700">
                                   {formatCurrency(it.price * it.quantity)}
                                 </span>
                               </div>
@@ -365,10 +365,10 @@ export default function SellerOrdersPage() {
                     </div>
 
                     {/* Shipping Address */}
-                    <div className="rounded-2xl bg-amber-50/50 p-4 border border-amber-100/80 flex items-start gap-3 text-xs">
-                      <MapPin className="h-5 w-5 text-amber-800 shrink-0 mt-0.5" />
-                      <div className="text-slate-700">
-                        <span className="font-black text-slate-900 block mb-0.5">
+                    <div className="rounded-2xl bg-primary-50/50 p-4 border border-primary-100/80 flex items-start gap-3 text-xs">
+                      <MapPin className="h-5 w-5 text-primary-800 shrink-0 mt-0.5" />
+                      <div className="text-secondary-700">
+                        <span className="font-black text-secondary-900 block mb-0.5">
                           Customer Delivery Address:
                         </span>
                         <span className="font-medium leading-relaxed">
@@ -378,7 +378,7 @@ export default function SellerOrdersPage() {
                     </div>
 
                     {/* Status Guidance */}
-                    <div className="bg-slate-900 text-white p-5 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-medium shadow-inner">
+                    <div className="bg-secondary-900 text-white p-5 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-medium shadow-inner">
                       <div className="flex items-center gap-3">
                         <span className="text-2xl shrink-0">
                           {order.status === "Created" && "⏳"}
@@ -391,7 +391,7 @@ export default function SellerOrdersPage() {
                           <strong className="text-amber-400 block font-black uppercase tracking-wider text-[11px]">
                             Fulfillment Stage:
                           </strong>
-                          <span className="text-slate-200 mt-0.5 block leading-relaxed">
+                          <span className="text-secondary-200 mt-0.5 block leading-relaxed">
                             {order.status === "Created" &&
                               "New order placed by customer. Accept this order to begin packaging."}
                             {order.status === "Accepted" &&
@@ -405,7 +405,7 @@ export default function SellerOrdersPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-amber-950 border border-amber-800 px-3.5 py-1.5 rounded-full self-start sm:self-auto shrink-0">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-amber-950 border border-primary-800 px-3.5 py-1.5 rounded-full self-start sm:self-auto shrink-0">
                         Live Sync ✨
                       </span>
                     </div>
@@ -442,15 +442,15 @@ function PipelineTile({
   // Warm amber palette — uses different intensities of amber/orange
   // to distinguish pipeline stages while staying on-theme.
   const tones = {
-    slate: "bg-slate-100 text-slate-700",
-    blue: "bg-amber-50 text-amber-600",
-    amber: "bg-amber-100 text-amber-700",
-    indigo: "bg-amber-200 text-amber-800",
+    slate: "bg-secondary-100 text-secondary-700",
+    blue: "bg-primary-50 text-primary-600",
+    amber: "bg-primary-100 text-primary-700",
+    indigo: "bg-primary-200 text-primary-800",
     emerald: "bg-orange-100 text-orange-800",
     rose: "bg-rose-100 text-rose-800",
   } as const;
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
       <span
         className={cn(
           "flex h-10 w-10 items-center justify-center rounded-xl",
@@ -463,7 +463,7 @@ function PipelineTile({
         <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
           {label}
         </p>
-        <p className="text-2xl font-extrabold leading-none text-slate-900">
+        <p className="text-2xl font-extrabold leading-none text-secondary-900">
           {value}
         </p>
       </div>

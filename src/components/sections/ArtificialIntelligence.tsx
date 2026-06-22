@@ -6,7 +6,7 @@ export default function ArtificialIntelligence() {
   const { data: aiBooks = [], isLoading } = useAiBooks();
 
   return (
-    <section id="ai-books" className="py-16 md:py-24 bg-white border-t border-amber-100/60">
+    <section id="ai-books" className="py-16 md:py-24 bg-white border-t border-primary-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="🤖 AI Books"
@@ -18,7 +18,7 @@ export default function ArtificialIntelligence() {
         {isLoading ? (
           <div className="flex gap-6 overflow-hidden">
             {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="w-[220px] h-[420px] rounded-3xl bg-amber-100/50 animate-pulse flex-shrink-0" />
+              <div key={index} className="w-[220px] h-[420px] rounded-3xl bg-primary-100/50 animate-pulse flex-shrink-0" />
             ))}
           </div>
         ) : (
