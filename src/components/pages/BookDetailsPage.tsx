@@ -68,19 +68,19 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
 
   const [qty, setQty] = useState(1);
 
-  // Reset quantity when the selected listing changes (render-time adjust).
+  // Reset quantity when the selected listing changes.
   const [lastListing, setLastListing] = useState(resolvedSelectedId);
   if (lastListing !== resolvedSelectedId) {
     setLastListing(resolvedSelectedId);
     setQty(1);
   }
 
-  // Has this listing already been added to the cart? (UX hint)
+  // Has this listing already been added to the cart? 
   const alreadyInCart =
     selectedListing != null &&
     entries.some((e) => sameId(e.listingId, selectedListing.id));
 
-  // ── Handlers ──
+  // Handlers 
   const handleAddToCart = () => {
     if (!selectedListing) {
       notify.warning("Please select an available seller.");
@@ -114,7 +114,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
     );
   };
 
-  // ── Render ──
+  // Render
   if (isLoading) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pt-24">

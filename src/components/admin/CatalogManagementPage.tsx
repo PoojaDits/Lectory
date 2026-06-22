@@ -44,7 +44,7 @@ export default function CatalogManagementPage() {
   const updateBook = useUpdateBookStatus();
   const deleteBook = useDeleteBook();
 
-  // Detect duplicate ISBNs (Rule 1).
+  // Detect duplicate ISBNs .
   const duplicateIsbns = useMemo(() => {
     const counts = new Map<string, number>();
     books.forEach((b) => counts.set(b.isbn, (counts.get(b.isbn) ?? 0) + 1));
