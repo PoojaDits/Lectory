@@ -24,16 +24,6 @@ const FILTERS: { id: StatusFilter; label: string }[] = [
 
 const PAGE_SIZE = 8;
 
-/**
- * Book Approval screen.
- *
- * Implements the document requirement:
- *   "Admin can: View pending books, Approve book, Reject book"
- *
- * Enforces the marketplace rule: "Only approved books should be visible
- * to customers" by surfacing a clear status on each row, and "A book
- * should exist only once in the system" by flagging duplicate ISBNs.
- */
 export default function BookApprovalPage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<StatusFilter>("all");

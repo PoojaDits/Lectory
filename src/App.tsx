@@ -77,11 +77,7 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Clear the impersonation-transition flag once the navigation that
-  // the impersonation action triggered has actually landed. The flag
-  // is set by impersonate()/stopImpersonating() and read by
-  // ProtectedRoute to suppress its "permission denied" toast across
-  // every intermediate render until the URL change commits.
+  
   useEffect(() => {
     if (useAuthStore.getState().isRoleTransitioning) {
       useAuthStore.getState().endRoleTransition();

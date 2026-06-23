@@ -7,11 +7,6 @@ interface AdminShellProps {
   onLogin: () => void;
 }
 
-/**
- * AdminShell wraps the AdminLayout and supplies the pending counts that
- * surface as sidebar badges. The nested routes inside AdminLayout's
- * <Outlet /> are defined in App.tsx.
- */
 export default function AdminShell({
   onNavigateHome,
   onLogin,

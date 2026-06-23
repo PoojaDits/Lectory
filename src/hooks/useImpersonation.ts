@@ -5,10 +5,10 @@ import { notify } from "@/lib/toast";
 import { getErrorMessage } from "@/utils/helpers";
 import type { AuthUser, Customer, Seller } from "@/types";
 
-/**
- * Convert a Seller record into the AuthUser shape the auth store expects.
- * Impersonating a seller navigates them to the seller dashboard.
- */
+
+  //Convert a Seller record into the AuthUser shape the auth store expects.
+//  Impersonating a seller navigates them to the seller dashboard.
+
 export const sellerToAuthUser = (s: Seller): AuthUser => ({
   id: s.id,
   email: s.email,
@@ -22,10 +22,10 @@ export const sellerToAuthUser = (s: Seller): AuthUser => ({
   reviewedAt: s.reviewedAt,
 });
 
-/**
- * Convert a Customer record into the AuthUser shape the auth store expects.
- * Impersonating a customer navigates them to the customer account page.
- */
+
+// Convert a Customer record into the AuthUser shape the auth store expects.
+ // Impersonating a customer navigates them to the customer account page.
+ 
 export const customerToAuthUser = (c: Customer): AuthUser => ({
   id: c.id,
   email: c.email,
@@ -34,15 +34,7 @@ export const customerToAuthUser = (c: Customer): AuthUser => ({
   createdAt: c.createdAt,
 });
 
-/**
- * Hook that wraps the auth store's `impersonate` function with sensible
- * defaults for the admin portal: navigates the admin into the target
- * user's area after switching, shows a toast, and refuses to start a
- * new impersonation session while one is already active.
- *
- * The admin can also be impersonated from their own dashboard to debug
- * a customer or seller experience in the marketplace.
- */
+
 export function useImpersonation() {
   const navigate = useNavigate();
   const impersonate = useAuthStore((s) => s.impersonate);
@@ -51,7 +43,7 @@ export function useImpersonation() {
 
   const start = useCallback(
     (user: AuthUser) => {
-      // Guard: only an admin (who isn't already impersonating) may impersonate.
+      // Guard: only an admin ( may impersonate.
       if (!currentUser || currentUser.role !== "admin") {
         notify.error("Only admins can impersonate users.");
         return;
@@ -62,12 +54,7 @@ export function useImpersonation() {
       }
 
       try {
-        // IMPORTANT: navigate FIRST, then flip the user. React 19 batches
-        // Zustand updates and React-Router location updates together, so
-        // by the time ProtectedRoute re-evaluates the URL is already the
-        // impersonated user's home and the role check passes. Doing this
-        // in the opposite order briefly renders the new role against the
-        // still-admin URL, which fires the "permission denied" toast.
+     
         navigate(user.role === "seller" ? "/seller" : "/account");
         impersonate(user);
         notify.success(`Now viewing as ${user.name ?? user.email}.`);

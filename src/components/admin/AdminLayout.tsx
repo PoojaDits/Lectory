@@ -29,8 +29,7 @@ interface AdminLayoutProps {
 
 const linkBase =
   "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors";
-
-
+  
 export default function AdminLayout({
   onNavigateHome,
   onLogin,

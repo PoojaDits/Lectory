@@ -267,7 +267,7 @@ function OrderCard({ order }: { order: Order }) {
           </span>
         </div>
 
-        {/* Items — one clean row per book */}
+        {/* Items  one clean row per book */}
         <ul className="divide-y divide-secondary-100">
           {items.map((item, idx) => (
             <li

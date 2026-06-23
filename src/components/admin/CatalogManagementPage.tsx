@@ -427,7 +427,7 @@ function CatalogRow({
   );
 }
 
-// ── Add book dialog ────────────────────────────────────────────────────────
+// Add book dialog 
 
 function AddBookDialog({ onClose }: { onClose: () => void }) {
   const create = useCreateBook();

@@ -15,7 +15,6 @@ export default function CustomerManagementPage() {
   const { data: customers = [], isLoading } = useCustomers();
   const { data: orders = [] } = useOrders();
 
-  // Pre-aggregate per-customer order metrics.
   const customerStats = useMemo(() => {
     const map = new Map<
       string,
