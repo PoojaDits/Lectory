@@ -6,7 +6,7 @@ export default function ArtificialIntelligence() {
   const { data: aiBooks = [], isLoading } = useAiBooks();
 
   return (
-    <section id="ai-books" className="py-16 md:py-24 bg-white border-t border-primary-100/60">
+    <section id="ai-books" className="py-16 md:py-24 bg-white border-t border-primary-100/60 px-12 md:px-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="🤖 AI Books"

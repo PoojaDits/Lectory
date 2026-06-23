@@ -6,8 +6,8 @@ export default function Recommended() {
   const { data: recommendedBooks = [], isLoading } = useRecommendedBooks();
 
   return (
-    <section id="recommended" className="py-16 md:py-24 bg-white border-t border-primary-100/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="recommended" className="py-16 md:py-24 bg-white  border-primary-100/60px-12 md:px-16 ">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <SectionHeader
           badge="⭐ Recommended"
           title="Staff picks and reader favorites"

@@ -4,8 +4,8 @@ import BookCarousel from "@/components/ui/BookCarousel";
 export default function PreOrder() {
   const { data: preOrders = [], isLoading } = usePreOrders();
   return (
-    <section id="preorder" className="py-16 md:py-24 bg-white border-t border-primary-100/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="preorder" className="py-16 md:py-24 bg-white border-t border-primary-100/60 px-12 md:px-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <SectionHeader
             badge="🚀 Preorder"
