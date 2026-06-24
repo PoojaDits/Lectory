@@ -7,7 +7,6 @@ import { formatCurrency, formatDate } from "@/utils/helpers";
 
 const PAGE_SIZE = 8;
 
-
 export default function CustomerManagementPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -41,8 +40,8 @@ export default function CustomerManagementPage() {
     return customers.filter(
       (c) =>
         !q ||
-        `${c.firstName} ${c.lastName}`.toLowerCase().includes(q) ||
-        c.email.toLowerCase().includes(q)
+        `${c.firstName}${c.lastName}`.toLowerCase().includes(q) ||
+        c.email.toLowerCase().includes(q),
     );
   }, [customers, search]);
 
@@ -50,7 +49,7 @@ export default function CustomerManagementPage() {
   const safePage = Math.min(page, totalPages);
   const pageItems = filtered.slice(
     (safePage - 1) * PAGE_SIZE,
-    safePage * PAGE_SIZE
+    safePage * PAGE_SIZE,
   );
 
   return (
@@ -75,7 +74,6 @@ export default function CustomerManagementPage() {
           {customers.length} registered customer
           {customers.length === 1 ? "" : "s"}
         </div>
-
         <div className="relative ml-auto flex-1 min-w-[220px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
@@ -91,79 +89,112 @@ export default function CustomerManagementPage() {
         </div>
       </div>
 
-      {/* ── Table ── */}
+      {/*
+        ── Table (Bug UI-048 fix) ──
+        Semantic <table> with <colgroup> matching the original 12-col grid
+        proportions (4/2/2/2/2).
+      */}
       <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-4 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
-          <div className="col-span-4">Customer</div>
-          <div className="col-span-2">Joined</div>
-          <div className="col-span-2">Orders</div>
-          <div className="col-span-2">Total spend</div>
-          <div className="col-span-2">Last order</div>
-        </div>
-
-        {isLoading ? (
-          <div className="px-5 py-12 text-center text-sm text-slate-500">
-            Loading customers…
-          </div>
-        ) : pageItems.length === 0 ? (
-          <div className="px-5 py-12 text-center text-sm text-slate-500">
-            No customers match your search.
-          </div>
-        ) : (
-          <ul className="divide-y divide-secondary-100">
-            {pageItems.map((c) => {
-              const stats = customerStats.get(String(c.id));
-              return (
-                <li
-                  key={String(c.id)}
-                  className="grid grid-cols-12 items-center gap-4 px-5 py-4 text-sm transition hover:bg-primary-50/40"
-                >
-                  <div className="col-span-4 min-w-0">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-100 text-indigo-700">
-                        <UserCircle className="h-5 w-5" />
-                      </span>
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-extrabold text-secondary-900">
-                          {c.firstName} {c.lastName}
-                        </p>
-                        <p className="truncate text-xs text-slate-500">
-                          {c.email}
-                        </p>
+        <table className="w-full table-fixed border-collapse text-sm">
+          <caption className="sr-only">
+            Customers list. Columns: Customer, Joined, Orders, Total spend, Last order.
+          </caption>
+          <colgroup>
+            <col className="w-[33.3333%]" /> {/* Customer     — col-span-4 */}
+            <col className="w-[16.6667%]" /> {/* Joined       — col-span-2 */}
+            <col className="w-[16.6667%]" /> {/* Orders       — col-span-2 */}
+            <col className="w-[16.6667%]" /> {/* Total spend  — col-span-2 */}
+            <col className="w-[16.6667%]" /> {/* Last order   — col-span-2 */}
+          </colgroup>
+          <thead className="bg-secondary-50">
+            <tr className="border-b border-secondary-200">
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Customer
+              </th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Joined
+              </th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Orders
+              </th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Total spend
+              </th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Last order
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-secondary-100">
+            {isLoading ? (
+              <tr>
+                <td colSpan={5} className="px-5 py-12 text-center text-sm text-slate-500">
+                  Loading customers…
+                </td>
+              </tr>
+            ) : pageItems.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="px-5 py-12 text-center text-sm text-slate-500">
+                  No customers match your search.
+                </td>
+              </tr>
+            ) : (
+              pageItems.map((c) => {
+                const stats = customerStats.get(String(c.id));
+                return (
+                  <tr key={String(c.id)} className="transition hover:bg-primary-50/40">
+                    {/* Customer */}
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-3">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-100 text-indigo-700">
+                          <UserCircle className="h-5 w-5" />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-extrabold text-secondary-900">
+                            {c.firstName} {c.lastName}
+                          </p>
+                          <p className="truncate text-xs text-slate-500">
+                            {c.email}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="col-span-2 text-xs text-secondary-600">
-                    {formatDate(c.createdAt)}
-                  </div>
-                  <div className="col-span-2">
-                    {stats ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-primary-100 px-2 py-0.5 text-xs font-bold text-primary-800">
-                        <ShoppingBag className="h-3 w-3" />
-                        {stats.ordersCount}
-                      </span>
-                    ) : (
-                      <span className="text-xs text-slate-400">—</span>
-                    )}
-                  </div>
-                  <div
-                    className={cn(
-                      "col-span-2 text-sm font-bold",
-                      stats && stats.totalSpend > 0
-                        ? "text-emerald-700"
-                        : "text-slate-400"
-                    )}
-                  >
-                    {stats ? formatCurrency(stats.totalSpend) : "—"}
-                  </div>
-                  <div className="col-span-2 text-xs text-slate-500">
-                    {stats?.lastOrderAt ? formatDate(stats.lastOrderAt) : "—"}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
+                    </td>
+                    {/* Joined */}
+                    <td className="px-5 py-4 text-xs text-secondary-600">
+                      {formatDate(c.createdAt)}
+                    </td>
+                    {/* Orders */}
+                    <td className="px-5 py-4">
+                      {stats ? (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-primary-100 px-2 py-0.5 text-xs font-bold text-primary-800">
+                          <ShoppingBag className="h-3 w-3" />
+                          {stats.ordersCount}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-slate-400">—</span>
+                      )}
+                    </td>
+                    {/* Total spend */}
+                    <td
+                      className={cn(
+                        "px-5 py-4 text-sm font-bold",
+                        stats && stats.totalSpend > 0
+                          ? "text-emerald-700"
+                          : "text-slate-400",
+                      )}
+                    >
+                      {stats ? formatCurrency(stats.totalSpend) : "—"}
+                    </td>
+                    {/* Last order */}
+                    <td className="px-5 py-4 text-xs text-slate-500">
+                      {stats?.lastOrderAt ? formatDate(stats.lastOrderAt) : "—"}
+                    </td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
       </section>
 
       <Pagination

@@ -3,6 +3,7 @@ import {
   AlertCircle,
   Calendar,
   CheckCircle2,
+  Loader2,
   MapPin,
   Search,
   ShoppingBag,
@@ -10,17 +11,18 @@ import {
   XCircle,
   BookOpen,
 } from "lucide-react";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import StatusBadge from "@/components/ui/StatusBadge";
 import Pagination from "@/components/ui/Pagination";
 import { useSellerOrders } from "@/hooks/useCustomer";
 import { useUpdateOrderStatus } from "@/hooks/useAdmin";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatDate } from "@/utils/helpers";
-
 import { useAuthStore } from "@/stores/useAuthStore";
 import type { OrderStatus } from "@/types";
 
 type StatusFilter = "all" | OrderStatus;
+
 const FILTERS: { id: StatusFilter; label: string }[] = [
   { id: "all", label: "All" },
   { id: "Created", label: "Created" },
@@ -32,13 +34,14 @@ const FILTERS: { id: StatusFilter; label: string }[] = [
 
 const PAGE_SIZE = 8;
 
-
 export default function SellerOrdersPage() {
   const currentUser = useAuthStore((s) => s.currentUser);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<StatusFilter>("all");
   const [page, setPage] = useState(1);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
+  // ── Modal-based cancel confirmation (replaces browser confirm()) ──
+  const [pendingCancelId, setPendingCancelId] = useState<string | null>(null);
 
   const { data: orders = [], isLoading } = useSellerOrders(currentUser?.id);
   const updateOrder = useUpdateOrderStatus();
@@ -61,7 +64,7 @@ export default function SellerOrdersPage() {
           `#${o.id}`,
           o.shippingAddress,
           ...(o.items ?? []).map(
-            (it) => `${it.titleSnapshot} ${it.authorSnapshot}`
+            (it) => `${it.titleSnapshot} ${it.authorSnapshot}`,
           ),
         ]
           .join(" ")
@@ -74,7 +77,7 @@ export default function SellerOrdersPage() {
   const safePage = Math.min(page, totalPages);
   const pageItems = filtered.slice(
     (safePage - 1) * PAGE_SIZE,
-    safePage * PAGE_SIZE
+    safePage * PAGE_SIZE,
   );
 
   const setFilterAndReset = (f: StatusFilter) => {
@@ -153,7 +156,7 @@ export default function SellerOrdersPage() {
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
                     ? "bg-primary-700 text-white shadow-sm"
-                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50",
                 )}
               >
                 {f.label}
@@ -162,7 +165,7 @@ export default function SellerOrdersPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-secondary-100 text-secondary-600"
+                      : "bg-secondary-100 text-secondary-600",
                   )}
                 >
                   {count}
@@ -171,7 +174,6 @@ export default function SellerOrdersPage() {
             );
           })}
         </div>
-
         <div className="relative ml-auto flex-1 min-w-[220px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
@@ -190,222 +192,214 @@ export default function SellerOrdersPage() {
       {/* ── Orders list ── */}
       {isLoading ? (
         <div className="py-24 text-center text-sm font-bold text-slate-400">
+          <Loader2 className="mx-auto mb-3 h-7 w-7 animate-spin" />
           Loading orders…
         </div>
       ) : pageItems.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-secondary-200 bg-white/70 p-16 text-center shadow-sm">
+        <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-secondary-200 bg-white/70 p-16 text-center">
           <ShoppingBag className="h-14 w-14 text-slate-300 mb-3" />
-          <h3 className="text-lg font-black text-secondary-900">
-            No orders found
-          </h3>
-          <p className="mt-1 text-xs text-slate-500 max-w-sm">
+          <h3 className="text-lg font-black text-secondary-900">No orders found</h3>
+          <p className="mt-1 max-w-sm text-xs text-slate-500">
             When customers place orders for your listings, they will appear here.
           </p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {pageItems.map((order) => {
             const items = order.items ?? [];
             const isExpanded = expandedOrderId === String(order.id);
             return (
               <div
                 key={String(order.id)}
-                className="overflow-hidden rounded-2xl border border-secondary-200/80 bg-white shadow-sm transition hover:shadow-md"
+                className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm"
               >
                 {/* ── Order header row ── */}
-                <div className="p-5 flex flex-wrap items-center justify-between gap-4 cursor-pointer"
+                <button
+                  type="button"
                   onClick={() =>
                     setExpandedOrderId(isExpanded ? null : String(order.id))
                   }
+                  className="flex w-full flex-col items-start justify-between gap-3 px-5 py-4 text-left transition hover:bg-primary-50/40 sm:flex-row sm:items-center"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="text-base font-black text-secondary-900">
-                      #{String(order.id)}
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-100 text-primary-800">
+                      <BookOpen className="h-5 w-5" />
                     </span>
-                    <span className="text-xs text-slate-500 inline-flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5" />
-                      {formatDate(order.createdAt)}
-                    </span>
-                    <span className="text-sm font-bold text-primary-700">
-                      {formatCurrency(order.total)}
-                    </span>
+                    <div>
+                      <p className="text-sm font-black text-secondary-900">
+                        Order #{String(order.id)}
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        <Calendar className="inline h-3 w-3" />{" "}
+                        {formatDate(order.createdAt)}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <StatusBadge status={order.status} />
-                    {/* ── Action Buttons (Seller Status Management) ── */}
-                    {order.status === "Created" && (
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            updateOrder.mutate({
-                              id: order.id,
-                              status: "Accepted",
-                            });
-                          }}
-                          disabled={updateOrder.isPending}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-primary-700 px-4 py-2 text-xs font-black text-white hover:bg-primary-800 transition shadow-md shadow-primary-900/20 disabled:opacity-50"
-                        >
-                          <CheckCircle2 className="h-3.5 w-3.5" />
-                          Accept
-                        </button>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (confirm("Reject and cancel this customer order?")) {
-                              updateOrder.mutate({
-                                id: order.id,
-                                status: "Cancelled",
-                              });
-                            }
-                          }}
-                          disabled={updateOrder.isPending}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 border border-rose-200 px-4 py-2 text-xs font-black text-rose-700 hover:bg-rose-100 transition disabled:opacity-50"
-                        >
-                          <XCircle className="h-3.5 w-3.5" />
-                          Cancel
-                        </button>
-                      </div>
-                    )}
-                    {order.status === "Accepted" && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          updateOrder.mutate({
-                            id: order.id,
-                            status: "Shipped",
-                          });
-                        }}
-                        disabled={updateOrder.isPending}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-primary-600 px-4 py-2 text-xs font-black text-white hover:bg-primary-700 transition shadow-md shadow-primary-900/20 disabled:opacity-50 animate-pulse"
-                      >
-                        <Truck className="h-3.5 w-3.5" />
-                        Mark as Shipped
-                      </button>
-                    )}
-                    {order.status === "Shipped" && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          updateOrder.mutate({
-                            id: order.id,
-                            status: "Delivered",
-                          });
-                        }}
-                        disabled={updateOrder.isPending}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-primary-700 px-4 py-2 text-xs font-black text-white hover:bg-primary-800 transition shadow-md disabled:opacity-50"
-                      >
-                        <CheckCircle2 className="h-3.5 w-3.5" />
-                        Confirm Delivery
-                      </button>
-                    )}
-                    {order.status === "Delivered" && (
-                      <span className="text-xs font-bold text-slate-400 italic">
-                        Order Complete
-                      </span>
-                    )}
-                    {order.status === "Cancelled" && (
-                      <span className="text-xs font-bold text-rose-500 italic">
-                        Cancelled
-                      </span>
-                    )}
+                    <span className="text-base font-black text-emerald-700">
+                      {formatCurrency(order.total)}
+                    </span>
                   </div>
+                </button>
+
+                {/* ── Action Buttons (Seller Status Management) ── */}
+                <div className="flex flex-wrap items-center gap-2 border-t border-secondary-100 bg-secondary-50 px-5 py-3">
+                  {order.status === "Created" && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          updateOrder.mutate({
+                            id: order.id,
+                            status: "Accepted",
+                          });
+                        }}
+                        disabled={updateOrder.isPending}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-primary-700 px-4 py-2 text-xs font-black text-white hover:bg-primary-800 transition shadow-md shadow-primary-900/20 disabled:opacity-50"
+                      >
+                        <CheckCircle2 className="h-3.5 w-3.5" /> Accept
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Was: if (confirm("Reject and cancel this customer order?")) { … }
+                          // Now: open a styled confirmation modal.
+                          setPendingCancelId(String(order.id));
+                        }}
+                        disabled={updateOrder.isPending}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 border border-rose-200 px-4 py-2 text-xs font-black text-rose-700 hover:bg-rose-100 transition disabled:opacity-50"
+                      >
+                        <XCircle className="h-3.5 w-3.5" /> Cancel
+                      </button>
+                    </>
+                  )}
+                  {order.status === "Accepted" && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateOrder.mutate({
+                          id: order.id,
+                          status: "Shipped",
+                        });
+                      }}
+                      disabled={updateOrder.isPending}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-primary-600 px-4 py-2 text-xs font-black text-white hover:bg-primary-700 transition shadow-md shadow-primary-900/20 disabled:opacity-50 animate-pulse"
+                    >
+                      <Truck className="h-3.5 w-3.5" /> Mark as Shipped
+                    </button>
+                  )}
+                  {order.status === "Shipped" && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateOrder.mutate({
+                          id: order.id,
+                          status: "Delivered",
+                        });
+                      }}
+                      disabled={updateOrder.isPending}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-primary-700 px-4 py-2 text-xs font-black text-white hover:bg-primary-800 transition shadow-md disabled:opacity-50"
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5" /> Confirm Delivery
+                    </button>
+                  )}
+                  {order.status === "Delivered" && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-4 py-2 text-xs font-black text-emerald-700">
+                      <CheckCircle2 className="h-3.5 w-3.5" /> Order Complete
+                    </span>
+                  )}
+                  {order.status === "Cancelled" && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary-100 px-4 py-2 text-xs font-black text-secondary-700">
+                      <XCircle className="h-3.5 w-3.5" /> Cancelled
+                    </span>
+                  )}
                 </div>
 
                 {/* ── Expanded details ── */}
                 {isExpanded && (
-                  <div className="border-t border-secondary-100 p-5 space-y-4 animate-in fade-in duration-200">
+                  <div className="border-t border-secondary-100 bg-white p-5">
                     {/* Items */}
-                    <div>
-                      <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-3">
-                        Items to Fulfill ({items.length})
-                      </h3>
-                      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        {items.map((it, idx) => (
-                          <li
-                            key={String(it.id || idx)}
-                            className="flex items-center gap-4 rounded-2xl border border-secondary-100 bg-secondary-50/50 p-4"
-                          >
-                            <div className="h-20 w-14 shrink-0 overflow-hidden rounded-xl bg-secondary-200">
-                              {it.coverImageSnapshot ? (
-                                <img
-                                  src={it.coverImageSnapshot}
-                                  alt={it.titleSnapshot}
-                                  className="h-full w-full object-cover"
-                                />
-                              ) : (
-                                <div className="flex h-full w-full items-center justify-center bg-primary-800 text-white">
-                                  <BookOpen className="h-4 w-4" />
-                                </div>
-                              )}
+                    <h4 className="mb-3 text-sm font-black uppercase tracking-wider text-slate-500">
+                      Items to Fulfill ({items.length})
+                    </h4>
+                    <ul className="space-y-3">
+                      {items.map((it, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-center gap-3 rounded-xl bg-secondary-50 p-3"
+                        >
+                          {it.coverImageSnapshot ? (
+                            <img
+                              src={it.coverImageSnapshot}
+                              alt={it.titleSnapshot}
+                              className="h-14 w-10 rounded-md object-cover"
+                            />
+                          ) : (
+                            <div className="flex h-14 w-10 items-center justify-center rounded-md bg-secondary-200">
+                              <BookOpen className="h-5 w-5 text-slate-400" />
                             </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="font-bold text-secondary-900 text-sm truncate">
-                                {it.titleSnapshot}
-                              </p>
-                              <p className="text-xs text-slate-500 truncate mt-0.5">
-                                {it.authorSnapshot || "Author"}
-                              </p>
-                              <div className="mt-2 flex items-center justify-between text-xs">
-                                <span className="font-extrabold text-secondary-700">
-                                  Qty: {it.quantity}
-                                </span>
-                                <span className="font-black text-primary-700">
-                                  {formatCurrency(it.price * it.quantity)}
-                                </span>
-                              </div>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-sm font-bold text-secondary-900">
+                              {it.titleSnapshot}
+                            </p>
+                            <p className="truncate text-xs text-slate-500">
+                              {it.authorSnapshot || "Author"}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-xs font-bold text-secondary-700">
+                              Qty: {it.quantity}
+                            </p>
+                            <p className="text-sm font-black text-emerald-700">
+                              {formatCurrency(it.price * it.quantity)}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
 
                     {/* Shipping Address */}
-                    <div className="rounded-2xl bg-primary-50/50 p-4 border border-primary-100/80 flex items-start gap-3 text-xs">
-                      <MapPin className="h-5 w-5 text-primary-800 shrink-0 mt-0.5" />
-                      <div className="text-secondary-700">
-                        <span className="font-black text-secondary-900 block mb-0.5">
-                          Customer Delivery Address:
-                        </span>
-                        <span className="font-medium leading-relaxed">
-                          {order.shippingAddress}
-                        </span>
-                      </div>
+                    <div className="mt-5 rounded-xl border border-secondary-200 bg-secondary-50 p-4">
+                      <p className="mb-1 text-[11px] font-black uppercase tracking-wider text-slate-500">
+                        Customer Delivery Address:
+                      </p>
+                      <p className="flex items-start gap-2 text-sm text-secondary-700">
+                        <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" />
+                        {order.shippingAddress}
+                      </p>
                     </div>
 
                     {/* Status Guidance */}
-                    <div className="bg-secondary-900 text-white p-5 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-medium shadow-inner">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl shrink-0">
-                          {order.status === "Created" && "⏳"}
-                          {order.status === "Accepted" && "📦"}
-                          {order.status === "Shipped" && "🚚"}
-                          {order.status === "Delivered" && "🎉"}
-                          {order.status === "Cancelled" && "❌"}
-                        </span>
-                        <div>
-                          <strong className="text-amber-400 block font-black uppercase tracking-wider text-[11px]">
-                            Fulfillment Stage:
-                          </strong>
-                          <span className="text-secondary-200 mt-0.5 block leading-relaxed">
-                            {order.status === "Created" &&
-                              "New order placed by customer. Accept this order to begin packaging."}
-                            {order.status === "Accepted" &&
-                              "Order accepted! Package the books and mark as Shipped when handed to courier."}
-                            {order.status === "Shipped" &&
-                              "Order dispatched! Confirm Delivery once handed to the customer."}
-                            {order.status === "Delivered" &&
-                              "Delivered successfully. Transaction verified."}
-                            {order.status === "Cancelled" &&
-                              "Order cancelled. No further action required."}
-                          </span>
-                        </div>
+                    <div className="mt-5 flex items-start gap-3 rounded-xl border border-primary-200 bg-primary-50 p-4 text-sm text-primary-900">
+                      <span aria-hidden="true" className="text-lg leading-none">
+                        {order.status === "Created" && "⏳"}
+                        {order.status === "Accepted" && "📦"}
+                        {order.status === "Shipped" && "🚚"}
+                        {order.status === "Delivered" && "🎉"}
+                        {order.status === "Cancelled" && "❌"}
+                      </span>
+                      <div>
+                        <p className="font-bold">Fulfillment Stage:</p>
+                        <p>
+                          {order.status === "Created" &&
+                            "New order placed by customer. Accept this order to begin packaging."}
+                          {order.status === "Accepted" &&
+                            "Order accepted! Package the books and mark as Shipped when handed to courier."}
+                          {order.status === "Shipped" &&
+                            "Order dispatched! Confirm Delivery once handed to the customer."}
+                          {order.status === "Delivered" &&
+                            "Delivered successfully. Transaction verified."}
+                          {order.status === "Cancelled" &&
+                            "Order cancelled. No further action required."}
+                        </p>
                       </div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-amber-950 border border-primary-800 px-3.5 py-1.5 rounded-full self-start sm:self-auto shrink-0">
+                      <span className="ml-auto text-[10px] font-black uppercase tracking-widest text-amber-300 bg-amber-950 border border-primary-800 px-3.5 py-1.5 rounded-full self-start sm:self-auto shrink-0">
                         Live Sync ✨
                       </span>
                     </div>
@@ -422,12 +416,37 @@ export default function SellerOrdersPage() {
         totalPages={totalPages}
         onPageChange={(p) => setPage(p)}
       />
+
+      {/* ── Cancel-order confirmation modal (replaces window.confirm) ── */}
+      <ConfirmDialog
+        open={pendingCancelId !== null}
+        onClose={() => setPendingCancelId(null)}
+        onConfirm={() => {
+          if (pendingCancelId === null) return;
+          updateOrder.mutate({
+            id: pendingCancelId,
+            status: "Cancelled",
+          });
+          setPendingCancelId(null);
+        }}
+        title="Cancel this order?"
+        description={
+          <>
+            The customer will be notified and the order will be marked as{" "}
+            <b>Cancelled</b>. This action cannot be undone from the seller
+            dashboard.
+          </>
+        }
+        confirmLabel="Cancel order"
+        cancelLabel="Keep order"
+        tone="danger"
+        isPending={updateOrder.isPending}
+      />
     </div>
   );
 }
 
-// ── Pipeline tile ──────────────────────────────────────
-
+// ── Pipeline tile ──────────────────────────────────────────────────────────
 function PipelineTile({
   label,
   value,
@@ -449,12 +468,13 @@ function PipelineTile({
     emerald: "bg-orange-100 text-orange-800",
     rose: "bg-rose-100 text-rose-800",
   } as const;
+
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
       <span
         className={cn(
           "flex h-10 w-10 items-center justify-center rounded-xl",
-          tones[tone]
+          tones[tone],
         )}
       >
         <Icon className="h-5 w-5" />

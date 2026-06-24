@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   AlertCircle,
   CheckCircle2,
-  ChevronDown,
   Search,
   ShoppingBag,
   Truck,
@@ -14,17 +13,13 @@ import {
   useCustomers,
   useOrders,
   useSellers,
-  useUpdateOrderStatus,
 } from "@/hooks/useAdmin";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatDate } from "@/utils/helpers";
-import {
-  ORDER_STATUS_FLOW,
-  ORDER_STATUS_STYLES,
-} from "@/lib/constants";
 import type { OrderStatus } from "@/types";
 
 type StatusFilter = "all" | OrderStatus;
+
 const FILTERS: { id: StatusFilter; label: string }[] = [
   { id: "all", label: "All" },
   { id: "Created", label: "Created" },
@@ -36,13 +31,6 @@ const FILTERS: { id: StatusFilter; label: string }[] = [
 
 const PAGE_SIZE = 8;
 
-/**
- * Order Management screen.
- *
- * Marketplace-level oversight of orders. Sellers still process their
- * own orders, but the admin can override the status to mediate disputes
- * or unblock stuck orders (e.g. cancel a shipment that never arrived).
- */
 export default function OrderManagementPage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<StatusFilter>("all");
@@ -51,7 +39,6 @@ export default function OrderManagementPage() {
   const { data: orders = [], isLoading } = useOrders();
   const { data: customers = [] } = useCustomers();
   const { data: sellers = [] } = useSellers();
-  const updateOrder = useUpdateOrderStatus();
 
   const counts = useMemo(() => {
     const out: Record<string, number> = { all: orders.length };
@@ -68,14 +55,14 @@ export default function OrderManagementPage() {
       .filter((o) => {
         if (!q) return true;
         const customer = customers.find(
-          (c) => String(c.id) === String(o.customerId)
+          (c) => String(c.id) === String(o.customerId),
         );
         const seller = sellers.find(
-          (s) => String(s.id) === String(o.sellerId)
+          (s) => String(s.id) === String(o.sellerId),
         );
         const haystack = [
           `#${o.id}`,
-          customer ? `${customer.firstName} ${customer.lastName}` : "",
+          customer ? `${customer.firstName}${customer.lastName}` : "",
           customer?.email ?? "",
           seller?.businessName ?? "",
           o.shippingAddress,
@@ -90,7 +77,7 @@ export default function OrderManagementPage() {
   const safePage = Math.min(page, totalPages);
   const pageItems = filtered.slice(
     (safePage - 1) * PAGE_SIZE,
-    safePage * PAGE_SIZE
+    safePage * PAGE_SIZE,
   );
 
   const setFilterAndReset = (f: StatusFilter) => {
@@ -99,24 +86,18 @@ export default function OrderManagementPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
-            Admin · Orders
-          </p>
-          <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
-            Order Management Oversight
-          </h1>
-          <p className="mt-1 max-w-2xl text-sm text-secondary-600">
-            Marketplace-wide view of every customer order. Instantly synchronizes whenever a Seller accepts, dispatches, or cancels an order.
-          </p>
-        </div>
-
-        <div className="bg-primary-50 border border-primary-200/80 text-amber-950 px-4 py-2.5 rounded-2xl text-xs font-bold self-start shrink-0 flex items-center gap-2 shadow-sm">
-          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-          <span>Real-Time Sync with Seller Fulfillments</span>
-        </div>
+    <div className="space-y-6 mt-[65px]">
+      <header>
+        <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
+          Admin · Orders
+        </p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
+          Order Management
+        </h1>
+        <p className="mt-1 max-w-2xl text-sm text-secondary-600">
+          Marketplace-wide view of every order. For status changes, refer to the
+          seller managing the order.
+        </p>
       </header>
 
       {/* ── Pipeline summary ── */}
@@ -174,7 +155,7 @@ export default function OrderManagementPage() {
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
                     ? "bg-primary-900 text-white shadow-sm"
-                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50",
                 )}
               >
                 {f.label}
@@ -183,7 +164,7 @@ export default function OrderManagementPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-secondary-100 text-secondary-600"
+                      : "bg-secondary-100 text-secondary-600",
                   )}
                 >
                   {count}
@@ -192,7 +173,6 @@ export default function OrderManagementPage() {
             );
           })}
         </div>
-
         <div className="relative ml-auto flex-1 min-w-[220px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
@@ -208,90 +188,105 @@ export default function OrderManagementPage() {
         </div>
       </div>
 
-      {/* ── Orders table ── */}
+      {/*
+        ── Orders table (Bug UI-048 fix) ──
+        Semantic <table> with <colgroup> matching the original 12-col grid
+        proportions (2/2/3/1/2/2).
+      */}
       <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-2 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
-          <div className="col-span-2">#</div>
-          <div className="col-span-2">Customer</div>
-          <div className="col-span-2">Seller</div>
-          <div className="col-span-1">Total</div>
-          <div className="col-span-2">Status</div>
-          <div className="col-span-1">Placed</div>
-          <div className="col-span-2 text-right">Action</div>
-        </div>
-
-        {isLoading ? (
-          <div className="px-5 py-12 text-center text-sm text-slate-500">
-            Loading orders…
-          </div>
-        ) : pageItems.length === 0 ? (
-          <div className="px-5 py-12 text-center text-sm text-slate-500">
-            <ShoppingBag className="mx-auto mb-2 h-8 w-8 text-slate-300" />
-            No orders match the current filters.
-          </div>
-        ) : (
-          <ul className="divide-y divide-secondary-100">
-            {pageItems.map((o) => {
-              const customer = customers.find(
-                (c) => String(c.id) === String(o.customerId)
-              );
-              const seller = sellers.find(
-                (s) => String(s.id) === String(o.sellerId)
-              );
-              return (
-                <li
-                  key={String(o.id)}
-                  className="grid grid-cols-12 items-center gap-2 px-5 py-4 text-sm transition hover:bg-primary-50/40"
-                >
-                  <div className="col-span-2 min-w-0">
-                    <p
-                      className="truncate text-xs font-extrabold text-secondary-700 font-mono"
-                      title={`#${String(o.id)}`}
-                    >
-                      #{String(o.id).slice(0, 8)}&hellip;
-                    </p>
-                  </div>
-                  <div className="col-span-2 min-w-0">
-                    <p className="truncate text-sm font-bold text-secondary-900">
-                      {customer
-                        ? `${customer.firstName} ${customer.lastName}`
-                        : "—"}
-                    </p>
-                    <p className="truncate text-xs text-slate-500">
-                      {customer?.email}
-                    </p>
-                  </div>
-                  <div className="col-span-2 min-w-0">
-                    <p className="truncate text-sm font-bold text-secondary-900">
-                      {seller?.businessName ?? `Seller #${o.sellerId}`}
-                    </p>
-                    <p className="truncate text-xs text-slate-500">
-                      {o.shippingAddress}
-                    </p>
-                  </div>
-                  <div className="col-span-1 text-sm font-bold text-emerald-700">
-                    {formatCurrency(o.total)}
-                  </div>
-                  <div className="col-span-2">
-                    <StatusBadge status={o.status} />
-                  </div>
-                  <div className="col-span-1 text-xs text-slate-500">
-                    {formatDate(o.createdAt)}
-                  </div>
-                  <div className="col-span-2 flex justify-end">
-                    <StatusChanger
-                      current={o.status}
-                      disabled={updateOrder.isPending}
-                      onChange={(status) =>
-                        updateOrder.mutate({ id: o.id, status })
-                      }
-                    />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
+        <table className="w-full table-fixed border-collapse text-sm">
+          <caption className="sr-only">
+            Orders list. Columns: Order ID, Customer, Seller, Total, Status, Placed.
+          </caption>
+          <colgroup>
+            <col className="w-[16.6667%]" /> {/* #       — col-span-2 */}
+            <col className="w-[16.6667%]" /> {/* Customer — col-span-2 */}
+            <col className="w-[25%]" />      {/* Seller   — col-span-3 */}
+            <col className="w-[8.3333%]" />  {/* Total    — col-span-1 */}
+            <col className="w-[16.6667%]" /> {/* Status   — col-span-2 */}
+            <col className="w-[16.6667%]" /> {/* Placed   — col-span-2 */}
+          </colgroup>
+          <thead className="bg-secondary-50">
+            <tr className="border-b border-secondary-200">
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">#</th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Customer</th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Seller</th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Total</th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Placed</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-secondary-100">
+            {isLoading ? (
+              <tr>
+                <td colSpan={6} className="px-5 py-12 text-center text-sm text-slate-500">
+                  Loading orders…
+                </td>
+              </tr>
+            ) : pageItems.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="px-5 py-12 text-center text-sm text-slate-500">
+                  <ShoppingBag className="mx-auto mb-2 h-8 w-8 text-slate-300" />
+                  No orders match the current filters.
+                </td>
+              </tr>
+            ) : (
+              pageItems.map((o) => {
+                const customer = customers.find(
+                  (c) => String(c.id) === String(o.customerId),
+                );
+                const seller = sellers.find(
+                  (s) => String(s.id) === String(o.sellerId),
+                );
+                return (
+                  <tr key={String(o.id)} className="transition hover:bg-primary-50/40">
+                    {/* # */}
+                    <td className="px-5 py-4">
+                      <p
+                        className="truncate font-mono text-xs font-extrabold text-secondary-700"
+                        title={`#${String(o.id)}`}
+                      >
+                        #{String(o.id).slice(0, 8)}…
+                      </p>
+                    </td>
+                    {/* Customer */}
+                    <td className="px-5 py-4">
+                      <p className="truncate text-sm font-bold text-secondary-900">
+                        {customer
+                          ? `${customer.firstName} ${customer.lastName}`
+                          : "—"}
+                      </p>
+                      <p className="truncate text-xs text-slate-500">
+                        {customer?.email}
+                      </p>
+                    </td>
+                    {/* Seller */}
+                    <td className="px-5 py-4">
+                      <p className="truncate text-sm font-bold text-secondary-900">
+                        {seller?.businessName ?? `Seller #${o.sellerId}`}
+                      </p>
+                      <p className="truncate text-xs text-slate-500">
+                        {o.shippingAddress}
+                      </p>
+                    </td>
+                    {/* Total */}
+                    <td className="px-5 py-4 text-sm font-bold text-emerald-700">
+                      {formatCurrency(o.total)}
+                    </td>
+                    {/* Status */}
+                    <td className="px-5 py-4">
+                      <StatusBadge status={o.status} />
+                    </td>
+                    {/* Placed */}
+                    <td className="px-5 py-4 text-xs text-slate-500">
+                      {formatDate(o.createdAt)}
+                    </td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
       </section>
 
       <Pagination
@@ -303,91 +298,7 @@ export default function OrderManagementPage() {
   );
 }
 
-// ── Status changer (admin override) ───────────────────────────────────────
-
-function StatusChanger({
-  current,
-  disabled,
-  onChange,
-}: {
-  current: OrderStatus;
-  disabled?: boolean;
-  onChange: (next: OrderStatus) => void;
-}) {
-  const [open, setOpen] = useState(false);
-
-  const allowed = (ORDER_STATUS_FLOW[current] ?? []) as OrderStatus[];
-  const all: OrderStatus[] = [
-    "Created",
-    "Accepted",
-    "Shipped",
-    "Delivered",
-    "Cancelled",
-  ];
-
-  return (
-    <div className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        disabled={disabled}
-        className={cn(
-          "inline-flex items-center gap-1.5 rounded-full border border-secondary-200 bg-white px-3 py-1.5 text-xs font-bold text-secondary-700 transition hover:bg-secondary-50 disabled:opacity-50",
-          open && "ring-2 ring-primary-200"
-        )}
-      >
-        Change status
-        <ChevronDown className="h-3.5 w-3.5" />
-      </button>
-
-      {open && (
-        <div
-          className="absolute right-0 top-full z-20 mt-2 w-48 rounded-xl border border-secondary-200 bg-white p-1.5 shadow-lg"
-          onMouseLeave={() => setOpen(false)}
-        >
-          {all.map((s) => {
-            const isCurrent = s === current;
-            const isSellerFlow = allowed.includes(s);
-            return (
-              <button
-                key={s}
-                type="button"
-                onClick={() => {
-                  onChange(s);
-                  setOpen(false);
-                }}
-                disabled={isCurrent}
-                className={cn(
-                  "flex w-full items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-xs font-bold transition",
-                  isCurrent
-                    ? "cursor-not-allowed bg-secondary-100 text-slate-400"
-                    : "text-secondary-700 hover:bg-primary-50"
-                )}
-              >
-                <span
-                  className={cn(
-                    "rounded-full px-2 py-0.5 text-[10px] font-extrabold",
-                    ORDER_STATUS_STYLES[s]
-                  )}
-                >
-                  {s}
-                </span>
-                {!isSellerFlow && !isCurrent && (
-                  <span className="text-[10px] font-bold text-primary-700">
-                    override
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ── Pipeline tile ──────────────────────────────────────────────────────────
-
 function PipelineTile({
   label,
   value,
@@ -407,12 +318,13 @@ function PipelineTile({
     emerald: "bg-emerald-100 text-emerald-800",
     rose: "bg-rose-100 text-rose-800",
   } as const;
+
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
       <span
         className={cn(
           "flex h-10 w-10 items-center justify-center rounded-xl",
-          tones[tone]
+          tones[tone],
         )}
       >
         <Icon className="h-5 w-5" />

@@ -22,6 +22,7 @@ import { formatDate } from "@/utils/helpers";
 import type { Seller, SellerStatus } from "@/types";
 
 type StatusFilter = "all" | SellerStatus;
+
 const FILTERS: { id: StatusFilter; label: string }[] = [
   { id: "all", label: "All" },
   { id: "Pending Approval", label: "Pending" },
@@ -30,7 +31,6 @@ const FILTERS: { id: StatusFilter; label: string }[] = [
 ];
 
 const PAGE_SIZE = 8;
-
 
 export default function SellerApprovalPage() {
   const [search, setSearch] = useState("");
@@ -46,12 +46,12 @@ export default function SellerApprovalPage() {
     () => ({
       all: sellers.length,
       "Pending Approval": sellers.filter(
-        (s) => s.status === "Pending Approval"
+        (s) => s.status === "Pending Approval",
       ).length,
       Approved: sellers.filter((s) => s.status === "Approved").length,
       Rejected: sellers.filter((s) => s.status === "Rejected").length,
     }),
-    [sellers]
+    [sellers],
   );
 
   const filtered = useMemo(() => {
@@ -64,7 +64,7 @@ export default function SellerApprovalPage() {
           s.businessName.toLowerCase().includes(q) ||
           s.contactPerson.toLowerCase().includes(q) ||
           s.email.toLowerCase().includes(q) ||
-          s.mobileNumber.toLowerCase().includes(q)
+          s.mobileNumber.toLowerCase().includes(q),
       );
   }, [sellers, filter, search]);
 
@@ -72,7 +72,7 @@ export default function SellerApprovalPage() {
   const safePage = Math.min(page, totalPages);
   const pageItems = filtered.slice(
     (safePage - 1) * PAGE_SIZE,
-    safePage * PAGE_SIZE
+    safePage * PAGE_SIZE,
   );
 
   const setFilterAndReset = (f: StatusFilter) => {
@@ -138,7 +138,7 @@ export default function SellerApprovalPage() {
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
                     ? "bg-primary-900 text-white shadow-sm"
-                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50",
                 )}
               >
                 {f.label}
@@ -147,7 +147,7 @@ export default function SellerApprovalPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-secondary-100 text-secondary-600"
+                      : "bg-secondary-100 text-secondary-600",
                   )}
                 >
                   {count}
@@ -156,7 +156,6 @@ export default function SellerApprovalPage() {
             );
           })}
         </div>
-
         <div className="relative ml-auto flex-1 min-w-[220px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
@@ -172,49 +171,96 @@ export default function SellerApprovalPage() {
         </div>
       </div>
 
-      {/* ── Results table ── */}
+      {/*
+        ── Results table (Bug UI-048 fix) ──
+        Semantic <table> with <colgroup> matching the original 12-col grid
+        proportions (4/3/2/1/2). Screen readers can now navigate by row/column.
+      */}
       <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-4 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
-          <div className="col-span-4">Business</div>
-          <div className="col-span-3">Contact</div>
-          <div className="col-span-2">Status</div>
-          <div className="col-span-1">Joined</div>
-          <div className="col-span-2 text-right">Actions</div>
-        </div>
-
-        {isLoading ? (
-          <SkeletonRows />
-        ) : pageItems.length === 0 ? (
-          <div className="px-5 py-12 text-center text-sm text-slate-500">
-            No sellers match the current filters.
-          </div>
-        ) : (
-          <ul className="divide-y divide-secondary-100">
-            {pageItems.map((s) => (
-              <SellerRow
-                key={String(s.id)}
-                seller={s}
-                busy={updateSeller.isPending}
-                impersonateDisabled={isImpersonating}
-                onApprove={() =>
-                  updateSeller.mutate({ id: s.id!, status: "Approved" })
-                }
-                onReject={() =>
-                  updateSeller.mutate({ id: s.id!, status: "Rejected" })
-                }
-                onImpersonate={() => {
-                  setConfirmId(s.id ?? null);
-                }}
-                confirming={confirmId === s.id}
-                onConfirmImpersonate={() => {
-                  handleImpersonate(s);
-                  setConfirmId(null);
-                }}
-                onCancelConfirm={() => setConfirmId(null)}
-              />
-            ))}
-          </ul>
-        )}
+        <table className="w-full table-fixed border-collapse text-sm">
+          <caption className="sr-only">
+            Seller approval list. Columns: Business, Contact, Status, Joined, Actions.
+          </caption>
+          <colgroup>
+            <col className="w-[33.3333%]" /> {/* Business — col-span-4 */}
+            <col className="w-[25%]" />      {/* Contact  — col-span-3 */}
+            <col className="w-[16.6667%]" /> {/* Status   — col-span-2 */}
+            <col className="w-[8.3333%]" />  {/* Joined   — col-span-1 */}
+            <col className="w-[16.6667%]" /> {/* Actions  — col-span-2 */}
+          </colgroup>
+          <thead className="bg-secondary-50">
+            <tr className="border-b border-secondary-200">
+              <th
+                scope="col"
+                className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500"
+              >
+                Business
+              </th>
+              <th
+                scope="col"
+                className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500"
+              >
+                Contact
+              </th>
+              <th
+                scope="col"
+                className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500"
+              >
+                Status
+              </th>
+              <th
+                scope="col"
+                className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500"
+              >
+                Joined
+              </th>
+              <th
+                scope="col"
+                className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-slate-500"
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-secondary-100">
+            {isLoading ? (
+              <SkeletonRows />
+            ) : pageItems.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="px-5 py-12 text-center text-sm text-slate-500"
+                >
+                  No sellers match the current filters.
+                </td>
+              </tr>
+            ) : (
+              pageItems.map((s) => (
+                <SellerRow
+                  key={String(s.id)}
+                  seller={s}
+                  busy={updateSeller.isPending}
+                  impersonateDisabled={isImpersonating}
+                  onApprove={() =>
+                    updateSeller.mutate({ id: s.id!, status: "Approved" })
+                  }
+                  onReject={() =>
+                    updateSeller.mutate({ id: s.id!, status: "Rejected" })
+                  }
+                  onImpersonate={() => {
+                    setConfirmId(s.id ?? null);
+                  }}
+                  confirming={confirmId === s.id}
+                  onConfirmImpersonate={() => {
+                    handleImpersonate(s);
+                    setConfirmId(null);
+                  }}
+                  onCancelConfirm={() => setConfirmId(null)}
+                />
+              ))
+            )}
+          </tbody>
+        </table>
       </section>
 
       <Pagination
@@ -226,8 +272,7 @@ export default function SellerApprovalPage() {
   );
 }
 
-// Single row 
-
+// Single row
 function SellerRow({
   seller,
   busy,
@@ -255,9 +300,10 @@ function SellerRow({
   const canImpersonate = isApproved && !impersonateDisabled;
 
   return (
-    <li className="px-5 py-4 text-sm transition hover:bg-primary-50/40">
-      <div className="grid grid-cols-12 items-center gap-4">
-        <div className="col-span-4 min-w-0">
+    <>
+      <tr className="transition hover:bg-primary-50/40">
+        {/* Business */}
+        <td className="px-5 py-4">
           <div className="flex items-center gap-3">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-100 text-primary-800">
               <Store className="h-5 w-5" />
@@ -271,9 +317,10 @@ function SellerRow({
               </p>
             </div>
           </div>
-        </div>
+        </td>
 
-        <div className="col-span-3 min-w-0">
+        {/* Contact */}
+        <td className="px-5 py-4">
           <div className="flex items-center gap-2 text-sm font-bold text-secondary-900">
             <UserCircle className="h-4 w-4 shrink-0 text-slate-400" />
             <span className="truncate">{seller.contactPerson}</span>
@@ -282,9 +329,10 @@ function SellerRow({
           <p className="truncate text-xs text-slate-500">
             {seller.mobileNumber}
           </p>
-        </div>
+        </td>
 
-        <div className="col-span-2">
+        {/* Status */}
+        <td className="px-5 py-4">
           <StatusBadge status={seller.status} />
           {seller.reviewedAt && (
             <p className="mt-1 text-[11px] text-slate-400">
@@ -296,101 +344,109 @@ function SellerRow({
               on {formatDate(seller.reviewedAt)}
             </p>
           )}
-        </div>
+        </td>
 
-        <div className="col-span-1 text-xs text-slate-500">
+        {/* Joined */}
+        <td className="px-5 py-4 text-xs text-slate-500">
           {formatDate(seller.createdAt)}
-        </div>
+        </td>
 
-        <div className="col-span-2 flex flex-wrap justify-end gap-2">
-          {isPending && (
-            <>
+        {/* Actions */}
+        <td className="px-5 py-4">
+          <div className="flex flex-wrap justify-end gap-2">
+            {isPending && (
+              <>
+                <ActionBtn
+                  tone="emerald"
+                  label="Approve"
+                  icon={CheckCircle2}
+                  onClick={onApprove}
+                  disabled={busy}
+                />
+                <ActionBtn
+                  tone="rose"
+                  label="Reject"
+                  icon={XCircle}
+                  onClick={onReject}
+                  disabled={busy}
+                />
+              </>
+            )}
+            {!isPending && !isApproved && !isRejected && (
               <ActionBtn
-                tone="emerald"
-                label="Approve"
-                icon={CheckCircle2}
+                tone="slate"
+                label="Reviewed"
+                icon={Eye}
+                onClick={() => undefined}
+                disabled
+              />
+            )}
+            {!isApproved && (
+              <button
+                type="button"
                 onClick={onApprove}
                 disabled={busy}
-              />
-              <ActionBtn
-                tone="rose"
-                label="Reject"
-                icon={XCircle}
+                className="text-xs font-bold text-emerald-700 hover:text-emerald-800 disabled:opacity-50"
+              >
+                Approve
+              </button>
+            )}
+            {!isRejected && (
+              <button
+                type="button"
                 onClick={onReject}
                 disabled={busy}
+                className="text-xs font-bold text-rose-700 hover:text-rose-800 disabled:opacity-50"
+              >
+                Reject
+              </button>
+            )}
+            {/* Impersonation only for approved sellers */}
+            {isApproved && (
+              <ActionBtn
+                tone="indigo"
+                label={confirming ? "Confirm?" : "Login as"}
+                icon={LogIn}
+                onClick={onImpersonate}
+                disabled={!canImpersonate}
               />
-            </>
-          )}
-          {!isPending && !isApproved && !isRejected && (
-            <ActionBtn
-              tone="slate"
-              label="Reviewed"
-              icon={Eye}
-              onClick={() => undefined}
-              disabled
-            />
-          )}
-          {!isApproved && (
-            <button
-              type="button"
-              onClick={onApprove}
-              disabled={busy}
-              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 disabled:opacity-50"
-            >
-              Approve
-            </button>
-          )}
-          {!isRejected && (
-            <button
-              type="button"
-              onClick={onReject}
-              disabled={busy}
-              className="text-xs font-bold text-rose-700 hover:text-rose-800 disabled:opacity-50"
-            >
-              Reject
-            </button>
-          )}
-          {/* Impersonation only for approved sellers */}
-          {isApproved && (
-            <ActionBtn
-              tone="indigo"
-              label={confirming ? "Confirm?" : "Login as"}
-              icon={LogIn}
-              onClick={onImpersonate}
-              disabled={!canImpersonate}
-            />
-          )}
-        </div>
-      </div>
-
-      {/* Inline confirmation strip */}
-      {confirming && (
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs">
-          <p className="font-semibold text-indigo-900">
-            Impersonate <b>{seller.businessName}</b>? You'll see the
-            marketplace exactly as they do. You can exit from the yellow
-            banner at any time.
-          </p>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={onCancelConfirm}
-              className="rounded-full border border-secondary-200 bg-white px-3 py-1.5 text-xs font-bold text-secondary-700 transition hover:bg-secondary-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              onClick={onConfirmImpersonate}
-              className="inline-flex items-center gap-1.5 rounded-full bg-indigo-700 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-indigo-800"
-            >
-              <LogIn className="h-3.5 w-3.5" />
-              Login as seller
-            </button>
+            )}
           </div>
-        </div>
+        </td>
+      </tr>
+
+      {/* Inline confirmation strip — spans the entire row */}
+      {confirming && (
+        <tr>
+          <td colSpan={5} className="px-5 pb-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs">
+              <p className="font-semibold text-indigo-900">
+                Impersonate <b>{seller.businessName}</b>? You'll see the
+                marketplace exactly as they do. You can exit from the yellow
+                banner at any time.
+              </p>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={onCancelConfirm}
+                  className="rounded-full border border-secondary-200 bg-white px-3 py-1.5 text-xs font-bold text-secondary-700 transition hover:bg-secondary-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={onConfirmImpersonate}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-indigo-700 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-indigo-800"
+                >
+                  <LogIn className="h-3.5 w-3.5" />
+                  Login as seller
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
       )}
-    </li>
+    </>
   );
 }
 
@@ -415,6 +471,7 @@ function ActionBtn({
     indigo:
       "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100",
   } as const;
+
   return (
     <button
       type="button"
@@ -422,7 +479,7 @@ function ActionBtn({
       disabled={disabled}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-bold transition disabled:cursor-not-allowed disabled:opacity-50",
-        tones[tone]
+        tones[tone],
       )}
     >
       <Icon className="h-3.5 w-3.5" />
@@ -433,36 +490,38 @@ function ActionBtn({
 
 function SkeletonRows() {
   return (
-    <div className="divide-y divide-secondary-100">
+    <>
       {Array.from({ length: 5 }).map((_, i) => (
-        <div
-          key={i}
-          className="grid grid-cols-12 items-center gap-4 px-5 py-4"
-          aria-hidden="true"
-        >
-          <div className="col-span-4 flex items-center gap-3">
-            <div className="h-10 w-10 animate-pulse rounded-xl bg-secondary-200" />
-            <div className="flex-1 space-y-2">
-              <div className="h-3 w-2/3 animate-pulse rounded bg-secondary-200" />
-              <div className="h-2 w-1/3 animate-pulse rounded bg-secondary-200" />
+        <tr key={i} aria-hidden="true">
+          <td className="px-5 py-4">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 animate-pulse rounded-xl bg-secondary-200" />
+              <div className="flex-1 space-y-2">
+                <div className="h-3 w-2/3 animate-pulse rounded bg-secondary-200" />
+                <div className="h-2 w-1/3 animate-pulse rounded bg-secondary-200" />
+              </div>
             </div>
-          </div>
-          <div className="col-span-3 space-y-2">
-            <div className="h-3 w-3/4 animate-pulse rounded bg-secondary-200" />
-            <div className="h-2 w-2/3 animate-pulse rounded bg-secondary-200" />
-          </div>
-          <div className="col-span-2">
+          </td>
+          <td className="px-5 py-4">
+            <div className="space-y-2">
+              <div className="h-3 w-3/4 animate-pulse rounded bg-secondary-200" />
+              <div className="h-2 w-2/3 animate-pulse rounded bg-secondary-200" />
+            </div>
+          </td>
+          <td className="px-5 py-4">
             <div className="h-6 w-24 animate-pulse rounded-full bg-secondary-200" />
-          </div>
-          <div className="col-span-1">
+          </td>
+          <td className="px-5 py-4">
             <div className="h-3 w-20 animate-pulse rounded bg-secondary-200" />
-          </div>
-          <div className="col-span-2 flex justify-end gap-2">
-            <div className="h-7 w-20 animate-pulse rounded-full bg-secondary-200" />
-            <div className="h-7 w-16 animate-pulse rounded-full bg-secondary-200" />
-          </div>
-        </div>
+          </td>
+          <td className="px-5 py-4">
+            <div className="flex justify-end gap-2">
+              <div className="h-7 w-20 animate-pulse rounded-full bg-secondary-200" />
+              <div className="h-7 w-16 animate-pulse rounded-full bg-secondary-200" />
+            </div>
+          </td>
+        </tr>
       ))}
-    </div>
+    </>
   );
 }

@@ -23,6 +23,7 @@ import { formatCurrency, formatDate } from "@/utils/helpers";
 import type { BookStatus, Listing, MarketBook, Seller } from "@/types";
 
 type StatusFilter = "all" | BookStatus;
+
 const FILTERS: { id: StatusFilter; label: string }[] = [
   { id: "all", label: "All" },
   { id: "Approved", label: "Approved" },
@@ -41,17 +42,18 @@ export default function CatalogManagementPage() {
   const { data: books = [], isLoading } = useBooks();
   const { data: listings = [] } = useListings();
   const { data: sellers = [] } = useSellers();
+
   const updateBook = useUpdateBookStatus();
   const deleteBook = useDeleteBook();
 
-  // Detect duplicate ISBNs .
+  // Detect duplicate ISBNs (across sellers — only one master record per ISBN).
   const duplicateIsbns = useMemo(() => {
     const counts = new Map<string, number>();
     books.forEach((b) => counts.set(b.isbn, (counts.get(b.isbn) ?? 0) + 1));
     return new Set(
       Array.from(counts.entries())
         .filter(([, n]) => n > 1)
-        .map(([isbn]) => isbn)
+        .map(([isbn]) => isbn),
     );
   }, [books]);
 
@@ -63,7 +65,7 @@ export default function CatalogManagementPage() {
       Approved: books.filter((b) => b.status === "Approved").length,
       Rejected: books.filter((b) => b.status === "Rejected").length,
     }),
-    [books]
+    [books],
   );
 
   const filtered = useMemo(() => {
@@ -76,7 +78,7 @@ export default function CatalogManagementPage() {
           b.title.toLowerCase().includes(q) ||
           b.author.toLowerCase().includes(q) ||
           b.isbn.toLowerCase().includes(q) ||
-          (b.publisher ?? "").toLowerCase().includes(q)
+          (b.publisher ?? "").toLowerCase().includes(q),
       );
   }, [books, filter, search]);
 
@@ -84,7 +86,7 @@ export default function CatalogManagementPage() {
   const safePage = Math.min(page, totalPages);
   const pageItems = filtered.slice(
     (safePage - 1) * PAGE_SIZE,
-    safePage * PAGE_SIZE
+    safePage * PAGE_SIZE,
   );
 
   const setFilterAndReset = (f: StatusFilter) => {
@@ -134,7 +136,7 @@ export default function CatalogManagementPage() {
         </div>
       )}
 
-      {/*Filter pills + search */}
+      {/* Filter pills + search */}
       <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
         <div className="flex flex-wrap gap-1">
           {FILTERS.map((f) => {
@@ -150,7 +152,7 @@ export default function CatalogManagementPage() {
                   "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
                   isActive
                     ? "bg-primary-900 text-white shadow-sm"
-                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
+                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50",
                 )}
               >
                 {f.label}
@@ -159,7 +161,7 @@ export default function CatalogManagementPage() {
                     "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-secondary-100 text-secondary-600"
+                      : "bg-secondary-100 text-secondary-600",
                   )}
                 >
                   {count}
@@ -168,7 +170,6 @@ export default function CatalogManagementPage() {
             );
           })}
         </div>
-
         <div className="relative ml-auto flex-1 min-w-[220px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
@@ -184,48 +185,79 @@ export default function CatalogManagementPage() {
         </div>
       </div>
 
-      {/*Catalog table*/}
+      {/*
+        ── Catalog table (Bug UI-048 fix) ──
+        Semantic <table> with <colgroup> matching the original 12-col grid
+        proportions (4/2/3/1/2).
+      */}
       <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
-        <div className="grid grid-cols-12 gap-4 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
-          <div className="col-span-4">Book</div>
-          <div className="col-span-2">Status</div>
-          <div className="col-span-3">Listings</div>
-          <div className="col-span-1">Updated</div>
-          <div className="col-span-2 text-right">Actions</div>
-        </div>
-
-        {isLoading ? (
-          <div className="px-5 py-12 text-center text-sm text-slate-500">
-            Loading catalog…
-          </div>
-        ) : pageItems.length === 0 ? (
-          <div className="px-5 py-12 text-center text-sm text-slate-500">
-            <PackageSearch className="mx-auto mb-2 h-8 w-8 text-slate-300" />
-            No books match the current filters.
-          </div>
-        ) : (
-          <ul className="divide-y divide-secondary-100">
-            {pageItems.map((b) => (
-              <CatalogRow
-                key={String(b.id)}
-                book={b}
-                listings={listings.filter(
-                  (l) => String(l.bookId) === String(b.id)
-                )}
-                sellers={sellers}
-                isDuplicate={duplicateIsbns.has(b.isbn)}
-                busy={updateBook.isPending || deleteBook.isPending}
-                onApprove={() =>
-                  updateBook.mutate({ id: b.id, status: "Approved" })
-                }
-                onReject={() =>
-                  updateBook.mutate({ id: b.id, status: "Rejected" })
-                }
-                onDelete={() => deleteBook.mutate(b.id)}
-              />
-            ))}
-          </ul>
-        )}
+        <table className="w-full table-fixed border-collapse text-sm">
+          <caption className="sr-only">
+            Catalog list. Columns: Book, Status, Listings, Updated, Actions.
+          </caption>
+          <colgroup>
+            <col className="w-[33.3333%]" /> {/* Book     — col-span-4 */}
+            <col className="w-[16.6667%]" /> {/* Status   — col-span-2 */}
+            <col className="w-[25%]" />      {/* Listings — col-span-3 */}
+            <col className="w-[8.3333%]" />  {/* Updated  — col-span-1 */}
+            <col className="w-[16.6667%]" /> {/* Actions  — col-span-2 */}
+          </colgroup>
+          <thead className="bg-secondary-50">
+            <tr className="border-b border-secondary-200">
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Book
+              </th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Status
+              </th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Listings
+              </th>
+              <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
+                Updated
+              </th>
+              <th scope="col" className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-slate-500">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-secondary-100">
+            {isLoading ? (
+              <tr>
+                <td colSpan={5} className="px-5 py-12 text-center text-sm text-slate-500">
+                  Loading catalog…
+                </td>
+              </tr>
+            ) : pageItems.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="px-5 py-12 text-center text-sm text-slate-500">
+                  <PackageSearch className="mx-auto mb-2 h-8 w-8 text-slate-300" />
+                  No books match the current filters.
+                </td>
+              </tr>
+            ) : (
+              pageItems.map((b) => (
+                <CatalogRow
+                  key={String(b.id)}
+                  book={b}
+                  listings={listings.filter(
+                    (l) => String(l.bookId) === String(b.id),
+                  )}
+                  sellers={sellers}
+                  isDuplicate={duplicateIsbns.has(b.isbn)}
+                  busy={updateBook.isPending || deleteBook.isPending}
+                  onApprove={() =>
+                    updateBook.mutate({ id: b.id, status: "Approved" })
+                  }
+                  onReject={() =>
+                    updateBook.mutate({ id: b.id, status: "Rejected" })
+                  }
+                  onDelete={() => deleteBook.mutate(b.id)}
+                />
+              ))
+            )}
+          </tbody>
+        </table>
       </section>
 
       <Pagination
@@ -233,14 +265,12 @@ export default function CatalogManagementPage() {
         totalPages={totalPages}
         onPageChange={(p) => setPage(p)}
       />
-
       {showAddForm && <AddBookDialog onClose={() => setShowAddForm(false)} />}
     </div>
   );
 }
 
-// Catalog row 
-
+// Catalog row
 function CatalogRow({
   book,
   listings,
@@ -266,13 +296,14 @@ function CatalogRow({
     .filter((l) => l.active && l.stock > 0)
     .reduce<number | null>(
       (min, l) => (min === null || l.price < min ? l.price : min),
-      null
+      null,
     );
 
   return (
-    <li className="px-5 py-4 text-sm transition hover:bg-primary-50/40">
-      <div className="grid grid-cols-12 items-center gap-4">
-        <div className="col-span-4 min-w-0">
+    <>
+      <tr className="transition hover:bg-primary-50/40">
+        {/* Book */}
+        <td className="px-5 py-4">
           <div className="flex items-center gap-3">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-100 text-primary-800">
               <BookOpen className="h-5 w-5" />
@@ -286,7 +317,7 @@ function CatalogRow({
                 <span
                   className={cn(
                     "font-mono",
-                    isDuplicate ? "font-bold text-primary-700" : ""
+                    isDuplicate ? "font-bold text-primary-700" : "",
                   )}
                 >
                   ISBN {book.isbn}
@@ -294,18 +325,18 @@ function CatalogRow({
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="col-span-2">
+        </td>
+        {/* Status */}
+        <td className="px-5 py-4">
           <StatusBadge status={book.status} />
           {isDuplicate && (
             <p className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary-100 px-1.5 py-0.5 text-[10px] font-extrabold text-primary-800">
               <AlertTriangle className="h-3 w-3" /> duplicate
             </p>
           )}
-        </div>
-
-        <div className="col-span-3">
+        </td>
+        {/* Listings */}
+        <td className="px-5 py-4">
           {listings.length === 0 ? (
             <span className="text-xs text-slate-400">
               No seller listings yet
@@ -334,101 +365,107 @@ function CatalogRow({
               </button>
             </div>
           )}
-        </div>
-
-        <div className="col-span-1 text-xs text-slate-500">
+        </td>
+        {/* Updated */}
+        <td className="px-5 py-4 text-xs text-slate-500">
           {formatDate(book.reviewedAt ?? book.createdAt)}
-        </div>
-
-        <div className="col-span-2 flex flex-wrap justify-end gap-2">
-          {book.status !== "Approved" && (
+        </td>
+        {/* Actions */}
+        <td className="px-5 py-4">
+          <div className="flex flex-wrap justify-end gap-2">
+            {book.status !== "Approved" && (
+              <button
+                type="button"
+                onClick={onApprove}
+                disabled={busy}
+                className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700 transition hover:bg-emerald-100 disabled:opacity-50"
+              >
+                Approve
+              </button>
+            )}
+            {book.status !== "Rejected" && (
+              <button
+                type="button"
+                onClick={onReject}
+                disabled={busy}
+                className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-100 disabled:opacity-50"
+              >
+                Reject
+              </button>
+            )}
             <button
               type="button"
-              onClick={onApprove}
+              onClick={onDelete}
               disabled={busy}
-              className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700 transition hover:bg-emerald-100 disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-full border border-secondary-200 bg-white px-3 py-1.5 text-xs font-bold text-secondary-700 transition hover:bg-secondary-50 disabled:opacity-50"
+              title="Delete from catalog"
             >
-              Approve
+              <Trash2 className="h-3.5 w-3.5" />
+              Delete
             </button>
-          )}
-          {book.status !== "Rejected" && (
-            <button
-              type="button"
-              onClick={onReject}
-              disabled={busy}
-              className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-100 disabled:opacity-50"
-            >
-              Reject
-            </button>
-          )}
-          <button
-            type="button"
-            onClick={onDelete}
-            disabled={busy}
-            className="inline-flex items-center gap-1.5 rounded-full border border-secondary-200 bg-white px-3 py-1.5 text-xs font-bold text-secondary-700 transition hover:bg-secondary-50 disabled:opacity-50"
-            title="Delete from catalog"
-          >
-            <Trash2 className="h-3.5 w-3.5" />
-            Delete
-          </button>
-        </div>
-      </div>
+          </div>
+        </td>
+      </tr>
 
+      {/* Expanded listing details — full-width row with nested semantic table */}
       {expanded && listings.length > 0 && (
-        <div className="mt-3 rounded-xl border border-secondary-200 bg-secondary-50 p-4 overflow-x-auto">
-          <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-            Seller listings for this book
-          </p>
-          <table className="min-w-full text-xs">
-            <thead>
-              <tr className="text-left text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                <th className="pb-2">Seller</th>
-                <th className="pb-2">Price</th>
-                <th className="pb-2">Stock</th>
-                <th className="pb-2">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-secondary-200">
-              {listings.map((l) => {
-                const seller = sellers.find(
-                  (s) => String(s.id) === String(l.sellerId)
-                );
-                return (
-                  <tr key={String(l.id)} className="text-secondary-700">
-                    <td className="py-2 font-bold text-secondary-900">
-                      {seller?.businessName ?? `Seller #${l.sellerId}`}
-                    </td>
-                    <td className="py-2">{formatCurrency(l.price)}</td>
-                    <td className="py-2">{l.stock}</td>
-                    <td className="py-2">
-                      <span
-                        className={cn(
-                          "rounded-full px-2 py-0.5 text-[10px] font-extrabold",
-                          l.active && l.stock > 0
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-secondary-200 text-secondary-700"
-                        )}
-                      >
-                        {l.active
-                          ? l.stock > 0
-                            ? "In stock"
-                            : "Out of stock"
-                          : "Inactive"}
-                      </span>
-                    </td>
+        <tr>
+          <td colSpan={5} className="px-5 pb-4">
+            <div className="mt-1 overflow-x-auto rounded-xl border border-secondary-200 bg-secondary-50 p-4">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                Seller listings for this book
+              </p>
+              <table className="min-w-full text-xs">
+                <thead>
+                  <tr className="text-left text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                    <th scope="col" className="pb-2">Seller</th>
+                    <th scope="col" className="pb-2">Price</th>
+                    <th scope="col" className="pb-2">Stock</th>
+                    <th scope="col" className="pb-2">Status</th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                </thead>
+                <tbody className="divide-y divide-secondary-200">
+                  {listings.map((l) => {
+                    const seller = sellers.find(
+                      (s) => String(s.id) === String(l.sellerId),
+                    );
+                    return (
+                      <tr key={String(l.id)} className="text-secondary-700">
+                        <td className="py-2 font-bold text-secondary-900">
+                          {seller?.businessName ?? `Seller #${l.sellerId}`}
+                        </td>
+                        <td className="py-2">{formatCurrency(l.price)}</td>
+                        <td className="py-2">{l.stock}</td>
+                        <td className="py-2">
+                          <span
+                            className={cn(
+                              "rounded-full px-2 py-0.5 text-[10px] font-extrabold",
+                              l.active && l.stock > 0
+                                ? "bg-emerald-100 text-emerald-800"
+                                : "bg-secondary-200 text-secondary-700",
+                            )}
+                          >
+                            {l.active
+                              ? l.stock > 0
+                                ? "In stock"
+                                : "Out of stock"
+                              : "Inactive"}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
       )}
-    </li>
+    </>
   );
 }
 
-// Add book dialog 
-
+// Add book dialog
 function AddBookDialog({ onClose }: { onClose: () => void }) {
   const create = useCreateBook();
   const [form, setForm] = useState({
@@ -448,7 +485,6 @@ function AddBookDialog({ onClose }: { onClose: () => void }) {
     if (!form.author.trim()) errs.author = "Author is required.";
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
-
     create.mutate(
       {
         isbn: form.isbn.trim(),
@@ -459,7 +495,7 @@ function AddBookDialog({ onClose }: { onClose: () => void }) {
       },
       {
         onSuccess: () => onClose(),
-      }
+      },
     );
   };
 
@@ -482,7 +518,6 @@ function AddBookDialog({ onClose }: { onClose: () => void }) {
           customers immediately. Sellers can then create their own listings for
           it.
         </p>
-
         <form onSubmit={submit} className="mt-4 space-y-3">
           <FormField
             label="ISBN"
@@ -524,7 +559,6 @@ function AddBookDialog({ onClose }: { onClose: () => void }) {
               className="w-full rounded-xl border border-secondary-200 bg-white px-3 py-2 text-sm outline-none focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
             />
           </div>
-
           <div className="mt-4 flex items-center justify-end gap-2 border-t border-secondary-100 pt-4">
             <button
               type="button"
@@ -574,7 +608,7 @@ function FormField({
           "w-full rounded-xl border bg-white px-3 py-2 text-sm outline-none focus:ring-4",
           error
             ? "border-rose-300 focus:border-rose-400 focus:ring-rose-100"
-            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100"
+            : "border-secondary-200 focus:border-amber-500 focus:ring-primary-100",
         )}
       />
       {error && (
