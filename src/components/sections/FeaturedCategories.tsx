@@ -38,13 +38,13 @@ export default function FeaturedCategories() {
         />
 
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 ">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 ">
             {Array.from({ length: 5 }).map((_, i) => (
               <Skeleton key={i} className="h-44 rounded-2xl" />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 px-12 md:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 px-12 md:px-16">
             {CATEGORY_META.map((cat) => {
               const Icon = ICON_MAP[cat.icon] || BookOpen;
               const count = countFor(cat.tag);

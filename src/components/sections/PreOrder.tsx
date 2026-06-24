@@ -16,7 +16,7 @@ export default function PreOrder() {
           />
         </div>
         {isLoading ? (
-          <div className="flex gap-6 overflow-hidden">
+          <div className="flex gap-4 overflow-hidden">
             {Array.from({ length: 4 }).map((_, index) => (
               <div key={index} className="w-[220px] h-[380px] rounded-3xl bg-primary-100/50 animate-pulse flex-shrink-0" />
             ))}
