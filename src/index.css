@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
   --color-primary-50: #fefaf0;
@@ -16,7 +17,7 @@
   --color-secondary-200: #e2e8f0;
   --color-secondary-600: #475569;
   --color-secondary-700: #334155;
-  --color-secondary-800: #1e2937;
+  --color-secondary-800: #1e293b;
   --color-secondary-900: #0f172a;
   --color-secondary: var(--color-secondary-800);
   --color-secondary-foreground: #f8fafc;
@@ -90,13 +91,13 @@ body {
 
 /* Bookish card hover */
 .book-card {
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
-              box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .book-card:hover {
   transform: translateY(-8px) rotate(0.5deg);
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15), 
-              0 10px 10px -6px rgb(0 0 0 / 0.1);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15),
+    0 10px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 /* Fancy buttons */
@@ -185,7 +186,7 @@ h1, h2 {
 /* Book spine aesthetic */
 .book-spine {
   box-shadow: inset 20px 0 30px -15px rgba(0,0,0,0.2),
-              0 10px 15px -3px rgb(0 0 0 / 0.1);
+    0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
 /* Testimonials fancy */
@@ -258,4 +259,3 @@ h1, h2 {
   padding-left: 1rem !important;
   padding-right: 1rem !important;
 }
-

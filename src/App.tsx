@@ -52,6 +52,66 @@ import Manga from "@/components/sections/Manga";
 import ArtificialIntelligence from "@/components/sections/ArtificialIntelligence";
 import Newsletter from "@/components/sections/Newsletter";
 
+// Brand name used in every document.title
+const BRAND = "Lectory";
+
+// Per-route page titles. Falls back to BRAND when no match.
+const ROUTE_TITLES: Record<string, string> = {
+  "/": BRAND,
+  "/browse": "Browse Books",
+  "/stores": "Stores",
+  "/cart": "Cart",
+  "/checkout": "Checkout",
+  "/login": "Login",
+  "/register": "Register",
+};
+
+const SELLER_ROUTE_TITLES: Record<string, string> = {
+  "/seller": "Seller Dashboard",
+  "/seller/orders": "Seller Orders",
+  "/seller/listings": "Seller Listings",
+  "/seller/submit-book": "Submit Book",
+  "/seller/settings": "Seller Settings",
+};
+
+const ADMIN_ROUTE_TITLES: Record<string, string> = {
+  "/admin": "Admin Overview",
+  "/admin/sellers": "Seller Approvals",
+  "/admin/books": "Book Approvals",
+  "/admin/catalog": "Catalog Management",
+  "/admin/customers": "Customer Management",
+  "/admin/orders": "Order Management",
+};
+
+/**
+ * Resolve the page title for a given pathname.
+ * - Exact match wins.
+ * - Dynamic routes (e.g. /books/:id, /stores/:id) use regex.
+ * - /account/* maps to "My Account".
+ * - Unknown routes fall back to the brand name.
+ */
+function getPageTitle(pathname: string): string {
+  if (ROUTE_TITLES[pathname] !== undefined) return ROUTE_TITLES[pathname];
+  if (SELLER_ROUTE_TITLES[pathname] !== undefined) return SELLER_ROUTE_TITLES[pathname];
+  if (ADMIN_ROUTE_TITLES[pathname] !== undefined) return ADMIN_ROUTE_TITLES[pathname];
+
+  if (/^\/books\/[^/]+/.test(pathname)) return "Book Details";
+  if (/^\/stores\/[^/]+/.test(pathname)) return "Store Details";
+  if (/^\/account\/?.*/.test(pathname)) return "My Account";
+
+  return BRAND;
+}
+
+/**
+ * Format the final document.title:
+ * - On home (BRAND only): "Lectory"
+ * - On other pages:        "Lectory | Page Name"
+ */
+function buildTitle(pathname: string): string {
+  const page = getPageTitle(pathname);
+  return page === BRAND ? BRAND : `${BRAND} | ${page}`;
+}
+
 function HomePage() {
   return (
     <>
@@ -66,7 +126,6 @@ function HomePage() {
         <ArtificialIntelligence />
         <NewArrivals />
         <Newsletter />
-
       </main>
       <Footer />
     </>
@@ -77,7 +136,11 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  
+  // Bug UI-050 fix: keep <title> in sync with the current route.
+  useEffect(() => {
+    document.title = buildTitle(location.pathname);
+  }, [location.pathname]);
+
   useEffect(() => {
     if (useAuthStore.getState().isRoleTransitioning) {
       useAuthStore.getState().endRoleTransition();
@@ -92,24 +155,20 @@ export default function App() {
     <div className="min-h-screen bg-white font-sans text-secondary-900 antialiased">
       <Navbar />
       <ImpersonationBanner />
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/browse" element={<BrowseBooksPage onNavigateHome={goHome} />} />
-
         {/* Stores (sellers shown as bookstores) */}
         <Route path="/stores" element={<StoresPage onNavigateHome={goHome} />} />
         <Route
           path="/stores/:id"
           element={<StoreDetailsPage onNavigateHome={goHome} />}
         />
-
         {/* Book details with seller picker (public) */}
         <Route
           path="/books/:id"
           element={<BookDetailsPage onNavigateHome={goHome} />}
         />
-
         {/* Cart (customer only) */}
         <Route
           path="/cart"
@@ -127,7 +186,6 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-
         {/* Auth */}
         <Route
           path="/login"
@@ -141,7 +199,6 @@ export default function App() {
           path="/register"
           element={<RegistrationPage />}
         />
-
         {/* Customer area */}
         <Route
           path="/account/*"
@@ -151,7 +208,6 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-
         {/* Seller area — multi-page portal */}
         <Route
           path="/seller"
@@ -167,7 +223,6 @@ export default function App() {
           <Route path="submit-book" element={<SellerSubmitBookPage />} />
           <Route path="settings" element={<SellerSettingsPage />} />
         </Route>
-
         {/* Admin area — multi-page portal */}
         <Route
           path="/admin"
@@ -184,7 +239,6 @@ export default function App() {
           <Route path="customers" element={<CustomerManagementPage />} />
           <Route path="orders" element={<OrderManagementPage />} />
         </Route>
-
         <Route path="*" element={<HomePage />} />
       </Routes>
     </div>

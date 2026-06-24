@@ -5038,7 +5038,7 @@
       "listingId": "7",
       "bookId": "3",
       "sellerId": 1,
-      "quantity": 1,
+      "quantity": 3,
       "price": 499,
       "title": "Sapiens: A Brief History of Humankind",
       "author": "Yuval Noah Harari",
@@ -5046,6 +5046,34 @@
       "sellerName": "BookWorld Distributors",
       "createdAt": "2026-06-18T08:31:10.645Z",
       "id": "xYhi-SW8oq0"
+    },
+    {
+      "cartId": "1",
+      "listingId": "5",
+      "bookId": "2",
+      "sellerId": 2,
+      "quantity": 9,
+      "price": 259,
+      "title": "The Psychology of Money",
+      "author": "Morgan Housel",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780857197689-L.jpg",
+      "sellerName": "PageTurner Books",
+      "createdAt": "2026-06-24T08:16:51.268Z",
+      "id": "btz_2v-oD5c"
+    },
+    {
+      "cartId": "L9R73FYFYlk",
+      "listingId": "18",
+      "bookId": "7",
+      "sellerId": 2,
+      "quantity": 2,
+      "price": 469,
+      "title": "Project Hail Mary",
+      "author": "Andy Weir",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780593135204-L.jpg",
+      "sellerName": "PageTurner Books",
+      "createdAt": "2026-06-24T08:22:22.011Z",
+      "id": "ETqa5QDbMpQ"
     }
   ],
   "orders": [

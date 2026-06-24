@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   BookOpen,
@@ -19,8 +19,30 @@ const NAV_LINKS: { label: string; to: string }[] = [
   { label: "Stores", to: "/stores" },
 ];
 
+// Must match the `duration-200` class on the mobile menu (in ms).
+// We use this to keep the element mounted long enough for the
+// `animate-out` exit animation to finish before unmounting.
+const MOBILE_MENU_ANIM_MS = 200;
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  // `renderMobileMenu` is the "is in the DOM" flag. We keep it true for
+  // MOBILE_MENU_ANIM_MS after closing so the exit animation can play.
+  const [renderMobileMenu, setRenderMobileMenu] = useState(false);
+
+  // Bug UI-049 fix (smooth): defer unmount so the exit animation plays.
+  useEffect(() => {
+    if (mobileOpen) {
+      setRenderMobileMenu(true);
+      return;
+    }
+    const timer = window.setTimeout(
+      () => setRenderMobileMenu(false),
+      MOBILE_MENU_ANIM_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [mobileOpen]);
+
   const currentUser = useAuthStore((state) => state.currentUser);
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
@@ -76,8 +98,6 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden items-center gap-3 md:flex">
-            
-
             {currentUser ? (
               <>
                 <Link
@@ -105,10 +125,8 @@ export default function Navbar() {
                   <LogIn className="h-4 w-4" />
                   Login
                 </Link>
-               
               </>
             )}
-
             {currentUser?.role === "customer" && (
               <Link
                 to="/cart"
@@ -131,66 +149,88 @@ export default function Navbar() {
               className="rounded-lg p-2 text-gray-600 hover:bg-primary-50 md:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle navigation"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
             >
               {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileOpen && (
-          <div className="animate-fade-in mt-2 space-y-3 border-t border-primary-100 pb-4 pt-4 md:hidden">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                to={link.to}
-                onClick={closeMobileMenu}
-                className="block py-2 text-gray-600 hover:text-primary-800"
-              >
-                {link.label}
-              </Link>
-            ))}
+        {/*
+          Mobile Menu — Bug UI-049 fix (smooth).
 
-            <div className="space-y-3 border-t border-primary-100 pt-3">
-              {currentUser ? (
-                <>
-                  <Link
-                    to={dashboardPath}
-                    onClick={closeMobileMenu}
-                    className="flex items-center justify-center gap-2 rounded-2xl bg-primary-900 px-4 py-3 text-center font-bold text-white"
-                  >
-                    <UserPlus className="h-4 w-4" />
-                    {currentUser.name ?? "My Account"}
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary-200 bg-white px-4 py-3 text-center font-bold text-primary-900"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    to="/login"
-                    onClick={closeMobileMenu}
-                    className="flex items-center justify-center gap-2 rounded-2xl border border-primary-200 bg-white px-4 py-3 text-center font-bold text-primary-900"
-                  >
-                    <LogIn className="h-4 w-4" />
-                    Login
-                  </Link>
-                  <Link
-                    to="/register"
-                    onClick={closeMobileMenu}
-                    className="flex items-center justify-center gap-2 rounded-2xl bg-primary-900 px-4 py-3 text-center font-bold text-white"
-                  >
-                    <UserPlus className="h-4 w-4" />
-                    Registration
-                  </Link>
-                </>
-              )}
+          - `renderMobileMenu` controls mount/unmount. We keep it `true` for
+            MOBILE_MENU_ANIM_MS after close so the exit animation can play
+            before React removes the element.
+          - On open: `animate-in slide-in-from-top-2 fade-in-0 duration-200 ease-out`
+          - On close: `animate-out slide-out-to-top-2 fade-out-0 duration-200 ease-out`
+
+          Both are transform-based (translateY + opacity) so they run on the
+          GPU and stay smooth even on low-end mobile devices.
+        */}
+        {renderMobileMenu && (
+          <div
+            id="mobile-menu"
+            aria-hidden={!mobileOpen}
+            className={`md:hidden ${
+              mobileOpen
+                ? "animate-in slide-in-from-top-2 fade-in-0 duration-200 ease-out"
+                : "animate-out slide-out-to-top-2 fade-out-0 duration-200 ease-out"
+            }`}
+          >
+            <div className="mt-2 space-y-3 border-t border-primary-100 pb-4 pt-4">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  onClick={closeMobileMenu}
+                  className="block py-2 text-gray-600 hover:text-primary-800"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="space-y-3 border-t border-primary-100 pt-3">
+                {currentUser ? (
+                  <>
+                    <Link
+                      to={dashboardPath}
+                      onClick={closeMobileMenu}
+                      className="flex items-center justify-center gap-2 rounded-2xl bg-primary-900 px-4 py-3 text-center font-bold text-white"
+                    >
+                      <UserPlus className="h-4 w-4" />
+                      {currentUser.name ?? "My Account"}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary-200 bg-white px-4 py-3 text-center font-bold text-primary-900"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="/login"
+                      onClick={closeMobileMenu}
+                      className="flex items-center justify-center gap-2 rounded-2xl border border-primary-200 bg-white px-4 py-3 text-center font-bold text-primary-900"
+                    >
+                      <LogIn className="h-4 w-4" />
+                      Login
+                    </Link>
+                    <Link
+                      to="/register"
+                      onClick={closeMobileMenu}
+                      className="flex items-center justify-center gap-2 rounded-2xl bg-primary-900 px-4 py-3 text-center font-bold text-white"
+                    >
+                      <UserPlus className="h-4 w-4" />
+                      Registration
+                    </Link>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         )}
