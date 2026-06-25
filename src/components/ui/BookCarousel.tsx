@@ -120,26 +120,27 @@ export default function BookCarousel({ books, className }: BookCarouselProps) {
       </div>
 
       {/* Mobile arrows */}
-      <div className="flex items-center justify-center gap-3 mt-2 md:hidden">
-        <button
-          type="button"
-          onClick={() => scroll("left")}
-          disabled={!canLeft}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:bg-slate-950 hover:text-white disabled:opacity-40 disabled:pointer-events-none"
-          aria-label="Previous books"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <button
-          type="button"
-          onClick={() => scroll("right")}
-          disabled={!canRight}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:bg-slate-950 hover:text-white disabled:opacity-40 disabled:pointer-events-none"
-          aria-label="Next books"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      </div>
+    <div className="w-full flex items-center justify-center gap-3 mt-2 md:hidden">
+  <button
+    type="button"
+    onClick={() => scroll("left")}
+    disabled={!canLeft}
+    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:bg-slate-950 hover:text-white disabled:opacity-40 disabled:pointer-events-none"
+    aria-label="Previous books"
+  >
+    <ChevronLeft className="h-5 w-5" />
+  </button>
+
+  <button
+    type="button"
+    onClick={() => scroll("right")}
+    disabled={!canRight}
+    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:bg-slate-950 hover:text-white disabled:opacity-40 disabled:pointer-events-none"
+    aria-label="Next books"
+  >
+    <ChevronRight className="h-5 w-5" />
+  </button>
+</div>
     </div>
   )
 }

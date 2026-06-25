@@ -40,16 +40,16 @@ export default function SliderArrow({
       onClick={onClick}
       aria-label={direction === "left" ? "Previous" : "Next"}
       className={cn(
-        "absolute top-1/2 -translate-y-1/2 z-10",
-        direction === "left" ? "left-3 md:left-6" : "right-3 md:right-6",
-        "flex items-center justify-center w-11 h-11 md:w-14 md:h-14",
-        "rounded-full bg-white/20 backdrop-blur-md border border-white/30",
-        "text-white hover:bg-white/35 hover:scale-110",
+        "absolute top-1/2 -translate-y-1/2 z-30",
+        direction === "left" ? "left-2 sm:left-4 md:left-6 lg:left-10" : "right-2 sm:right-4 md:right-6 lg:right-10",
+        "flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 md:w-14 md:h-14",
+        "rounded-full bg-white/15 backdrop-blur-md border border-white/25",
+        "text-white hover:bg-white/30 hover:scale-110",
         "transition-all duration-200 active:scale-95 shadow-lg",
         className
       )}
     >
-      <Icon className="w-6 h-6 md:w-7 md:h-7 drop-shadow" />
+      <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 drop-shadow" />
     </button>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useRecommendedBooks } from "@/hooks/useHomeContent";
 import BookCard from "@/components/ui/BookCard";
+import BookCarousel from "../ui/BookCarousel";
 
 const HIGHLIGHTS = [
   {
@@ -177,44 +178,10 @@ export default function NewArrivals() {
                   ))}
                 </div>
               ) : (
-                <div
-                  ref={carouselRef}
-                  className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-                >
-                  {newArrivals.map((book) => (
-                    <div
-                      key={String(book.id)}
-                      className="w-[245px] shrink-0 snap-start sm:w-[270px] lg:w-[285px]"
-                    >
-                      <div className="h-[420px]">
-                        <BookCard book={book} className="h-full" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                  <BookCarousel books={newArrivals} />
               )}
-                  <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => scrollBooks("left")}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:bg-slate-950 hover:text-white"
-                    aria-label="Previous books"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => scrollBooks("right")}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:bg-slate-950 hover:text-white"
-                    aria-label="Next books"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                </div>
-              <p className="mt-2 text-center text-xs font-medium text-slate-400">
-                Swipe horizontally or use arrows to see more books.
-              </p>
+                 
+         
             </div>
           </div>
         </div>
