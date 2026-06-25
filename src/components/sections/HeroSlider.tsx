@@ -37,7 +37,7 @@ export default function HeroSlider() {
 
             <div className="relative h-full flex items-center pb-16 md:pb-0">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full">
-                <div className="max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto md:mx-0 text-center md:text-left">
+                <div className="max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto md:mx-0 text-center md:text-left md:pl-[50px]">
                   <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight whitespace-pre-line drop-shadow-2xl animate-fade-in-up">
                     {slide.title}
                   </h1>

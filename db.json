@@ -1020,9 +1020,9 @@
       "publisher": "Harriman House",
       "description": "Timeless lessons on wealth, greed, and happiness. Doing well with money isn't about what you know.",
       "coverImage": "https://covers.openlibrary.org/b/isbn/9780857197689-L.jpg",
-      "status": "Approved",
+      "status": "Rejected",
       "createdAt": "2026-06-01T09:00:00.000Z",
-      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "reviewedAt": "2026-06-25T12:16:24.317Z",
       "categories": [
         "bestseller"
       ],
@@ -5114,20 +5114,6 @@
       "sellerName": "PageTurner Books",
       "createdAt": "2026-06-24T08:16:51.268Z",
       "id": "btz_2v-oD5c"
-    },
-    {
-      "cartId": "L9R73FYFYlk",
-      "listingId": "18",
-      "bookId": "7",
-      "sellerId": 2,
-      "quantity": 1,
-      "price": 469,
-      "title": "Project Hail Mary",
-      "author": "Andy Weir",
-      "coverImage": "https://covers.openlibrary.org/b/isbn/9780593135204-L.jpg",
-      "sellerName": "PageTurner Books",
-      "createdAt": "2026-06-24T08:22:22.011Z",
-      "id": "ETqa5QDbMpQ"
     }
   ],
   "orders": [
@@ -5634,6 +5620,30 @@
           "sellerNameSnapshot": "BookWorld Distributors"
         }
       ]
+    },
+    {
+      "id": "rC_N_BxOAPM",
+      "customerId": "IK31EltCvMk",
+      "sellerId": "2",
+      "status": "Created",
+      "shippingAddress": "345678, nb gcfdxvghjbk, cfgh, dxftgvhjb 344567, India, (76636347865)",
+      "total": 469,
+      "createdAt": "2026-06-25T09:37:46.669Z",
+      "items": [
+        {
+          "id": "oitem_1782380266670_0_2ma",
+          "orderId": "ord_1782380266670_yfar",
+          "listingId": "18",
+          "bookId": "7",
+          "sellerId": 2,
+          "quantity": 1,
+          "price": 469,
+          "titleSnapshot": "Project Hail Mary",
+          "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9780593135204-L.jpg",
+          "authorSnapshot": "Andy Weir",
+          "sellerNameSnapshot": "PageTurner Books"
+        }
+      ]
     }
   ],
   "orderItems": [
@@ -5922,6 +5932,19 @@
       "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg",
       "authorSnapshot": "Jane Austen",
       "sellerNameSnapshot": "BookWorld Distributors"
+    },
+    {
+      "id": "ECDBHx8nmKU",
+      "orderId": "ord_1782380266670_yfar",
+      "listingId": "18",
+      "bookId": "7",
+      "sellerId": 2,
+      "quantity": 1,
+      "price": 469,
+      "titleSnapshot": "Project Hail Mary",
+      "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9780593135204-L.jpg",
+      "authorSnapshot": "Andy Weir",
+      "sellerNameSnapshot": "PageTurner Books"
     }
   ],
   "categories": [

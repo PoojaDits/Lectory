@@ -3,15 +3,15 @@ import {
 
   BookOpen,
   CheckCircle2,
-  DollarSign,
+  IndianRupee,
   LayoutDashboard,
   Package,
+  PackageCheck,
   ShoppingBag,
   Truck,
-
+  Clock3,
   XCircle,
   TrendingUp,
-  AlertCircle,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -91,7 +91,7 @@ export default function SellerDashboardPage() {
         <StatCard
           label="Revenue"
           value={formatCurrency(revenue)}
-          icon={DollarSign}
+          icon={IndianRupee}
           tone="amber"
           hint="From delivered orders"
         />
@@ -116,7 +116,7 @@ export default function SellerDashboardPage() {
         <PipelineTile
           label="Created"
           value={orderCounts.Created}
-          icon={AlertCircle}
+          icon={Clock3}
           tone="amber"
         />
         <PipelineTile
@@ -134,7 +134,7 @@ export default function SellerDashboardPage() {
         <PipelineTile
           label="Delivered"
           value={orderCounts.Delivered}
-          icon={CheckCircle2}
+          icon={PackageCheck}
           tone="amber"
         />
         <PipelineTile
@@ -317,7 +317,7 @@ function QuickActionCard({
       <div className="relative z-10">
         <div
           className={cn(
-            "inline-flex h-12 w-12 items-center justify-center rounded-2xl mb-4 text-white",
+            "inline-flex h-12 w-12 items-center justify-center rounded-2xl mb-4 text-white bg-gradient-to-br shadow-md shadow-primary-900/10",
             colors[color].split(" ")[0],
             colors[color].split(" ")[1]
           )}

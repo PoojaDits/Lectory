@@ -1,11 +1,8 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   BookOpen,
   CheckCircle2,
   DollarSign,
-  Edit3,
-  Eye,
   Layers,
   Loader2,
   Package,
@@ -126,7 +123,7 @@ export default function SellerListingsTab({ sellerId }: SellerListingsTabProps) 
 
       {/* ── Stats strip ── */}
       {!isLoading && listings.length > 0 && (
-        <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <section className="grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 xl:grid-cols-4">
           <StatTile
             label="Total listings"
             value={listings.length}
@@ -155,54 +152,61 @@ export default function SellerListingsTab({ sellerId }: SellerListingsTabProps) 
       )}
 
       {/* ── Search + status filter pills ── */}
-      <div className="flex flex-col gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm md:flex-row md:items-center">
-        <div className="flex flex-wrap gap-1">
-          {STATUS_FILTERS.map((f) => {
-            const count =
-              f.id === "all"
-                ? listings.length
-                : f.id === "live"
-                  ? stats.live
-                  : f.id === "inactive"
-                    ? stats.inactive
-                    : stats.out;
-            const isActive = statusFilter === f.id;
-            return (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setStatusFilter(f.id)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition",
-                  isActive
-                    ? "bg-primary-900 text-white shadow-sm"
-                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50",
-                )}
-              >
-                {f.label}
-                <span
-                  className={cn(
-                    "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
-                    isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-secondary-100 text-secondary-600",
-                  )}
-                >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        <div className="relative md:ml-auto md:flex-1">
-          <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-          <input
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by title, author, or ISBN…"
-            className="w-full rounded-2xl border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
-          />
+      <div className="rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div className="-mx-1 overflow-x-auto pb-1 scrollbar-hide">
+            <div className="flex min-w-max flex-nowrap gap-2 px-1">
+              {STATUS_FILTERS.map((f) => {
+                const count =
+                  f.id === "all"
+                    ? listings.length
+                    : f.id === "live"
+                      ? stats.live
+                      : f.id === "inactive"
+                        ? stats.inactive
+                        : stats.out;
+                const isActive = statusFilter === f.id;
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => setStatusFilter(f.id)}
+                    className={cn(
+                      "shrink-0 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold whitespace-nowrap transition",
+                      isActive
+                        ? "bg-primary-900 text-white shadow-sm"
+                        : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
+                    )}
+                  >
+                    {f.label}
+                    <span
+                      className={cn(
+                        "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
+                        isActive
+                          ? "bg-white/20 text-white"
+                          : "bg-secondary-100 text-secondary-600"
+                      )}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="w-full lg:w-[320px] lg:shrink-0">
+            <div className="relative w-full">
+              <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <input
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search listings..."
+                className="block h-11 w-full rounded-2xl border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -215,7 +219,7 @@ export default function SellerListingsTab({ sellerId }: SellerListingsTabProps) 
           onCreate={() => setShowCreate(true)}
         />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 xl:gap-6">
           {filtered.map((l) => (
             <ListingCard
               key={String(l.id)}
@@ -296,20 +300,20 @@ function StatTile({
     rose: "bg-rose-100 text-rose-700",
   } as const;
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
+    <div className="flex min-w-0 flex-col gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm sm:p-5">
       <span
         className={cn(
-          "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
+          "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl",
           tones[tone],
         )}
       >
         <Icon className="h-5 w-5" />
       </span>
       <div className="min-w-0">
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+        <p className="text-[10px] font-bold uppercase tracking-wider leading-tight text-slate-500 sm:text-[11px]">
           {label}
         </p>
-        <p className="text-2xl font-black leading-none text-secondary-900">
+        <p className="mt-1 break-words text-2xl font-black leading-none text-secondary-900 sm:text-3xl">
           {value}
         </p>
       </div>
@@ -354,18 +358,18 @@ function ListingCard({
     : "bg-emerald-500/95 text-white";
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-secondary-100 bg-white shadow-sm transition-all duration-300 hover:shadow-md hover:shadow-primary-900/10">
+    <div className="group relative mx-auto flex h-full w-full max-w-[220px] flex-col overflow-hidden rounded-2xl border border-secondary-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-primary-900/10">
       {/* ── Cover image ── */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-secondary-100">
+      <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-primary-50 via-secondary-50 to-secondary-100 p-3">
         {book?.coverImage ? (
           <img
             src={book.coverImage}
             alt={book?.title ?? "Book cover"}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center">
+          <div className="flex h-full w-full items-center justify-center rounded-xl bg-white/60">
             <BookOpen className="h-16 w-16 text-slate-300" />
           </div>
         )}
@@ -428,15 +432,15 @@ function ListingCard({
       </div>
 
       {/* ── Content ── */}
-      <div className="flex flex-1 flex-col gap-1.5 p-2">
+      <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="min-w-0">
-          <h3 className="line-clamp-1 text-xs font-bold text-secondary-900">
+          <h3 className="line-clamp-2 text-sm font-bold text-secondary-900 transition group-hover:text-primary-700">
             {book?.title ?? "Untitled book"}
           </h3>
-          <p className="line-clamp-1 text-[10px] text-slate-500">
+          <p className="mt-0.5 line-clamp-1 text-xs text-slate-500">
             {book?.author ?? "Unknown author"}
           </p>
-          <p className="mt-0.5 font-mono text-[9px] text-slate-400">
+          <p className="mt-1 font-mono text-[10px] text-slate-400">
             ISBN {book?.isbn ?? "—"}
           </p>
         </div>
@@ -457,7 +461,7 @@ function ListingCard({
           <>
             {/* Stock progress bar */}
             <div>
-              <div className="mt-0.5 h-1 overflow-hidden rounded-full bg-secondary-100">
+              <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-secondary-100">
                 <div
                   className={cn("h-full rounded-full transition-all", stockTone)}
                   style={{ width: `${stockPct}%` }}
@@ -466,13 +470,13 @@ function ListingCard({
             </div>
 
             {/* Actions */}
-            <div className="mt-auto flex items-center gap-1 pt-1">
+            <div className="mt-auto flex items-center gap-2 pt-2">
               <button
                 type="button"
                 onClick={onEdit}
                 disabled={isBusy}
                 aria-label={`Edit ${book?.title ?? "listing"}`}
-                className="inline-flex flex-1 items-center justify-center rounded-full bg-primary-700 px-2 py-1 text-[10px] font-bold text-white shadow-sm transition hover:bg-primary-800 disabled:opacity-50"
+                className="inline-flex flex-1 items-center justify-center rounded-full bg-primary-700 px-3 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-primary-800 disabled:opacity-50"
               >
                 Edit
               </button>
@@ -481,9 +485,9 @@ function ListingCard({
                 onClick={onDelete}
                 disabled={isBusy}
                 aria-label={`Delete ${book?.title ?? "listing"}`}
-                className="inline-flex items-center justify-center rounded-full border border-rose-200 bg-rose-50 px-2 py-1 text-[10px] font-bold text-rose-700 transition hover:bg-rose-100 disabled:opacity-50"
+                className="inline-flex items-center justify-center rounded-full border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-bold text-rose-700 transition hover:bg-rose-100 disabled:opacity-50"
               >
-                <Trash2 className="h-2.5 w-2.5" />
+                <Trash2 className="h-3.5 w-3.5" />
               </button>
             </div>
           </>
@@ -578,21 +582,21 @@ function EditForm({
 
 function ListingsSkeleton() {
   return (
-    <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 xl:gap-6">
       {Array.from({ length: 12 }).map((_, i) => (
         <div
           key={i}
           aria-hidden="true"
-          className="flex flex-col overflow-hidden rounded-xl border border-secondary-100 bg-white shadow-sm"
+          className="mx-auto flex w-full max-w-[220px] flex-col overflow-hidden rounded-2xl border border-secondary-100 bg-white shadow-sm"
         >
-          <div className="aspect-[4/5] animate-pulse bg-secondary-100" />
-          <div className="space-y-1.5 p-2">
-            <div className="h-2.5 w-3/4 animate-pulse rounded bg-secondary-100" />
-            <div className="h-2 w-1/2 animate-pulse rounded bg-secondary-100" />
-            <div className="h-1 w-full animate-pulse rounded-full bg-secondary-100" />
-            <div className="flex gap-1 pt-1">
-              <div className="h-5 flex-1 animate-pulse rounded-full bg-secondary-100" />
-              <div className="h-5 w-7 animate-pulse rounded-full bg-secondary-100" />
+          <div className="h-48 animate-pulse bg-secondary-100" />
+          <div className="space-y-2 p-4">
+            <div className="h-3.5 w-3/4 animate-pulse rounded bg-secondary-100" />
+            <div className="h-3 w-1/2 animate-pulse rounded bg-secondary-100" />
+            <div className="h-1.5 w-full animate-pulse rounded-full bg-secondary-100" />
+            <div className="flex gap-2 pt-2">
+              <div className="h-8 flex-1 animate-pulse rounded-full bg-secondary-100" />
+              <div className="h-8 w-10 animate-pulse rounded-full bg-secondary-100" />
             </div>
           </div>
         </div>

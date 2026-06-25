@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   BookOpen,
@@ -14,24 +14,20 @@ import {
 } from "lucide-react";
 import type { Order, OrderStatus } from "@/types";
 import { formatCurrency, formatDate } from "@/utils/helpers";
+import StatCard from "@/components/ui/StatCard";
 import StatusBadge from "@/components/ui/StatusBadge";
 
 interface CustomerOrdersTabProps {
   orders: Order[];
 }
 
-/** Orders still in-flight not yet with the customer. */
 const ACTIVE_STATUSES: OrderStatus[] = ["Created", "Accepted", "Shipped"];
 
-/**
- * Classic, Amazon-style status line a single colored sentence,
- * not a flashy banner.
- */
-const STATUS_LINE: Record<
-  OrderStatus,
-  { text: string; className: string }
-> = {
-  Created: { text: "Order received · awaiting confirmation", className: "text-secondary-600" },
+const STATUS_LINE: Record<OrderStatus, { text: string; className: string }> = {
+  Created: {
+    text: "Order received · awaiting confirmation",
+    className: "text-secondary-600",
+  },
   Accepted: { text: "Preparing for shipment", className: "text-primary-600" },
   Shipped: { text: "On the way", className: "text-sky-700" },
   Delivered: { text: "Delivered", className: "text-emerald-700" },
@@ -41,54 +37,61 @@ const STATUS_LINE: Record<
 export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
   const [search, setSearch] = useState("");
 
-  const sortedOrders = useMemo(() => {
-    return [...orders].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  }, [orders]);
+  const sortedOrders = useMemo(
+    () => [...orders].sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
+    [orders]
+  );
 
-  // Text search applied across order id, items, and shipping address.
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return sortedOrders;
-    return sortedOrders.filter((o) => {
+
+    return sortedOrders.filter((order) => {
       const haystack = [
-        `#${o.id}`,
-        o.shippingAddress,
-        o.items
+        `#${order.id}`,
+        order.shippingAddress,
+        order.items
           ?.map(
-            (it) =>
-              `${it.titleSnapshot} ${it.authorSnapshot} ${it.sellerNameSnapshot}`
+            (item) =>
+              `${item.titleSnapshot} ${item.authorSnapshot} ${item.sellerNameSnapshot}`
           )
           .join(" "),
       ]
         .join(" ")
         .toLowerCase();
+
       return haystack.includes(q);
     });
-  }, [sortedOrders, search]);
+  }, [search, sortedOrders]);
 
-  // Group the (search-filtered) orders into display sections
-  const yetToReach = filtered.filter((o) => ACTIVE_STATUSES.includes(o.status));
-  const delivered = filtered.filter((o) => o.status === "Delivered");
-  const cancelled = filtered.filter((o) => o.status === "Cancelled");
-
-  const totalActive = orders.filter((o) =>
-    ACTIVE_STATUSES.includes(o.status)
+  const totalActive = orders.filter((order) =>
+    ACTIVE_STATUSES.includes(order.status)
   ).length;
-  const totalDelivered = orders.filter((o) => o.status === "Delivered").length;
+  const totalDelivered = orders.filter(
+    (order) => order.status === "Delivered"
+  ).length;
+  const totalCancelled = orders.filter(
+    (order) => order.status === "Cancelled"
+  ).length;
 
-  // No orders placed yet
+  const yetToReach = filtered.filter((order) =>
+    ACTIVE_STATUSES.includes(order.status)
+  );
+  const delivered = filtered.filter((order) => order.status === "Delivered");
+  const cancelled = filtered.filter((order) => order.status === "Cancelled");
+
   if (orders.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-secondary-200 bg-white/50 p-16 text-center">
-        <ShoppingBag className="h-14 w-14 text-slate-300 mb-4" />
+      <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-secondary-200 bg-white/70 p-16 text-center">
+        <ShoppingBag className="mb-4 h-14 w-14 text-slate-300" />
         <h2 className="text-xl font-black text-secondary-900">No orders yet</h2>
         <p className="mt-2 max-w-sm text-sm text-slate-500">
-          You haven't placed any book orders yet. Explore our catalog to find
-          your next favorite read!
+          You haven't placed any book orders yet. Explore the marketplace to
+          find your next favorite read.
         </p>
         <Link
           to="/browse"
-          className="mt-6 rounded-full bg-primary-900 px-8 py-3.5 text-sm font-black text-white hover:bg-primary-800 transition shadow-md"
+          className="mt-6 rounded-full bg-primary-700 px-8 py-3.5 text-sm font-black text-white transition hover:bg-primary-800"
         >
           Browse Marketplace
         </Link>
@@ -96,12 +99,13 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
     );
   }
 
-  // Search returned nothing
   if (filtered.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-secondary-200 bg-white/50 p-16 text-center">
-        <Search className="h-12 w-12 text-slate-300 mb-4" />
-        <h2 className="text-xl font-black text-secondary-900">No matching orders</h2>
+      <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-secondary-200 bg-white/70 p-16 text-center">
+        <Search className="mb-4 h-12 w-12 text-slate-300" />
+        <h2 className="text-xl font-black text-secondary-900">
+          No matching orders
+        </h2>
         <p className="mt-2 max-w-sm text-sm text-slate-500">
           No orders match “{search}”. Try a different book title, author, or
           order ID.
@@ -109,7 +113,7 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
         <button
           type="button"
           onClick={() => setSearch("")}
-          className="mt-6 rounded-full bg-secondary-900 px-8 py-3 text-xs font-bold text-white hover:bg-secondary-800 transition"
+          className="mt-6 rounded-full bg-secondary-900 px-8 py-3 text-xs font-bold text-white transition hover:bg-secondary-800"
         >
           Clear Search
         </button>
@@ -117,83 +121,107 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
     );
   }
 
-  // Ordered list of sections Yet to Reach first, then Delivered, then Cancelled.
   const sections = [
     {
       key: "yet-to-reach",
       title: "Yet to Reach",
       subtitle: "Orders being prepared or on their way to you.",
       icon: Truck,
-      tint: "bg-indigo-50 text-indigo-700",
       list: yetToReach,
+      accent: "bg-indigo-100 text-indigo-700",
     },
     {
       key: "delivered",
       title: "Delivered",
       subtitle: "Orders you've successfully received.",
       icon: CheckCircle2,
-      tint: "bg-emerald-50 text-emerald-700",
       list: delivered,
+      accent: "bg-emerald-100 text-emerald-700",
     },
     {
       key: "cancelled",
       title: "Cancelled",
       subtitle: "Orders that were rejected or cancelled.",
       icon: XCircle,
-      tint: "bg-rose-50 text-rose-700",
       list: cancelled,
+      accent: "bg-rose-100 text-rose-700",
     },
-  ].filter((s) => s.list.length > 0);
+  ].filter((section) => section.list.length > 0);
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-secondary-100 pb-6">
-        <div>
-          <h1 className="text-2xl font-black tracking-tight text-secondary-900 sm:text-3xl">
-            Your Orders
-          </h1>
-          <p className="mt-1 text-sm text-slate-500">
-            Track shipments and review your delivered and cancelled orders.
-          </p>
-        </div>
+    <div className="space-y-6">
+      <header>
+        <p className="text-xs font-black uppercase tracking-widest text-primary-700">
+          Customer · Orders
+        </p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
+          Order History
+        </h1>
+        <p className="mt-1 max-w-2xl text-sm text-secondary-600">
+          Review every purchase, track active shipments, and revisit your
+          completed orders.
+        </p>
+      </header>
 
-        {/* Stats Summary Pill */}
-        <div className="flex items-center gap-3 bg-primary-50 border border-primary-100 px-4 py-2.5 rounded-full text-xs font-bold text-amber-950">
-          <Package className="h-4 w-4 text-primary-800" />
-          <span>{orders.length} Total</span>
-          <span className="text-amber-300">|</span>
-          <span className="text-indigo-700">{totalActive} In Transit</span>
-          <span className="text-amber-300">|</span>
-          <span className="text-emerald-700">{totalDelivered} Delivered</span>
-        </div>
-      </div>
+      <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard
+          label="Total Orders"
+          value={orders.length}
+          icon={Package}
+          tone="amber"
+          hint="Across all statuses"
+        />
+        <StatCard
+          label="In Transit"
+          value={totalActive}
+          icon={Truck}
+          tone="indigo"
+          hint="Created, accepted, or shipped"
+        />
+        <StatCard
+          label="Delivered"
+          value={totalDelivered}
+          icon={CheckCircle2}
+          tone="emerald"
+          hint="Successfully received"
+        />
+        <StatCard
+          label="Cancelled"
+          value={totalCancelled}
+          icon={XCircle}
+          tone="rose"
+          hint="Rejected or cancelled"
+        />
+      </section>
 
-      {/* Search Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-secondary-200/80 bg-white p-4 shadow-sm">
-        <div className="relative w-full sm:min-w-[300px] sm:flex-1">
-          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
+        <div className="relative min-w-[220px] flex-1">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
             type="search"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search all orders…"
-            className="w-full rounded-full border border-secondary-200 bg-secondary-50/50 py-2.5 pl-10 pr-4 text-xs font-medium outline-none transition focus:border-primary-700 focus:bg-white focus:ring-4 focus:ring-primary-100"
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search by order ID, book title, author, or address…"
+            className="w-full rounded-full border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
           />
+        </div>
+        <div className="rounded-full bg-primary-50 px-4 py-2 text-xs font-bold text-primary-800">
+          Showing {filtered.length} of {orders.length} orders
         </div>
       </div>
 
-      {/* Grouped sections */}
       {sections.map((section) => {
         const Icon = section.icon;
         return (
-          <section key={section.key}>
-            {/* Section header */}
-            <div className="mb-4 flex items-center gap-3">
+          <section
+            key={section.key}
+            className="rounded-3xl border border-secondary-200 bg-white p-6 shadow-sm"
+          >
+            <div className="mb-5 flex items-center gap-3">
               <div
-                className={`inline-flex h-9 w-9 items-center justify-center rounded-lg ${section.tint}`}
+                className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${section.accent}`}
               >
-                <Icon className="h-4.5 w-4.5" />
+                <Icon className="h-5 w-5" />
               </div>
               <div>
                 <h2 className="flex items-center gap-2 text-lg font-black text-secondary-900">
@@ -206,7 +234,6 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
               </div>
             </div>
 
-            {/* Order cards */}
             <div className="space-y-4">
               {section.list.map((order) => (
                 <OrderCard key={String(order.id)} order={order} />
@@ -219,15 +246,12 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
   );
 }
 
-/*  Order card (classic Amazon style) */
-
 function OrderCard({ order }: { order: Order }) {
   const items = order.items ?? [];
   const statusLine = STATUS_LINE[order.status];
 
   return (
-    <div className="overflow-hidden rounded-xl border border-secondary-200 bg-white shadow-sm transition hover:border-slate-300 hover:shadow-md">
-      {/* ── Header bar*/}
+    <div className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm transition hover:border-slate-300 hover:shadow-md">
       <div className="flex flex-wrap items-stretch gap-x-8 gap-y-2 border-b border-secondary-200 bg-secondary-50 px-5 py-4 sm:px-6">
         <div className="min-w-[110px]">
           <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400">
@@ -257,9 +281,7 @@ function OrderCard({ order }: { order: Order }) {
         </div>
       </div>
 
-      {/* Body*/}
       <div className="px-5 py-5 sm:px-6">
-        {/*colored status */}
         <div className="mb-5 flex items-center gap-2">
           <StatusBadge status={order.status} />
           <span className={`text-sm font-semibold ${statusLine.className}`}>
@@ -267,14 +289,12 @@ function OrderCard({ order }: { order: Order }) {
           </span>
         </div>
 
-        {/* Items  one clean row per book */}
         <ul className="divide-y divide-secondary-100">
           {items.map((item, idx) => (
             <li
               key={String(item.id || idx)}
               className="flex gap-4 py-4 first:pt-0 last:pb-0"
             >
-              {/* Cover */}
               <Link
                 to={`/books/${item.bookId}`}
                 className="relative h-20 w-14 shrink-0 overflow-hidden rounded-md bg-secondary-200"
@@ -292,7 +312,6 @@ function OrderCard({ order }: { order: Order }) {
                 )}
               </Link>
 
-              {/* Details */}
               <div className="flex min-w-0 flex-1 flex-col">
                 <Link
                   to={`/books/${item.bookId}`}
@@ -308,7 +327,6 @@ function OrderCard({ order }: { order: Order }) {
                   · Qty {item.quantity}
                 </p>
 
-                {/* Action links */}
                 <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
                   <Link
                     to={`/books/${item.bookId}`}
@@ -326,7 +344,6 @@ function OrderCard({ order }: { order: Order }) {
                 </div>
               </div>
 
-              {/* Price */}
               <div className="shrink-0 text-right">
                 <span className="text-sm font-bold text-secondary-900">
                   {formatCurrency(item.price * item.quantity)}
@@ -336,7 +353,6 @@ function OrderCard({ order }: { order: Order }) {
           ))}
         </ul>
 
-        {/* Footer — ship to + invoice */}
         <div className="mt-5 flex flex-col gap-3 border-t border-secondary-100 pt-4 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-2">
             <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-400" />
@@ -348,9 +364,7 @@ function OrderCard({ order }: { order: Order }) {
 
           <button
             type="button"
-            onClick={() =>
-              alert(`Invoice for Order #${order.id} downloaded.`)
-            }
+            onClick={() => alert(`Invoice for Order #${order.id} downloaded.`)}
             className="inline-flex shrink-0 items-center gap-1.5 font-medium text-sky-700 hover:text-sky-800 hover:underline"
           >
             <ExternalLink className="h-3.5 w-3.5" />

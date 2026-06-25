@@ -170,25 +170,7 @@ export default function AdminLayout({
               Admin Portal
             </span>
           </div>
-          <div className="flex gap-2"> 
-            <button
-              type="button"
-              onClick={() => {
-                onNavigateHome();
-                navigate("/");
-              }}
-              className="rounded-full border border-secondary-200 px-3 py-1 text-xs font-bold text-secondary-700"
-            >
-              Store
-            </button>
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="rounded-full border border-rose-100 bg-rose-50 px-3 py-1 text-xs font-bold text-rose-700"
-            >
-              Sign out
-            </button>
-          </div>
+      
         </div>
 
         {/* Mobile sub-navigation*/}

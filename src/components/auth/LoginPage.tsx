@@ -1,6 +1,8 @@
 import { useState } from "react";
+import type { ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import type { FormikHelpers } from "formik";
 import { useLogin } from "@/hooks/useAuth";
 import { loginSchema } from "@/lib/validation";
 import type { AuthUser, LoginInput } from "@/types";
@@ -25,24 +27,42 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
 
   const loginMutation = useLogin(routeForRole);
 
-  const handleSubmit = (values: LoginInput) => {
+  const getReadableLoginError = (message?: string) => {
+    const msg = message || "Login failed. Please check your credentials.";
+
+    if (msg.includes("pending approval")) {
+      return "Your seller account is still pending admin approval. Please wait for confirmation before logging in.";
+    }
+    if (msg.includes("rejected")) {
+      return "Your seller account has been rejected. Please contact support for more information.";
+    }
+    if (msg.includes("No account found")) {
+      return "No account found with this email. Please check your email or register a new account.";
+    }
+    if (msg.includes("Incorrect password")) {
+      return "Incorrect password. Please try again or reset your password.";
+    }
+
+    return msg;
+  };
+
+  const handleSubmit = async (
+    values: LoginInput,
+    { setSubmitting }: FormikHelpers<LoginInput>
+  ) => {
     setLoginError("");
-    loginMutation.mutate(values, {
-      onError: (error) => {
-        const msg = error.message || "Login failed. Please check your credentials.";
-        if (msg.includes("pending approval")) {
-          setLoginError("Your seller account is still pending admin approval. Please wait for confirmation before logging in.");
-        } else if (msg.includes("rejected")) {
-          setLoginError("Your seller account has been rejected. Please contact support for more information.");
-        } else if (msg.includes("No account found")) {
-          setLoginError("No account found with this email. Please check your email or register a new account.");
-        } else if (msg.includes("Incorrect password")) {
-          setLoginError("Incorrect password. Please try again or reset your password.");
-        } else {
-          setLoginError(msg);
-        }
-      },
-    });
+
+    try {
+      await loginMutation.mutateAsync(values);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Login failed. Please check your credentials.";
+      setLoginError(getReadableLoginError(message));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -77,7 +97,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
               validationSchema={loginSchema}
               onSubmit={handleSubmit}
             >
-              {({ isSubmitting, errors, touched }) => (
+              {({ isSubmitting, errors, touched, handleChange }) => (
                 <Form className="space-y-4">
                   {/* Email Field */}
                   <div>
@@ -86,6 +106,10 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
                       name="email"
                       type="email"
                       placeholder="you@example.com"
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        if (loginError) setLoginError("");
+                        handleChange(e);
+                      }}
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
                         errors.email && touched.email
                           ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"
@@ -103,6 +127,10 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
                         name="password"
                         type={showPassword ? "text" : "password"}
                         placeholder="Your password"
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                          if (loginError) setLoginError("");
+                          handleChange(e);
+                        }}
                         className={`w-full rounded-2xl border pr-11 pl-4 py-3 text-sm outline-none transition focus:ring-4 ${
                           errors.password && touched.password
                             ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100"

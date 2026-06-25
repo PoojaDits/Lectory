@@ -196,18 +196,7 @@ export default function SellerLayout({
               Seller Portal
             </span>
           </div>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                onNavigateHome();
-                navigate("/");
-              }}
-              className="rounded-full border border-secondary-200 px-3 py-1 text-xs font-bold text-secondary-700"
-            >
-              Store
-            </button>
-          </div>
+         
         </div>
 
         {/* ── Mobile sub-navigation ── */}

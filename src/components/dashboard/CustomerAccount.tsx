@@ -1,14 +1,17 @@
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import {
   ArrowLeft,
+  BookOpen,
   LayoutDashboard,
-  Package,
-  MapPin,
-  Settings,
-  LogOut,
-  UserCircle,
   Loader2,
+  LogIn,
+  LogOut,
+  MapPin,
+  Package,
+  Settings,
+  ShieldCheck,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/useAuthStore";
 import {
   useCustomerProfile,
@@ -16,16 +19,18 @@ import {
   useUpdateCustomerProfile,
 } from "@/hooks/useCustomer";
 
-// Sub-tabs
 import CustomerOverviewTab from "@/components/customer/CustomerOverviewTab";
 import CustomerAddressesTab from "@/components/customer/CustomerAddressesTab";
 import CustomerSettingsTab from "@/components/customer/CustomerSettingsTab";
-import CustomerOrdersTab from "../customer/CustomerOrdersTab";
+import CustomerOrdersTab from "@/components/customer/CustomerOrdersTab";
 
 interface CustomerAccountProps {
   onNavigateHome: () => void;
   onLogin: () => void;
 }
+
+const linkBase =
+  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors";
 
 export default function CustomerAccount({
   onNavigateHome,
@@ -34,168 +39,242 @@ export default function CustomerAccount({
   const currentUser = useAuthStore((s) => s.currentUser);
   const logout = useAuthStore((s) => s.logout);
   const isImpersonating = useAuthStore((s) => s.isImpersonating);
-  const location = useLocation();
 
-  // Fresh backend queries
-  const { data: customerProfile, isLoading: isCustomerLoading } = useCustomerProfile(
-    currentUser?.id
-  );
-  const { data: customerOrders = [], isLoading: isOrdersLoading } = useCustomerOrders(
-    currentUser?.id
-  );
+  const { data: customerProfile, isLoading: isCustomerLoading } =
+    useCustomerProfile(currentUser?.id);
+  const { data: customerOrders = [], isLoading: isOrdersLoading } =
+    useCustomerOrders(currentUser?.id);
   const updateProfile = useUpdateCustomerProfile();
+
+  const tabs = [
+    { to: "/account", label: "Dashboard", icon: LayoutDashboard },
+    {
+      to: "/account/orders",
+      label: "Orders",
+      icon: Package,
+      badge: customerOrders.length,
+    },
+    {
+      to: "/account/addresses",
+      label: "Addresses",
+      icon: MapPin,
+      badge: customerProfile?.addresses?.length,
+    },
+    {
+      to: "/account/settings",
+      label: "Settings",
+      icon: Settings,
+    },
+  ];
 
   const handleLogout = () => {
     logout();
     onNavigateHome();
   };
 
-  // ── Guard ──
   if (!currentUser || currentUser.role !== "customer") {
     return (
-      <main className="min-h-screen bg-primary-50 px-4 pt-28">
-        <div className="mx-auto max-w-2xl rounded-[2rem] bg-white p-8 text-center shadow-xl shadow-primary-100">
-          <UserCircle className="mx-auto h-14 w-14 text-primary-700" />
-          <h1 className="mt-4 text-3xl font-black text-secondary-900">
-            Customer login required
+      <main className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-6 text-center">
+        <ShieldCheck className="h-16 w-16 text-amber-500" />
+        <div>
+          <h1 className="text-3xl font-extrabold text-secondary-900">
+            Customer access required
           </h1>
-          <p className="mt-2 text-slate-500">
-            Please log in as a customer to view your account dashboard.
+          <p className="mt-2 max-w-md text-secondary-600">
+            Please log in with a customer account to view your dashboard,
+            orders, addresses, and settings.
           </p>
-          <button
-            type="button"
-            onClick={onLogin}
-            className="mt-6 rounded-full bg-primary-900 px-6 py-3 font-bold text-white hover:bg-primary-800"
-          >
-            Go to Login
-          </button>
         </div>
+        <button
+          type="button"
+          onClick={onLogin}
+          className="rounded-full bg-primary-700 px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-primary-800"
+        >
+          <LogIn className="mr-2 inline h-4 w-4" />
+          Go to Login
+        </button>
       </main>
     );
   }
 
-  // Determine active nav
-  const subPath = location.pathname.replace("/account", "").replace(/^\//, "") || "";
-
-  const TABS = [
-    { id: "", label: "Overview", icon: LayoutDashboard, exact: true },
-    { id: "orders", label: "Orders", icon: Package, badge: customerOrders.length },
-    { id: "addresses", label: "Addresses", icon: MapPin, badge: customerProfile?.addresses?.length },
-    { id: "settings", label: "Settings", icon: Settings },
-  ];
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-primary-50/70 via-white to-orange-50/60 px-4 pb-20 pt-[120px]">
-      <div className="mx-auto max-w-6xl">
-     
-
-        {/* Loading state */}
-        {(isCustomerLoading || isOrdersLoading) && !customerProfile ? (
-          <div className="flex flex-col items-center justify-center py-32 text-slate-400">
-            <Loader2 className="h-10 w-10 animate-spin text-primary-700" />
-            <p className="mt-4 font-bold text-secondary-600">Loading your impressive profile dashboard…</p>
+    <div className="min-h-screen bg-gradient-to-br from-secondary-50 via-white to-primary-50/30">
+      <div className="mx-auto flex w-full max-w-[1400px] gap-6 px-4 pb-8 pt-8 sm:px-6 md:pt-24 lg:px-8">
+        <aside className="sticky top-24 hidden h-fit w-64 shrink-0 rounded-2xl border border-secondary-200 bg-white p-5 shadow-sm md:block">
+          <div className="mb-6 flex items-center gap-3 border-b border-secondary-100 pb-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-700 text-white">
+              <BookOpen className="h-5 w-5" />
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-extrabold text-secondary-900">
+                {customerProfile
+                  ? `${customerProfile.firstName} ${customerProfile.lastName}`
+                  : currentUser.name}
+              </p>
+              <p className="text-xs font-bold uppercase tracking-wider text-primary-700">
+                Customer
+              </p>
+            </div>
           </div>
-        ) : !customerProfile ? (
-          <div className="rounded-[2.5rem] bg-white p-12 text-center shadow-xl">
-            <p className="text-lg font-black text-secondary-900">Failed to load customer details.</p>
+
+          <nav aria-label="Customer sections" className="flex flex-col gap-1">
+            {tabs.map(({ to, label, icon: Icon, badge }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={to === "/account"}
+                className={({ isActive }) =>
+                  cn(
+                    linkBase,
+                    isActive
+                      ? "bg-primary-700 text-white shadow-sm"
+                      : "text-secondary-700 hover:bg-primary-50 hover:text-primary-700"
+                  )
+                }
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                <span className="flex-1">{label}</span>
+                {badge !== undefined && badge > 0 && (
+                  <span className="ml-auto rounded-full bg-primary-100 px-2 py-0.5 text-[10px] font-extrabold text-primary-800">
+                    {badge}
+                  </span>
+                )}
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className="mt-6 space-y-2 border-t border-secondary-100 pt-5">
             <button
               type="button"
-              onClick={() => window.location.reload()}
-              className="mt-4 rounded-full bg-primary-900 px-6 py-2.5 text-sm font-bold text-white hover:bg-primary-800"
+              onClick={onNavigateHome}
+              className="flex w-full items-center gap-3 rounded-xl border border-secondary-200 bg-white px-3 py-2.5 text-sm font-bold text-secondary-700 transition hover:bg-secondary-50"
             >
-              Retry
+              <ArrowLeft className="h-4 w-4" />
+              Back to store
             </button>
+            {!isImpersonating && (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex w-full items-center gap-3 rounded-xl border border-rose-100 bg-rose-50 px-3 py-2.5 text-sm font-bold text-rose-700 transition hover:bg-rose-100"
+              >
+                <LogOut className="h-4 w-4" />
+                Sign out
+              </button>
+            )}
           </div>
-        ) : (
-          /* Dashboard Main Shell */
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[260px_1fr]">
-            {/* Sidebar Navigation */}
-            <aside className="min-w-0 space-y-4">
-              <nav className="grid grid-cols-1 gap-2 rounded-[2.5rem] border border-secondary-200/80 bg-white p-3 shadow-sm sm:grid-cols-4 lg:grid-cols-1 lg:p-4 lg:sticky lg:top-24">
-                {TABS.map((tab) => {
-                  const Icon = tab.icon;
-                  const isActive = tab.exact ? subPath === "" : subPath.startsWith(tab.id);
+        </aside>
 
-                  return (
-                    <Link
-                      key={tab.id}
-                      to={`/account/${tab.id}`.replace(/\/$/, "")}
-                      className={`flex min-w-0 items-center justify-between gap-1.5 rounded-2xl px-3 py-3.5 text-sm font-black transition lg:px-4 ${
-                        isActive
-                          ? "bg-gradient-to-r from-primary-900 to-orange-900 text-white shadow-md shadow-amber-950/10"
-                          : "text-secondary-600 hover:bg-primary-50 hover:text-primary-900"
-                      }`}
-                    >
-                      <div className="flex min-w-0 items-center gap-2 lg:gap-3">
-                        <Icon className={`h-5 w-5 shrink-0 ${isActive ? "text-primary-200" : "text-slate-400"}`} />
-                        <span className="truncate">{tab.label}</span>
-                      </div>
-                      {tab.badge != null && (
-                        <span
-                          className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-black ${
-                            isActive
-                              ? "bg-white/20 text-white"
-                              : "bg-secondary-100 text-secondary-600"
-                          }`}
-                        >
-                          {tab.badge}
-                        </span>
-                      )}
-                    </Link>
-                  );
-                })}
-              </nav>
-            </aside>
-
-            {/* Tab Contents */}
-            <section className="min-w-0">
-              <Routes>
-                <Route
-                  index
-                  element={
-                    <CustomerOverviewTab
-                      customer={customerProfile}
-                      orders={customerOrders}
-                    />
-                  }
-                />
-                <Route
-                  path="orders"
-                  element={<CustomerOrdersTab orders={customerOrders} />}
-                />
-                <Route
-                  path="addresses"
-                  element={
-                    <CustomerAddressesTab
-                      customer={customerProfile}
-                      onUpdateAddresses={(addresses) =>
-                        updateProfile.mutate({
-                          id: customerProfile.id!,
-                          updates: { addresses },
-                        })
-                      }
-                    />
-                  }
-                />
-                <Route
-                  path="settings"
-                  element={
-                    <CustomerSettingsTab
-                      customer={customerProfile}
-                      onUpdateProfile={async (updates) => {
-                        await updateProfile.mutateAsync({
-                          id: customerProfile.id!,
-                          updates,
-                        });
-                      }}
-                    />
-                  }
-                />
-              </Routes>
-            </section>
+        <div className="fixed inset-x-0 top-16 z-40 flex items-center justify-between border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur md:hidden">
+          <div className="flex items-center gap-2">
+            <BookOpen className="h-5 w-5 text-primary-700" />
+            <span className="text-sm font-extrabold text-secondary-900">
+              Customer Portal
+            </span>
           </div>
-        )}
+          <button
+            type="button"
+            onClick={onNavigateHome}
+            className="rounded-full border border-secondary-200 px-3 py-1 text-xs font-bold text-secondary-700"
+          >
+            Store
+          </button>
+        </div>
+
+        <div className="fixed inset-x-0 top-[104px] z-40 flex gap-2 overflow-x-auto border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur scrollbar-hide md:hidden">
+          {tabs.map(({ to, label, icon: Icon, badge }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === "/account"}
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-bold transition-colors",
+                  isActive
+                    ? "bg-primary-700 text-white shadow-sm"
+                    : "bg-secondary-100 text-secondary-700 hover:bg-primary-50 hover:text-primary-700"
+                )
+              }
+            >
+              <Icon className="h-3.5 w-3.5 shrink-0" />
+              <span>{label}</span>
+              {badge !== undefined && badge > 0 && (
+                <span className="rounded-full bg-primary-100 px-1.5 py-0.5 text-[9px] font-extrabold text-primary-800">
+                  {badge}
+                </span>
+              )}
+            </NavLink>
+          ))}
+        </div>
+
+        <main className="min-w-0 flex-1 pb-16 pt-[120px] md:pt-0">
+          {(isCustomerLoading || isOrdersLoading) && !customerProfile ? (
+            <div className="flex min-h-[50vh] flex-col items-center justify-center py-24 text-slate-400">
+              <Loader2 className="h-10 w-10 animate-spin text-primary-700" />
+              <p className="mt-4 font-bold text-secondary-600">
+                Loading your account dashboard…
+              </p>
+            </div>
+          ) : !customerProfile ? (
+            <div className="rounded-3xl border border-secondary-200 bg-white p-10 text-center shadow-sm">
+              <p className="text-lg font-black text-secondary-900">
+                Failed to load customer details.
+              </p>
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="mt-4 rounded-full bg-primary-700 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-primary-800"
+              >
+                Retry
+              </button>
+            </div>
+          ) : (
+            <Routes>
+              <Route
+                index
+                element={
+                  <CustomerOverviewTab
+                    customer={customerProfile}
+                    orders={customerOrders}
+                  />
+                }
+              />
+              <Route
+                path="orders"
+                element={<CustomerOrdersTab orders={customerOrders} />}
+              />
+              <Route
+                path="addresses"
+                element={
+                  <CustomerAddressesTab
+                    customer={customerProfile}
+                    onUpdateAddresses={(addresses) =>
+                      updateProfile.mutate({
+                        id: customerProfile.id!,
+                        updates: { addresses },
+                      })
+                    }
+                  />
+                }
+              />
+              <Route
+                path="settings"
+                element={
+                  <CustomerSettingsTab
+                    customer={customerProfile}
+                    onUpdateProfile={async (updates) => {
+                      await updateProfile.mutateAsync({
+                        id: customerProfile.id!,
+                        updates,
+                      });
+                    }}
+                  />
+                }
+              />
+            </Routes>
+          )}
+        </main>
       </div>
-    </main>
+    </div>
   );
 }
