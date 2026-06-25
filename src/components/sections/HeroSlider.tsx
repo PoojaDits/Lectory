@@ -15,7 +15,7 @@ export default function HeroSlider() {
   if (isLoading || slides.length === 0) return <HeroSkeleton />;
 
   return (
-    <section className="relative w-full min-h-[55vh] md:min-h-[70vh] overflow-hidden mt-16 md:mt-20">
+    <section className="relative w-full min-h-[600px] md:min-h-[70vh] overflow-hidden mt-16 md:mt-20">
       {slides.map((slide, i) => {
         const isActive = i === current;
 
@@ -23,7 +23,7 @@ export default function HeroSlider() {
           <div
             key={slide.id}
             className={`absolute inset-0 h-full w-full transition-opacity duration-700 ease-in-out ${
-              isActive ? "opacity-100 z-20" : "opacity-0 pointer-events-none"
+              isActive ? "opacity-100 z-10" : "opacity-0 pointer-events-none"
             }`}
           >
             <img
@@ -35,31 +35,31 @@ export default function HeroSlider() {
             <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent}`} />
             <div className="absolute inset-0 bg-black/20" />
 
-            <div className="relative h-full flex items-start">
-              <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full py-16 sm:py-20">
-                <div className="max-w-lg sm:max-w-xl lg:max-w-2xl">
-                  <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight whitespace-pre-line drop-shadow-2xl animate-fade-in-up px-12 md:px-16">
+            <div className="relative h-full flex items-center pb-16 md:pb-0">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full">
+                <div className="max-w-lg sm:max-w-xl lg:max-w-2xl mx-auto md:mx-0 text-center md:text-left">
+                  <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight whitespace-pre-line drop-shadow-2xl animate-fade-in-up">
                     {slide.title}
                   </h1>
                   <p 
-                    className="mt-4 md:mt-6 text-sm sm:text-base lg:text-lg text-white/95 leading-relaxed max-w-xl drop-shadow-md whitespace-normal break-words animate-fade-in-up px-12 md:px-16" 
+                    className="mt-4 md:mt-6 text-sm sm:text-base lg:text-lg text-white/95 leading-relaxed max-w-xl drop-shadow-md animate-fade-in-up mx-auto md:mx-0" 
                     style={{ animationDelay: '100ms', animationFillMode: 'both' }}
                   >
                     {slide.subtitle}
                   </p>
                   <div 
-                    className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-4 animate-fade-in-up px-12 md:px-16"
+                    className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in-up justify-center md:justify-start"
                     style={{ animationDelay: '200ms', animationFillMode: 'both' }}
                   >
                     <Link
                       to={slide.ctaLink || "/browse"}
-                      className="px-8 py-3.5 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-amber-500 hover:to-primary-600 text-white font-semibold rounded-full shadow-[0_8px_30px_rgba(217,119,6,0.4)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 text-center"
+                      className="px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-amber-500 hover:to-primary-600 text-white font-semibold rounded-full shadow-[0_8px_30px_rgba(217,119,6,0.4)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 text-center text-sm sm:text-base"
                     >
                       {slide.cta}
                     </Link>
                     <Link
                       to={slide.secondaryLink || "/browse"}
-                      className="px-8 py-3.5 glass-premium hover:bg-white/20 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:-translate-y-1 text-center"
+                      className="px-6 sm:px-8 py-3 sm:py-3.5 glass-premium hover:bg-white/20 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:-translate-y-1 text-center text-sm sm:text-base border border-white/30"
                     >
                       {slide.secondaryCta || "Learn More"}
                     </Link>
@@ -71,17 +71,19 @@ export default function HeroSlider() {
         );
       })}
 
-      {/* Arrows */}
-      <SliderArrow direction="left" onClick={prev} />
-      <SliderArrow direction="right" onClick={next} />
+      {/* Arrows - hide on small screens to save space */}
+      <div className="hidden sm:block">
+        <SliderArrow direction="left" onClick={prev} />
+        <SliderArrow direction="right" onClick={next} />
+      </div>
 
       {/* Dots */}
-      <div className="absolute bottom-24 md:bottom-10 left-1/2 -translate-x-1/2 z-30">
+      <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-30">
         <SliderDots total={slides.length} current={current} onDotClick={goTo} />
       </div>
 
       {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-primary-50 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-primary-50 to-transparent pointer-events-none" />
     </section>
   );
 }

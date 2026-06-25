@@ -164,25 +164,7 @@ export default function NewArrivals() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => scrollBooks("left")}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:bg-slate-950 hover:text-white"
-                    aria-label="Previous books"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => scrollBooks("right")}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:bg-slate-950 hover:text-white"
-                    aria-label="Next books"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                </div>
+              
               </div>
 
               {isLoading ? (
@@ -211,7 +193,25 @@ export default function NewArrivals() {
                   ))}
                 </div>
               )}
+                  <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => scrollBooks("left")}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:bg-slate-950 hover:text-white"
+                    aria-label="Previous books"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
 
+                  <button
+                    type="button"
+                    onClick={() => scrollBooks("right")}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition-all hover:bg-slate-950 hover:text-white"
+                    aria-label="Next books"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
               <p className="mt-2 text-center text-xs font-medium text-slate-400">
                 Swipe horizontally or use arrows to see more books.
               </p>
