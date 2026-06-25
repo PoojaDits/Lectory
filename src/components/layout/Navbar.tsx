@@ -84,7 +84,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-8 lg:flex">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
@@ -97,15 +97,15 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 lg:flex">
             {currentUser ? (
               <>
                 <Link
                   to={dashboardPath}
-                  className="inline-flex items-center gap-2 rounded-full bg-primary-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary-800"
+                  className="inline-flex max-w-[180px] items-center gap-2 rounded-full bg-primary-900 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary-800"
                 >
-                  <UserPlus className="h-4 w-4" />
-                  {currentUser.name ?? "My Account"}
+                  <UserPlus className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{currentUser.name ?? "My Account"}</span>
                 </Link>
                 <button
                   type="button"
@@ -143,10 +143,24 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Toggle */}
-          <div className="flex items-center gap-1 md:hidden">
+          {/* Mobile & Tablet Toggle */}
+          <div className="flex items-center gap-1 lg:hidden">
+            {currentUser?.role === "customer" && (
+              <Link
+                to="/cart"
+                className="relative rounded-full p-2.5 text-gray-600 transition-colors hover:bg-primary-50 hover:text-primary-800"
+                aria-label={`Cart with ${cartCount} item${cartCount === 1 ? "" : "s"}`}
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-primary-900 px-1 text-[10px] font-bold text-white shadow">
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                )}
+              </Link>
+            )}
             <button
-              className="rounded-lg p-2 text-gray-600 hover:bg-primary-50 md:hidden"
+              className="rounded-lg p-2 text-gray-600 hover:bg-primary-50"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle navigation"
               aria-expanded={mobileOpen}
@@ -173,7 +187,7 @@ export default function Navbar() {
           <div
             id="mobile-menu"
             aria-hidden={!mobileOpen}
-            className={`md:hidden ${
+            className={`lg:hidden ${
               mobileOpen
                 ? "animate-in slide-in-from-top-2 fade-in-0 duration-200 ease-out"
                 : "animate-out slide-out-to-top-2 fade-out-0 duration-200 ease-out"

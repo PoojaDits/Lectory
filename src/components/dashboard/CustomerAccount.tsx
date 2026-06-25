@@ -79,35 +79,15 @@ export default function CustomerAccount({
 
   const TABS = [
     { id: "", label: "Overview", icon: LayoutDashboard, exact: true },
-    { id: "orders", label: "My Orders", icon: Package, badge: customerOrders.length },
-    { id: "addresses", label: "My Addresses", icon: MapPin, badge: customerProfile?.addresses?.length },
-    { id: "settings", label: "Account Settings", icon: Settings },
+    { id: "orders", label: "Orders", icon: Package, badge: customerOrders.length },
+    { id: "addresses", label: "Addresses", icon: MapPin, badge: customerProfile?.addresses?.length },
+    { id: "settings", label: "Settings", icon: Settings },
   ];
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-primary-50/70 via-white to-orange-50/60 px-4 pb-20 pt-[120px]">
       <div className="mx-auto max-w-6xl">
-        {/* Top bar */}
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <button
-            type="button"
-            onClick={onNavigateHome}
-            className="inline-flex items-center gap-2 rounded-full border border-primary-200/80 bg-white px-5 py-2.5 text-sm font-black text-primary-900 shadow-sm transition hover:bg-primary-50/80 hover:scale-105"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to store
-          </button>
-          {!isImpersonating && (
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="inline-flex items-center gap-2 rounded-full bg-secondary-900 px-5 py-2.5 text-sm font-black text-white transition hover:bg-secondary-800 shadow-md"
-            >
-              <LogOut className="h-4 w-4 text-amber-400" />
-              Logout
-            </button>
-          )}
-        </div>
+     
 
         {/* Loading state */}
         {(isCustomerLoading || isOrdersLoading) && !customerProfile ? (
@@ -128,10 +108,10 @@ export default function CustomerAccount({
           </div>
         ) : (
           /* Dashboard Main Shell */
-          <div className="grid gap-8 md:grid-cols-[240px_1fr] lg:grid-cols-[280px_1fr]">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[260px_1fr]">
             {/* Sidebar Navigation */}
-            <aside className="space-y-4">
-              <nav className="flex flex-row md:flex-col gap-2 rounded-[2.5rem] border border-secondary-200/80 bg-white p-4 shadow-sm overflow-x-auto md:overflow-visible md:sticky md:top-24">
+            <aside className="min-w-0 space-y-4">
+              <nav className="grid grid-cols-1 gap-2 rounded-[2.5rem] border border-secondary-200/80 bg-white p-3 shadow-sm sm:grid-cols-4 lg:grid-cols-1 lg:p-4 lg:sticky lg:top-24">
                 {TABS.map((tab) => {
                   const Icon = tab.icon;
                   const isActive = tab.exact ? subPath === "" : subPath.startsWith(tab.id);
@@ -140,19 +120,19 @@ export default function CustomerAccount({
                     <Link
                       key={tab.id}
                       to={`/account/${tab.id}`.replace(/\/$/, "")}
-                      className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-black transition whitespace-nowrap ${
+                      className={`flex min-w-0 items-center justify-between gap-1.5 rounded-2xl px-3 py-3.5 text-sm font-black transition lg:px-4 ${
                         isActive
-                          ? "bg-gradient-to-r from-primary-900 to-orange-900 text-white shadow-md shadow-amber-950/10 scale-[1.02]"
+                          ? "bg-gradient-to-r from-primary-900 to-orange-900 text-white shadow-md shadow-amber-950/10"
                           : "text-secondary-600 hover:bg-primary-50 hover:text-primary-900"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <Icon className={`h-5 w-5 ${isActive ? "text-primary-200" : "text-slate-400"}`} />
-                        <span>{tab.label}</span>
+                      <div className="flex min-w-0 items-center gap-2 lg:gap-3">
+                        <Icon className={`h-5 w-5 shrink-0 ${isActive ? "text-primary-200" : "text-slate-400"}`} />
+                        <span className="truncate">{tab.label}</span>
                       </div>
                       {tab.badge != null && (
                         <span
-                          className={`rounded-full px-2 py-0.5 text-[11px] font-black ${
+                          className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-black ${
                             isActive
                               ? "bg-white/20 text-white"
                               : "bg-secondary-100 text-secondary-600"
