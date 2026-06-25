@@ -6,6 +6,12 @@ export interface HeroSlide {
   subtitle: string;
   cta: string;
   accent: string;
+  /** Optional navigation target for the primary CTA button. Defaults to /browse */
+  ctaLink?: string;
+  /** Optional navigation target for the secondary "Learn More" button. Defaults to /browse */
+  secondaryLink?: string;
+  /** Optional secondary CTA label. Defaults to "Learn More" */
+  secondaryCta?: string;
 }
 
 // ── Book ──

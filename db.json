@@ -692,36 +692,78 @@
       "id": "kVVwL_tkhIc"
     }
   ],
-  "newArrivals": [
-    {
-      "id": "1",
-      "title": "Cherry Blossom Dreams",
-      "author": "Sabahattin Ali",
-      "price": 13.99,
-      "image": "https://images.pexels.com/photos/20409066/pexels-photo-20409066.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280"
-    },
-    {
-      "id": "2",
-      "title": "Parisian Tales",
-      "author": "Claude Laurent",
-      "price": 18.49,
-      "image": "https://images.pexels.com/photos/37917407/pexels-photo-37917407.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280"
-    },
-    {
-      "id": "3",
-      "title": "The Green Collection",
-      "author": "Andy Lee",
-      "price": 22.99,
-      "image": "https://images.pexels.com/photos/12391379/pexels-photo-12391379.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280"
-    },
-    {
-      "id": "4",
-      "title": "Sakura Memoirs",
-      "author": "Rahime Gül",
-      "price": 15.99,
-      "image": "https://images.pexels.com/photos/20409059/pexels-photo-20409059.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280"
-    }
-  ],
+ "newArrivals": [
+  {
+    "id": 1,
+    "title": "Cherry Blossom Dreams",
+    "author": "Sabahattin Ali",
+    "price": 13.99,
+    "image": "https://images.pexels.com/photos/20409066/pexels-photo-20409066.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280"
+  },
+  {
+    "id": 2,
+    "title": "Parisian Tales",
+    "author": "Claude Laurent",
+    "price": 18.49,
+    "image": "https://images.pexels.com/photos/37917407/pexels-photo-37917407.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280"
+  },
+  {
+    "id": 3,
+    "title": "The Green Collection",
+    "author": "Andy Lee",
+    "price": 22.99,
+    "image": "https://images.pexels.com/photos/12391379/pexels-photo-12391379.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280"
+  },
+  {
+    "id": 4,
+    "title": "Sakura Memoirs",
+    "author": "Rahime Gül",
+    "price": 15.99,
+    "image": "https://images.pexels.com/photos/20409059/pexels-photo-20409059.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=280"
+  },
+  {
+    "id": 5,
+    "title": "Moonlit Pages",
+    "author": "Elena Rose",
+    "price": 19.99,
+    "image": "https://images.pexels.com/photos/3747279/pexels-photo-3747279.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=350"
+  },
+  {
+    "id": 6,
+    "title": "The Quiet Library",
+    "author": "Mira Collins",
+    "price": 21.49,
+    "image": "https://images.pexels.com/photos/5904932/pexels-photo-5904932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=350"
+  },
+  {
+    "id": 7,
+    "title": "Letters From Spring",
+    "author": "Nora Hayes",
+    "price": 16.99,
+    "image": "https://images.pexels.com/photos/4153146/pexels-photo-4153146.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=350"
+  },
+  {
+    "id": 8,
+    "title": "Golden Hour Notes",
+    "author": "Aria Bennett",
+    "price": 18.99,
+    "image": "https://images.pexels.com/photos/3747468/pexels-photo-3747468.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=350"
+  },
+  {
+    "id": 9,
+    "title": "Stories Under Rain",
+    "author": "Theo Martin",
+    "price": 14.49,
+    "image": "https://images.pexels.com/photos/3747497/pexels-photo-3747497.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=350"
+  },
+  {
+    "id": 10,
+    "title": "The Bookshop Window",
+    "author": "Ivy Laurent",
+    "price": 23.99,
+    "image": "https://images.pexels.com/photos/1370298/pexels-photo-1370298.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=350"
+  }
+],
   "roles": [
     {
       "id": "1",
