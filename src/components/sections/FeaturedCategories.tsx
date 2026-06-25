@@ -67,8 +67,8 @@ export default function FeaturedCategories() {
           </div>
         ) : (
           <>
-            {/* Mobile: 2-up swipeable carousel */}
-            <div className="md:hidden relative -mx-4 px-4">
+            {/* Mobile & Tablet: swipeable carousel */}
+            <div className="lg:hidden relative -mx-4 px-4">
               <div
                 ref={scrollerRef}
                 onScroll={updateArrows}
@@ -82,7 +82,7 @@ export default function FeaturedCategories() {
                     <Link
                       key={cat.tag}
                       to={`/browse?category=${cat.tag}`}
-                      className={`snap-start shrink-0 w-[44vw] max-w-[200px] group relative ${cat.bg} rounded-2xl p-5 text-center hover:shadow-xl ${cat.shadow} transition-all duration-300 border border-white/80 overflow-hidden`}
+                      className={`snap-start shrink-0 w-[44vw] max-w-[200px] sm:w-[30vw] md:w-[31%] group relative ${cat.bg} rounded-2xl p-5 md:p-6 text-center hover:shadow-xl ${cat.shadow} transition-all duration-300 border border-white/80 overflow-hidden`}
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       <div
@@ -118,7 +118,7 @@ export default function FeaturedCategories() {
             </div>
 
             {/* Desktop: grid */}
-            <div className="hidden md:grid grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+            <div className="hidden lg:grid grid-cols-5 gap-4 md:gap-6">
               {CATEGORY_META.map((cat) => {
                 const Icon = ICON_MAP[cat.icon] || BookOpen;
                 const count = countFor(cat.tag);
