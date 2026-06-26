@@ -57,11 +57,24 @@ const toAdminUser = (u: UserRecord, a: Admin): AuthUser => ({
 });
 
 /** Find a single user by email (case-insensitive). */
-const findUserByEmail = async (email: string): Promise<UserRecord | null> => {
+export const fetchUserByEmail = async (email: string): Promise<UserRecord | null> => {
+  const clean = normalizeEmail(email);
   const { data } = await apiClient.get<UserRecord[]>("/users", {
-    params: { email },
+    params: { email: clean },
   });
-  return data.find((u) => normalizeEmail(u.email) === normalizeEmail(email)) ?? null;
+  return data.find((u) => normalizeEmail(u.email) === clean) ?? null;
+};
+
+const findUserByEmail = fetchUserByEmail;
+
+export const resetUserPassword = async (
+  userId: EntityId,
+  newPassword: string
+): Promise<UserRecord> => {
+  const { data } = await apiClient.patch<UserRecord>(`/users/${userId}`, {
+    password: newPassword,
+  });
+  return data;
 };
 
 // ── Registration: Customer ──

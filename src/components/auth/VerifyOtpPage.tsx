@@ -4,10 +4,14 @@ import {
   AlertCircle,
   ArrowLeft,
   BookOpen,
+  Eye,
+  EyeOff,
   KeyRound,
   Loader2,
+  Lock,
 } from "lucide-react";
 import { useRegisterCustomer, useRegisterSeller } from "@/hooks/useAuth";
+import { resetUserPassword } from "@/services/authApi";
 import { notify } from "@/lib/toast";
 import type {
   CustomerRegistrationInput,
@@ -15,8 +19,11 @@ import type {
 } from "@/types";
 
 interface VerifyOtpState {
-  role: "customer" | "seller";
-  values: CustomerRegistrationInput | SellerRegistrationInput;
+  mode?: "register" | "reset";
+  role?: "customer" | "seller";
+  values?: CustomerRegistrationInput | SellerRegistrationInput;
+  userId?: string | number;
+  email?: string;
 }
 
 export default function VerifyOtpPage() {
@@ -27,22 +34,36 @@ export default function VerifyOtpPage() {
   const [otpInput, setOtpInput] = useState("");
   const [otpError, setOtpError] = useState("");
 
+  // Password reset step state (only used when mode === "reset")
+  const [resetStep, setResetStep] = useState<"otp" | "password">("otp");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [passError, setPassError] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
+
   const registerCustomer = useRegisterCustomer();
   const registerSeller = useRegisterSeller();
 
-  if (!state || !state.role || !state.values) {
-    return <Navigate to="/register" replace />;
+  if (!state) {
+    return <Navigate to="/login" replace />;
   }
 
-  const { role, values } = state;
-  const customerValues = role === "customer" ? (values as CustomerRegistrationInput) : null;
-  const sellerValues = role === "seller" ? (values as SellerRegistrationInput) : null;
+  const mode = state.mode ?? "register";
+  const role = state.role ?? "customer";
+  const values = state.values;
+
+  const customerValues = role === "customer" && values ? (values as CustomerRegistrationInput) : null;
+  const sellerValues = role === "seller" && values ? (values as SellerRegistrationInput) : null;
 
   const contactTarget =
-    role === "customer"
-      ? customerValues?.email
-      : sellerValues?.email || sellerValues?.mobileNumber;
+    mode === "reset"
+      ? state.email
+      : role === "customer"
+        ? customerValues?.email
+        : sellerValues?.email || sellerValues?.mobileNumber;
 
+  // Handler 1: Verify OTP
   const handleVerifyOtp = (e: React.FormEvent) => {
     e.preventDefault();
     if (otpInput.trim() !== "123456") {
@@ -51,6 +72,13 @@ export default function VerifyOtpPage() {
     }
     setOtpError("");
 
+    if (mode === "reset") {
+      notify.success("OTP Verified! You can now create your new password.");
+      setResetStep("password");
+      return;
+    }
+
+    // Register mode
     if (role === "customer" && customerValues) {
       registerCustomer.mutate(customerValues, {
         onSuccess: () => {
@@ -68,11 +96,158 @@ export default function VerifyOtpPage() {
     }
   };
 
+  // Handler 2: Save New Password
+  const handleSavePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword.length < 6) {
+      setPassError("Password must be at least 6 characters long.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setPassError("Passwords do not match.");
+      return;
+    }
+
+    setPassError("");
+    setIsUpdating(true);
+
+    try {
+      if (state.userId != null) {
+        await resetUserPassword(state.userId, newPassword);
+        notify.success("Password updated successfully! Old password deleted. 🎉");
+        navigate("/login");
+      } else {
+        setPassError("User record missing. Cannot update password.");
+      }
+    } catch (err) {
+      setPassError("Failed to update database. Is the API server running?");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  // ── VIEW 2: Set New Password (Reset Mode Only) ──
+  if (mode === "reset" && resetStep === "password") {
+    return (
+      <div className="min-h-screen bg-primary-50 flex items-center justify-center p-4 sm:p-6">
+        <div className="max-w-[1024px] w-full grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[580px] md:h-[700px]">
+          
+          {/* LEFT BRANDING IMAGE */}
+          <div className="relative hidden md:block">
+            <img src="/booklovers.jpeg" alt="Library Book Lovers" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/75" />
+            <div className="absolute bottom-0 left-0 p-10 text-white flex flex-col justify-end h-full">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="rounded-xl bg-gradient-to-br from-primary-600 to-primary-800 p-2.5 shadow-lg shadow-primary-950/50">
+                  <BookOpen className="h-6 w-6 text-white" />
+                </div>
+                <span className="font-bold text-2xl tracking-tight">Lectory</span>
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-black leading-none tracking-tighter mb-4 uppercase">
+                SET NEW<br />PASSWORD
+              </h1>
+              <p className="text-white/80 text-sm leading-relaxed max-w-sm">
+                Your identity is confirmed. Set your new security credentials below to immediately overwrite your old stored record.
+              </p>
+            </div>
+          </div>
+
+          {/* RIGHT NEW PASSWORD FORM */}
+          <div className="p-6 sm:p-10 md:p-12 flex flex-col justify-center h-full overflow-y-auto">
+            
+            <div className="mb-6 flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-800 shrink-0 shadow-xs border border-emerald-200">
+                <Lock className="h-6 w-6" />
+              </div>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 leading-tight">
+                  Create Password
+                </h2>
+                <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-700">
+                  Step 2: Update Credentials
+                </span>
+              </div>
+            </div>
+
+            <p className="text-sm text-slate-500 mb-6 leading-relaxed">
+              Enter your new security password below. Once saved, your old database credentials will be permanently overwritten.
+            </p>
+
+            <form onSubmit={handleSavePassword} className="space-y-4">
+              <div>
+                <label className="text-xs font-extrabold uppercase tracking-wider text-slate-400">New Password</label>
+                <div className="relative mt-1">
+                  <input
+                    type={showPass ? "text" : "password"}
+                    placeholder="Enter new password"
+                    value={newPassword}
+                    onChange={(e) => {
+                      setNewPassword(e.target.value);
+                      if (passError) setPassError("");
+                    }}
+                    className="w-full rounded-2xl border border-secondary-200 py-3.5 pl-4 pr-11 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPass(!showPass)}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition"
+                  >
+                    {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-extrabold uppercase tracking-wider text-slate-400">Confirm New Password</label>
+                <div className="relative mt-1">
+                  <input
+                    type={showPass ? "text" : "password"}
+                    placeholder="Repeat new password"
+                    value={confirmPassword}
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                      if (passError) setPassError("");
+                    }}
+                    className="w-full rounded-2xl border border-secondary-200 py-3.5 pl-4 pr-11 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
+                  />
+                </div>
+              </div>
+
+              {passError && (
+                <div className="mt-3 flex items-center gap-2 rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs font-bold text-rose-600">
+                  <AlertCircle className="h-4 w-4 shrink-0" />
+                  <span>{passError}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isUpdating || !newPassword || !confirmPassword}
+                className="w-full mt-6 py-4 rounded-2xl bg-[#e05c3c] text-white font-bold text-sm sm:text-base shadow-xl shadow-[#e05c3c]/20 hover:bg-[#c44e32] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {isUpdating ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Updating Database…</span>
+                  </>
+                ) : (
+                  <span>Save New Password & Login →</span>
+                )}
+              </button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── VIEW 1: Verify OTP Code ──
   return (
     <div className="min-h-screen bg-primary-50 flex items-center justify-center p-4 sm:p-6">
       <div className="max-w-[1024px] w-full grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[580px] md:h-[700px]">
         
-        {/* LEFT BRANDING IMAGE (Matches LoginPage / RegistrationPage) */}
+        {/* LEFT BRANDING IMAGE */}
         <div className="relative hidden md:block">
           <img
             src="/booklovers.jpeg"
@@ -91,7 +266,7 @@ export default function VerifyOtpPage() {
               VERIFY YOUR<br />IDENTITY
             </h1>
             <p className="text-white/80 text-sm leading-relaxed max-w-sm">
-              One quick step to secure your {role === "customer" ? "reader" : "bookstore seller"} profile and start exploring our curated catalog.
+              One quick step to secure your {mode === "reset" ? "account recovery" : role === "customer" ? "reader" : "bookstore seller"} profile.
             </p>
           </div>
         </div>
@@ -101,10 +276,10 @@ export default function VerifyOtpPage() {
           
           <button
             type="button"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate(mode === "reset" ? "/forgot-password" : "/register")}
             className="inline-flex items-center gap-1.5 text-xs font-extrabold text-slate-400 hover:text-slate-700 transition w-fit mb-6 sm:mb-8 cursor-pointer"
           >
-            <ArrowLeft className="h-4 w-4" /> Back to Form
+            <ArrowLeft className="h-4 w-4" /> Back
           </button>
 
           <div className="mb-6 flex items-center gap-3.5">
@@ -116,7 +291,7 @@ export default function VerifyOtpPage() {
                 Enter OTP Code
               </h2>
               <span className="text-xs font-extrabold uppercase tracking-wider text-[#e05c3c]">
-                {role === "customer" ? "Reader Verification" : "Seller Verification"}
+                {mode === "reset" ? "Password Recovery" : role === "customer" ? "Reader Verification" : "Seller Verification"}
               </span>
             </div>
           </div>
@@ -171,7 +346,7 @@ export default function VerifyOtpPage() {
               {registerCustomer.isPending || registerSeller.isPending ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin" />
-                  <span>Verifying & Creating Profile…</span>
+                  <span>Verifying Code…</span>
                 </>
               ) : (
                 <span>Verify Identity & Proceed →</span>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import type { FormikHelpers } from "formik";
 import { useLogin } from "@/hooks/useAuth";
@@ -183,11 +183,20 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
               <button
                 type="button"
                 onClick={onNavigateRegister}
-                className="text-[#e05c3c] font-semibold hover:underline"
+                className="text-[#e05c3c] font-semibold hover:underline cursor-pointer"
               >
                 Register
               </button>
             </p>
+
+            <div className="mt-3 text-center">
+              <Link
+                to="/forgot-password"
+                className="text-xs font-bold text-slate-400 hover:text-[#e05c3c] transition hover:underline"
+              >
+                Forgot Password?
+              </Link>
+            </div>
 
         
           </div>
