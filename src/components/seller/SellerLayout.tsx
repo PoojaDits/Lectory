@@ -10,6 +10,7 @@ import {
   Settings,
   ShieldCheck,
   ShoppingBag,
+  Lock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -76,6 +77,11 @@ export default function SellerLayout({
       to: "/seller/settings",
       label: "Settings",
       icon: Settings,
+    },
+    {
+      to: "/seller/security",
+      label: "Change Password",
+      icon: Lock,
     },
   ];
 

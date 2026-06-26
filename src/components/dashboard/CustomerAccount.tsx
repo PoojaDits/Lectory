@@ -10,6 +10,7 @@ import {
   Package,
   Settings,
   ShieldCheck,
+  Lock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -23,6 +24,7 @@ import CustomerOverviewTab from "@/components/customer/CustomerOverviewTab";
 import CustomerAddressesTab from "@/components/customer/CustomerAddressesTab";
 import CustomerSettingsTab from "@/components/customer/CustomerSettingsTab";
 import CustomerOrdersTab from "@/components/customer/CustomerOrdersTab";
+import ChangePasswordTab from "./ChangePasswordTab";
 
 interface CustomerAccountProps {
   onNavigateHome: () => void;
@@ -64,6 +66,11 @@ export default function CustomerAccount({
       to: "/account/settings",
       label: "Settings",
       icon: Settings,
+    },
+    {
+      to: "/account/security",
+      label: "Change Password",
+      icon: Lock,
     },
   ];
 
@@ -271,6 +278,7 @@ export default function CustomerAccount({
                   />
                 }
               />
+              <Route path="security" element={<ChangePasswordTab />} />
             </Routes>
           )}
         </main>

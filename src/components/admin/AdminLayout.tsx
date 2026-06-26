@@ -8,6 +8,7 @@ import {
   ShoppingBag,
   Store,
   Users,
+  Lock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -56,6 +57,7 @@ export default function AdminLayout({
     { to: "/admin/catalog", label: "Catalog", icon: PackageSearch },
     { to: "/admin/customers", label: "Customers", icon: Users },
     { to: "/admin/orders", label: "Orders", icon: ShoppingBag },
+    { to: "/admin/security", label: "Change Password", icon: Lock },
   ];
 
   const handleLogout = () => {

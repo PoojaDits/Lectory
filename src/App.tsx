@@ -20,6 +20,7 @@ import SellerListingsPage from "@/components/seller/SellerListingPage";
 import SellerSubmitBookPage from "@/components/seller/SellerSubmitBookPage";
 import SellerSettingsPage from "@/components/seller/SellerSettingsPage";
 import CustomerAccount from "@/components/dashboard/CustomerAccount";
+import ChangePasswordTab from "@/components/dashboard/ChangePasswordTab";
 import BrowseBooksPage from "@/components/pages/BrowseBooksPage";
 import BookDetailsPage from "@/components/pages/BookDetailsPage";
 import StoresPage from "@/components/pages/StorePage";
@@ -76,6 +77,7 @@ const SELLER_ROUTE_TITLES: Record<string, string> = {
   "/seller/listings": "Seller Listings",
   "/seller/submit-book": "Submit Book",
   "/seller/settings": "Seller Settings",
+  "/seller/security": "Change Password",
 };
 
 const ADMIN_ROUTE_TITLES: Record<string, string> = {
@@ -85,6 +87,7 @@ const ADMIN_ROUTE_TITLES: Record<string, string> = {
   "/admin/catalog": "Catalog Management",
   "/admin/customers": "Customer Management",
   "/admin/orders": "Order Management",
+  "/admin/security": "Change Password",
 };
 
 /**
@@ -230,6 +233,7 @@ export default function App() {
           <Route path="listings" element={<SellerListingsPage />} />
           <Route path="submit-book" element={<SellerSubmitBookPage />} />
           <Route path="settings" element={<SellerSettingsPage />} />
+          <Route path="security" element={<ChangePasswordTab />} />
         </Route>
         {/* Admin area — multi-page portal */}
         <Route
@@ -246,6 +250,7 @@ export default function App() {
           <Route path="catalog" element={<CatalogManagementPage />} />
           <Route path="customers" element={<CustomerManagementPage />} />
           <Route path="orders" element={<OrderManagementPage />} />
+          <Route path="security" element={<ChangePasswordTab />} />
         </Route>
         <Route path="*" element={<HomePage />} />
       </Routes>
