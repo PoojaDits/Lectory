@@ -138,10 +138,12 @@ export default function BrowseBooksPage({
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24 relative overflow-x-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24 relative">
       {/* Decorative BG Blobs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-200/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none " />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-200/30 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-200/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-200/30 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
+      </div>
 
       <div className="relative mx-auto max-w-[1600px] lg:flex lg:items-start lg:gap-8 z-10">
         <aside className="hidden w-72 flex-shrink-0 lg:block sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:thin] rounded-2xl border border-primary-100 bg-white p-6 shadow-sm z-20">
