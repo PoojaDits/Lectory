@@ -42,7 +42,6 @@ export default function BookCarousel({ books, className }: BookCarouselProps) {
     moved.current = false
     startX.current = e.clientX
     scrollStart.current = el.scrollLeft
-    ;(e.currentTarget as Element).setPointerCapture?.(e.pointerId)
   }
 
   const onPointerMove = (e: React.PointerEvent) => {

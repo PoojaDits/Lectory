@@ -35,6 +35,61 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
     return null;
   }
 
+  if (!currentUser) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24">
+        <div className="mx-auto max-w-5xl">
+          <button
+            type="button"
+            onClick={onNavigateHome}
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-bold text-primary-900 shadow-sm transition hover:bg-primary-50"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Continue shopping
+          </button>
+
+          <header className="mb-8">
+            <div className="flex items-center gap-3">
+              <ShoppingCart className="h-7 w-7 text-primary-700" />
+              <h1 className="text-3xl font-black tracking-tight text-secondary-900 sm:text-4xl">
+                My Cart
+              </h1>
+            </div>
+            <p className="mt-2 text-secondary-600">
+              Please log in to access your saved cart items.
+            </p>
+          </header>
+
+          <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-primary-200 bg-white/70 p-12 text-center">
+            <div className="rounded-full bg-primary-50 p-6">
+              <ShoppingCart className="h-12 w-12 text-amber-400" />
+            </div>
+            <h2 className="mt-5 text-xl font-black text-secondary-900">
+              Please log in first
+            </h2>
+            <p className="mt-2 max-w-sm text-slate-500">
+              Sign in to your account to view your cart, add books, and proceed to checkout.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                to="/login"
+                className="rounded-full bg-primary-900 px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-primary-800"
+              >
+                Login to your account
+              </Link>
+              <Link
+                to="/browse"
+                className="rounded-full border border-primary-200 bg-white px-6 py-3 text-sm font-bold text-primary-900 transition hover:bg-primary-50"
+              >
+                Browse Books
+              </Link>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24">
       <div className="mx-auto max-w-5xl">
