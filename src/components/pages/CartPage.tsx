@@ -39,14 +39,6 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24">
         <div className="mx-auto max-w-5xl">
-          <button
-            type="button"
-            onClick={onNavigateHome}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-bold text-primary-900 shadow-sm transition hover:bg-primary-50"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Continue shopping
-          </button>
 
           <header className="mb-8">
             <div className="flex items-center gap-3">
@@ -94,14 +86,6 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
     <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24">
       <div className="mx-auto max-w-5xl">
         {/* Top bar */}
-        <button
-          type="button"
-          onClick={onNavigateHome}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-sm font-bold text-primary-900 shadow-sm transition hover:bg-primary-50"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Continue shopping
-        </button>
 
         <header className="mb-8">
           <div className="flex items-center gap-3">

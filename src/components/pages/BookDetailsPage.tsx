@@ -418,78 +418,75 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
               {/* Action Bar: Stepper & Checkout CTA */}
               <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-100 flex flex-col gap-4 sm:gap-5">
                 
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
-                  {/* Quantity Stepper */}
-                  <div className="flex items-center justify-between sm:justify-start gap-4 bg-slate-50 p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-slate-200">
-                    <span className="text-xs font-extrabold uppercase text-slate-500 ml-2">Quantity:</span>
-                    <div className="inline-flex items-center rounded-xl bg-white border border-slate-200 shadow-xs">
-                      <button
-                        type="button"
-                        onClick={() => setQty((q) => Math.max(1, q - 1))}
-                        disabled={!selectedListing || selectedListing.stock <= 0}
-                        aria-label="Decrease quantity"
-                        className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-l-xl text-slate-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:opacity-30"
-                      >
-                        <Minus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                      </button>
-                      <span className="w-10 sm:w-12 text-center text-sm sm:text-base font-black text-slate-900">
-                        {qty}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setQty((q) =>
-                            Math.min(
-                              q + 1,
-                              selectedListing?.stock && selectedListing.stock > 0
-                                ? selectedListing.stock
-                                : q
-                            )
+                {/* Quantity Stepper Row */}
+                <div className="flex items-center justify-between bg-slate-50 p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-slate-200">
+                  <span className="text-xs font-extrabold uppercase text-slate-500 ml-2">Quantity:</span>
+                  <div className="inline-flex items-center rounded-xl bg-white border border-slate-200 shadow-xs">
+                    <button
+                      type="button"
+                      onClick={() => setQty((q) => Math.max(1, q - 1))}
+                      disabled={!selectedListing || selectedListing.stock <= 0}
+                      aria-label="Decrease quantity"
+                      className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-l-xl text-slate-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:opacity-30"
+                    >
+                      <Minus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    </button>
+                    <span className="w-10 sm:w-12 text-center text-sm sm:text-base font-black text-slate-900">
+                      {qty}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setQty((q) =>
+                          Math.min(
+                            q + 1,
+                            selectedListing?.stock && selectedListing.stock > 0
+                              ? selectedListing.stock
+                              : q
                           )
-                        }
-                        disabled={
-                          !selectedListing ||
-                          (selectedListing.stock > 0 && qty >= selectedListing.stock)
-                        }
-                        aria-label="Increase quantity"
-                        className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-r-xl text-slate-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:opacity-30"
-                      >
-                        <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Subtotal preview */}
-                  <div className="text-right hidden sm:block">
-                    <span className="text-xs font-bold text-slate-400">Calculation:</span>
-                    <p className="text-xl font-black text-slate-900">
-                      {formatCurrency((selectedListing?.price ?? 0) * qty)}
-                    </p>
+                        )
+                      }
+                      disabled={
+                        !selectedListing ||
+                        (selectedListing.stock > 0 && qty >= selectedListing.stock)
+                      }
+                      aria-label="Increase quantity"
+                      className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-r-xl text-slate-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:opacity-30"
+                    >
+                      <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    </button>
                   </div>
                 </div>
 
-                {/* Main Add To Cart CTA */}
-                <button
-                  type="button"
-                  onClick={handleAddToCart}
-                  disabled={
-                    isPending ||
-                    !selectedListing ||
-                    selectedListing.stock <= 0
-                  }
-                  className="w-full flex items-center justify-center gap-2.5 sm:gap-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary-900 via-primary-800 to-amber-900 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-lg font-black text-white shadow-lg sm:shadow-xl shadow-primary-900/25 transition-all hover:shadow-2xl hover:brightness-110 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
-                >
-                  <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
-                  {isPending ? (
-                    <span>Adding to Cart…</span>
-                  ) : selectedListing && selectedListing.stock <= 0 ? (
-                    <span>Sold Out</span>
-                  ) : (
-                    <span>
-                      Add to Cart · {formatCurrency((selectedListing?.price ?? 0) * qty)}
+                {/* Add to Cart CTA on left & Plain Total Price on right */}
+                <div className="flex items-center justify-between gap-4 pt-1">
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    disabled={
+                      isPending ||
+                      !selectedListing ||
+                      selectedListing.stock <= 0
+                    }
+                    className="flex-1 sm:flex-initial flex items-center justify-center gap-2.5 sm:gap-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary-900 via-primary-800 to-amber-900 px-6 sm:px-10 py-3.5 sm:py-4 text-sm sm:text-lg font-black text-white shadow-lg sm:shadow-xl shadow-primary-900/25 transition-all hover:shadow-2xl hover:brightness-110 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
+                  >
+                    <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
+                    {isPending ? (
+                      <span>Adding…</span>
+                    ) : selectedListing && selectedListing.stock <= 0 ? (
+                      <span>Sold Out</span>
+                    ) : (
+                      <span>Add to Cart</span>
+                    )}
+                  </button>
+
+                  <div className="text-right shrink-0">
+                    <span className="block text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400">Total Price</span>
+                    <span className="text-xl sm:text-3xl font-black text-slate-900">
+                      {formatCurrency((selectedListing?.price ?? 0) * qty)}
                     </span>
-                  )}
-                </button>
+                  </div>
+                </div>
 
               </div>
 
