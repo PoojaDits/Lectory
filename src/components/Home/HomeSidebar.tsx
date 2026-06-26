@@ -48,16 +48,16 @@ export default function HomeSidebar({
 
   return (
     <div className={cn("space-y-6", className)}>
-      <header className="flex items-center justify-between">
-        <h3 className="text-lg font-extrabold tracking-tight text-gray-900">
+      <header className="flex items-center justify-between border-b border-primary-100 pb-3">
+        <h3 className="text-xl font-black tracking-tight text-slate-900">
           Filters
         </h3>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           {hasActive && (
             <button
               type="button"
               onClick={filters.reset}
-              className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold text-primary-700 transition hover:bg-primary-50"
+              className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-3 py-1 text-xs font-bold text-primary-800 transition hover:bg-primary-100"
             >
               <RotateCcw className="h-3 w-3" />
               Reset
@@ -67,10 +67,10 @@ export default function HomeSidebar({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100"
+              className="rounded-full p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
               aria-label="Close filters"
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5" />
             </button>
           )}
         </div>

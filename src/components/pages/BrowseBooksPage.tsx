@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowLeft, BookOpen, Filter, Search, Users, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Filter, Search, Users } from "lucide-react";
 import { useStoreBooks } from "@/hooks/useHomeContent";
 import { CATEGORY_META } from "@/lib/categories";
 import { formatCurrency } from "@/utils/helpers";
@@ -9,6 +9,26 @@ import HomeSidebarDrawer from "../Home/HomeSidebarDrawer";
 import { applyHomeFilters, useHomeFilters } from "@/stores/useHomeFilters";
 import { useHomeUI } from "@/stores/useHomeUI";
 import LazyImage from "../ui/LazyImage";
+import Pagination from "../ui/Pagination";
+
+function useGridColumns() {
+  const [cols, setCols] = useState(5);
+
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth;
+      if (w < 768) setCols(2);
+      else if (w < 1024) setCols(3);
+      else if (w < 1280) setCols(4);
+      else setCols(5);
+    }
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return cols;
+}
 
 interface BrowseBooksPageProps {
   onNavigateHome: () => void;
@@ -103,8 +123,8 @@ export default function BrowseBooksPage({
     inStockOnly,
   ]);
 
-  // Exactly 4 pages
-  const PAGE_SIZE = Math.max(1, Math.ceil(filteredBooks.length / 4));
+  const colsPerRow = useGridColumns();
+  const PAGE_SIZE = colsPerRow * 5;
   const totalPages = Math.ceil(filteredBooks.length / PAGE_SIZE);
 
   // Reset to page 1 whenever filters/search change
@@ -118,16 +138,14 @@ export default function BrowseBooksPage({
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24 relative overflow-hidden ">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24 relative overflow-x-hidden">
       {/* Decorative BG Blobs */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-200/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none " />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-200/30 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
-      <div className="relative mx-auto max-w-[1600px] lg:flex lg:items-stretch lg:gap-8 z-10">
-        <aside className="hidden w-72 flex-shrink-0 self-stretch lg:block">
-          <div className="sticky top-24 h-fit rounded-2xl border border-primary-100 bg-white p-6 shadow-sm">
-            <HomeSidebar />
-          </div>
+      <div className="relative mx-auto max-w-[1600px] lg:flex lg:items-start lg:gap-8 z-10">
+        <aside className="hidden w-72 flex-shrink-0 lg:block sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto [scrollbar-width:thin] rounded-2xl border border-primary-100 bg-white p-6 shadow-sm z-20">
+          <HomeSidebar />
         </aside>
 
         <div className="min-w-0 flex-1">
@@ -163,87 +181,53 @@ export default function BrowseBooksPage({
               </div>
             </div>
 
-            {/* Category filter bar */}
+            {/* Responsive Category filter bar */}
             {!isLoading && (
-              <div className="mb-6 flex flex-wrap items-center gap-2">
+              <div className="mb-6 flex items-center gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden w-full">
                 <button
                   type="button"
                   onClick={openFilterDrawer}
-                  className="mr-1 lg:hidden inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-primary-700 bg-primary-100 hover:bg-primary-200 px-3 py-1.5 rounded-full transition-colors"
+                  className="lg:hidden shrink-0 inline-flex items-center gap-2 rounded-full bg-primary-900 px-4 py-2 text-xs font-black uppercase tracking-wider text-white shadow-md transition active:scale-95 hover:bg-primary-800 mr-1"
                 >
                   <Filter className="h-3.5 w-3.5" />
                   Filters
                 </button>
-                <span className="mr-1 hidden lg:inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400">
+
+                <span className="hidden lg:inline-flex shrink-0 items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400 mr-1">
                   <Filter className="h-3.5 w-3.5" />
-                  Filter
+                  Categories:
                 </span>
 
-                <div className="hidden md:flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleClearAll}
+                  className={`shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-bold transition ${
+                    !activeCategory && languages.length === 0
+                      ? "bg-primary-900 text-white shadow-sm"
+                      : "border border-secondary-200 bg-white text-secondary-600 hover:bg-primary-50"
+                  }`}
+                >
+                  All Books
+                </button>
+
+                {CATEGORY_META.map((cat) => (
                   <button
+                    key={cat.tag}
                     type="button"
-                    onClick={handleClearAll}
-                    className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                      !activeCategory && languages.length === 0
+                    onClick={() => setCategory(cat.tag)}
+                    className={`shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm font-bold transition ${
+                      activeCategory === cat.tag
                         ? "bg-primary-900 text-white shadow-sm"
                         : "border border-secondary-200 bg-white text-secondary-600 hover:bg-primary-50"
                     }`}
                   >
-                    All Books
+                    {cat.label}
                   </button>
-
-                  {/* Categories */}
-                  <div className="flex flex-wrap gap-2 border-l border-secondary-200 pl-2">
-                    {CATEGORY_META.map((cat) => (
-                      <button
-                        key={cat.tag}
-                        type="button"
-                        onClick={() => setCategory(cat.tag)}
-                        className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                          activeCategory === cat.tag
-                            ? "bg-primary-900 text-white shadow-sm"
-                            : "border border-secondary-200 bg-white text-secondary-600 hover:bg-primary-50"
-                        }`}
-                      >
-                        {cat.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-
+                ))}
               </div>
             )}
 
-            {/* Active category banner */}
-            {(activeCategory || languages.length > 0) && !isLoading && (
-              <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-4 py-3">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-bold text-primary-900">Showing:</span>
-                  {activeCategory && (
-                    <span className="inline-flex items-center gap-1 rounded-lg bg-primary-100 px-2 py-1 text-xs font-bold text-primary-800">
-                      {CATEGORY_META.find((c) => c.tag === activeCategory)?.label ?? activeCategory}
-                    </span>
-                  )}
-                  {languages.map((l) => (
-                    <span key={l} className="inline-flex items-center gap-1 rounded-lg bg-orange-100 px-2 py-1 text-xs font-bold text-orange-800 capitalize">
-                      {l}
-                    </span>
-                  ))}
-                  <span className="ml-2 font-medium text-primary-600">
-                    ({filteredBooks.length} books)
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleClearAll}
-                  className="ml-auto inline-flex items-center gap-1 rounded-full bg-primary-900 px-3 py-1 text-xs font-bold text-white transition hover:bg-primary-800"
-                >
-                  <X className="h-3 w-3" />
-                  Clear all filters
-                </button>
-              </div>
-            )}
+
 
             {!isLoading && !isError && filteredBooks.length > 0 && (
               <p className="mb-4 text-sm font-medium text-slate-500">
@@ -252,7 +236,7 @@ export default function BrowseBooksPage({
             )}
 
             {isLoading ? (
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:gap-6">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-6">
                 {Array.from({ length: PAGE_SIZE || 8 }).map((_, i) => (
                   <div key={i} className="mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-secondary-100 bg-white shadow-sm">
                     <div className="h-48 w-full animate-pulse bg-secondary-200" />
@@ -282,7 +266,7 @@ export default function BrowseBooksPage({
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 xl:gap-6">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-6">
                   {pageBooks.map((book) => (
                     <Link
                       key={String(book.id)}
@@ -344,44 +328,14 @@ export default function BrowseBooksPage({
                 </div>
 
                 {totalPages > 1 && (
-                  <div className="mt-10 flex flex-wrap items-center justify-center gap-2 py-6">
-                    <button
-                      onClick={() => {
-                        setCurrentPage(p => Math.max(1, p - 1));
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                      disabled={currentPage === 1}
-                      className="rounded-xl border border-secondary-200 bg-white px-4 py-2.5 text-sm font-bold text-secondary-600 shadow-sm transition hover:bg-secondary-50 disabled:opacity-50"
-                    >
-                      Previous
-                    </button>
-                    {Array.from({ length: totalPages }).map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => {
-                          setCurrentPage(i + 1);
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                        className={`flex h-10 w-10 items-center justify-center rounded-xl border text-sm font-bold shadow-sm transition-colors ${
-                          currentPage === i + 1
-                            ? "border-primary-600 bg-primary-600 text-white"
-                            : "border-secondary-200 bg-white text-secondary-600 hover:bg-secondary-50"
-                        }`}
-                      >
-                        {i + 1}
-                      </button>
-                    ))}
-                    <button
-                      onClick={() => {
-                        setCurrentPage(p => Math.min(totalPages, p + 1));
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                      disabled={currentPage === totalPages}
-                      className="rounded-xl border border-secondary-200 bg-white px-4 py-2.5 text-sm font-bold text-secondary-600 shadow-sm transition hover:bg-secondary-50 disabled:opacity-50"
-                    >
-                      Next
-                    </button>
-                  </div>
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={(page) => {
+                      setCurrentPage(page);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  />
                 )}
               </>
             )}
