@@ -1,15 +1,11 @@
-import { useRef } from "react";
 import {
   ArrowRight,
   BadgePercent,
   CalendarDays,
-  ChevronLeft,
-  ChevronRight,
   PenLine,
   Sparkles,
 } from "lucide-react";
 import { useRecommendedBooks } from "@/hooks/useHomeContent";
-import BookCard from "@/components/ui/BookCard";
 import BookCarousel from "../ui/BookCarousel";
 
 const HIGHLIGHTS = [
@@ -33,7 +29,6 @@ const HIGHLIGHTS = [
 export default function NewArrivals() {
   const { data: books = [], isLoading } = useRecommendedBooks();
   const newArrivals = books.slice(0, 8);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToPreorder = (e: React.MouseEvent) => {
     e.preventDefault();

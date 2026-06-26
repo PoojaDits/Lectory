@@ -169,14 +169,10 @@ export default function App() {
           path="/books/:id"
           element={<BookDetailsPage onNavigateHome={goHome} />}
         />
-        {/* Cart (customer only) */}
+        {/* Cart (public and customer) */}
         <Route
           path="/cart"
-          element={
-            <ProtectedRoute allow={["customer"]}>
-              <CartPage onNavigateHome={goHome} />
-            </ProtectedRoute>
-          }
+          element={<CartPage onNavigateHome={goHome} />}
         />
         <Route
           path="/checkout"

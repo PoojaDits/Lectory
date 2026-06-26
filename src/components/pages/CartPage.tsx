@@ -31,7 +31,7 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
 
   // (ProtectedRoute already guarantees a customer, but keep the guard for the
   // rare impersonation edge cases.)
-  if (!currentUser || currentUser.role !== "customer") {
+  if (currentUser && currentUser.role !== "customer") {
     return null;
   }
 

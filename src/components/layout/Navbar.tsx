@@ -127,7 +127,7 @@ export default function Navbar() {
                 </Link>
               </>
             )}
-            {currentUser?.role === "customer" && (
+            {(!currentUser || currentUser.role === "customer") && (
               <Link
                 to="/cart"
                 className="relative rounded-full p-2.5 text-gray-600 transition-colors hover:bg-primary-50 hover:text-primary-800"
@@ -145,7 +145,7 @@ export default function Navbar() {
 
           {/* Mobile & Tablet Toggle */}
           <div className="flex items-center gap-1 lg:hidden">
-            {currentUser?.role === "customer" && (
+            {(!currentUser || currentUser.role === "customer") && (
               <Link
                 to="/cart"
                 className="relative rounded-full p-2.5 text-gray-600 transition-colors hover:bg-primary-50 hover:text-primary-800"
@@ -233,6 +233,14 @@ export default function Navbar() {
                     >
                       <LogIn className="h-4 w-4" />
                       Login
+                    </Link>
+                    <Link
+                      to="/cart"
+                      onClick={closeMobileMenu}
+                      className="flex items-center justify-center gap-2 rounded-2xl border border-primary-200 bg-white px-4 py-3 text-center font-bold text-primary-900"
+                    >
+                      <ShoppingCart className="h-4 w-4" />
+                      Cart
                     </Link>
                     <Link
                       to="/register"
