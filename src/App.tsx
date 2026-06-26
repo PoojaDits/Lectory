@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 
 // Auth
 import RegistrationPage from "@/components/auth/RegistrationPage";
+import VerifyOtpPage from "@/components/auth/VerifyOtpPage";
 import LoginPage from "@/components/auth/LoginPage";
 
 // Seller portal (multi-page)
@@ -64,6 +65,7 @@ const ROUTE_TITLES: Record<string, string> = {
   "/checkout": "Checkout",
   "/login": "Login",
   "/register": "Register",
+  "/verify-otp": "Verify OTP",
 };
 
 const SELLER_ROUTE_TITLES: Record<string, string> = {
@@ -194,6 +196,10 @@ export default function App() {
         <Route
           path="/register"
           element={<RegistrationPage />}
+        />
+        <Route
+          path="/verify-otp"
+          element={<VerifyOtpPage />}
         />
         {/* Customer area */}
         <Route

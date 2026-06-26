@@ -842,6 +842,22 @@
       "role": "seller",
       "profileId": 4,
       "createdAt": "2026-06-18T11:08:34.417Z"
+    },
+    {
+      "email": "tthor234@lectory.com",
+      "password": "thor12345",
+      "role": "customer",
+      "profileId": "XX7QVBrLgbw",
+      "createdAt": "2026-06-26T06:23:25.990Z",
+      "id": "eQMoez6RtYA"
+    },
+    {
+      "email": "kiran@lectory.com",
+      "password": "kiran123456",
+      "role": "customer",
+      "profileId": "Nk7kdxtLUHc",
+      "createdAt": "2026-06-26T06:30:28.708Z",
+      "id": "r3Bu2-nzT74"
     }
   ],
   "admins": [
@@ -903,6 +919,26 @@
         }
       ],
       "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
+    },
+    {
+      "firstName": "thor",
+      "lastName": "ji",
+      "email": "tthor234@lectory.com",
+      "role": "customer",
+      "createdAt": "2026-06-26T06:23:25.990Z",
+      "phone": "",
+      "addresses": [],
+      "id": "XX7QVBrLgbw"
+    },
+    {
+      "firstName": "kiran",
+      "lastName": "joshi",
+      "email": "kiran@lectory.com",
+      "role": "customer",
+      "createdAt": "2026-06-26T06:30:28.708Z",
+      "phone": "",
+      "addresses": [],
+      "id": "Nk7kdxtLUHc"
     }
   ],
   "sellers": [
@@ -5084,6 +5120,14 @@
     {
       "customerId": "IK31EltCvMk",
       "id": "L9R73FYFYlk"
+    },
+    {
+      "customerId": "XX7QVBrLgbw",
+      "id": "7ZU7Ep23iiI"
+    },
+    {
+      "customerId": "Nk7kdxtLUHc",
+      "id": "iVFcBYXgsaM"
     }
   ],
   "cartItems": [

@@ -5,21 +5,21 @@ import {
   customerRegistrationSchema,
   sellerRegistrationSchema,
 } from "@/lib/validation";
-import { useRegisterCustomer, useRegisterSeller } from "@/hooks/useAuth";
 import type {
   CustomerRegistrationInput,
   SellerRegistrationInput,
 } from "@/types";
-import { BookOpen, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import {
+  BookOpen,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { notify } from "@/lib/toast";
 
 export default function RegistrationPage() {
   const navigate = useNavigate();
   const [role, setRole] = useState<"customer" | "seller">("customer");
   const [showPassword, setShowPassword] = useState(false);
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
-
-  const registerCustomer = useRegisterCustomer();
-  const registerSeller = useRegisterSeller();
 
   const customerInitial: CustomerRegistrationInput = {
     firstName: "", lastName: "", email: "", password: "",
@@ -30,45 +30,14 @@ export default function RegistrationPage() {
   };
 
   const handleCustomerSubmit = (values: CustomerRegistrationInput) => {
-    registerCustomer.mutate(values, {
-      onSuccess: () => {
-        setRegistrationSuccess(true);
-        setTimeout(() => navigate("/login"), 2000);
-      },
-    });
+    notify.info("Verification OTP sent: 123456");
+    navigate("/verify-otp", { state: { role: "customer", values } });
   };
 
   const handleSellerSubmit = (values: SellerRegistrationInput) => {
-    registerSeller.mutate(values, {
-      onSuccess: () => {
-        setRegistrationSuccess(true);
-        setTimeout(() => navigate("/login"), 2500);
-      },
-    });
+    notify.info("Verification OTP sent: 123456");
+    navigate("/verify-otp", { state: { role: "seller", values } });
   };
-
-  if (registrationSuccess) {
-    return (
-      <div className="min-h-screen bg-primary-50 flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-10 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
-            <CheckCircle2 className="h-8 w-8 text-emerald-700" />
-          </div>
-          <h2 className="text-2xl font-black text-secondary-900 mb-2">
-            {role === "customer" ? "Account Created!" : "Registration Submitted!"}
-          </h2>
-          <p className="text-sm text-slate-500 mb-6">
-            {role === "customer"
-              ? "Your customer account is ready. Redirecting to login..."
-              : "Your seller account is pending admin approval. You'll be able to log in once approved."}
-          </p>
-          <div className="w-full h-2 bg-secondary-100 rounded-full overflow-hidden">
-            <div className="h-full bg-emerald-500 rounded-full animate-pulse" style={{ width: "60%" }} />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-primary-50 flex items-center justify-center p-6">
@@ -120,16 +89,6 @@ export default function RegistrationPage() {
             </button>
           </div>
 
-          {/* Error display */}
-          {(registerCustomer.isError || registerSeller.isError) && (
-            <div className="mb-4 flex items-start gap-2 rounded-2xl bg-red-50 p-4 text-sm text-red-700 border border-red-200">
-              <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
-              <span>
-                {registerCustomer.error?.message || registerSeller.error?.message || "Registration failed. Please try again."}
-              </span>
-            </div>
-          )}
-
           {/* CUSTOMER FORM */}
           {role === "customer" && (
             <Formik
@@ -137,7 +96,7 @@ export default function RegistrationPage() {
               validationSchema={customerRegistrationSchema}
               onSubmit={handleCustomerSubmit}
             >
-              {({ isSubmitting, isValid, dirty, errors, touched }) => (
+              {({ isValid, dirty, errors, touched }) => (
                 <Form className="space-y-4">
                   <div>
                     <h2 className="text-3xl font-black tracking-tight">Create Your Account</h2>
@@ -212,17 +171,10 @@ export default function RegistrationPage() {
 
                   <button
                     type="submit"
-                    disabled={isSubmitting || registerCustomer.isPending || !isValid || !dirty}
+                    disabled={!isValid || !dirty}
                     className="w-full mt-2 py-3.5 rounded-2xl bg-[#e05c3c] text-white font-semibold text-sm hover:bg-[#c44e32] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    {isSubmitting || registerCustomer.isPending ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Creating Account...
-                      </>
-                    ) : (
-                      "Register as Customer"
-                    )}
+                    Continue to OTP Verification →
                   </button>
 
                   <p className="text-center text-sm text-slate-500 mt-4">
@@ -243,7 +195,7 @@ export default function RegistrationPage() {
               validationSchema={sellerRegistrationSchema}
               onSubmit={handleSellerSubmit}
             >
-              {({ isSubmitting, isValid, dirty, errors, touched }) => (
+              {({ isValid, dirty, errors, touched }) => (
                 <Form className="space-y-4">
                   <div>
                     <h2 className="text-3xl font-black tracking-tight">Become a Seller</h2>
@@ -330,20 +282,12 @@ export default function RegistrationPage() {
                     <p className="text-[10px] text-slate-400 mt-1">At least 6 characters</p>
                   </div>
 
-
                   <button
                     type="submit"
-                    disabled={isSubmitting || registerSeller.isPending || !isValid || !dirty}
+                    disabled={!isValid || !dirty}
                     className="w-full mt-2 py-3.5 rounded-2xl bg-[#e05c3c] text-white font-semibold text-sm hover:bg-[#c44e32] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    {isSubmitting || registerSeller.isPending ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Submitting Registration...
-                      </>
-                    ) : (
-                      "Register as Seller"
-                    )}
+                    Continue to OTP Verification →
                   </button>
 
                   <p className="text-center text-sm text-slate-500 mt-4">
