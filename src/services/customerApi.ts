@@ -90,6 +90,21 @@ export const createMarketplaceOrders = async ({
       items.map((it) => apiClient.post("/orderItems", it).catch(() => {}))
     );
 
+    // Reduce listing stock by purchased quantity
+    await Promise.all(
+      sellerEntries.map(async (e) => {
+        try {
+          const { data: listing } = await apiClient.get(`/listings/${e.listingId}`);
+          if (listing && typeof listing.stock === "number") {
+            const newStock = Math.max(0, listing.stock - e.quantity);
+            await apiClient.patch(`/listings/${e.listingId}`, { stock: newStock });
+          }
+        } catch (err) {
+          console.error(`Failed to reduce stock for listing ${e.listingId}`, err);
+        }
+      })
+    );
+
     createdOrders.push(newOrder);
   }
 

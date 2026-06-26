@@ -2830,7 +2830,7 @@
       "bookId": 1,
       "sellerId": 2,
       "price": 409,
-      "stock": 12,
+      "stock": 8,
       "active": true,
       "createdAt": "2026-06-08T09:00:00.000Z"
     },
@@ -5668,6 +5668,54 @@
           "sellerNameSnapshot": "ReadMore Traders"
         }
       ]
+    },
+    {
+      "id": "QbQGwAk-yZk",
+      "customerId": "IK31EltCvMk",
+      "sellerId": "2",
+      "status": "Created",
+      "shippingAddress": "345678, nb gcfdxvghjbk, cfgh, dxftgvhjb 344567, India, (76636347865)",
+      "total": 818,
+      "createdAt": "2026-06-26T05:51:56.053Z",
+      "items": [
+        {
+          "id": "oitem_1782453116054_0_e3y",
+          "orderId": "ord_1782453116053_6xkr",
+          "listingId": "2",
+          "bookId": "1",
+          "sellerId": 2,
+          "quantity": 2,
+          "price": 409,
+          "titleSnapshot": "Atomic Habits",
+          "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg",
+          "authorSnapshot": "James Clear",
+          "sellerNameSnapshot": "PageTurner Books"
+        }
+      ]
+    },
+    {
+      "id": "51jQtAhhdME",
+      "customerId": "IK31EltCvMk",
+      "sellerId": "2",
+      "status": "Created",
+      "shippingAddress": "345678, nb gcfdxvghjbk, cfgh, dxftgvhjb 344567, India, (76636347865)",
+      "total": 818,
+      "createdAt": "2026-06-26T05:52:00.465Z",
+      "items": [
+        {
+          "id": "oitem_1782453120465_0_2dg",
+          "orderId": "ord_1782453120465_v7ny",
+          "listingId": "2",
+          "bookId": "1",
+          "sellerId": 2,
+          "quantity": 2,
+          "price": 409,
+          "titleSnapshot": "Atomic Habits",
+          "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg",
+          "authorSnapshot": "James Clear",
+          "sellerNameSnapshot": "PageTurner Books"
+        }
+      ]
     }
   ],
   "orderItems": [
@@ -5982,6 +6030,32 @@
       "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg",
       "authorSnapshot": "James Clear",
       "sellerNameSnapshot": "ReadMore Traders"
+    },
+    {
+      "id": "s29eTItNS28",
+      "orderId": "ord_1782453116053_6xkr",
+      "listingId": "2",
+      "bookId": "1",
+      "sellerId": 2,
+      "quantity": 2,
+      "price": 409,
+      "titleSnapshot": "Atomic Habits",
+      "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg",
+      "authorSnapshot": "James Clear",
+      "sellerNameSnapshot": "PageTurner Books"
+    },
+    {
+      "id": "ON_t63BHNjc",
+      "orderId": "ord_1782453120465_v7ny",
+      "listingId": "2",
+      "bookId": "1",
+      "sellerId": 2,
+      "quantity": 2,
+      "price": 409,
+      "titleSnapshot": "Atomic Habits",
+      "coverImageSnapshot": "https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg",
+      "authorSnapshot": "James Clear",
+      "sellerNameSnapshot": "PageTurner Books"
     }
   ],
   "categories": [

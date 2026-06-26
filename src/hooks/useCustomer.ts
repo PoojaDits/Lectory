@@ -72,6 +72,9 @@ export function useCreateMarketplaceOrders() {
     }) => createMarketplaceOrders(params),
     onSuccess: (_, { customerId }) => {
       qc.invalidateQueries({ queryKey: ["orders"] });
+      qc.invalidateQueries({ queryKey: ["books"] });
+      qc.invalidateQueries({ queryKey: ["listings"] });
+      qc.invalidateQueries({ queryKey: ["stores"] });
       qc.invalidateQueries({ queryKey: queryKeys.cart.byCustomer(customerId) });
       notify.success("Order placed! Thank you for shopping with us. 🎉");
     },

@@ -66,7 +66,7 @@ export default function StoresPage({ onNavigateHome }: StoresPageProps) {
         <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-yellow-100/40 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full px-6 sm:px-12 md:px-16 lg:px-24 xl:px-32">
 
         {/* ── Hero Header ── */}
         <div className="mb-12">
