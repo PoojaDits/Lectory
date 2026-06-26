@@ -81,7 +81,7 @@ export default function CustomerAccount({
 
   if (!currentUser || currentUser.role !== "customer") {
     return (
-      <main className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-6 text-center">
+      <main className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-6 bg-gradient-to-br from-primary-50 via-white to-orange-50 text-center">
         <ShieldCheck className="h-16 w-16 text-amber-500" />
         <div>
           <h1 className="text-3xl font-extrabold text-secondary-900">
@@ -105,7 +105,7 @@ export default function CustomerAccount({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary-50 via-white to-primary-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50">
       <div className="mx-auto flex w-full max-w-[1400px] gap-6 px-4 pb-8 pt-8 sm:px-6 md:pt-24 lg:px-8">
         <aside className="sticky top-24 hidden h-fit w-64 shrink-0 rounded-2xl border border-secondary-200 bg-white p-5 shadow-sm md:block">
           <div className="mb-6 flex items-center gap-3 border-b border-secondary-100 pb-5">

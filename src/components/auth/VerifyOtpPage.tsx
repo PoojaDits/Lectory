@@ -329,9 +329,9 @@ export default function VerifyOtpPage() {
                 </div>
               )}
 
-              <div className="mt-3.5 inline-flex items-center justify-center gap-2 rounded-xl bg-primary-100/60 border border-primary-200/80 px-3.5 py-2 text-xs font-bold text-primary-900 w-full text-center">
+              {/* <div className="mt-3.5 inline-flex items-center justify-center gap-2 rounded-xl bg-primary-100/60 border border-primary-200/80 px-3.5 py-2 text-xs font-bold text-primary-900 w-full text-center">
                 <span>💡 Demo Hint: Enter code <span className="font-mono tracking-wider font-black text-amber-900 bg-primary-200 px-1.5 py-0.5 rounded">123456</span></span>
-              </div>
+              </div> */}
             </div>
 
             <button

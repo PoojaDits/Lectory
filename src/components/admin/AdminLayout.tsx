@@ -69,7 +69,7 @@ export default function AdminLayout({
   // Guard
   if (!currentUser || currentUser.role !== "admin") {
     return (
-      <main className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-6 text-center">
+      <main className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-6 text-center bg-gradient-to-br from-primary-50 via-white to-orange-50">
         <ShieldCheck className="h-16 w-16 text-amber-500" />
         <div>
           <h1 className="text-3xl font-extrabold text-secondary-900">
@@ -91,7 +91,7 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary-50 via-white to-indigo-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50">
       <ImpersonationBanner />
 
       <div className="mx-auto flex w-full max-w-[1400px] gap-6 px-4 pt-24 pb-8 sm:px-6 lg:px-8">

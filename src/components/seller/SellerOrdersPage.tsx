@@ -470,7 +470,7 @@ function PipelineTile({
   } as const;
 
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm min-w-0 overflow-hidden">
+    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm min-w-0  bg-gradient-to-br from-primary-50 via-white to-orange-50 overflow-hidden">
       <span
         className={cn(
           "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",

@@ -94,7 +94,7 @@ export default function SellerLayout({
   // ── Guard ──
   if (!currentUser || currentUser.role !== "seller") {
     return (
-      <main className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-6 text-center">
+      <main className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-6 text-center ">
         <ShieldCheck className="h-16 w-16 text-amber-500" />
         <div>
           <h1 className="text-3xl font-extrabold text-secondary-900">
@@ -118,7 +118,7 @@ export default function SellerLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary-50 via-white to-primary-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50-50/30">
       <ImpersonationBanner />
 
       <div className="mx-auto flex w-full max-w-[1400px] gap-6 px-4 py-8 sm:px-6 lg:px-8">

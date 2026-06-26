@@ -60,7 +60,7 @@ export default function SellerDashboardPage() {
   );
 
   return (
-    <div className="space-y-8 mt-[65px]">
+    <div className="space-y-8 mt-[65px] bg-gradient-to-br from-primary-50 via-white to-orange-50">
       {/* ── Welcome Header ── */}
       <header className="mb-8 overflow-hidden rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-orange-900 p-8 md:p-12 relative shadow-lg shadow-primary-900/20">
         <div className="absolute -right-12 -bottom-12 h-64 w-64 rounded-full bg-white/10 blur-2xl pointer-events-none" />
