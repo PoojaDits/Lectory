@@ -27,20 +27,20 @@ export default function StatCard({
   hint,
 }: StatCardProps) {
   return (
-    <div className="rounded-3xl border border-secondary-100 bg-white p-6 shadow-sm transition hover:shadow-md">
+    <div className="rounded-3xl border border-secondary-100 bg-white p-5 sm:p-6 shadow-sm transition hover:shadow-md min-w-0 overflow-hidden">
       <div
         className={cn(
-          "inline-flex h-12 w-12 items-center justify-center rounded-2xl",
+          "inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl",
           TONES[tone] ?? TONES.amber
         )}
       >
         <Icon className="h-6 w-6" />
       </div>
-      <p className="mt-4 text-sm font-bold uppercase tracking-wide text-slate-400">
+      <p className="mt-4 text-xs sm:text-sm font-bold uppercase tracking-wide text-slate-400 truncate">
         {label}
       </p>
-      <p className="mt-1 text-3xl font-black text-secondary-900">{value}</p>
-      {hint && <p className="mt-1 text-xs font-medium text-slate-400">{hint}</p>}
+      <p className="mt-1 text-2xl sm:text-3xl font-black text-secondary-900 truncate" title={String(value)}>{value}</p>
+      {hint && <p className="mt-1 text-[11px] sm:text-xs font-medium text-slate-400 truncate">{hint}</p>}
     </div>
   );
 }

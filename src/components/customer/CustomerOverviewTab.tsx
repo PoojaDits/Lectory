@@ -109,7 +109,7 @@ export default function CustomerOverviewTab({
         </div>
       </header>
 
-      <section className="grid gap-4 md:grid-cols-3">
+      <section className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <InfoCard icon={Mail} label="Email" value={customer.email} />
         <InfoCard
           icon={MapPin}
@@ -158,7 +158,7 @@ export default function CustomerOverviewTab({
         />
       </section>
 
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
         <PipelineTile
           label="Created"
           value={orderCounts.Created}
@@ -285,12 +285,12 @@ function InfoCard({
   value: string;
 }) {
   return (
-    <div className="rounded-2xl border border-secondary-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-secondary-200 bg-white p-4 sm:p-5 shadow-sm min-w-0 overflow-hidden">
       <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-wider text-slate-400">
-        <Icon className="h-3.5 w-3.5" />
-        {label}
+        <Icon className="h-3.5 w-3.5 shrink-0" />
+        <span className="truncate">{label}</span>
       </div>
-      <p className="mt-2 text-sm font-semibold text-secondary-900">{value}</p>
+      <p className="mt-2 text-xs sm:text-sm font-semibold text-secondary-900 truncate" title={value}>{value}</p>
     </div>
   );
 }
@@ -316,20 +316,20 @@ function PipelineTile({
   } as const;
 
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
+    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm min-w-0 overflow-hidden">
       <span
         className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-xl",
+          "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
           tones[tone]
         )}
       >
         <Icon className="h-5 w-5" />
       </span>
-      <div>
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+      <div className="min-w-0 truncate">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 truncate">
           {label}
         </p>
-        <p className="text-2xl font-extrabold leading-none text-secondary-900">
+        <p className="text-2xl font-extrabold leading-none text-secondary-900 truncate">
           {value}
         </p>
       </div>
