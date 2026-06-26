@@ -190,18 +190,19 @@ export default function CatalogManagementPage() {
         Semantic <table> with <colgroup> matching the original 12-col grid
         proportions (4/2/3/1/2).
       */}
-      <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
-        <table className="w-full table-fixed border-collapse text-sm">
-          <caption className="sr-only">
-            Catalog list. Columns: Book, Status, Listings, Updated, Actions.
-          </caption>
-          <colgroup>
-            <col className="w-[33.3333%]" /> {/* Book     — col-span-4 */}
-            <col className="w-[16.6667%]" /> {/* Status   — col-span-2 */}
-            <col className="w-[25%]" />      {/* Listings — col-span-3 */}
-            <col className="w-[8.3333%]" />  {/* Updated  — col-span-1 */}
-            <col className="w-[16.6667%]" /> {/* Actions  — col-span-2 */}
-          </colgroup>
+      <section className="rounded-2xl border border-secondary-200 bg-white shadow-sm overflow-hidden">
+        <div className="w-full overflow-x-auto [scrollbar-width:thin]">
+          <table className="w-full min-w-[850px] border-collapse text-sm text-left">
+            <caption className="sr-only">
+              Catalog list. Columns: Book, Status, Listings, Updated, Actions.
+            </caption>
+            <colgroup>
+              <col className="w-[30%]" />
+              <col className="w-[15%]" />
+              <col className="w-[25%]" />
+              <col className="w-[12%]" />
+              <col className="w-[18%]" />
+            </colgroup>
           <thead className="bg-secondary-50">
             <tr className="border-b border-secondary-200">
               <th scope="col" className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider text-slate-500">
@@ -258,6 +259,7 @@ export default function CatalogManagementPage() {
             )}
           </tbody>
         </table>
+        </div>
       </section>
 
       <Pagination

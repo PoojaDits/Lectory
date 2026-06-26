@@ -78,7 +78,7 @@ export default function ChangePasswordTab() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl rounded-3xl border border-secondary-200/80 bg-white p-6 sm:p-10 shadow-sm">
+    <div className="mx-auto max-w-2xl rounded-3xl border border-secondary-200/80 bg-white p-6 md:mt-[100px] sm:p-10 shadow-sm  sm:mt-[100px]">
       <div className="mb-6 flex items-center gap-3.5 border-b border-secondary-100 pb-6">
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-100 text-primary-800 shadow-xs border border-primary-200 shrink-0">
           <KeyRound className="h-6 w-6" />
@@ -136,6 +136,7 @@ export default function ChangePasswordTab() {
               }}
               className="w-full rounded-2xl border border-secondary-200 py-3.5 px-4 text-sm font-medium outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
             />
+            
             <p className="text-[11px] text-slate-400 mt-1 pl-1">Must be at least 6 characters long</p>
           </div>
 
@@ -154,6 +155,7 @@ export default function ChangePasswordTab() {
               }}
               className="w-full rounded-2xl border border-secondary-200 py-3.5 px-4 text-sm font-medium outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
             />
+            
           </div>
         </div>
 

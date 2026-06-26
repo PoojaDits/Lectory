@@ -1171,9 +1171,9 @@
       "publisher": "Anchor Books",
       "description": "A murder in the Louvre reveals a sinister plot to uncover a secret protected since the days of Christ.",
       "coverImage": "https://covers.openlibrary.org/b/isbn/9780307277671-L.jpg",
-      "status": "Approved",
+      "status": "Rejected",
       "createdAt": "2026-06-01T09:00:00.000Z",
-      "reviewedAt": "2026-06-02T09:00:00.000Z",
+      "reviewedAt": "2026-06-26T08:13:59.879Z",
       "categories": [
         "bestseller"
       ],

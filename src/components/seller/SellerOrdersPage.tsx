@@ -102,7 +102,7 @@ export default function SellerOrdersPage() {
       </header>
 
       {/* ── Pipeline summary ── */}
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-6">
+      <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
         <PipelineTile
           label="Total"
           value={counts.all ?? 0}
@@ -470,20 +470,20 @@ function PipelineTile({
   } as const;
 
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
+    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm min-w-0 overflow-hidden">
       <span
         className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-xl",
+          "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
           tones[tone],
         )}
       >
         <Icon className="h-5 w-5" />
       </span>
-      <div>
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+      <div className="min-w-0 truncate">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 truncate">
           {label}
         </p>
-        <p className="text-2xl font-extrabold leading-none text-secondary-900">
+        <p className="text-2xl font-extrabold leading-none text-secondary-900 truncate">
           {value}
         </p>
       </div>

@@ -176,18 +176,19 @@ export default function SellerApprovalPage() {
         Semantic <table> with <colgroup> matching the original 12-col grid
         proportions (4/3/2/1/2). Screen readers can now navigate by row/column.
       */}
-      <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
-        <table className="w-full table-fixed border-collapse text-sm">
-          <caption className="sr-only">
-            Seller approval list. Columns: Business, Contact, Status, Joined, Actions.
-          </caption>
-          <colgroup>
-            <col className="w-[33.3333%]" /> {/* Business — col-span-4 */}
-            <col className="w-[25%]" />      {/* Contact  — col-span-3 */}
-            <col className="w-[16.6667%]" /> {/* Status   — col-span-2 */}
-            <col className="w-[8.3333%]" />  {/* Joined   — col-span-1 */}
-            <col className="w-[16.6667%]" /> {/* Actions  — col-span-2 */}
-          </colgroup>
+      <section className="hidden md:block rounded-2xl border border-secondary-200 bg-white shadow-sm overflow-hidden">
+        <div className="w-full overflow-x-auto [scrollbar-width:thin]">
+          <table className="w-full min-w-[850px] border-collapse text-sm text-left">
+            <caption className="sr-only">
+              Seller approval list. Columns: Business, Contact, Status, Joined, Actions.
+            </caption>
+            <colgroup>
+              <col className="w-[30%]" />
+              <col className="w-[25%]" />
+              <col className="w-[15%]" />
+              <col className="w-[12%]" />
+              <col className="w-[18%]" />
+            </colgroup>
           <thead className="bg-secondary-50">
             <tr className="border-b border-secondary-200">
               <th
@@ -261,7 +262,70 @@ export default function SellerApprovalPage() {
             )}
           </tbody>
         </table>
+        </div>
       </section>
+
+      {/* ── Mobile Card List (< 768px) ── */}
+      <div className="md:hidden space-y-3.5">
+        {isLoading ? (
+          <div className="p-8 text-center text-slate-400 font-bold">Loading sellers…</div>
+        ) : pageItems.length === 0 ? (
+          <div className="p-8 text-center text-slate-400 font-bold">No sellers match filters.</div>
+        ) : (
+          pageItems.map((s) => (
+            <div key={String(s.id)} className="rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm space-y-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-100 text-primary-800">
+                    <Store className="h-5 w-5" />
+                  </span>
+                  <div className="min-w-0">
+                    <h4 className="font-extrabold text-sm text-slate-900 truncate">{s.businessName}</h4>
+                    <p className="text-xs text-slate-500 truncate">{s.contactPerson} · #{s.id}</p>
+                  </div>
+                </div>
+                <StatusBadge status={s.status} />
+              </div>
+
+              <div className="bg-slate-50 p-3 rounded-xl text-xs text-slate-600 space-y-1 border border-slate-100">
+                <p className="truncate">📧 {s.email}</p>
+                <p>📱 {s.mobileNumber}</p>
+                <p className="text-[10px] text-slate-400">Joined: {formatDate(s.createdAt)}</p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-end gap-2 pt-1 border-t border-slate-100">
+                {s.status === "Pending Approval" && (
+                  <>
+                    <button
+                      onClick={() => updateSeller.mutate({ id: s.id!, status: "Approved" })}
+                      disabled={updateSeller.isPending}
+                      className="rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-black text-white shadow-xs hover:bg-emerald-700"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => updateSeller.mutate({ id: s.id!, status: "Rejected" })}
+                      disabled={updateSeller.isPending}
+                      className="rounded-full bg-rose-600 px-4 py-1.5 text-xs font-black text-white shadow-xs hover:bg-rose-700"
+                    >
+                      Reject
+                    </button>
+                  </>
+                )}
+                {s.status === "Approved" && (
+                  <button
+                    onClick={() => handleImpersonate(s)}
+                    disabled={isImpersonating}
+                    className="rounded-full bg-indigo-600 px-4 py-1.5 text-xs font-black text-white shadow-xs flex items-center gap-1 hover:bg-indigo-700 disabled:opacity-50"
+                  >
+                    <LogIn className="h-3 w-3" /> Login as
+                  </button>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
 
       <Pagination
         currentPage={safePage}

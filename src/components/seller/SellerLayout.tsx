@@ -195,7 +195,7 @@ export default function SellerLayout({
         </aside>
 
         {/* ── Mobile top bar ── */}
-        <div className="fixed inset-x-0 top-[60px] z-40 flex items-center justify-between border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur md:hidden">
+        <div className={cn("fixed inset-x-0 z-40 flex items-center justify-between border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur md:hidden transition-all", isImpersonating ? "top-[102px]" : "top-[64px]")}>
           <div className="flex items-center gap-2">
             <BookOpen className="h-5 w-5 text-primary-700" />
             <span className="text-sm font-extrabold text-secondary-900">
@@ -206,7 +206,7 @@ export default function SellerLayout({
         </div>
 
         {/* ── Mobile sub-navigation ── */}
-        <div className="fixed inset-x-0 top-[100px] z-40 flex overflow-x-auto border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur scrollbar-hide md:hidden gap-2">
+        <div className={cn("fixed inset-x-0 z-40 flex overflow-x-auto border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur scrollbar-hide md:hidden gap-2 transition-all", isImpersonating ? "top-[142px]" : "top-[104px]")}>
           {items.map(({ to, label, icon: Icon, badge }) => (
             <NavLink
               key={to}
@@ -233,7 +233,7 @@ export default function SellerLayout({
         </div>
 
         {/* ── Page content ── */}
-        <main className="min-w-0 flex-1 pt-[50px] md:pt-0 pb-16">
+        <main className={cn("min-w-0 flex-1 pb-16 transition-all", isImpersonating ? "pt-[160px] md:pt-12" : "pt-[120px] md:pt-0")}>
           <Outlet />
         </main>
       </div>

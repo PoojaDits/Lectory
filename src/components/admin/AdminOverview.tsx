@@ -273,7 +273,7 @@ export default function AdminOverview() {
           </Link>
         </header>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
           <PipelineTile
             status="Created"
             count={orderBreakdown.Created}
@@ -572,15 +572,18 @@ function PipelineTile({
   icon: typeof Clock3;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-secondary-50 px-4 py-3">
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-secondary-700 shadow-sm">
-        <Icon className="h-5 w-5" />
-      </div>
-      <div className="min-w-0">
+    <div className="flex flex-col justify-between rounded-2xl border border-secondary-200 bg-secondary-50 p-4 shadow-2xs min-w-0 overflow-hidden">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-secondary-700 shadow-xs border border-slate-100">
+          <Icon className="h-4 w-4" />
+        </div>
         <StatusBadge status={status as never} />
-        <p className="mt-1 text-2xl font-extrabold leading-none text-secondary-900">
+      </div>
+      <div className="mt-3 pt-2 border-t border-slate-200/60 flex items-baseline justify-between">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total</span>
+        <span className="text-2xl font-black text-secondary-900 leading-none">
           {count}
-        </p>
+        </span>
       </div>
     </div>
   );
@@ -684,8 +687,8 @@ function RecentOrdersList({
           No orders have been placed yet.
         </p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
+        <div className="hidden sm:block w-full overflow-x-auto [scrollbar-width:thin]">
+          <table className="w-full min-w-[650px] text-sm text-left">
             <thead>
               <tr className="text-left text-xs font-bold uppercase tracking-wider text-slate-500">
                 <th className="pb-3">Order #</th>
@@ -722,7 +725,29 @@ function RecentOrdersList({
             </tbody>
           </table>
         </div>
-      )}
+        )}
+
+        {/* ── Mobile Card List (< 640px) ── */}
+        {orders.length > 0 && (
+          <div className="sm:hidden space-y-3 mt-4">
+            {orders.map((o) => {
+              const customer = customers.find((c) => String(c.id) === String(o.customerId));
+              const cName = customer ? `${customer.firstName} ${customer.lastName}` : "—";
+              return (
+                <div key={String(o.id)} className="rounded-xl border border-secondary-200 bg-white p-3.5 shadow-2xs space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-bold text-xs text-slate-900">#{o.id}</span>
+                    <StatusBadge status={o.status} />
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
+                    <span>👤 {cName}</span>
+                    <span className="font-black text-slate-900">{formatCurrency(o.total)}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
     </section>
   );
 }

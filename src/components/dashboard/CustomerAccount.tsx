@@ -172,7 +172,7 @@ export default function CustomerAccount({
           </div>
         </aside>
 
-        <div className="fixed inset-x-0 top-16 z-40 flex items-center justify-between border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur md:hidden">
+        <div className={cn("fixed inset-x-0 z-40 flex items-center justify-between border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur md:hidden transition-all", isImpersonating ? "top-[100px]" : "top-16")}>
           <div className="flex items-center gap-2">
             <BookOpen className="h-5 w-5 text-primary-700" />
             <span className="text-sm font-extrabold text-secondary-900">
@@ -188,7 +188,7 @@ export default function CustomerAccount({
           </button>
         </div>
 
-        <div className="fixed inset-x-0 top-[104px] z-40 flex gap-2 overflow-x-auto border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur scrollbar-hide md:hidden">
+        <div className={cn("fixed inset-x-0 z-40 flex gap-2 overflow-x-auto border-b border-secondary-200 bg-white/95 px-4 py-2 backdrop-blur scrollbar-hide md:hidden transition-all", isImpersonating ? "top-[140px]" : "top-[104px]")}>
           {tabs.map(({ to, label, icon: Icon, badge }) => (
             <NavLink
               key={to}
@@ -214,7 +214,7 @@ export default function CustomerAccount({
           ))}
         </div>
 
-        <main className="min-w-0 flex-1 pb-16 pt-[120px] md:pt-0">
+        <main className={cn("min-w-0 flex-1 pb-16 transition-all", isImpersonating ? "pt-[160px] md:pt-12" : "pt-[120px] md:pt-0")}>
           {(isCustomerLoading || isOrdersLoading) && !customerProfile ? (
             <div className="flex min-h-[50vh] flex-col items-center justify-center py-24 text-slate-400">
               <Loader2 className="h-10 w-10 animate-spin text-primary-700" />

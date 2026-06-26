@@ -101,7 +101,7 @@ export default function OrderManagementPage() {
       </header>
 
       {/* ── Pipeline summary ── */}
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-6">
+      <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
         <PipelineTile
           label="Total"
           value={counts.all ?? 0}
@@ -190,7 +190,9 @@ export default function OrderManagementPage() {
       </div>
 
       {/* ── Orders table ── */}
-      <section className="overflow-hidden rounded-2xl border border-secondary-200 bg-white shadow-sm">
+      <section className="hidden md:block rounded-2xl border border-secondary-200 bg-white shadow-sm overflow-hidden">
+        <div className="w-full overflow-x-auto [scrollbar-width:thin]">
+        <div className="min-w-[850px]">
         <div className="grid grid-cols-12 gap-2 border-b border-secondary-200 bg-secondary-50 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
           <div className="col-span-2">#</div>
           <div className="col-span-2">Customer</div>
@@ -263,7 +265,44 @@ export default function OrderManagementPage() {
             })}
           </ul>
         )}
+        </div>
+        </div>
       </section>
+
+      {/* ── Mobile Card List (< 768px) ── */}
+      <div className="md:hidden space-y-3.5">
+        {isLoading ? (
+          <div className="p-8 text-center text-slate-400 font-bold">Loading orders…</div>
+        ) : pageItems.length === 0 ? (
+          <div className="p-8 text-center text-slate-400 font-bold">No orders match filters.</div>
+        ) : (
+          pageItems.map((o) => {
+            const customer = customers.find((c) => String(c.id) === String(o.customerId));
+            const seller = sellers.find((s) => String(s.id) === String(o.sellerId));
+            return (
+              <div key={String(o.id)} className="rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className="text-xs font-black text-slate-900 block">Order #{o.id}</span>
+                    <span className="text-[11px] text-slate-400">{formatDate(o.createdAt)}</span>
+                  </div>
+                  <StatusBadge status={o.status} />
+                </div>
+
+                <div className="bg-slate-50 p-3 rounded-xl text-xs text-slate-600 space-y-1 border border-slate-100">
+                  <p className="truncate">👤 <b>Customer:</b> {customer ? `${customer.firstName} ${customer.lastName}` : "—"}</p>
+                  <p className="truncate">🏪 <b>Seller:</b> {seller?.businessName ?? "—"}</p>
+                </div>
+
+                <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                  <span className="text-xs text-slate-400 uppercase font-extrabold">Total Amount</span>
+                  <span className="text-lg font-black text-emerald-700">{formatCurrency(o.total)}</span>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
 
       <Pagination
         currentPage={safePage}
@@ -296,20 +335,20 @@ function PipelineTile({
     rose: "bg-rose-100 text-rose-800",
   } as const;
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
+    <div className="flex items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm min-w-0 overflow-hidden">
       <span
         className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-xl",
+          "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
           tones[tone]
         )}
       >
         <Icon className="h-5 w-5" />
       </span>
-      <div>
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+      <div className="min-w-0 truncate">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 truncate">
           {label}
         </p>
-        <p className="text-2xl font-extrabold leading-none text-secondary-900">
+        <p className="text-2xl font-extrabold leading-none text-secondary-900 truncate">
           {value}
         </p>
       </div>
