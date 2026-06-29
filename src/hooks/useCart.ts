@@ -132,6 +132,11 @@ export function useAddListingToCart() {
     },
     // Reconcile the real server entry into the cache WITHOUT refetching.
     onSuccess: (entry) => {
+      const customerCartKey = queryKeys.cart.byCustomer(String(currentUser!.id!));
+      qc.setQueryData(customerCartKey, (prev: { id?: EntityId } | undefined) =>
+        prev?.id ? prev : { id: entry.cartId, customerId: currentUser!.id! }
+      );
+
       const key = queryKeys.cart.entries(String(entry.cartId));
       qc.setQueryData<CartEntry[]>(key, (prev) => {
         const list = prev ?? [];
