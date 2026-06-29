@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -20,6 +20,7 @@ import {
   useUpdateCustomerProfile,
 } from "@/hooks/useCustomer";
 import { useCart, useClearCart } from "@/hooks/useCart";
+import { notify } from "@/lib/toast";
 import { formatCurrency } from "@/utils/helpers";
 import type { Address } from "@/types";
 import AddressModal from "@/components/customer/AddressModal";
@@ -45,15 +46,6 @@ export default function CheckoutPage() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [placedOrderIds, setPlacedOrderIds] = useState<string[]>([]);
 
-  // Automatically pre-select default address when profile loads
-  useEffect(() => {
-    if (customer?.addresses && customer.addresses.length > 0 && !selectedAddrId) {
-      const defaultAddr =
-        customer.addresses.find((a) => a.isDefault) || customer.addresses[0];
-      if (defaultAddr) setSelectedAddrId(defaultAddr.id);
-    }
-  }, [customer, selectedAddrId]);
-
   // Guard against non-customers
   if (!currentUser || currentUser.role !== "customer") {
     return (
@@ -73,7 +65,18 @@ export default function CheckoutPage() {
   }
 
   const addresses = customer?.addresses ?? [];
-  const chosenAddress = addresses.find((a) => a.id === selectedAddrId) || addresses[0];
+
+  // F-14: derive the effective selection during render instead of syncing it
+  // with a setState-in-effect. A user's explicit pick (selectedAddrId) always
+  // wins; otherwise we fall back to the default address, then the first one.
+  const effectiveAddrId =
+    (selectedAddrId && addresses.some((a) => a.id === selectedAddrId)
+      ? selectedAddrId
+      : undefined) ??
+    addresses.find((a) => a.isDefault)?.id ??
+    addresses[0]?.id ??
+    "";
+  const chosenAddress = addresses.find((a) => a.id === effectiveAddrId);
 
   const handleSaveNewAddress = (newAddr: Address) => {
     const nextAddresses = [...addresses, newAddr];
@@ -91,8 +94,9 @@ export default function CheckoutPage() {
   };
 
   const handleCompleteOrder = async () => {
-    if (!chosenAddress) return alert("Please select a delivery address.");
-    if (entries.length === 0) return alert("Your cart is empty.");
+    // UI-04: use the styled toast system instead of native alert().
+    if (!chosenAddress) return notify.warning("Please select a delivery address.");
+    if (entries.length === 0) return notify.warning("Your cart is empty.");
 
     const formattedAddress = [
       chosenAddress.fullName,
@@ -127,7 +131,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-primary-50/60 via-white to-orange-50/50 px-4 pb-24 pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50/60 via-white to-orange-50/50 px-4 pb-24 pt-8">
       <div className="mx-auto max-w-4xl">
         {/* Top Header Step Indicator */}
         {step !== "success" && (
@@ -216,7 +220,7 @@ export default function CheckoutPage() {
             ) : (
               <div className="grid gap-4 sm:grid-cols-2">
                 {addresses.map((addr) => {
-                  const isSelected = addr.id === selectedAddrId;
+                  const isSelected = addr.id === effectiveAddrId;
                   const isDef = Boolean(addr.isDefault);
 
                   return (
@@ -273,7 +277,10 @@ export default function CheckoutPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    if (!selectedAddrId) return alert("Please select an address.");
+                    if (!effectiveAddrId) {
+                      notify.warning("Please select an address.");
+                      return;
+                    }
                     setStep("review");
                   }}
                   className="inline-flex items-center gap-2 rounded-full bg-primary-900 px-10 py-4 text-sm font-black text-white hover:bg-primary-800 transition shadow-xl shadow-primary-900/20"

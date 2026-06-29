@@ -81,7 +81,11 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
     selectedListing != null &&
     entries.some((e) => sameId(e.listingId, selectedListing.id));
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e?: React.MouseEvent) => {
+    // Hard guard: never let this click bubble to a parent <form>/anchor or
+    // trigger any native submit/navigation. The add is a pure background action.
+    e?.preventDefault();
+    e?.stopPropagation();
     if (!selectedListing) {
       notify.warning("Please select an available seller.");
       return;
@@ -116,7 +120,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-primary-50/50 via-white to-orange-50/40 px-4 pt-24 pb-20">
+      <main className="min-h-screen bg-gradient-to-br from-primary-50/50 via-white to-orange-50/40 px-4 pt-8 pb-20">
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-center py-32 text-slate-400">
           <div className="rounded-full bg-white p-4 shadow-md ring-1 ring-slate-100">
             <Loader2 className="h-8 w-8 animate-spin text-primary-700" />
@@ -129,7 +133,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
 
   if (isError || !book) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-primary-50/50 via-white to-orange-50/40 px-4 pt-24 pb-20">
+      <main className="min-h-screen bg-gradient-to-br from-primary-50/50 via-white to-orange-50/40 px-4 pt-8 pb-20">
         <div className="mx-auto max-w-xl rounded-3xl sm:rounded-[2.5rem] border border-slate-100 bg-white p-8 sm:p-14 text-center shadow-xl shadow-slate-200/50 mt-4">
           <div className="mx-auto flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-primary-50 text-primary-600">
             <BookOpen className="h-8 w-8 sm:h-10 sm:w-10" />
@@ -161,7 +165,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/15 to-orange-50/25 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-20">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/15 to-orange-50/25 px-4 sm:px-6 lg:px-8 pt-8 pb-20">
       <div className="mx-auto max-w-7xl">
         {/* Navigation Bar */}
         <div className="mb-6 sm:mb-8 flex items-center justify-between">
@@ -462,7 +466,7 @@ export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps
                 <div className="flex items-center justify-between gap-4 pt-1">
                   <button
                     type="button"
-                    onClick={handleAddToCart}
+                    onClick={(e) => handleAddToCart(e)}
                     disabled={
                       isPending ||
                       !selectedListing ||

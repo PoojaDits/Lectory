@@ -5158,6 +5158,20 @@
       "sellerName": "PageTurner Books",
       "createdAt": "2026-06-24T08:16:51.268Z",
       "id": "btz_2v-oD5c"
+    },
+    {
+      "cartId": "L9R73FYFYlk",
+      "listingId": "10",
+      "bookId": "4",
+      "sellerId": 1,
+      "quantity": 1,
+      "price": 399,
+      "title": "The Midnight Library",
+      "author": "Matt Haig",
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780525559474-L.jpg",
+      "sellerName": "BookWorld Distributors",
+      "createdAt": "2026-06-29T05:39:30.259Z",
+      "id": "dE-_hJjXTUw"
     }
   ],
   "orders": [
@@ -6183,5 +6197,6 @@
       "rating": 5,
       "text": "As a student, I appreciate the academic section and the student discounts. Found rare editions I couldn't find anywhere else. Highly recommended!"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -79,6 +79,26 @@ export const useAiBooks = () => useCategoryBooks("ai");
 
 export const usePreOrders = () => useCategoryBooks("preorder");
 
+/**
+ * UI-05 / F-06: REAL new arrivals — the most recently added sellable books,
+ * sorted by `createdAt` descending. This replaces the previous behaviour where
+ * the "New Arrivals" section incorrectly rendered the "recommended" category.
+ */
+export const useNewArrivalBooks = (limit = 8) =>
+  useQuery({
+    queryKey: [...queryKeys.books.store, "new-arrivals", limit],
+    queryFn: async () => {
+      const books = await fetchBooksForStore();
+      return [...books]
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+        .slice(0, limit);
+    },
+    staleTime: HOME_STALE,
+  });
+
 /** All sellable books (used by the Browse page). */
 export const useStoreBooks = () =>
   useQuery({

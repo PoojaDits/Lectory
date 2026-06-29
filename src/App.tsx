@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
+import { Loader2 } from "lucide-react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // Layout
@@ -6,36 +7,43 @@ import Navbar from "@/components/layout/Navbar";
 import ImpersonationBanner from "@/components/layout/ImpersonationBanner";
 import Footer from "@/components/layout/Footer";
 
+/*
+ * UI-06 fix: code-splitting.
+ * Everything except the layout chrome and the above-the-fold home sections is
+ * lazy-loaded so the initial bundle no longer ships the admin / seller /
+ * customer portals to every visitor. Each route now becomes its own chunk.
+ */
+
 // Auth
-import RegistrationPage from "@/components/auth/RegistrationPage";
-import VerifyOtpPage from "@/components/auth/VerifyOtpPage";
-import ForgotPasswordPage from "@/components/auth/ForgotPasswordPage";
-import LoginPage from "@/components/auth/LoginPage";
+const RegistrationPage = lazy(() => import("@/components/auth/RegistrationPage"));
+const VerifyOtpPage = lazy(() => import("@/components/auth/VerifyOtpPage"));
+const ForgotPasswordPage = lazy(() => import("@/components/auth/ForgotPasswordPage"));
+const LoginPage = lazy(() => import("@/components/auth/LoginPage"));
 
 // Seller portal (multi-page)
-import SellerLayout from "@/components/seller/SellerLayout";
-import SellerDashboardPage from "@/components/seller/SellerDashboardPage";
-import SellerOrdersPage from "@/components/seller/SellerOrdersPage";
-import SellerListingsPage from "@/components/seller/SellerListingPage";
-import SellerSubmitBookPage from "@/components/seller/SellerSubmitBookPage";
-import SellerSettingsPage from "@/components/seller/SellerSettingsPage";
-import CustomerAccount from "@/components/dashboard/CustomerAccount";
-import ChangePasswordTab from "@/components/dashboard/ChangePasswordTab";
-import BrowseBooksPage from "@/components/pages/BrowseBooksPage";
-import BookDetailsPage from "@/components/pages/BookDetailsPage";
-import StoresPage from "@/components/pages/StorePage";
-import StoreDetailsPage from "@/components/pages/StoreDetailsPage";
-import CartPage from "@/components/pages/CartPage";
-import CheckoutPage from "@/components/pages/CheckoutPage";
+const SellerLayout = lazy(() => import("@/components/seller/SellerLayout"));
+const SellerDashboardPage = lazy(() => import("@/components/seller/SellerDashboardPage"));
+const SellerOrdersPage = lazy(() => import("@/components/seller/SellerOrdersPage"));
+const SellerListingsPage = lazy(() => import("@/components/seller/SellerListingPage"));
+const SellerSubmitBookPage = lazy(() => import("@/components/seller/SellerSubmitBookPage"));
+const SellerSettingsPage = lazy(() => import("@/components/seller/SellerSettingsPage"));
+const CustomerAccount = lazy(() => import("@/components/dashboard/CustomerAccount"));
+const ChangePasswordTab = lazy(() => import("@/components/dashboard/ChangePasswordTab"));
+const BrowseBooksPage = lazy(() => import("@/components/pages/BrowseBooksPage"));
+const BookDetailsPage = lazy(() => import("@/components/pages/BookDetailsPage"));
+const StoresPage = lazy(() => import("@/components/pages/StorePage"));
+const StoreDetailsPage = lazy(() => import("@/components/pages/StoreDetailsPage"));
+const CartPage = lazy(() => import("@/components/pages/CartPage"));
+const CheckoutPage = lazy(() => import("@/components/pages/CheckoutPage"));
 
 // Admin portal
-import AdminShell from "@/components/admin/AdminShell";
-import AdminOverview from "@/components/admin/AdminOverview";
-import SellerApprovalPage from "@/components/admin/SellerApprovalPage";
-import BookApprovalPage from "@/components/admin/BookApprovalPage";
-import CatalogManagementPage from "@/components/admin/CatalogManagementPage";
-import CustomerManagementPage from "@/components/admin/CustomerManagementPage";
-import OrderManagementPage from "@/components/admin/OrderManagementPage";
+const AdminShell = lazy(() => import("@/components/admin/AdminShell"));
+const AdminOverview = lazy(() => import("@/components/admin/AdminOverview"));
+const SellerApprovalPage = lazy(() => import("@/components/admin/SellerApprovalPage"));
+const BookApprovalPage = lazy(() => import("@/components/admin/BookApprovalPage"));
+const CatalogManagementPage = lazy(() => import("@/components/admin/CatalogManagementPage"));
+const CustomerManagementPage = lazy(() => import("@/components/admin/CustomerManagementPage"));
+const OrderManagementPage = lazy(() => import("@/components/admin/OrderManagementPage"));
 
 // Routing
 import ProtectedRoute from "@/components/routing/ProtectedRoute";
@@ -119,6 +127,15 @@ function buildTitle(pathname: string): string {
   return page === BRAND ? BRAND : `${BRAND} | ${page}`;
 }
 
+/** Lightweight full-page fallback shown while a lazy route chunk loads. */
+function RouteFallback() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center text-primary-700">
+      <Loader2 className="h-8 w-8 animate-spin" />
+    </div>
+  );
+}
+
 function HomePage() {
   return (
     <>
@@ -161,7 +178,15 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-secondary-900 antialiased">
       <Navbar />
+      {/*
+        UI-02 fix: single global offset for the fixed navbar.
+        The navbar is `h-16` (64px) / `md:h-20` (80px), so the app shell
+        reserves the same space here once. Individual pages must NOT add
+        their own top padding/margin to clear the navbar anymore.
+      */}
       <ImpersonationBanner />
+      <div className="pt-16 md:pt-20">
+      <Suspense fallback={<RouteFallback />}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/browse" element={<BrowseBooksPage onNavigateHome={goHome} />} />
@@ -177,10 +202,7 @@ export default function App() {
           element={<BookDetailsPage onNavigateHome={goHome} />}
         />
         {/* Cart (public and customer) */}
-        <Route
-          path="/cart"
-          element={<CartPage onNavigateHome={goHome} />}
-        />
+        <Route path="/cart" element={<CartPage />} />
         <Route
           path="/checkout"
           element={
@@ -254,6 +276,8 @@ export default function App() {
         </Route>
         <Route path="*" element={<HomePage />} />
       </Routes>
+      </Suspense>
+      </div>
     </div>
   );
 }

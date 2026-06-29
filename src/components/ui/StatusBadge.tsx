@@ -16,12 +16,20 @@ export default function StatusBadge({ status, className }: StatusBadgeProps) {
 
   return (
     <span
+      // UI-07: text label + a non-color dot so status is not conveyed by
+      // colour alone, and an accessible label for assistive tech.
+      role="status"
+      aria-label={`Status: ${status}`}
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold",
         style,
         className
       )}
     >
+      <span
+        aria-hidden="true"
+        className="h-1.5 w-1.5 rounded-full bg-current opacity-70"
+      />
       {status}
     </span>
   );

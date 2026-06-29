@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { AlertCircle, Eye, EyeOff, KeyRound, Loader2, Lock } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { fetchUserByEmail, resetUserPassword } from "@/services/authApi";
@@ -15,13 +14,6 @@ export default function ChangePasswordTab() {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const [isPending, setIsPending] = useState(false);
-
-  // Pre-fetch stored user record to surface demo password hint
-  const { data: userRecord } = useQuery({
-    queryKey: ["users", currentUser?.email],
-    queryFn: () => fetchUserByEmail(currentUser!.email),
-    enabled: Boolean(currentUser?.email),
-  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +70,7 @@ export default function ChangePasswordTab() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl rounded-3xl border border-secondary-200/80 bg-white p-6 md:mt-[100px] sm:p-10 shadow-sm  sm:mt-[100px]">
+    <div className="mx-auto max-w-2xl rounded-3xl border border-secondary-200/80 bg-white p-6 mt-8 sm:p-10 shadow-sm">
       <div className="mb-6 flex items-center gap-3.5 border-b border-secondary-100 pb-6">
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-100 text-primary-800 shadow-xs border border-primary-200 shrink-0">
           <KeyRound className="h-6 w-6" />

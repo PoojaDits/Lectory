@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import type { Order, OrderStatus } from "@/types";
 import { formatCurrency, formatDate } from "@/utils/helpers";
+import { notify } from "@/lib/toast";
 import StatCard from "@/components/ui/StatCard";
 import StatusBadge from "@/components/ui/StatusBadge";
 
@@ -248,6 +249,39 @@ export default function CustomerOrdersTab({ orders }: CustomerOrdersTabProps) {
 
 function OrderCard({ order }: { order: Order }) {
   const items = order.items ?? [];
+
+  // UI-04 / F-10: generate and download a REAL invoice instead of a fake alert().
+  const handleDownloadInvoice = () => {
+    const lines = [
+      "LECTORY — TAX INVOICE",
+      "==============================",
+      `Order #: ${order.id}`,
+      `Date:    ${formatDate(order.createdAt)}`,
+      `Status:  ${order.status}`,
+      `Ship to: ${order.shippingAddress ?? "—"}`,
+      "",
+      "Items",
+      "------------------------------",
+      ...items.map(
+        (it) =>
+          `${it.titleSnapshot}  x${it.quantity}  @ ${formatCurrency(it.price)}  = ${formatCurrency(it.price * it.quantity)}`
+      ),
+      "------------------------------",
+      `Total: ${formatCurrency(order.total)}`,
+      "",
+      "Thank you for shopping with Lectory.",
+    ];
+    const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `lectory-invoice-${order.id}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    notify.success(`Invoice for Order #${order.id} downloaded.`);
+  };
   const statusLine = STATUS_LINE[order.status];
 
   return (
@@ -364,7 +398,7 @@ function OrderCard({ order }: { order: Order }) {
 
           <button
             type="button"
-            onClick={() => alert(`Invoice for Order #${order.id} downloaded.`)}
+            onClick={handleDownloadInvoice}
             className="inline-flex shrink-0 items-center gap-1.5 font-medium text-sky-700 hover:text-sky-800 hover:underline"
           >
             <ExternalLink className="h-3.5 w-3.5" />

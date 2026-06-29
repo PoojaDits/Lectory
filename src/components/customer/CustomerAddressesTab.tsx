@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { Address, Customer } from "@/types";
 import AddressModal from "./AddressModal";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 
 interface CustomerAddressesTabProps {
   customer: Customer;
@@ -23,6 +24,8 @@ export default function CustomerAddressesTab({
 }: CustomerAddressesTabProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingAddr, setEditingAddr] = useState<Address | null>(null);
+  // UI-04: styled confirmation instead of native confirm().
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const addresses = customer.addresses ?? [];
 
@@ -60,18 +63,22 @@ export default function CustomerAddressesTab({
     onUpdateAddresses(next);
   };
 
+  // UI-04: open the styled confirmation dialog instead of native confirm().
   const handleDeleteAddress = (id: string) => {
-    if (!confirm("Are you sure you want to delete this shipping address?")) {
-      return;
-    }
+    setPendingDeleteId(id);
+  };
 
-    const next = addresses.filter((address) => address.id !== id);
+  const confirmDeleteAddress = () => {
+    if (pendingDeleteId === null) return;
+
+    const next = addresses.filter((address) => address.id !== pendingDeleteId);
 
     if (next.length > 0 && !next.some((address) => address.isDefault)) {
       next[0].isDefault = true;
     }
 
     onUpdateAddresses(next);
+    setPendingDeleteId(null);
   };
 
   const handleSetDefault = (id: string) => {
@@ -239,6 +246,18 @@ export default function CustomerAddressesTab({
         onSave={handleSaveAddress}
         editingAddress={editingAddr}
         existingCount={addresses.length}
+      />
+
+      {/* UI-04: styled delete confirmation (replaces window.confirm) */}
+      <ConfirmDialog
+        open={pendingDeleteId !== null}
+        onClose={() => setPendingDeleteId(null)}
+        onConfirm={confirmDeleteAddress}
+        title="Delete this address?"
+        description="This shipping address will be permanently removed from your account. This action cannot be undone."
+        confirmLabel="Delete address"
+        cancelLabel="Keep address"
+        tone="danger"
       />
     </div>
   );

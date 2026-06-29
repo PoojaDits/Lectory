@@ -5,8 +5,9 @@ import {
   PenLine,
   Sparkles,
 } from "lucide-react";
-import { useRecommendedBooks } from "@/hooks/useHomeContent";
+import { useNewArrivalBooks } from "@/hooks/useHomeContent";
 import BookCarousel from "../ui/BookCarousel";
+import EmptySection from "../ui/EmptySection";
 
 const HIGHLIGHTS = [
   {
@@ -27,8 +28,9 @@ const HIGHLIGHTS = [
 ];
 
 export default function NewArrivals() {
-  const { data: books = [], isLoading } = useRecommendedBooks();
-  const newArrivals = books.slice(0, 8);
+  // UI-05 / F-06: show the genuinely newest sellable books (sorted by createdAt),
+  // not the "recommended" category as it did before.
+  const { data: newArrivals = [], isLoading } = useNewArrivalBooks(8);
 
   const scrollToPreorder = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -149,6 +151,8 @@ export default function NewArrivals() {
                     />
                   ))}
                 </div>
+              ) : newArrivals.length === 0 ? (
+                <EmptySection message="No new arrivals just yet — fresh titles are on the way." />
               ) : (
                 <div className="w-full overflow-visible">
                   <BookCarousel books={newArrivals} />

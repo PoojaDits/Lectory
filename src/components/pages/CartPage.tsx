@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import {
-  ArrowLeft,
+  AlertTriangle,
   BookOpen,
   Loader2,
   Minus,
@@ -12,22 +12,29 @@ import {
 import { useAuthStore } from "@/stores/useAuthStore";
 import {
   useCart,
+  useCartStock,
   useClearCart,
   useRemoveFromCart,
   useUpdateCartQuantity,
 } from "@/hooks/useCart";
+import { notify } from "@/lib/toast";
 import { formatCurrency } from "@/utils/helpers";
 
-interface CartPageProps {
-  onNavigateHome: () => void;
-}
-
-export default function CartPage({ onNavigateHome }: CartPageProps) {
+// F-15 cleanup: the `onNavigateHome` prop and `ArrowLeft` import were unused.
+// The component is self-contained and navigates via <Link>.
+export default function CartPage() {
   const currentUser = useAuthStore((s) => s.currentUser);
   const { entries, count, subtotal, isLoading } = useCart();
+  const { stockOf } = useCartStock(); // UI-03: live availability per listing
   const updateQty = useUpdateCartQuantity();
   const removeEntry = useRemoveFromCart();
   const clearCart = useClearCart();
+
+  // UI-03 / F-02: any line whose quantity exceeds current stock blocks checkout.
+  const hasStockIssue = entries.some((e) => {
+    const stock = stockOf(e.listingId);
+    return stock != null && e.quantity > stock;
+  });
 
   // (ProtectedRoute already guarantees a customer, but keep the guard for the
   // rare impersonation edge cases.)
@@ -37,7 +44,7 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
 
   if (!currentUser) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24">
+      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-8">
         <div className="mx-auto max-w-5xl">
 
           <header className="mb-8">
@@ -83,7 +90,7 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-24">
+    <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 pb-20 pt-8">
       <div className="mx-auto max-w-5xl">
         {/* Top bar */}
 
@@ -133,7 +140,13 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
             {/* Items */}
             <div className="space-y-4">
               <ul className="space-y-3">
-                {entries.map((entry) => (
+                {entries.map((entry) => {
+                  // UI-03: current available stock for this listing (undefined while loading).
+                  const stock = stockOf(entry.listingId);
+                  const atMax = stock != null && entry.quantity >= stock;
+                  const overStock = stock != null && entry.quantity > stock;
+                  const isOutOfStock = stock === 0;
+                  return (
                   <li
                     key={String(entry.id)}
                     className="flex gap-4 rounded-2xl border border-secondary-100 bg-white p-4 shadow-sm"
@@ -181,6 +194,25 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                         </button>
                       </div>
 
+                      {/* UI-03: availability line */}
+                      <div className="mt-2 text-[11px] font-bold">
+                        {stock == null ? (
+                          <span className="text-slate-400">Checking availability…</span>
+                        ) : isOutOfStock ? (
+                          <span className="inline-flex items-center gap-1 text-red-600">
+                            <AlertTriangle className="h-3 w-3" /> Out of stock
+                          </span>
+                        ) : overStock ? (
+                          <span className="inline-flex items-center gap-1 text-red-600">
+                            <AlertTriangle className="h-3 w-3" /> Only {stock} left — reduce quantity
+                          </span>
+                        ) : stock <= 5 ? (
+                          <span className="text-amber-600">Only {stock} left in stock</span>
+                        ) : (
+                          <span className="text-emerald-600">{stock} in stock</span>
+                        )}
+                      </div>
+
                       <div className="mt-auto flex items-end justify-between pt-3">
                         {/* Quantity stepper */}
                         <div className="inline-flex items-center rounded-full border border-secondary-200">
@@ -203,14 +235,22 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                           </span>
                           <button
                             type="button"
-                            onClick={() =>
+                            onClick={() => {
+                              // UI-03 / F-02: never let cart quantity exceed live stock.
+                              if (atMax) {
+                                notify.warning(
+                                  `Only ${stock} in stock for "${entry.title}".`
+                                );
+                                return;
+                              }
                               updateQty.mutate({
                                 id: entry.id,
                                 quantity: entry.quantity + 1,
-                              })
-                            }
+                              });
+                            }}
+                            disabled={atMax}
                             aria-label="Increase quantity"
-                            className="flex h-8 w-8 items-center justify-center rounded-full text-secondary-600 transition hover:bg-primary-50 hover:text-primary-800"
+                            className="flex h-8 w-8 items-center justify-center rounded-full text-secondary-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:cursor-not-allowed disabled:opacity-40"
                           >
                             <Plus className="h-3.5 w-3.5" />
                           </button>
@@ -228,7 +268,8 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                       </div>
                     </div>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
 
               {/* Clear cart */}
@@ -270,15 +311,34 @@ export default function CartPage({ onNavigateHome }: CartPageProps) {
                 </span>
               </div>
 
-              <Link
-                to="/checkout"
-                className="mt-6 flex items-center justify-center w-full rounded-full bg-primary-900 px-6 py-3.5 font-black text-white shadow-lg shadow-primary-900/20 transition hover:bg-primary-800"
-              >
-                Proceed to Secure Checkout
-              </Link>
-              <p className="mt-3 text-center text-xs text-slate-400">
-                Allows address selection and order placement.
-              </p>
+              {hasStockIssue ? (
+                <>
+                  <button
+                    type="button"
+                    disabled
+                    className="mt-6 flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-slate-300 px-6 py-3.5 font-black text-white"
+                  >
+                    <AlertTriangle className="h-4 w-4" />
+                    Resolve stock issues to continue
+                  </button>
+                  <p className="mt-3 text-center text-xs text-red-500">
+                    One or more items exceed the available stock. Lower the
+                    quantity (or remove the item) to check out.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/checkout"
+                    className="mt-6 flex items-center justify-center w-full rounded-full bg-primary-900 px-6 py-3.5 font-black text-white shadow-lg shadow-primary-900/20 transition hover:bg-primary-800"
+                  >
+                    Proceed to Secure Checkout
+                  </Link>
+                  <p className="mt-3 text-center text-xs text-slate-400">
+                    Allows address selection and order placement.
+                  </p>
+                </>
+              )}
             </aside>
           </div>
         )}
