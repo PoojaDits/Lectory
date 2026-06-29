@@ -15,7 +15,7 @@ export default function HeroSlider() {
   if (isLoading || slides.length === 0) return <HeroSkeleton />;
 
   return (
-    <section className="relative w-full min-h-[600px] md:min-h-[70vh] overflow-hidden mt-13 md:mt-8">
+    <section className="relative w-full min-h-[600px] md:min-h-[70vh] overflow-hidden mt-13 md:mt-8 sm:mt-8">
       {slides.map((slide, i) => {
         const isActive = i === current;
 

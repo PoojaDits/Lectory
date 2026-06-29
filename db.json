@@ -858,6 +858,14 @@
       "profileId": "Nk7kdxtLUHc",
       "createdAt": "2026-06-26T06:30:28.708Z",
       "id": "r3Bu2-nzT74"
+    },
+    {
+      "email": "kiran12345@gmail.com",
+      "password": "kiran123",
+      "role": "customer",
+      "profileId": "d7L3o04CjcU",
+      "createdAt": "2026-06-29T12:15:06.903Z",
+      "id": "7ijU3sLUUdg"
     }
   ],
   "admins": [
@@ -939,6 +947,16 @@
       "phone": "",
       "addresses": [],
       "id": "Nk7kdxtLUHc"
+    },
+    {
+      "firstName": "kiran",
+      "lastName": "oshi",
+      "email": "kiran12345@gmail.com",
+      "role": "customer",
+      "createdAt": "2026-06-29T12:15:06.903Z",
+      "phone": "",
+      "addresses": [],
+      "id": "d7L3o04CjcU"
     }
   ],
   "sellers": [
@@ -5128,6 +5146,10 @@
     {
       "customerId": "Nk7kdxtLUHc",
       "id": "iVFcBYXgsaM"
+    },
+    {
+      "customerId": "d7L3o04CjcU",
+      "id": "wbKGrZ0_hiM"
     }
   ],
   "cartItems": [

@@ -90,7 +90,8 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
         <div className="p-8 md:p-10 flex flex-col justify-center h-full overflow-y-auto">
           <div>
             <h2 className="text-4xl font-black tracking-tight mb-2">Welcome Back!</h2>
-            <p className="text-slate-500 mb-8">Sign in to your account</p>
+            <p className="text-slate-500">Sign in to your account</p>
+            <p className="mb-8 text-xs font-semibold text-rose-600">* field is strictly required</p>
 
             <Formik
               initialValues={initialValues}
@@ -101,7 +102,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
                 <Form className="space-y-4">
                   {/* Email Field */}
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Email</label>
+                    <label className="text-sm font-medium text-secondary-700">Email <span className="text-rose-600">*</span></label>
                     <Field
                       name="email"
                       type="email"
@@ -121,7 +122,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
 
                   {/* Password Field */}
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Password</label>
+                    <label className="text-sm font-medium text-secondary-700">Password<span className="text-rose-600">*</span></label>
                     <div className="relative mt-1">
                       <Field
                         name="password"

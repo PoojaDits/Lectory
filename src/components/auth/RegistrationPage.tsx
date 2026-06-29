@@ -87,7 +87,10 @@ export default function RegistrationPage() {
             >
               Seller
             </button>
+            
           </div>
+          <p className="mb-8 text-xs font-semibold text-rose-600">* field is strictly required</p>
+
 
           {/* CUSTOMER FORM */}
           {role === "customer" && (
@@ -105,7 +108,7 @@ export default function RegistrationPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-secondary-700">First Name</label>
+                      <label className="text-sm font-medium text-secondary-700">First Name <span className="text-rose-600">*</span></label>
                       <Field
                         name="firstName"
                         className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
@@ -131,7 +134,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Email</label>
+                    <label className="text-sm font-medium text-secondary-700">Email<span className="text-rose-600">*</span></label>
                     <Field
                       name="email"
                       type="email"
@@ -146,7 +149,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Password</label>
+                    <label className="text-sm font-medium text-secondary-700">Password<span className="text-rose-600">*</span></label>
                     <div className="relative mt-1">
                       <Field
                         name="password"
@@ -203,7 +206,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Business Name</label>
+                    <label className="text-sm font-medium text-secondary-700">Business Name <span className="text-rose-600">*</span></label>
                     <Field
                       name="businessName"
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
@@ -216,7 +219,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Contact Person</label>
+                    <label className="text-sm font-medium text-secondary-700">Contact Person<span className="text-rose-600">*</span></label>
                     <Field
                       name="contactPerson"
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
@@ -230,7 +233,7 @@ export default function RegistrationPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-secondary-700">Email</label>
+                      <label className="text-sm font-medium text-secondary-700">Email<span className="text-rose-600">*</span></label>
                       <Field
                         name="email"
                         type="email"
@@ -244,7 +247,7 @@ export default function RegistrationPage() {
                       <ErrorMessage name="email" component="p" className="text-xs text-red-500 mt-1" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-secondary-700">Mobile Number</label>
+                      <label className="text-sm font-medium text-secondary-700">Mobile Number<span className="text-rose-600">*</span></label>
                       <Field
                         name="mobileNumber"
                         placeholder="10 digit number"
@@ -259,7 +262,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Password</label>
+                    <label className="text-sm font-medium text-secondary-700">Password<span className="text-rose-600">*</span></label>
                     <div className="relative mt-1">
                       <Field
                         name="password"
