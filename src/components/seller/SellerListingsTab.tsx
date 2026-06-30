@@ -47,7 +47,7 @@ const STATUS_FILTERS: { id: StatusFilter; label: string }[] = [
 export default function SellerListingsTab({ sellerId }: SellerListingsTabProps) {
   const { data: listings = [], isLoading } = useSellerListings(sellerId);
   const { data: approvedBooks = [] } = useApprovedBooks();
-  const createListing = useCreateListing();
+  const createListing = useCreateListing(sellerId);
   const updateListing = useUpdateListing(sellerId);
   const deleteListing = useDeleteListing(sellerId);
 

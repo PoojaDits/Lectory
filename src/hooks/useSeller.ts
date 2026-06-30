@@ -28,13 +28,18 @@ export function useApprovedBooks() {
   });
 }
 
-export function useCreateListing() {
+export function useCreateListing(sellerId?: EntityId) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (input: ListingInput) => createListing(input),
     onSuccess: () => {
+      // Refresh the seller's listing grid immediately after they list an
+      // approved book, including books that were just approved by admin.
       qc.invalidateQueries({ queryKey: queryKeys.listings.all });
-      qc.invalidateQueries({ queryKey: queryKeys.listings.bySeller("") });
+      if (sellerId != null) {
+        qc.invalidateQueries({ queryKey: queryKeys.listings.bySeller(sellerId) });
+      }
+      qc.invalidateQueries({ queryKey: queryKeys.books.store });
       notify.success("Listing created successfully.");
     },
     onError: (error) => notify.error(getErrorMessage(error)),

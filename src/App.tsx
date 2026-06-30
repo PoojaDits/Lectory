@@ -268,7 +268,7 @@ export default function App() {
         >
           <Route index element={<AdminOverview />} />
           <Route path="sellers" element={<SellerApprovalPage />} />
-          <Route path="books" element={<BookApprovalPage />} />
+          <Route path="books" element={<BookApprovalPage onNavigateHome={goHome} />} />
           <Route path="catalog" element={<CatalogManagementPage />} />
           <Route path="customers" element={<CustomerManagementPage />} />
           <Route path="orders" element={<OrderManagementPage />} />
