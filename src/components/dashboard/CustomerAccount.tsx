@@ -19,6 +19,7 @@ import {
   useCustomerOrders,
   useUpdateCustomerProfile,
 } from "@/hooks/useCustomer";
+import { useLogout } from "@/hooks/useAuth";
 
 import CustomerOverviewTab from "@/components/customer/CustomerOverviewTab";
 import CustomerAddressesTab from "@/components/customer/CustomerAddressesTab";
@@ -39,7 +40,7 @@ export default function CustomerAccount({
   onLogin,
 }: CustomerAccountProps) {
   const currentUser = useAuthStore((s) => s.currentUser);
-  const logout = useAuthStore((s) => s.logout);
+  const logoutMutation = useLogout();
   const isImpersonating = useAuthStore((s) => s.isImpersonating);
 
   const { data: customerProfile, isLoading: isCustomerLoading } =
@@ -75,8 +76,9 @@ export default function CustomerAccount({
   ];
 
   const handleLogout = () => {
-    logout();
-    onNavigateHome();
+    logoutMutation.mutate(undefined, {
+      onSettled: () => onNavigateHome(),
+    });
   };
 
   if (!currentUser || currentUser.role !== "customer") {

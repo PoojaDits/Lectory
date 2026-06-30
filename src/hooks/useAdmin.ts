@@ -149,8 +149,8 @@ export function useDeleteUser() {
 export function useUpdateSellerStatus() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, status }: { id: EntityId; status: SellerStatus }) =>
-      updateSellerStatus(id, status),
+    mutationFn: ({ id, status, reason }: { id: EntityId; status: SellerStatus; reason?: string }) =>
+      updateSellerStatus(id, status, reason),
     onSuccess: (_data, { status }) => {
       qc.invalidateQueries({ queryKey: queryKeys.sellers.all });
       qc.invalidateQueries({ queryKey: queryKeys.stores.all });

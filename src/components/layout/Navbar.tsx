@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useCart } from "@/hooks/useCart";
-import { notify } from "@/lib/toast";
+import { useLogout } from "@/hooks/useAuth";
 
 const NAV_LINKS: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
@@ -44,7 +44,7 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const currentUser = useAuthStore((state) => state.currentUser);
-  const logout = useAuthStore((state) => state.logout);
+  const logoutMutation = useLogout();
   const navigate = useNavigate();
   const { count: cartCount } = useCart();
 
@@ -58,10 +58,12 @@ export default function Navbar() {
         : "/account";
 
   const handleLogout = () => {
-    logout();
-    notify.info("You have been logged out.");
-    closeMobileMenu();
-    navigate("/");
+    logoutMutation.mutate(undefined, {
+      onSettled: () => {
+        closeMobileMenu();
+        navigate("/");
+      },
+    });
   };
 
   return (

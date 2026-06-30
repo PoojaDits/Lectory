@@ -59,8 +59,9 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-primary-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-primary-50 flex items-center justify-center p-6 "> 
       <div className="max-w-[1024px] w-full grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden h-auto md:h-[720px]">
+        
         
         {/* LEFT IMAGE */}
         <div className="relative hidden md:block">
@@ -108,12 +109,14 @@ export default function RegistrationPage() {
             </button>
           </div>
 
+          
+
           {submitError && (
             <div className="mb-4 rounded-2xl bg-red-50 border border-red-200 p-4 text-sm text-red-700 font-medium">
               {submitError}
             </div>
           )}
-
+              <p className="mb-8 text-xs font-semibold text-rose-600">Fields marked with * are mandatory</p>
           {/* CUSTOMER FORM */}
           {role === "customer" && (
             <Formik
@@ -130,7 +133,7 @@ export default function RegistrationPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-secondary-700">First Name</label>
+                      <label className="text-sm font-medium text-secondary-700">First Name<span className="text-rose-600">*</span></label>
                       <Field
                         name="firstName"
                         className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
@@ -156,7 +159,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Email</label>
+                    <label className="text-sm font-medium text-secondary-700">Email<span className="text-rose-600">*</span></label>
                     <Field
                       name="email"
                       type="email"
@@ -171,7 +174,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Password</label>
+                    <label className="text-sm font-medium text-secondary-700">Password<span className="text-rose-600">*</span></label>
                     <div className="relative mt-1">
                       <Field
                         name="password"
@@ -202,10 +205,10 @@ export default function RegistrationPage() {
                     {registerCustomer.isPending ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Creating account...
+                        Registering...
                       </>
                     ) : (
-                      "Create Account & Send OTP →"
+                      "Register"
                     )}
                   </button>
 
@@ -235,7 +238,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Business Name</label>
+                    <label className="text-sm font-medium text-secondary-700">Business Name<span className="text-rose-600">*</span></label>
                     <Field
                       name="businessName"
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
@@ -248,7 +251,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Contact Person</label>
+                    <label className="text-sm font-medium text-secondary-700">Contact Person<span className="text-rose-600">*</span></label>
                     <Field
                       name="contactPerson"
                       className={`mt-1 w-full rounded-2xl border px-4 py-3 text-sm outline-none transition focus:ring-4 ${
@@ -262,7 +265,7 @@ export default function RegistrationPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-secondary-700">Email</label>
+                      <label className="text-sm font-medium text-secondary-700">Email<span className="text-rose-600">*</span></label>
                       <Field
                         name="email"
                         type="email"
@@ -276,7 +279,7 @@ export default function RegistrationPage() {
                       <ErrorMessage name="email" component="p" className="text-xs text-red-500 mt-1" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-secondary-700">Mobile Number</label>
+                      <label className="text-sm font-medium text-secondary-700">Mobile Number<span className="text-rose-600">*</span></label>
                       <Field
                         name="mobileNumber"
                         placeholder="10 digit number"
@@ -291,7 +294,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-secondary-700">Password</label>
+                    <label className="text-sm font-medium text-secondary-700">Password<span className="text-rose-600">*</span></label>
                     <div className="relative mt-1">
                       <Field
                         name="password"
@@ -322,10 +325,10 @@ export default function RegistrationPage() {
                     {registerSeller.isPending ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Creating seller account...
+                        Registering...
                       </>
                     ) : (
-                      "Create Seller Account & Send OTP →"
+                      "Register"
                     )}
                   </button>
 

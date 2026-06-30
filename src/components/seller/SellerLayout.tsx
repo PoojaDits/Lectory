@@ -14,9 +14,9 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { notify } from "@/lib/toast";
 import ImpersonationBanner from "@/components/layout/ImpersonationBanner";
 import { useSellerOrders } from "@/hooks/useCustomer";
+import { useLogout } from "@/hooks/useAuth";
 
 interface NavItem {
   to: string;
@@ -47,7 +47,7 @@ export default function SellerLayout({
 }: SellerLayoutProps) {
   const navigate = useNavigate();
   const currentUser = useAuthStore((s) => s.currentUser);
-  const logout = useAuthStore((s) => s.logout);
+  const logoutMutation = useLogout();
   const isImpersonating = useAuthStore((s) => s.isImpersonating);
 
   const { data: sellerOrders = [] } = useSellerOrders(currentUser?.id);
@@ -86,9 +86,9 @@ export default function SellerLayout({
   ];
 
   const handleLogout = () => {
-    logout();
-    notify.info("Signed out of the seller portal.");
-    onNavigateHome();
+    logoutMutation.mutate(undefined, {
+      onSettled: () => onNavigateHome(),
+    });
   };
 
   // ── Guard ──

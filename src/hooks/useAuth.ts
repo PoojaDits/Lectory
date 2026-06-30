@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import {
   login,
+  logoutFromBackend,
   registerCustomer,
   registerSeller,
   resendOtp,
@@ -78,5 +79,21 @@ export function useResendOtp() {
     mutationFn: (email: string) => resendOtp(email),
     onSuccess: () => notify.success("OTP resent successfully. Please check your email."),
     onError: (error) => notify.error(getErrorMessage(error)),
+  });
+}
+
+export function useLogout() {
+  const logout = useAuthStore((s) => s.logout);
+
+  return useMutation({
+    mutationFn: () => logoutFromBackend(),
+    onSuccess: () => {
+      logout();
+      notify.info("You have been logged out.");
+    },
+    onError: (error) => {
+      logout();
+      notify.info(getErrorMessage(error) || "Logged out locally.");
+    },
   });
 }

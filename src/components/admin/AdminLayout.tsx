@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { notify } from "@/lib/toast";
 import ImpersonationBanner from "@/components/layout/ImpersonationBanner";
+import { useLogout } from "@/hooks/useAuth";
 
 interface NavItem {
   to: string;
@@ -38,7 +38,7 @@ export default function AdminLayout({
 }: AdminLayoutProps) {
   const navigate = useNavigate();
   const currentUser = useAuthStore((s) => s.currentUser);
-  const logout = useAuthStore((s) => s.logout);
+  const logoutMutation = useLogout();
 
   const items: NavItem[] = [
     { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -61,9 +61,9 @@ export default function AdminLayout({
   ];
 
   const handleLogout = () => {
-    logout();
-    notify.info("Signed out of the admin portal.");
-    onLogin();
+    logoutMutation.mutate(undefined, {
+      onSettled: () => onLogin(),
+    });
   };
 
   // Guard

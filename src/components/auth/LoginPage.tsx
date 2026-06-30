@@ -91,7 +91,7 @@ export default function LoginPage({ onNavigateRegister }: LoginPageProps) {
           <div>
             <h2 className="text-4xl font-black tracking-tight mb-2">Welcome Back!</h2>
             <p className="text-slate-500">Sign in to your account</p>
-            <p className="mb-8 text-xs font-semibold text-rose-600">* field is strictly required</p>
+            <p className="mb-8 text-xs font-semibold text-rose-600">Fields marked with * are mandatory</p>
 
             <Formik
               initialValues={initialValues}

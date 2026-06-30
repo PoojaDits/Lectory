@@ -30,7 +30,8 @@ export const fetchSellerById = async (id: EntityId): Promise<Seller> => {
 
 export const updateSellerStatus = async (
   id: EntityId,
-  status: SellerStatus
+  status: SellerStatus,
+  reason?: string
 ): Promise<Seller> => {
   if (status === "Approved") {
     const { data } = await apiClient.patch<Seller>(`/sellers/${id}/approve`);
@@ -39,7 +40,7 @@ export const updateSellerStatus = async (
 
   if (status === "Rejected") {
     const { data } = await apiClient.patch<Seller>(`/sellers/${id}/reject`, {
-      reason: "Rejected by admin",
+      reason: reason || "Rejected by admin",
     });
     return data;
   }

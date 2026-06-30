@@ -4,14 +4,52 @@ import {
   deleteListing,
   fetchApprovedBooks,
   fetchSellerListings,
+  fetchSellerProfile,
   submitNewBook,
   updateListing,
+  updateSellerProfile,
   type ListingUpdate,
 } from "@/services/sellerApi";
 import { queryKeys } from "@/lib/queryKeys";
 import { notify } from "@/lib/toast";
 import { getErrorMessage } from "@/utils/helpers";
-import type { BookInput, EntityId, ListingInput } from "@/types";
+import type { BookInput, EntityId, ListingInput, Seller } from "@/types";
+import { useAuthStore } from "@/stores/useAuthStore";
+
+export function useSellerProfile(sellerId: EntityId | undefined) {
+  return useQuery({
+    queryKey: queryKeys.sellers.detail(sellerId ?? ""),
+    queryFn: fetchSellerProfile,
+    enabled: sellerId != null,
+  });
+}
+
+export function useUpdateSellerProfile() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (updates: Partial<Pick<Seller, "businessName" | "contactPerson" | "mobileNumber">>) =>
+      updateSellerProfile(updates),
+    onSuccess: (updatedSeller) => {
+      qc.invalidateQueries({ queryKey: queryKeys.sellers.detail(updatedSeller.id ?? "") });
+      qc.invalidateQueries({ queryKey: queryKeys.sellers.all });
+      qc.invalidateQueries({ queryKey: queryKeys.stores.all });
+
+      const { currentUser, setUser } = useAuthStore.getState();
+      if (currentUser && String(currentUser.id) === String(updatedSeller.id)) {
+        setUser({
+          ...currentUser,
+          businessName: updatedSeller.businessName,
+          contactPerson: updatedSeller.contactPerson,
+          mobileNumber: updatedSeller.mobileNumber,
+          status: updatedSeller.status,
+        });
+      }
+
+      notify.success("Seller profile updated.");
+    },
+    onError: (error) => notify.error(getErrorMessage(error)),
+  });
+}
 
 export function useSellerListings(sellerId: EntityId | undefined) {
   return useQuery({
@@ -58,6 +96,9 @@ export function useUpdateListing(sellerId: EntityId | undefined) {
     }) => updateListing(id, sellerId!, updates),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.listings.all });
+      if (sellerId != null) {
+        qc.invalidateQueries({ queryKey: queryKeys.listings.bySeller(sellerId) });
+      }
       qc.invalidateQueries({ queryKey: queryKeys.books.store });
       notify.success("Listing updated.");
     },
@@ -71,6 +112,9 @@ export function useDeleteListing(sellerId: EntityId | undefined) {
     mutationFn: (id: EntityId) => deleteListing(id, sellerId!),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.listings.all });
+      if (sellerId != null) {
+        qc.invalidateQueries({ queryKey: queryKeys.listings.bySeller(sellerId) });
+      }
       qc.invalidateQueries({ queryKey: queryKeys.books.store });
       notify.success("Listing removed.");
     },
