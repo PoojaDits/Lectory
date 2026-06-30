@@ -50,6 +50,8 @@ interface AuthStore {
 
   /** Used after real backend login: stores user + JWT tokens. */
   setSession: (user: AuthUser, tokens: AuthTokens) => void;
+  /** Used by axios refresh flow when the backend returns new JWT tokens. */
+  setTokens: (tokens: AuthTokens) => void;
   /** Used by profile updates/impersonation when only the user object changes. */
   setUser: (user: AuthUser) => void;
   logout: () => void;
@@ -87,6 +89,16 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       impersonator: null,
       isImpersonating: false,
       isRoleTransitioning: false,
+    });
+  },
+
+  setTokens: (tokens) => {
+    window.localStorage.setItem(ACCESS_TOKEN_KEY, tokens.accessToken);
+    window.localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken);
+    set({
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      isAuthenticated: Boolean(get().currentUser),
     });
   },
 

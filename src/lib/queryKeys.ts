@@ -11,11 +11,13 @@ export const queryKeys = {
       ["books", "list", params ?? {}] as const,
     detail: (id: string | number) => ["books", "detail", String(id)] as const,
     pending: ["books", "pending"] as const,
+    approved: ["books", "approved"] as const,
     store: ["books", "store"] as const,
     category: (category: string) => ["books", "category", category] as const,
   },
   listings: {
     all: ["listings"] as const,
+    detail: (id: string | number) => ["listings", "detail", String(id)] as const,
     byBook: (bookId: string | number) =>
       ["listings", "byBook", String(bookId)] as const,
     bySeller: (sellerId: string | number) =>
@@ -32,6 +34,7 @@ export const queryKeys = {
       ["orders", "customer", String(customerId)] as const,
     bySeller: (sellerId: string | number) =>
       ["orders", "seller", String(sellerId)] as const,
+    detail: (id: string | number) => ["orders", "detail", String(id)] as const,
     all: ["orders"] as const,
   },
   sellers: {

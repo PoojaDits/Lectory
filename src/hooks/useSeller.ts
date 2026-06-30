@@ -23,7 +23,7 @@ export function useSellerListings(sellerId: EntityId | undefined) {
 
 export function useApprovedBooks() {
   return useQuery({
-    queryKey: queryKeys.books.store,
+    queryKey: queryKeys.books.approved,
     queryFn: fetchApprovedBooks,
   });
 }
@@ -34,6 +34,7 @@ export function useCreateListing() {
     mutationFn: (input: ListingInput) => createListing(input),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.listings.all });
+      qc.invalidateQueries({ queryKey: queryKeys.listings.bySeller("") });
       notify.success("Listing created successfully.");
     },
     onError: (error) => notify.error(getErrorMessage(error)),

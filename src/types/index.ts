@@ -41,7 +41,6 @@ export interface Category {
   shadow: string;
   bg: string;
 }
-
 // ── New Arrival ──
 export interface NewArrival {
   id: number;
@@ -275,6 +274,8 @@ export interface Customer {
   email: string;
   role: "customer";
   createdAt: string;
+  isActive?: boolean;
+  isEmailVerified?: boolean;
   phone?: string;
   addresses?: Address[];
   avatar?: string;
@@ -289,6 +290,8 @@ export interface Seller {
   status: SellerStatus;
   role: "seller";
   createdAt: string;
+  isActive?: boolean;
+  isEmailVerified?: boolean;
   reviewedAt?: string;
   // ── Store-profile enrichment (shown on the Stores pages) ──
   tagline?: string;

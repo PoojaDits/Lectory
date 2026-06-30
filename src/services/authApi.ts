@@ -17,6 +17,7 @@ export interface BackendRegisterResponse {
   email: string;
   role: UserRole;
   sellerStatus?: "PENDING_APPROVAL" | "APPROVED" | "REJECTED";
+  createdAt?: string;
 }
 
 interface BackendLoginUser {
@@ -29,12 +30,18 @@ interface BackendLoginUser {
   contactPerson?: string;
   mobileNumber?: string;
   sellerStatus?: "PENDING_APPROVAL" | "APPROVED" | "REJECTED";
+  createdAt?: string;
 }
 
 interface BackendLoginResponse {
   access_token: string;
   refresh_token: string;
   user: BackendLoginUser;
+}
+
+interface BackendRefreshResponse {
+  access_token: string;
+  refresh_token: string;
 }
 
 export interface AuthSession {
@@ -73,6 +80,7 @@ const toAuthUser = (user: BackendLoginUser): AuthUser => ({
   contactPerson: user.contactPerson,
   mobileNumber: user.mobileNumber,
   status: mapSellerStatus(user.sellerStatus),
+  createdAt: user.createdAt,
 });
 
 // ── Registration: Customer ──
@@ -136,6 +144,19 @@ export const login = async (input: LoginInput): Promise<AuthSession> => {
 
   return {
     user: toAuthUser(data.user),
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token,
+  };
+};
+
+export const refreshSession = async (
+  refreshToken: string
+): Promise<{ accessToken: string; refreshToken: string }> => {
+  const { data } = await apiClient.post<BackendRefreshResponse>("/auth/refresh", {
+    refresh_token: refreshToken,
+  });
+
+  return {
     accessToken: data.access_token,
     refreshToken: data.refresh_token,
   };

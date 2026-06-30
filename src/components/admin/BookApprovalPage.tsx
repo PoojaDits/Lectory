@@ -1,374 +1,522 @@
 import { useMemo, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  AlertTriangle,
+  ArrowLeft,
   BookOpen,
+  Building2,
   CheckCircle2,
-  Search,
+  FileText,
+  Loader2,
+  Minus,
+  Package,
+  Plus,
+  RotateCcw,
   ShieldCheck,
-  XCircle,
+  ShoppingCart,
+  Star,
+  Store,
+  Tag,
+  Truck,
 } from "lucide-react";
-import StatusBadge from "@/components/ui/StatusBadge";
-import Pagination from "@/components/ui/Pagination";
-import { useBooks, useUpdateBookStatus } from "@/hooks/useAdmin";
-import { cn } from "@/lib/utils";
-import { formatDate } from "@/utils/helpers";
-import type { BookStatus, MarketBook } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import { fetchBookDetails } from "@/services/marketplaceApi";
+import { queryKeys } from "@/lib/queryKeys";
+import { useAddListingToCartAction, useCart } from "@/hooks/useCart";
+import { notify } from "@/lib/toast";
+import { formatCurrency, sameId } from "@/utils/helpers";
+import type { Listing } from "@/types";
 
-type StatusFilter = "all" | BookStatus;
-const FILTERS: { id: StatusFilter; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "Pending Approval", label: "Pending" },
-  { id: "Approved", label: "Approved" },
-  { id: "Rejected", label: "Rejected" },
-];
+interface BookDetailsPageProps {
+  onNavigateHome: () => void;
+}
 
-const PAGE_SIZE = 8;
+export default function BookDetailsPage({ onNavigateHome }: BookDetailsPageProps) {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { handleAddToListing, isPending } = useAddListingToCartAction();
+  const { entries } = useCart();
 
-export default function BookApprovalPage() {
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<StatusFilter>("all");
-  const [page, setPage] = useState(1);
+  const {
+    data: book,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: queryKeys.books.detail(id!),
+    queryFn: () => fetchBookDetails(id!),
+    enabled: !!id,
+  });
 
-  const { data: books = [], isLoading } = useBooks();
-  const updateBook = useUpdateBookStatus();
-
-  // Detect duplicate ISBNs — Rule 1 enforcement helper.
-  const duplicateIsbns = useMemo(() => {
-    const counts = new Map<string, number>();
-    books.forEach((b) => counts.set(b.isbn, (counts.get(b.isbn) ?? 0) + 1));
-    return new Set(
-      Array.from(counts.entries())
-        .filter(([, n]) => n > 1)
-        .map(([isbn]) => isbn)
-    );
-  }, [books]);
-
-  const counts = useMemo(
-    () => ({
-      all: books.length,
-      "Pending Approval": books.filter((b) => b.status === "Pending Approval")
-        .length,
-      Approved: books.filter((b) => b.status === "Approved").length,
-      Rejected: books.filter((b) => b.status === "Rejected").length,
-    }),
-    [books]
+  // ── Seller selection ──
+  const inStockListings = useMemo(
+    () => (book?.listings ?? []).filter((l) => l.stock > 0),
+    [book]
   );
 
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    return books
-      .filter((b) => filter === "all" || b.status === filter)
-      .filter(
-        (b) =>
-          !q ||
-          b.title.toLowerCase().includes(q) ||
-          b.author.toLowerCase().includes(q) ||
-          b.isbn.toLowerCase().includes(q) ||
-          (b.publisher ?? "").toLowerCase().includes(q)
+  const defaultListing = useMemo(() => {
+    if (!inStockListings.length) return undefined;
+    return [...inStockListings].sort((a, b) => a.price - b.price)[0];
+  }, [inStockListings]);
+
+  const [selectedListingId, setSelectedListingId] = useState<string | number | null>(
+    null
+  );
+
+  const resolvedSelectedId =
+    selectedListingId ??
+    (defaultListing ? defaultListing.id : book?.listings?.[0]?.id ?? null);
+
+  const selectedListing =
+    (book?.listings ?? []).find((l) => sameId(l.id, resolvedSelectedId ?? undefined)) ??
+    defaultListing;
+
+  const [qty, setQty] = useState(1);
+
+  const [lastListing, setLastListing] = useState(resolvedSelectedId);
+  if (lastListing !== resolvedSelectedId) {
+    setLastListing(resolvedSelectedId);
+    setQty(1);
+  }
+
+  const alreadyInCart =
+    selectedListing != null &&
+    entries.some((e) => sameId(e.listingId, selectedListing.id));
+
+  const handleAddToCart = (e?: React.MouseEvent) => {
+    // Hard guard: never let this click bubble to a parent <form>/anchor or
+    // trigger any native submit/navigation. The add is a pure background action.
+    e?.preventDefault();
+    e?.stopPropagation();
+    if (!selectedListing) {
+      notify.warning("Please select an available seller.");
+      return;
+    }
+    if (selectedListing.stock <= 0) {
+      notify.error("This seller is out of stock.");
+      return;
+    }
+    if (qty > selectedListing.stock) {
+      notify.warning(
+        `Only ${selectedListing.stock} in stock from ${selectedListing.seller?.businessName}.`
       );
-  }, [books, filter, search]);
+      return;
+    }
+    if (!book) return;
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const safePage = Math.min(page, totalPages);
-  const pageItems = filtered.slice(
-    (safePage - 1) * PAGE_SIZE,
-    safePage * PAGE_SIZE
-  );
-
-  const setFilterAndReset = (f: StatusFilter) => {
-    setFilter(f);
-    setPage(1);
+    handleAddToListing(
+      {
+        listingId: selectedListing.id,
+        bookId: book.id,
+        sellerId: selectedListing.sellerId,
+        price: selectedListing.price,
+        title: book.title,
+        author: book.author,
+        coverImage: book.coverImage,
+        sellerName: selectedListing.seller?.businessName ?? "Unknown seller",
+        quantity: qty,
+      },
+      selectedListing.stock
+    );
   };
 
-  return (
-    <div className="space-y-6 mt-[65px]">
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-primary-700">
-            Admin · Books
-          </p>
-          <h1 className="text-3xl font-extrabold tracking-tight text-secondary-900">
-            Book Approval
-          </h1>
-          <p className="mt-1 max-w-2xl text-sm text-secondary-600">
-            Approve or reject books submitted by sellers. Only{" "}
-            <b>Approved</b> books are visible to customers in the marketplace.
-          </p>
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-primary-50/50 via-white to-orange-50/40 px-4 pt-8 pb-20">
+        <div className="mx-auto flex max-w-5xl flex-col items-center justify-center py-32 text-slate-400">
+          <div className="rounded-full bg-white p-4 shadow-md ring-1 ring-slate-100">
+            <Loader2 className="h-8 w-8 animate-spin text-primary-700" />
+          </div>
+          <span className="mt-4 text-sm sm:text-base font-bold tracking-wide text-slate-600">Loading book details…</span>
         </div>
-        <div className="flex items-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-bold text-emerald-900">
-          <ShieldCheck className="h-4 w-4" />
-          {counts["Pending Approval"]} pending review
-          {counts["Pending Approval"] === 1 ? "" : "s"}
-        </div>
-      </header>
+      </main>
+    );
+  }
 
-      {/* Duplicate ISBN warning */}
-      {duplicateIsbns.size > 0 && (
-        <div className="flex items-start gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-4 py-3 text-sm text-primary-900">
-          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-primary-600" />
-          <div>
-            <p className="font-bold">
-              {duplicateIsbns.size} duplicate ISBN
-              {duplicateIsbns.size === 1 ? "" : "s"} detected in the catalog.
-            </p>
-            <p className="text-primary-800">
-              Rule 1: A book should exist only once in the system. Review and
-              merge or reject the duplicates below.
-            </p>
+  if (isError || !book) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-primary-50/50 via-white to-orange-50/40 px-4 pt-8 pb-20">
+        <div className="mx-auto max-w-xl rounded-3xl sm:rounded-[2.5rem] border border-slate-100 bg-white p-8 sm:p-14 text-center shadow-xl shadow-slate-200/50 mt-4">
+          <div className="mx-auto flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-primary-50 text-primary-600">
+            <BookOpen className="h-8 w-8 sm:h-10 sm:w-10" />
+          </div>
+          <h1 className="mt-5 sm:mt-6 text-xl sm:text-3xl font-black tracking-tight text-slate-900">
+            Book Not Found
+          </h1>
+          <p className="mt-2 sm:mt-3 text-xs sm:text-base text-slate-500 leading-relaxed max-w-md mx-auto">
+            This book may have been removed, sold out, or is currently pending catalog approval.
+          </p>
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              to="/browse"
+              className="w-full sm:w-auto rounded-full bg-primary-900 px-6 sm:px-8 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-primary-900/20 transition hover:bg-primary-800"
+            >
+              Browse All Books
+            </Link>
+            <button
+              type="button"
+              onClick={onNavigateHome}
+              className="w-full sm:w-auto rounded-full border border-slate-200 bg-white px-6 sm:px-8 py-3 sm:py-3.5 text-xs sm:text-sm font-bold text-slate-700 transition hover:bg-slate-50"
+            >
+              Back to Home
+            </button>
           </div>
         </div>
-      )}
+      </main>
+    );
+  }
 
-      {/* ── Filter pills + search ── */}
-      <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-secondary-200 bg-white p-4 shadow-sm">
-        <div className="flex flex-wrap gap-1">
-          {FILTERS.map((f) => {
-            const count =
-              f.id === "all" ? counts.all : counts[f.id as BookStatus];
-            const isActive = filter === f.id;
-            return (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setFilterAndReset(f.id)}
-                className={cn(
-                  "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold transition",
-                  isActive
-                    ? "bg-primary-900 text-white shadow-sm"
-                    : "border border-secondary-200 bg-white text-secondary-700 hover:bg-secondary-50"
-                )}
-              >
-                {f.label}
-                <span
-                  className={cn(
-                    "rounded-full px-1.5 py-0.5 text-[10px] font-extrabold",
-                    isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-secondary-100 text-secondary-600"
-                  )}
-                >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/15 to-orange-50/25 px-4 sm:px-6 lg:px-8 pt-8 pb-20">
+      <div className="mx-auto max-w-7xl">
+        {/* Navigation Bar */}
+        <div className="mb-6 sm:mb-8 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={onNavigateHome}
+            className="group inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/90 backdrop-blur px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-slate-800 shadow-xs sm:shadow-sm transition-all hover:border-primary-300 hover:bg-primary-50/50 hover:text-primary-900"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:-translate-x-1" />
+            Back
+          </button>
         </div>
 
-        <div className="relative ml-auto flex-1 min-w-[220px]">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-          <input
-            type="search"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              setPage(1);
-            }}
-            placeholder="Search by title, author, ISBN, or publisher…"
-            className="w-full rounded-full border border-secondary-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
-          />
+        {/* Mobile-to-Desktop Responsive Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start">
+          
+          {/* Left Column: Responsive Cover & Trust Badges */}
+          <div className="lg:col-span-5 xl:col-span-4 w-full max-w-[260px] xs:max-w-[300px] sm:max-w-sm md:max-w-md mx-auto lg:max-w-none">
+            <div className="lg:sticky lg:top-28 space-y-4 sm:space-y-6">
+              
+              {/* Cover Card */}
+              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl sm:rounded-[2rem] bg-white p-4 sm:p-8 shadow-xl sm:shadow-2xl shadow-primary-900/10 ring-1 ring-slate-100 flex items-center justify-center group">
+                {book.coverImage ? (
+                  <img
+                    src={book.coverImage}
+                    alt={book.title}
+                    className="h-full w-full object-contain drop-shadow-md sm:drop-shadow-xl transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full flex-col items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary-600 to-amber-800 p-6 sm:p-8 text-center shadow-inner">
+                    <BookOpen className="h-12 w-12 sm:h-16 sm:w-16 text-white/40 mb-3 sm:mb-4" />
+                    <p className="text-base sm:text-xl font-black tracking-tight text-white drop-shadow line-clamp-4">
+                      {book.title}
+                    </p>
+                    <p className="text-xs sm:text-sm font-medium text-white/80 mt-1.5 sm:mt-2">{book.author}</p>
+                  </div>
+                )}
+                
+                {/* Status Pills on Image */}
+                <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between pointer-events-none">
+                  {book.inStock ? (
+                    <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full bg-emerald-500/90 backdrop-blur px-2.5 py-1 text-[10px] sm:text-xs font-bold text-white shadow-md">
+                      <CheckCircle2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> In Stock
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center rounded-full bg-rose-600/90 backdrop-blur px-2.5 py-1 text-[10px] sm:text-xs font-bold text-white shadow-md">
+                      Out of Stock
+                    </span>
+                  )}
+                  {book.bestPrice != null && (
+                    <span className="inline-flex items-center rounded-full bg-slate-900/90 backdrop-blur px-2.5 py-1 text-[10px] sm:text-xs font-black text-amber-300 shadow-md">
+                      Best Price
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Quick Trust Bar */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="flex flex-col items-center justify-center rounded-xl sm:rounded-2xl border border-slate-100 bg-white/80 p-2 sm:p-3.5 text-center shadow-xs sm:shadow-sm backdrop-blur">
+                  <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5 text-primary-600 mb-0.5 sm:mb-1" />
+                  <span className="text-[10px] sm:text-[11px] font-bold text-slate-800 leading-tight">Genuine</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-500 hidden sm:block mt-0.5">Verified Edition</span>
+                </div>
+                <div className="flex flex-col items-center justify-center rounded-xl sm:rounded-2xl border border-slate-100 bg-white/80 p-2 sm:p-3.5 text-center shadow-xs sm:shadow-sm backdrop-blur">
+                  <Truck className="h-4 w-4 sm:h-5 sm:w-5 text-primary-600 mb-0.5 sm:mb-1" />
+                  <span className="text-[10px] sm:text-[11px] font-bold text-slate-800 leading-tight">Fast Ship</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-500 hidden sm:block mt-0.5">Secure Delivery</span>
+                </div>
+                <div className="flex flex-col items-center justify-center rounded-xl sm:rounded-2xl border border-slate-100 bg-white/80 p-2 sm:p-3.5 text-center shadow-xs sm:shadow-sm backdrop-blur">
+                  <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5 text-primary-600 mb-0.5 sm:mb-1" />
+                  <span className="text-[10px] sm:text-[11px] font-bold text-slate-800 leading-tight">Easy Return</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-500 hidden sm:block mt-0.5">Buyer Protect</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Right Column: Details & Marketplace Buy Box */}
+          <div className="lg:col-span-7 xl:col-span-8 space-y-6 sm:space-y-8">
+            
+            {/* Header & Meta */}
+            <div className="space-y-3 sm:space-y-4">
+              
+              {/* Categories & Language Tags */}
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                {(book.categories ?? []).map((cat) => (
+                  <span
+                    key={cat}
+                    className="inline-flex items-center gap-1 rounded-full bg-primary-100/80 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-primary-900"
+                  >
+                    <Tag className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                    {cat}
+                  </span>
+                ))}
+                {book.language && (
+                  <span className="inline-flex items-center rounded-full bg-orange-100/80 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-bold capitalize text-orange-900">
+                    🌐 {book.language}
+                  </span>
+                )}
+              </div>
+
+              {/* Title & Author */}
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-snug sm:leading-[1.15]">
+                {book.title}
+              </h1>
+              <p className="text-base sm:text-xl font-bold text-primary-800">
+                by <span className="underline decoration-primary-300 decoration-2 underline-offset-4">{book.author}</span>
+              </p>
+
+              {/* Key Specs Card Row */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 pt-1 sm:pt-2">
+                {book.rating != null && (
+                  <div className="flex flex-col justify-center rounded-2xl border border-amber-200/80 bg-gradient-to-br from-amber-50/80 to-amber-100/30 p-3 sm:p-4 shadow-2xs">
+                    <div className="flex items-center gap-1.5 text-amber-600 mb-1">
+                      <Star className="h-4 w-4 fill-amber-400 text-amber-500 shrink-0" />
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-800/80 truncate">Rating</span>
+                    </div>
+                    <p className="text-sm sm:text-base font-black text-slate-900 truncate">{book.rating.toFixed(1)} <span className="text-xs font-bold text-amber-700/60">/ 5.0</span></p>
+                  </div>
+                )}
+                <div className="flex flex-col justify-center rounded-2xl border border-slate-200/80 bg-white p-3 sm:p-4 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-slate-400 mb-1">
+                    <FileText className="h-4 w-4 shrink-0" />
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">ISBN</span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-black text-slate-800 truncate" title={book.isbn}>{book.isbn}</p>
+                </div>
+                {book.publisher && (
+                  <div className="flex flex-col justify-center rounded-2xl border border-slate-200/80 bg-white p-3 sm:p-4 shadow-2xs">
+                    <div className="flex items-center gap-1.5 text-slate-400 mb-1">
+                      <Building2 className="h-4 w-4 shrink-0" />
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">Publisher</span>
+                    </div>
+                    <p className="text-xs sm:text-sm font-black text-slate-800 truncate" title={book.publisher}>{book.publisher}</p>
+                  </div>
+                )}
+                {book.pageCount != null && (
+                  <div className="flex flex-col justify-center rounded-2xl border border-slate-200/80 bg-white p-3 sm:p-4 shadow-2xs">
+                    <div className="flex items-center gap-1.5 text-slate-400 mb-1">
+                      <BookOpen className="h-4 w-4 shrink-0" />
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">Length</span>
+                    </div>
+                    <p className="text-xs sm:text-sm font-black text-slate-800 truncate">{book.pageCount} Pages</p>
+                  </div>
+                )}
+              </div>
+
+            </div>
+
+            {/* Synopsis / Description */}
+            {book.description && (
+              <div className="rounded-2xl sm:rounded-3xl border border-slate-200/70 bg-white/80 p-5 sm:p-8 shadow-xs sm:shadow-sm backdrop-blur">
+                <h2 className="text-xs sm:text-base font-black uppercase tracking-wider text-slate-900 mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+                  <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary-600" /> Book Overview
+                </h2>
+                <p className="text-slate-600 leading-relaxed text-sm sm:text-lg whitespace-pre-line">
+                  {book.description}
+                </p>
+              </div>
+            )}
+
+            {/* Marketplace Buy Box / Seller Selection */}
+            <div className="rounded-2xl sm:rounded-[2.5rem] border-2 border-primary-100 bg-white p-5 sm:p-10 shadow-xl sm:shadow-2xl shadow-primary-900/10">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-4 sm:pb-6">
+                <div>
+                  <h2 className="flex items-center gap-2 text-lg sm:text-2xl font-black text-slate-900">
+                    <Store className="h-5 w-5 sm:h-6 sm:w-6 text-primary-700" />
+                    Select Bookstore & Order
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                    Compare offers from {book.listings.length} verified seller{book.listings.length === 1 ? "" : "s"}.
+                  </p>
+                </div>
+                {book.bestPrice != null && (
+                  <div className="text-left sm:text-right mt-1 sm:mt-0">
+                    <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Best Available Offer</span>
+                    <p className="text-xl sm:text-3xl font-black text-primary-900">
+                      {formatCurrency(book.bestPrice)}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Seller Listings Offers */}
+              <div className="mt-4 sm:mt-6 space-y-3">
+                {book.listings.map((l: Listing & { seller?: { businessName: string; location?: string } }) => {
+                  const isSelected = sameId(l.id, resolvedSelectedId ?? undefined);
+                  const oos = l.stock <= 0;
+                  return (
+                    <button
+                      key={String(l.id)}
+                      type="button"
+                      onClick={() => !oos && setSelectedListingId(l.id)}
+                      disabled={oos}
+                      className={`group flex w-full flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 rounded-xl sm:rounded-2xl border-2 p-4 sm:p-5 text-left transition-all duration-200 ${
+                        isSelected
+                          ? "border-primary-700 bg-primary-50/70 shadow-md scale-[1.01]"
+                          : "border-slate-200/80 bg-white hover:border-primary-300 hover:bg-slate-50/50"
+                      } ${oos ? "cursor-not-allowed opacity-50 bg-slate-50" : ""}`}
+                    >
+                      <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
+                        {/* Radio Selector */}
+                        <div
+                          className={`mt-0.5 sm:mt-0 flex h-5 w-5 sm:h-6 sm:w-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                            isSelected
+                              ? "border-primary-700 bg-primary-700 text-white"
+                              : "border-slate-300 bg-white group-hover:border-slate-400"
+                          }`}
+                        >
+                          {isSelected && <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4" />}
+                        </div>
+
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                            <span className="font-extrabold text-sm sm:text-lg text-slate-900 truncate">
+                              {l.seller?.businessName ?? "Unknown Seller"}
+                            </span>
+                            {l.seller?.location && (
+                              <span className="text-[11px] sm:text-xs text-slate-400 font-medium">
+                                ({l.seller.location})
+                              </span>
+                            )}
+                          </div>
+                          <p className="flex items-center gap-1 text-[11px] sm:text-sm font-semibold mt-0.5 sm:mt-1">
+                            <Package className="h-3 w-3 sm:h-3.5 sm:w-3.5 shrink-0" />
+                            {oos ? (
+                              <span className="text-rose-600 font-bold">Sold Out</span>
+                            ) : (
+                              <span className="text-emerald-700 font-bold">{l.stock} units in stock</span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Price Tag */}
+                      <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2.5 sm:pt-0 border-slate-100 shrink-0 w-full sm:w-auto">
+                        <span className="text-xs font-bold text-slate-400 sm:hidden">Price:</span>
+                        <span className="text-lg sm:text-2xl font-black text-slate-900">
+                          {formatCurrency(l.price)}
+                        </span>
+                        {isSelected && !oos && (
+                          <span className="text-[9px] sm:text-[10px] font-extrabold tracking-wider uppercase text-primary-800 bg-primary-100 px-2 py-0.5 rounded-md mt-1">
+                            Selected
+                          </span>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Action Bar: Stepper & Checkout CTA */}
+              <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-100 flex flex-col gap-4 sm:gap-5">
+                
+                {/* Quantity Stepper Row */}
+                <div className="flex items-center justify-between bg-slate-50 p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-slate-200">
+                  <span className="text-xs font-extrabold uppercase text-slate-500 ml-2">Quantity:</span>
+                  <div className="inline-flex items-center rounded-xl bg-white border border-slate-200 shadow-xs">
+                    <button
+                      type="button"
+                      onClick={() => setQty((q) => Math.max(1, q - 1))}
+                      disabled={!selectedListing || selectedListing.stock <= 0}
+                      aria-label="Decrease quantity"
+                      className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-l-xl text-slate-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:opacity-30"
+                    >
+                      <Minus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    </button>
+                    <span className="w-10 sm:w-12 text-center text-sm sm:text-base font-black text-slate-900">
+                      {qty}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setQty((q) =>
+                          Math.min(
+                            q + 1,
+                            selectedListing?.stock && selectedListing.stock > 0
+                              ? selectedListing.stock
+                              : q
+                          )
+                        )
+                      }
+                      disabled={
+                        !selectedListing ||
+                        (selectedListing.stock > 0 && qty >= selectedListing.stock)
+                      }
+                      aria-label="Increase quantity"
+                      className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-r-xl text-slate-600 transition hover:bg-primary-50 hover:text-primary-800 disabled:opacity-30"
+                    >
+                      <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Add to Cart CTA on left & Plain Total Price on right */}
+                <div className="flex items-center justify-between gap-4 pt-1">
+                  <button
+                    type="button"
+                    onClick={(e) => handleAddToCart(e)}
+                    disabled={
+                      isPending ||
+                      !selectedListing ||
+                      selectedListing.stock <= 0
+                    }
+                    className="flex-1 sm:flex-initial flex items-center justify-center gap-2.5 sm:gap-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary-900 via-primary-800 to-amber-900 px-6 sm:px-10 py-3.5 sm:py-4 text-sm sm:text-lg font-black text-white shadow-lg sm:shadow-xl shadow-primary-900/25 transition-all hover:shadow-2xl hover:brightness-110 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
+                  >
+                    <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
+                    {isPending ? (
+                      <span>Adding…</span>
+                    ) : selectedListing && selectedListing.stock <= 0 ? (
+                      <span>Sold Out</span>
+                    ) : (
+                      <span>Add to Cart</span>
+                    )}
+                  </button>
+
+                  <div className="text-right shrink-0">
+                    <span className="block text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400">Total Price</span>
+                    <span className="text-xl sm:text-3xl font-black text-slate-900">
+                      {formatCurrency((selectedListing?.price ?? 0) * qty)}
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Already in cart notice */}
+              {alreadyInCart && (
+                <div className="mt-4 sm:mt-5 rounded-xl sm:rounded-2xl bg-primary-50 border border-primary-200 p-3.5 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                  <span className="text-xs sm:text-sm font-bold text-primary-900 flex items-center justify-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 hidden xs:inline" />
+                    You already have an item from this bookstore in your cart.
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/cart")}
+                    className="w-full sm:w-auto shrink-0 rounded-full bg-primary-900 px-5 py-2 text-xs font-extrabold text-white transition hover:bg-primary-800 shadow-xs"
+                  >
+                    View Cart →
+                  </button>
+                </div>
+              )}
+
+            </div>
+
+          </div>
+
         </div>
       </div>
-
-      {/* ── Results grid ── */}
-      <section>
-        {isLoading ? (
-          <SkeletonGrid />
-        ) : pageItems.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-secondary-200 bg-white px-5 py-12 text-center text-sm text-slate-500">
-            No books match the current filters.
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {pageItems.map((b) => (
-              <BookCard
-                key={String(b.id)}
-                book={b}
-                isDuplicate={duplicateIsbns.has(b.isbn)}
-                busy={updateBook.isPending}
-                onApprove={() =>
-                  updateBook.mutate({ id: b.id, status: "Approved" })
-                }
-                onReject={() =>
-                  updateBook.mutate({ id: b.id, status: "Rejected" })
-                }
-              />
-            ))}
-          </div>
-        )}
-      </section>
-
-      <Pagination
-        currentPage={safePage}
-        totalPages={totalPages}
-        onPageChange={(p) => setPage(p)}
-      />
-    </div>
-  );
-}
-
-// ── Single book card ──────────────────────────────────────────────────────
-
-function BookCard({
-  book,
-  isDuplicate,
-  busy,
-  onApprove,
-  onReject,
-}: {
-  book: MarketBook;
-  isDuplicate: boolean;
-  busy: boolean;
-  onApprove: () => void;
-  onReject: () => void;
-}) {
-  const isPending = book.status === "Pending Approval";
-
-  return (
-    <article className="flex flex-col gap-3 rounded-2xl border border-secondary-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-      <header className="flex items-start gap-3">
-        <div className="flex h-14 w-11 shrink-0 items-center justify-center rounded-lg bg-primary-100 text-primary-800">
-          <BookOpen className="h-6 w-6" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <h3 className="line-clamp-2 text-sm font-extrabold leading-snug text-secondary-900">
-            {book.title}
-          </h3>
-          <p className="mt-0.5 truncate text-xs text-slate-500">
-            by {book.author}
-          </p>
-        </div>
-        <StatusBadge status={book.status} />
-      </header>
-
-      <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-secondary-600">
-        <div>
-          <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-            ISBN
-          </dt>
-          <dd
-            className={cn(
-              "font-mono font-bold",
-              isDuplicate ? "text-primary-700" : "text-secondary-800"
-            )}
-          >
-            {book.isbn}
-            {isDuplicate && (
-              <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-primary-100 px-1.5 py-0.5 text-[10px] font-extrabold text-primary-800">
-                <AlertTriangle className="h-3 w-3" /> duplicate
-              </span>
-            )}
-          </dd>
-        </div>
-        <div>
-          <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-            Publisher
-          </dt>
-          <dd className="font-bold text-secondary-800">
-            {book.publisher ?? "—"}
-          </dd>
-        </div>
-        <div className="col-span-2">
-          <dt className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-            Submitted
-          </dt>
-          <dd className="text-secondary-800">{formatDate(book.createdAt)}</dd>
-        </div>
-      </dl>
-
-      {book.description && (
-        <p className="line-clamp-3 text-xs text-secondary-600">{book.description}</p>
-      )}
-
-      <footer className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-secondary-100 pt-3">
-        <div className="text-[11px] text-slate-500">
-          {book.reviewedAt && (
-            <span>
-              {book.status !== "Pending Approval"
-                ? `${book.status} on ${formatDate(book.reviewedAt)}`
-                : `Submitted ${formatDate(book.createdAt)}`}
-            </span>
-          )}
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {isPending ? (
-            <>
-              <button
-                type="button"
-                onClick={onApprove}
-                disabled={busy}
-                className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700 transition hover:bg-emerald-100 disabled:opacity-50"
-              >
-                <CheckCircle2 className="h-3.5 w-3.5" />
-                Approve
-              </button>
-              <button
-                type="button"
-                onClick={onReject}
-                disabled={busy}
-                className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-100 disabled:opacity-50"
-              >
-                <XCircle className="h-3.5 w-3.5" />
-                Reject
-              </button>
-            </>
-          ) : (
-            <>
-              {book.status !== "Approved" && (
-                <button
-                  type="button"
-                  onClick={onApprove}
-                  disabled={busy}
-                  className="text-xs font-bold text-emerald-700 hover:text-emerald-800 disabled:opacity-50"
-                >
-                  Approve
-                </button>
-              )}
-              {book.status !== "Rejected" && (
-                <button
-                  type="button"
-                  onClick={onReject}
-                  disabled={busy}
-                  className="text-xs font-bold text-rose-700 hover:text-rose-800 disabled:opacity-50"
-                >
-                  Reject
-                </button>
-              )}
-            </>
-          )}
-        </div>
-      </footer>
-    </article>
-  );
-}
-
-function SkeletonGrid() {
-  return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="rounded-2xl border border-secondary-200 bg-white p-5 shadow-sm"
-          aria-hidden="true"
-        >
-          <div className="flex items-start gap-3">
-            <div className="h-14 w-11 animate-pulse rounded-lg bg-secondary-200" />
-            <div className="flex-1 space-y-2">
-              <div className="h-3 w-3/4 animate-pulse rounded bg-secondary-200" />
-              <div className="h-3 w-1/2 animate-pulse rounded bg-secondary-200" />
-            </div>
-            <div className="h-5 w-20 animate-pulse rounded-full bg-secondary-200" />
-          </div>
-          <div className="mt-4 space-y-2">
-            <div className="h-3 w-full animate-pulse rounded bg-secondary-200" />
-            <div className="h-3 w-2/3 animate-pulse rounded bg-secondary-200" />
-          </div>
-          <div className="mt-4 flex justify-end gap-2">
-            <div className="h-7 w-20 animate-pulse rounded-full bg-secondary-200" />
-            <div className="h-7 w-16 animate-pulse rounded-full bg-secondary-200" />
-          </div>
-        </div>
-      ))}
-    </div>
+    </main>
   );
 }
