@@ -7,7 +7,7 @@ import {
   KeyRound,
   Loader2,
 } from "lucide-react";
-import { fetchUserByEmail } from "@/services/authApi";
+import { forgotPassword } from "@/services/authApi";
 import { notify } from "@/lib/toast";
 
 export default function ForgotPasswordPage() {
@@ -28,18 +28,13 @@ export default function ForgotPasswordPage() {
     setIsPending(true);
 
     try {
-      const user = await fetchUserByEmail(cleanEmail);
-      if (!user) {
-        setError("No account found registered with this email address.");
-        return;
-      }
-
-      notify.info("Password reset OTP sent: 123456");
+      await forgotPassword(cleanEmail);
+      notify.info("Password reset OTP sent to your email.");
       navigate("/verify-otp", {
-        state: { mode: "reset", userId: user.id, email: user.email },
+        state: { mode: "reset", email: cleanEmail },
       });
     } catch (err) {
-      setError("Network error. Please try again later.");
+      setError(err instanceof Error ? err.message : "Network error. Please try again later.");
     } finally {
       setIsPending(false);
     }
@@ -135,7 +130,7 @@ export default function ForgotPasswordPage() {
               {isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Looking up Account…</span>
+                  <span>Sending Reset OTP…</span>
                 </>
               ) : (
                 <span>Send Reset OTP Code →</span>

@@ -16,7 +16,7 @@ export const customerRegistrationSchema = Yup.object({
   lastName: Yup.string().trim().required("Last name is required."),
   email,
   password: Yup.string()
-    .min(6, "Password must be at least 6 characters.")
+    .min(8, "Password must be at least 8 characters.")
     .required("Password is required."),
 });
 
@@ -29,7 +29,7 @@ export const sellerRegistrationSchema = Yup.object({
     .matches(/^\d{10}$/, "Mobile number must be exactly 10 digits.")
     .required("Mobile number is required."),
   password: Yup.string()
-    .min(6, "Password must be at least 6 characters.")
+    .min(8, "Password must be at least 8 characters.")
     .required("Password is required."),
 });
 

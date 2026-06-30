@@ -60,6 +60,7 @@ export function useUpdateSellerStatus() {
       updateSellerStatus(id, status),
     onSuccess: (_data, { status }) => {
       qc.invalidateQueries({ queryKey: queryKeys.sellers.all });
+      qc.invalidateQueries({ queryKey: queryKeys.stores.all });
       qc.invalidateQueries({ queryKey: queryKeys.admin.dashboard });
       notify.success(`Seller ${status.toLowerCase()}.`);
     },
@@ -74,6 +75,7 @@ export function useUpdateBookStatus() {
       updateBookStatus(id, status),
     onSuccess: (_data, { status }) => {
       qc.invalidateQueries({ queryKey: queryKeys.books.all });
+      qc.invalidateQueries({ queryKey: queryKeys.books.store });
       qc.invalidateQueries({ queryKey: queryKeys.admin.dashboard });
       notify.success(`Book ${status.toLowerCase()}.`);
     },
@@ -88,6 +90,7 @@ export function useCreateBook() {
       createBook(input),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: queryKeys.books.all });
+      qc.invalidateQueries({ queryKey: queryKeys.books.store });
       qc.invalidateQueries({ queryKey: queryKeys.admin.dashboard });
       notify.success("Book added to the marketplace catalog.");
     },
@@ -115,6 +118,7 @@ export function useUpdateListingStatus() {
       updateListingStatus(id, active),
     onSuccess: (_data, { active }) => {
       qc.invalidateQueries({ queryKey: queryKeys.listings.all });
+      qc.invalidateQueries({ queryKey: queryKeys.books.store });
       notify.success(`Listing ${active ? "activated" : "deactivated"}.`);
     },
     onError: (error) => notify.error(getErrorMessage(error)),
@@ -128,6 +132,7 @@ export function useUpdateOrderStatus() {
       updateOrderStatus(id, status),
     onSuccess: (_data, { status }) => {
       qc.invalidateQueries({ queryKey: queryKeys.orders.all });
+      qc.invalidateQueries({ queryKey: ["orders"] });
       qc.invalidateQueries({ queryKey: queryKeys.admin.dashboard });
       notify.success(`Order marked as ${status}.`);
     },

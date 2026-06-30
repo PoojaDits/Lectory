@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -44,6 +44,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState<"address" | "review" | "success">("address");
   const [selectedAddrId, setSelectedAddrId] = useState<string>("");
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [pendingAutoReview, setPendingAutoReview] = useState(false);
   const [placedOrderIds, setPlacedOrderIds] = useState<string[]>([]);
 
   // Guard against non-customers
@@ -78,6 +79,18 @@ export default function CheckoutPage() {
     "";
   const chosenAddress = addresses.find((a) => a.id === effectiveAddrId);
 
+  // When a user adds an address from checkout, React Query refetches the
+  // customer profile. Previously the page could remain/bounce back on the
+  // address step after saving, making checkout feel like a loop. Once the saved
+  // address appears in the fresh customer data, move forward to review.
+  useEffect(() => {
+    if (!pendingAutoReview || !selectedAddrId) return;
+    if (addresses.some((addr) => addr.id === selectedAddrId)) {
+      setPendingAutoReview(false);
+      setStep("review");
+    }
+  }, [addresses, pendingAutoReview, selectedAddrId]);
+
   const handleSaveNewAddress = (newAddr: Address) => {
     const nextAddresses = [...addresses, newAddr];
     // If it's set as default or the first address, update defaults
@@ -85,12 +98,18 @@ export default function CheckoutPage() {
       nextAddresses.forEach((a) => (a.isDefault = a.id === newAddr.id));
     }
 
-    updateProfile.mutate({
-      id: customer!.id!,
-      updates: { addresses: nextAddresses },
-    });
-
     setSelectedAddrId(newAddr.id);
+    setPendingAutoReview(true);
+
+    updateProfile.mutate(
+      {
+        id: customer!.id!,
+        updates: { addresses: nextAddresses },
+      },
+      {
+        onError: () => setPendingAutoReview(false),
+      }
+    );
   };
 
   const handleCompleteOrder = async () => {
@@ -126,6 +145,24 @@ export default function CheckoutPage() {
       <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 py-32 text-center">
         <Loader2 className="mx-auto h-10 w-10 animate-spin text-primary-900" />
         <p className="mt-4 text-sm font-bold text-secondary-600">Loading checkout session…</p>
+      </main>
+    );
+  }
+
+  if (entries.length === 0 && step !== "success") {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-orange-50 px-4 py-28 text-center">
+        <div className="mx-auto max-w-lg rounded-3xl bg-white p-8 shadow-xl">
+          <ShoppingBag className="mx-auto h-12 w-12 text-primary-900" />
+          <h1 className="mt-4 text-2xl font-black text-secondary-900">Your cart is empty</h1>
+          <p className="mt-2 text-slate-500">Add books to your cart before starting checkout.</p>
+          <Link
+            to="/browse"
+            className="mt-6 inline-block rounded-full bg-primary-900 px-8 py-3 text-sm font-black text-white hover:bg-primary-800"
+          >
+            Browse Books
+          </Link>
+        </div>
       </main>
     );
   }

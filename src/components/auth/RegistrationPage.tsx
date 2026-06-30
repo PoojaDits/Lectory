@@ -13,13 +13,18 @@ import {
   BookOpen,
   Eye,
   EyeOff,
+  Loader2,
 } from "lucide-react";
-import { notify } from "@/lib/toast";
+import { useRegisterCustomer, useRegisterSeller } from "@/hooks/useAuth";
+import { getErrorMessage } from "@/utils/helpers";
 
 export default function RegistrationPage() {
   const navigate = useNavigate();
   const [role, setRole] = useState<"customer" | "seller">("customer");
   const [showPassword, setShowPassword] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const registerCustomer = useRegisterCustomer();
+  const registerSeller = useRegisterSeller();
 
   const customerInitial: CustomerRegistrationInput = {
     firstName: "", lastName: "", email: "", password: "",
@@ -29,14 +34,28 @@ export default function RegistrationPage() {
     businessName: "", contactPerson: "", email: "", mobileNumber: "", password: "",
   };
 
-  const handleCustomerSubmit = (values: CustomerRegistrationInput) => {
-    notify.info("Verification OTP sent: 123456");
-    navigate("/verify-otp", { state: { role: "customer", values } });
+  const handleCustomerSubmit = async (values: CustomerRegistrationInput) => {
+    setSubmitError("");
+    try {
+      await registerCustomer.mutateAsync(values);
+      navigate("/verify-otp", {
+        state: { mode: "register", role: "customer", email: values.email },
+      });
+    } catch (error) {
+      setSubmitError(getErrorMessage(error));
+    }
   };
 
-  const handleSellerSubmit = (values: SellerRegistrationInput) => {
-    notify.info("Verification OTP sent: 123456");
-    navigate("/verify-otp", { state: { role: "seller", values } });
+  const handleSellerSubmit = async (values: SellerRegistrationInput) => {
+    setSubmitError("");
+    try {
+      await registerSeller.mutateAsync(values);
+      navigate("/verify-otp", {
+        state: { mode: "register", role: "seller", email: values.email },
+      });
+    } catch (error) {
+      setSubmitError(getErrorMessage(error));
+    }
   };
 
   return (
@@ -88,6 +107,12 @@ export default function RegistrationPage() {
               Seller
             </button>
           </div>
+
+          {submitError && (
+            <div className="mb-4 rounded-2xl bg-red-50 border border-red-200 p-4 text-sm text-red-700 font-medium">
+              {submitError}
+            </div>
+          )}
 
           {/* CUSTOMER FORM */}
           {role === "customer" && (
@@ -166,15 +191,22 @@ export default function RegistrationPage() {
                       </button>
                     </div>
                     <ErrorMessage name="password" component="p" className="text-xs text-red-500 mt-1" />
-                    <p className="text-[10px] text-slate-400 mt-1">At least 6 characters</p>
+                    <p className="text-[10px] text-slate-400 mt-1">At least 8 characters</p>
                   </div>
 
                   <button
                     type="submit"
-                    disabled={!isValid || !dirty}
+                    disabled={!isValid || !dirty || registerCustomer.isPending}
                     className="w-full mt-2 py-3.5 rounded-2xl bg-[#e05c3c] text-white font-semibold text-sm hover:bg-[#c44e32] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    Continue to OTP Verification →
+                    {registerCustomer.isPending ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Creating account...
+                      </>
+                    ) : (
+                      "Create Account & Send OTP →"
+                    )}
                   </button>
 
                   <p className="text-center text-sm text-slate-500 mt-4">
@@ -279,15 +311,22 @@ export default function RegistrationPage() {
                       </button>
                     </div>
                     <ErrorMessage name="password" component="p" className="text-xs text-red-500 mt-1" />
-                    <p className="text-[10px] text-slate-400 mt-1">At least 6 characters</p>
+                    <p className="text-[10px] text-slate-400 mt-1">At least 8 characters</p>
                   </div>
 
                   <button
                     type="submit"
-                    disabled={!isValid || !dirty}
+                    disabled={!isValid || !dirty || registerSeller.isPending}
                     className="w-full mt-2 py-3.5 rounded-2xl bg-[#e05c3c] text-white font-semibold text-sm hover:bg-[#c44e32] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    Continue to OTP Verification →
+                    {registerSeller.isPending ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Creating seller account...
+                      </>
+                    ) : (
+                      "Create Seller Account & Send OTP →"
+                    )}
                   </button>
 
                   <p className="text-center text-sm text-slate-500 mt-4">

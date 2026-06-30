@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlertCircle, Eye, EyeOff, KeyRound, Loader2, Lock } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { fetchUserByEmail, resetUserPassword } from "@/services/authApi";
+import { changePassword } from "@/services/authApi";
 import { notify } from "@/lib/toast";
 
 export default function ChangePasswordTab() {
@@ -27,8 +27,8 @@ export default function ChangePasswordTab() {
       return;
     }
 
-    if (newPass.length < 6) {
-      setError("New password must be at least 6 characters long.");
+    if (newPass.length < 8) {
+      setError("New password must be at least 8 characters long.");
       return;
     }
 
@@ -46,24 +46,14 @@ export default function ChangePasswordTab() {
     setIsPending(true);
 
     try {
-      const uRecord = await fetchUserByEmail(currentUser.email);
-      if (!uRecord) {
-        setError("User credentials record not found in database.");
-        return;
-      }
-
-      if (uRecord.password !== currentPass) {
-        setError("Incorrect current password. Please try again.");
-        return;
-      }
-
-      await resetUserPassword(uRecord.id, newPass);
-      notify.success("Password changed successfully! Database updated. 🔐");
+      await changePassword(currentPass, newPass);
+      notify.success("Password changed successfully. Please log in again with your new password. 🔐");
+      useAuthStore.getState().logout();
       setCurrentPass("");
       setNewPass("");
       setConfirmPass("");
     } catch (err) {
-      setError("Network error occurred. Is the JSON backend server running?");
+      setError(err instanceof Error ? err.message : "Network error occurred. Is the API server running?");
     } finally {
       setIsPending(false);
     }
@@ -93,7 +83,7 @@ export default function ChangePasswordTab() {
           <div className="relative">
             <input
               type={showPass ? "text" : "password"}
-              placeholder="Enter current stored password"
+              placeholder="Enter current password"
               autoComplete="current-password"
               value={currentPass}
               onChange={(e) => {
@@ -128,8 +118,7 @@ export default function ChangePasswordTab() {
               }}
               className="w-full rounded-2xl border border-secondary-200 py-3.5 px-4 text-sm font-medium outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
             />
-            
-            <p className="text-[11px] text-slate-400 mt-1 pl-1">Must be at least 6 characters long</p>
+            <p className="text-[11px] text-slate-400 mt-1 pl-1">Must be at least 8 characters long</p>
           </div>
 
           <div>
@@ -147,7 +136,6 @@ export default function ChangePasswordTab() {
               }}
               className="w-full rounded-2xl border border-secondary-200 py-3.5 px-4 text-sm font-medium outline-none transition focus:border-amber-500 focus:ring-4 focus:ring-primary-100"
             />
-            
           </div>
         </div>
 
@@ -166,7 +154,7 @@ export default function ChangePasswordTab() {
           {isPending ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              <span>Verifying & Updating Database…</span>
+              <span>Verifying & Updating Password…</span>
             </>
           ) : (
             <span className="flex items-center gap-2">

@@ -12,7 +12,7 @@ import type {
   SellerStatus,
 } from "@/types";
 
-// Sellers 
+// Sellers
 export const fetchSellers = async (): Promise<Seller[]> => {
   const { data } = await apiClient.get<Seller[]>("/sellers");
   return data;
@@ -22,19 +22,32 @@ export const updateSellerStatus = async (
   id: EntityId,
   status: SellerStatus
 ): Promise<Seller> => {
+  if (status === "Approved") {
+    const { data } = await apiClient.patch<Seller>(`/sellers/${id}/approve`);
+    return data;
+  }
+
+  if (status === "Rejected") {
+    const { data } = await apiClient.patch<Seller>(`/sellers/${id}/reject`, {
+      reason: "Rejected by admin",
+    });
+    return data;
+  }
+
+  // Rare fallback: move seller back to pending if an admin UI ever needs it.
   const { data } = await apiClient.patch<Seller>(`/sellers/${id}`, {
-    status,
-    reviewedAt: new Date().toISOString(),
+    sellerStatus: "PENDING_APPROVAL",
   });
   return data;
 };
 
-//Customers 
+// Customers 
 export const fetchCustomers = async (): Promise<Customer[]> => {
   const { data } = await apiClient.get<Customer[]>("/customers");
   return data;
 };
 
+// Books / Catalog 
 export const fetchBooks = async (): Promise<MarketBook[]> => {
   const { data } = await apiClient.get<MarketBook[]>("/books");
   return data;
@@ -46,24 +59,25 @@ export const updateBookStatus = async (
 ): Promise<MarketBook> => {
   const { data } = await apiClient.patch<MarketBook>(`/books/${id}`, {
     status,
-    reviewedAt: new Date().toISOString(),
   });
   return data;
 };
 
-
 export const createBook = async (
   input: Omit<MarketBook, "id" | "status" | "createdAt">
 ): Promise<MarketBook> => {
-  const existing = await fetchBooks();
-  if (existing.some((b) => b.isbn === input.isbn)) {
-    throw new Error("A book with this ISBN already exists.");
-  }
   const { data } = await apiClient.post<MarketBook>("/books", {
-    ...input,
-    status: "Approved",
-    createdAt: new Date().toISOString(),
-    reviewedAt: new Date().toISOString(),
+    isbn: input.isbn,
+    title: input.title,
+    author: input.author,
+    publisher: input.publisher || undefined,
+    description: input.description || undefined,
+    coverImage: input.coverImage || undefined,
+    categories: input.categories,
+    rating: input.rating,
+    pageCount: input.pageCount,
+    publishedDate: input.publishedDate,
+    language: input.language,
   });
   return data;
 };
@@ -84,12 +98,11 @@ export const updateListingStatus = async (
 ): Promise<Listing> => {
   const { data } = await apiClient.patch<Listing>(`/listings/${id}`, {
     active,
-    updatedAt: new Date().toISOString(),
   });
   return data;
 };
 
-// Orders 
+// Orders
 export const fetchOrders = async (): Promise<Order[]> => {
   const { data } = await apiClient.get<Order[]>("/orders");
   return data;
@@ -101,25 +114,12 @@ export const updateOrderStatus = async (
 ): Promise<Order> => {
   const { data } = await apiClient.patch<Order>(`/orders/${id}`, {
     status,
-    updatedAt: new Date().toISOString(),
   });
   return data;
 };
-export const fetchDashboardSummary = async (): Promise<DashboardSummary> => {
-  const [sellers, customers, books, orders] = await Promise.all([
-    fetchSellers(),
-    fetchCustomers(),
-    fetchBooks(),
-    fetchOrders(),
-  ]);
 
-  return {
-    totalSellers: sellers.length,
-    totalCustomers: customers.length,
-    totalBooks: books.length,
-    totalOrders: orders.length,
-    pendingSellers: sellers.filter((s) => s.status === "Pending Approval")
-      .length,
-    pendingBooks: books.filter((b) => b.status === "Pending Approval").length,
-  };
+// Dashboard
+export const fetchDashboardSummary = async (): Promise<DashboardSummary> => {
+  const { data } = await apiClient.get<DashboardSummary>("/admins/dashboard");
+  return data;
 };

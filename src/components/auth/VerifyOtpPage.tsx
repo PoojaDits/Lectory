@@ -10,8 +10,8 @@ import {
   Loader2,
   Lock,
 } from "lucide-react";
-import { useRegisterCustomer, useRegisterSeller } from "@/hooks/useAuth";
-import { resetUserPassword } from "@/services/authApi";
+import { useResendOtp, useVerifyOtp } from "@/hooks/useAuth";
+import { resetPassword } from "@/services/authApi";
 import { notify } from "@/lib/toast";
 import type {
   CustomerRegistrationInput,
@@ -22,7 +22,6 @@ interface VerifyOtpState {
   mode?: "register" | "reset";
   role?: "customer" | "seller";
   values?: CustomerRegistrationInput | SellerRegistrationInput;
-  userId?: string | number;
   email?: string;
 }
 
@@ -42,8 +41,8 @@ export default function VerifyOtpPage() {
   const [passError, setPassError] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const registerCustomer = useRegisterCustomer();
-  const registerSeller = useRegisterSeller();
+  const verifyOtpMutation = useVerifyOtp();
+  const resendOtpMutation = useResendOtp();
 
   if (!state) {
     return <Navigate to="/login" replace />;
@@ -57,50 +56,48 @@ export default function VerifyOtpPage() {
   const sellerValues = role === "seller" && values ? (values as SellerRegistrationInput) : null;
 
   const contactTarget =
-    mode === "reset"
-      ? state.email
+    state.email ??
+    (mode === "reset"
+      ? undefined
       : role === "customer"
         ? customerValues?.email
-        : sellerValues?.email || sellerValues?.mobileNumber;
+        : sellerValues?.email);
 
-  // Handler 1: Verify OTP
-  const handleVerifyOtp = (e: React.FormEvent) => {
+  // Handler 1: Verify OTP against backend /auth/verify-otp
+  const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (otpInput.trim() !== "123456") {
-      setOtpError("Invalid verification code. Please enter 123456.");
+    const email = state.email ?? contactTarget;
+
+    if (!email) {
+      setOtpError("Email is missing. Please go back and register again.");
       return;
     }
+
     setOtpError("");
 
     if (mode === "reset") {
-      notify.success("OTP Verified! You can now create your new password.");
+      // Password reset OTP is verified together with the new password in /auth/reset-password.
+      notify.success("OTP captured. Please create your new password.");
       setResetStep("password");
       return;
     }
 
-    // Register mode
-    if (role === "customer" && customerValues) {
-      registerCustomer.mutate(customerValues, {
-        onSuccess: () => {
-          notify.success("OTP Verified! Your account has been created successfully.");
-          navigate("/login");
-        },
-      });
-    } else if (role === "seller" && sellerValues) {
-      registerSeller.mutate(sellerValues, {
-        onSuccess: () => {
-          notify.success("OTP Verified! Seller account submitted for admin approval.");
-          navigate("/login");
-        },
-      });
+    try {
+      await verifyOtpMutation.mutateAsync({ email, otp: otpInput });
+      if (role === "seller") {
+        notify.info("Your seller account is verified and pending admin approval.");
+      }
+      navigate("/login");
+    } catch (error) {
+      setOtpError(error instanceof Error ? error.message : "Invalid or expired OTP.");
     }
   };
 
   // Handler 2: Save New Password
   const handleSavePassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newPassword.length < 6) {
-      setPassError("Password must be at least 6 characters long.");
+    if (newPassword.length < 8) {
+      setPassError("Password must be at least 8 characters long.");
       return;
     }
     if (newPassword !== confirmPassword) {
@@ -112,15 +109,15 @@ export default function VerifyOtpPage() {
     setIsUpdating(true);
 
     try {
-      if (state.userId != null) {
-        await resetUserPassword(state.userId, newPassword);
-        notify.success("Password updated successfully! Old password deleted. 🎉");
-        navigate("/login");
-      } else {
-        setPassError("User record missing. Cannot update password.");
+      if (!state.email) {
+        setPassError("Email is missing. Please restart password recovery.");
+        return;
       }
+      await resetPassword(state.email, otpInput, newPassword);
+      notify.success("Password updated successfully! You can now log in. 🎉");
+      navigate("/login");
     } catch (err) {
-      setPassError("Failed to update database. Is the API server running?");
+      setPassError(err instanceof Error ? err.message : "Failed to update password. Is the API server running?");
     } finally {
       setIsUpdating(false);
     }
@@ -338,12 +335,11 @@ export default function VerifyOtpPage() {
               type="submit"
               disabled={
                 otpInput.length !== 6 ||
-                registerCustomer.isPending ||
-                registerSeller.isPending
+                verifyOtpMutation.isPending
               }
               className="w-full mt-4 py-4 rounded-2xl bg-[#e05c3c] text-white font-bold text-sm sm:text-base shadow-xl shadow-[#e05c3c]/20 hover:bg-[#c44e32] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2.5 cursor-pointer"
             >
-              {registerCustomer.isPending || registerSeller.isPending ? (
+              {verifyOtpMutation.isPending ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin" />
                   <span>Verifying Code…</span>
@@ -358,10 +354,11 @@ export default function VerifyOtpPage() {
             Didn't receive the verification email?{" "}
             <button
               type="button"
-              onClick={() => notify.info("Resent fresh verification OTP: 123456")}
-              className="font-bold text-[#e05c3c] hover:underline transition cursor-pointer ml-1"
+              disabled={resendOtpMutation.isPending || !contactTarget}
+              onClick={() => contactTarget && resendOtpMutation.mutate(contactTarget)}
+              className="font-bold text-[#e05c3c] hover:underline transition cursor-pointer ml-1 disabled:opacity-50"
             >
-              Resend OTP Code
+              {resendOtpMutation.isPending ? "Sending..." : "Resend OTP Code"}
             </button>
           </div>
 

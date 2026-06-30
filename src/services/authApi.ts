@@ -1,235 +1,189 @@
 import apiClient from "@/lib/axios";
-import { sameId } from "@/utils/helpers";
 import type {
-  Admin,
   AuthUser,
-  Customer,
   CustomerRegistrationInput,
   EntityId,
   LoginInput,
-  Seller,
   SellerRegistrationInput,
+  SellerStatus,
+  UserRole,
 } from "@/types";
 
 const normalizeEmail = (email: string) => email.trim().toLowerCase();
 
-// ── A row in the `users` table = single source of truth for credentials ──
-interface UserRecord {
-  id: EntityId;
+export interface BackendRegisterResponse {
+  message: string;
+  userId: string;
   email: string;
-  password: string;
-  role: "customer" | "seller" | "admin";
-  profileId: EntityId;
-  createdAt: string;
+  role: UserRole;
+  sellerStatus?: "PENDING_APPROVAL" | "APPROVED" | "REJECTED";
 }
 
-const toCustomerUser = (u: UserRecord, c: Customer): AuthUser => ({
-  id: c.id,
-  email: u.email,
-  role: "customer",
-  name: `${c.firstName} ${c.lastName}`.trim(),
-  firstName: c.firstName,
-  lastName: c.lastName,
-  phone: c.phone,
-  addresses: c.addresses ?? [],
-  avatar: c.avatar,
-  createdAt: c.createdAt,
-});
+interface BackendLoginUser {
+  id: string;
+  email: string;
+  role: UserRole;
+  firstName?: string;
+  lastName?: string;
+  businessName?: string;
+  contactPerson?: string;
+  mobileNumber?: string;
+  sellerStatus?: "PENDING_APPROVAL" | "APPROVED" | "REJECTED";
+}
 
-const toSellerUser = (u: UserRecord, s: Seller): AuthUser => ({
-  id: s.id,
-  email: u.email,
-  role: "seller",
-  name: s.contactPerson,
-  businessName: s.businessName,
-  contactPerson: s.contactPerson,
-  mobileNumber: s.mobileNumber,
-  status: s.status,
-  createdAt: s.createdAt,
-  reviewedAt: s.reviewedAt,
-});
+interface BackendLoginResponse {
+  access_token: string;
+  refresh_token: string;
+  user: BackendLoginUser;
+}
 
-const toAdminUser = (u: UserRecord, a: Admin): AuthUser => ({
-  id: a.id,
-  email: u.email,
-  role: "admin",
-  name: a.name ?? "Admin",
-});
+export interface AuthSession {
+  user: AuthUser;
+  accessToken: string;
+  refreshToken: string;
+}
 
-/** Find a single user by email (case-insensitive). */
-export const fetchUserByEmail = async (email: string): Promise<UserRecord | null> => {
-  const clean = normalizeEmail(email);
-  const { data } = await apiClient.get<UserRecord[]>("/users", {
-    params: { email: clean },
-  });
-  return data.find((u) => normalizeEmail(u.email) === clean) ?? null;
+export interface VerifyOtpInput {
+  email: string;
+  otp: string;
+}
+
+const mapSellerStatus = (
+  status?: BackendLoginUser["sellerStatus"]
+): SellerStatus | undefined => {
+  if (status === "PENDING_APPROVAL") return "Pending Approval";
+  if (status === "APPROVED") return "Approved";
+  if (status === "REJECTED") return "Rejected";
+  return undefined;
 };
 
-const findUserByEmail = fetchUserByEmail;
+const toAuthUser = (user: BackendLoginUser): AuthUser => ({
+  id: user.id,
+  email: user.email,
+  role: user.role,
+  name:
+    user.role === "customer"
+      ? `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim() || user.email
+      : user.role === "seller"
+        ? user.businessName ?? user.contactPerson ?? user.email
+        : user.firstName ?? user.email,
+  firstName: user.firstName,
+  lastName: user.lastName,
+  businessName: user.businessName,
+  contactPerson: user.contactPerson,
+  mobileNumber: user.mobileNumber,
+  status: mapSellerStatus(user.sellerStatus),
+});
 
-export const resetUserPassword = async (
-  userId: EntityId,
-  newPassword: string
-): Promise<UserRecord> => {
-  const { data } = await apiClient.patch<UserRecord>(`/users/${userId}`, {
-    password: newPassword,
+// ── Registration: Customer ──
+// Backend creates the user immediately and sends OTP by email.
+export const registerCustomer = async (
+  input: CustomerRegistrationInput
+): Promise<BackendRegisterResponse> => {
+  const { data } = await apiClient.post<BackendRegisterResponse>("/auth/register", {
+    role: "customer",
+    firstName: input.firstName.trim(),
+    lastName: input.lastName.trim(),
+    email: normalizeEmail(input.email),
+    password: input.password,
+  });
+
+  return data;
+};
+
+// ── Registration: Seller ──
+// Backend stores sellerStatus=PENDING_APPROVAL and sends OTP by email.
+export const registerSeller = async (
+  input: SellerRegistrationInput
+): Promise<BackendRegisterResponse> => {
+  const { data } = await apiClient.post<BackendRegisterResponse>("/auth/register", {
+    role: "seller",
+    businessName: input.businessName.trim(),
+    contactPerson: input.contactPerson.trim(),
+    email: normalizeEmail(input.email),
+    mobileNumber: input.mobileNumber.trim(),
+    password: input.password,
+  });
+
+  return data;
+};
+
+// ── OTP verification ──
+export const verifyOtp = async (
+  input: VerifyOtpInput
+): Promise<{ message: string }> => {
+  const { data } = await apiClient.post<{ message: string }>("/auth/verify-otp", {
+    email: normalizeEmail(input.email),
+    otp: input.otp.trim(),
   });
   return data;
 };
 
-// ── Registration: Customer ──
-export const registerCustomer = async (
-  input: CustomerRegistrationInput
-): Promise<Customer> => {
-  const email = normalizeEmail(input.email);
-
-  // Validate email uniqueness
-  const existing = await findUserByEmail(email);
-  if (existing) {
-    throw new Error("An account with this email already exists. Please use a different email or login.");
-  }
-
-  const createdAt = new Date().toISOString();
-
-  // 1. Create customer profile
-  const { data: customer } = await apiClient.post<Customer>("/customers", {
-    firstName: input.firstName.trim(),
-    lastName: input.lastName.trim(),
-    email,
-    role: "customer",
-    createdAt,
-    phone: "",
-    addresses: [],
+export const resendOtp = async (email: string): Promise<{ message: string }> => {
+  const { data } = await apiClient.post<{ message: string }>("/auth/resend-otp", {
+    email: normalizeEmail(email),
   });
-
-  // 2. Create credentials row with proper profileId
-  await apiClient.post<UserRecord>("/users", {
-    email,
-    password: input.password,
-    role: "customer",
-    profileId: customer.id,
-    createdAt,
-  });
-
-  // 3. Auto-provision an empty cart for the customer
-  await apiClient.post("/carts", { customerId: customer.id });
-
-  return customer;
-};
-
-// ── Registration: Seller (status = Pending Approval) ──
-export const registerSeller = async (
-  input: SellerRegistrationInput
-): Promise<Seller> => {
-  const email = normalizeEmail(input.email);
-  const mobileNumber = input.mobileNumber.trim();
-
-  // Validate email uniqueness
-  const existing = await findUserByEmail(email);
-  if (existing) {
-    throw new Error("A seller account with this email already exists. Please use a different email or login.");
-  }
-
-  // Validate mobile number format (must be exactly 10 digits)
-  if (!/^\d{10}$/.test(mobileNumber)) {
-    throw new Error("Mobile number must be exactly 10 digits.");
-  }
-
-  // Validate business name
-  if (!input.businessName.trim()) {
-    throw new Error("Business name is required.");
-  }
-
-  // Validate contact person
-  if (!input.contactPerson.trim()) {
-    throw new Error("Contact person name is required.");
-  }
-
-  // Validate password strength
-  if (input.password.length < 6) {
-    throw new Error("Password must be at least 6 characters long.");
-  }
-
-  const createdAt = new Date().toISOString();
-
-  // 1. Create seller profile
-  const { data: seller } = await apiClient.post<Seller>("/sellers", {
-    businessName: input.businessName.trim(),
-    contactPerson: input.contactPerson.trim(),
-    email,
-    mobileNumber,
-    status: "Pending Approval",
-    role: "seller",
-    createdAt,
-  });
-
-  // 2. Create credentials row with proper profileId
-  await apiClient.post<UserRecord>("/users", {
-    email,
-    password: input.password,
-    role: "seller",
-    profileId: seller.id,
-    createdAt,
-  });
-
-  return seller;
+  return data;
 };
 
 // ── Login ──
-export const login = async (input: LoginInput): Promise<AuthUser> => {
-  const email = normalizeEmail(input.email);
-  const password = input.password;
+// Backend validates bcrypt password and email verification, then returns JWTs.
+export const login = async (input: LoginInput): Promise<AuthSession> => {
+  const { data } = await apiClient.post<BackendLoginResponse>("/auth/login", {
+    email: normalizeEmail(input.email),
+    password: input.password,
+  });
 
-  // Validate input
-  if (!email) {
-    throw new Error("Email is required.");
-  }
-  if (!password) {
-    throw new Error("Password is required.");
-  }
+  return {
+    user: toAuthUser(data.user),
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token,
+  };
+};
 
-  // Find user
-  const user = await findUserByEmail(email);
-  if (!user) {
-    throw new Error("No account found with this email. Please register first.");
-  }
+export const logoutFromBackend = async (): Promise<{ message: string }> => {
+  const { data } = await apiClient.post<{ message: string }>("/auth/logout");
+  return data;
+};
 
-  // Verify password
-  if (user.password !== password) {
-    throw new Error("Incorrect password. Please try again.");
-  }
+export const forgotPassword = async (email: string): Promise<{ message: string }> => {
+  const { data } = await apiClient.post<{ message: string }>("/auth/forgot-password", {
+    email: normalizeEmail(email),
+  });
+  return data;
+};
 
-  // Build AuthUser based on role
-  if (user.role === "admin") {
-    const { data: admins } = await apiClient.get<Admin[]>("/admins");
-    const admin = admins.find((a) => sameId(a.id, user.profileId));
-    if (!admin) throw new Error("Admin profile not found. Please contact support.");
-    return toAdminUser(user, admin);
-  }
+export const resetPassword = async (
+  email: string,
+  otp: string,
+  newPassword: string
+): Promise<{ message: string }> => {
+  const { data } = await apiClient.post<{ message: string }>("/auth/reset-password", {
+    email: normalizeEmail(email),
+    otp: otp.trim(),
+    newPassword,
+  });
+  return data;
+};
 
-  if (user.role === "customer") {
-    const { data: customers } = await apiClient.get<Customer[]>("/customers");
-    const customer = customers.find((c) => sameId(c.id, user.profileId));
-    if (!customer) throw new Error("Customer profile not found. Please contact support.");
-    return toCustomerUser(user, customer);
-  }
+export const changePassword = async (
+  currentPassword: string,
+  newPassword: string
+): Promise<{ message: string }> => {
+  const { data } = await apiClient.post<{ message: string }>("/auth/change-password", {
+    currentPassword,
+    newPassword,
+  });
+  return data;
+};
 
-  // seller
-  const { data: sellers } = await apiClient.get<Seller[]>("/sellers");
-  const seller = sellers.find((s) => sameId(s.id, user.profileId));
-  if (!seller) throw new Error("Seller profile not found. Please contact support.");
+// Kept only to avoid breaking older imports. Do not use for new auth flows.
+export const fetchUserByEmail = async (_email: string): Promise<null> => null;
 
-  if (seller.status === "Pending Approval") {
-    throw new Error(
-      "Your seller account is still pending approval. Please wait for the admin team to review your application before logging in."
-    );
-  }
-
-  if (seller.status === "Rejected") {
-    throw new Error(
-      "Your seller account has been rejected. Please contact support for more information."
-    );
-  }
-
-  return toSellerUser(user, seller);
+// Kept only to avoid breaking older imports. Do not use for new auth flows.
+export const resetUserPassword = async (
+  _userId: EntityId,
+  _newPassword: string
+): Promise<never> => {
+  throw new Error("Use resetPassword(email, otp, newPassword) instead.");
 };
